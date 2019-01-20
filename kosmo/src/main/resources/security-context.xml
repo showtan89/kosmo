@@ -27,32 +27,16 @@
       
       <!-- 원하는 로그인페이지로 이동 및 security 성공 후 이동페이지 실패시 이동페이지 정하는 코드 -->
       <security:form-login
-          username-parameter="email" 
-          password-parameter="password" 
-          login-page="/index?loginPage=true"
-          authentication-failure-url="/index?loginPage=false"
+          username-parameter="loginEmail" 
+          password-parameter="loginPwd" 
+          login-page="/loginPage"
+          authentication-failure-url="/loginPage?loginResult=false"
           authentication-success-handler-ref="customAuthenticationSuccessHandler"
        />
      
       <security:logout logout-success-url="/index" />
    </security:http>
  
-   <!-- 방법1. IN메모리 방식 -->
-	<!-- <security:authentication-manager>
-      <security:authentication-provider>
-         <security:user-service>
-            <security:user name="chae" password="p1234" 
-               authorities="USER"/>   home, member
-            
-            <security:user name="manager" password="m1234"
-               authorities="USER_MANAGER"/>   home, member, manager   
-               
-            <security:user name="admin" password="a1234"
-               authorities="USER_ADMIN"/>   home, member, admin, manager
-         </security:user-service>
-      </security:authentication-provider>
-   </security:authentication-manager> -->
-   
    
    <!-- Mybatis 설정 시작  : beans 삭제, mapper 주석처리, Oracle11g_security-->      
    <bean name="dataSourceSpied" class="org.springframework.jndi.JndiObjectFactoryBean">

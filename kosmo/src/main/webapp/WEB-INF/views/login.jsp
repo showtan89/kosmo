@@ -40,20 +40,23 @@
 				<div class="card"></div>
 				<div class="card">
 					<h1 class="title">Login</h1>
-					<form>
+					<form action="j_spring_security_check" method="post">
 						<div class="input-container">
-							<input type="text" id="Username" required="required" /> <label
-								for="Username">Username</label>
+							<input type="text" id="Email" required="required" name="loginEmail"/> <label
+								for="Email">Email</label>
 							<div class="bar"></div>
 						</div>
 						<div class="input-container">
-							<input type="password" id="Password" required="required" /> <label
+							<input type="password" id="Password" required="required" name="loginPwd"/> <label
 								for="Password">Password</label>
 							<div class="bar"></div>
 						</div>
 						<div class="button-container">
-							<button>
-								<span>Go</span>
+							<button type="submit">
+								<span>Submit</span>
+							</button>
+							<button onclick="window.history.back()">
+								<span>Back</span>
 							</button>
 						</div>
 						<div class="footer">
