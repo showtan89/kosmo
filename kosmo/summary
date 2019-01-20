@@ -1,0 +1,288 @@
+1. 초기 설정 관련
+프로젝트 마우스 우클릭 후 properties 클릭 project facets에서 java버전 1.8로 변경
+pom.xml에 버전 정보 바꾸기 
+<properties>
+		<java-version>1.8</java-version>
+		<org.springframework-version>5.1.3.RELEASE</org.springframework-version>
+		<org.aspectj-version>1.6.10</org.aspectj-version>
+		<org.slf4j-version>1.6.6</org.slf4j-version>
+</properties>
+
+2. DB 실행 관련 꼭 넣어야 함.
+Eclipse 실행에 Servers > context에 DB 정보 넣기
+
+		<Resource auth="Container" 
+		name="jdbc/Oracle11g_helper"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		type="javax.sql.DataSource" 
+		url="jdbc:oracle:thin:@192.168.0.55:1521:XE"
+		maxActive="50" 
+		maxWait="1000" 
+		username="t3helper" 
+		password="t3helper" />	
+		
+		
+3. Security 설정 하는 법
+ 3-1. HelPer > pom.xml에 추가할 코드
+		<!-- 커넥션풀 시작 -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.1</version>
+		</dependency>
+		<!-- 커넥션풀 종료 -->
+		<!-- security 설정 시작 -->
+		<dependency>
+    	<groupId>cglib</groupId>
+	 	<artifactId>cglib</artifactId>
+ 		<version>2.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.2.5.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>3.2.5.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>3.2.5.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.2.5.RELEASE</version>
+		</dependency>
+		<!-- security 설정 종료 -->
+		
+		<!-- Mybatis 설정 -->
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis-spring</artifactId>
+		    <version>1.3.2</version>
+		</dependency>
+ 		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>5.1.3.RELEASE</version>
+		</dependency>
+		 		
+		<dependency>
+		    <groupId>org.mybatis</groupId>
+		    <artifactId>mybatis</artifactId>
+		    <version>3.4.6</version>
+		</dependency>
+ 		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>5.1.3.RELEASE</version>
+		    <scope>test</scope>
+		</dependency>
+		<!-- Mybatis 설정 종료 -->
+		
+		<!-- log4j 시작 -->
+		<dependency>
+		    <groupId>org.lazyluke</groupId>
+		    <artifactId>log4jdbc-remix</artifactId>
+		    <version>0.2.7</version>
+		</dependency>
+		<!-- log4j 종료 -->
+		
+		
+3-2. HelPer > src > main > webapp > WEB-INF >web.xml에 추가할 코드
+<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/security-context.xml<!-- 추가 --><!-- 시큐리티 설정 xml을 읽어와라 -->
+		</param-value>	
+</context-param>
+
+	<!-- 보안 필터 체인 : 보안과 관련된 작업을 처리한다.
+		- 로그인 폼을 보여주거나, 접근권한이 없는 경우 403(권한없음) 상태 코드를 응답
+		DelegatingFilterProxy -> FilterChainProxy -> SecurityFilterChain -> 실제 자원
+	 -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>	
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 시큐리티 추가 종료 -->	
+	
+	<!-- 한글 안깨지게 처리 시작 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>	
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 한글 안깨지게 처리 종료 -->
+			
+
+3-3. HelPer > src > main > webapp > WEB-INF > spring > appServlet > servlet-context.xml에 코드 추가
+	<security:global-method-security secured-annotations="enabled"/>
+	
+
+3-4. HelPer > src/main/resources > log4j.xml 밑에 있는 코드로 덮어 쓰기
+
+<log4j:configuration
+	xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<logger name="com.spring.helper">
+        <level value="info" />
+    </logger>
+	<!-- Appenders -->
+	<appender name="console"
+		class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %5p [%c] %m%n" />
+		</layout>
+	</appender>
+	<appender name="console-infolog"
+		class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %5p %m%n" />
+		</layout>
+	</appender>
+	<!-- Application Loggers -->
+	<logger name="first" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="console" />
+	</logger>
+	<!-- Query Loggers -->
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="console-infolog" />
+	</logger>
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="console" />
+	</logger>
+	<!-- Root Logger -->
+	<root>
+		<priority value="off" />
+		<appender-ref ref="console" />
+	</root>
+</log4j:configuration>
+
+3-5. HelPer > src/main/resources 폴더 우측 마우스 클릭 > new > Spring Bean Definition file 만들기
+     이름 : security-context.xml 만들고 코드 추가
+     밑에 하단 탭 > Namespaces에 security 선택
+     
+     
+ 	<security:http pattern="resources/**/*.js" security="none" />
+   <security:http pattern="resources/**/*.css" security="none" />    
+  <!-- security 적용시 url에 경로로 security 적용 -->
+	<security:http use-expressions="true">
+		<!-- <security:intercept-url pattern="/admin/**"
+			access="hasAuthority('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/manager/**"
+		
+		    url 패턴 적용 access="권한종류메소드명('권한명')" 
+			access="hasAuthority('ROLE_MANAGER')" />
+		<security:intercept-url pattern="/member/**"
+			access="isAuthenticated()"/> -->
+		<security:intercept-url pattern="/**"
+			access="permitAll" />
+			<!-- <security:form-login/> -->
+			
+			<!-- 권한 없을 시 페이지로 이동시키는 코드 -->
+		
+			<!-- 원하는 로그인페이지로 이동 및 security 성공 후 이동페이지 실패시 이동페이지 정하는 코드 -->
+		<security:form-login
+			 username-parameter="email" 
+			 password-parameter="password" 
+			 login-page="/index?loginPage=true"
+			 default-target-url="/index" 
+			 authentication-failure-url="/index?loginPage=false"
+		 />
+		<security:logout logout-success-url="/index" />
+		
+	</security:http>
+
+	<!-- 방법1. IN메모리 방식 -->
+<!-- <security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="chae" password="p1234" 
+					authorities="USER"/>	home, member
+				
+				<security:user name="manager" password="m1234"
+					authorities="USER_MANAGER"/>	home, member, manager	
+					
+				<security:user name="admin" password="a1234"
+					authorities="USER_ADMIN"/>	home, member, admin, manager
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager> -->
+	
+	
+	<!-- Mybatis 설정 시작  : beans 삭제, mapper 주석처리, Oracle11g_security-->	   
+	<bean name="dataSourceSpied" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/Oracle11g_helper" /> <!-- context.xml의 컨넥션풀 lookup -->
+		<property name="resourceRef" value="true" />
+	</bean>
+    
+    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="dataSourceSpied" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="sqlPrefix" value="SQL         :  "/>
+            </bean>
+        </property>
+    </bean>
+    
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" /> <!-- 컨넥션풀 -->
+		<!-- <beans:property name="mapperLocations" value="classpath:mappers/**/*.xml" />  --><!-- Mybatis xml의 경로 -->
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	<!-- Mybatis 설정 종료 -->
+	
+	<!-- 방법2. DB 방식 -->
+	<security:authentication-manager>
+		<security:authentication-provider>
+		<!-- src>main>resources>의 <bean id="dataSource"의 이름과 일치해야 한다. -->
+			<security:jdbc-user-service data-source-ref="dataSource"
+			users-by-username-query="SELECT memberemail AS userName,password, enabled 
+					FROM users WHERE memberemail=?"
+				authorities-by-username-query="SELECT memberemail AS userName, authority 
+					FROM users WHERE memberemail=?" 
+			/>		
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+3-6 컨트롤러로 권한 체크하기(pom.xml cglib등록 , servlet-context.xml 3-3 확인)
+	@Secured 어노테이션 적용 후에 ("권한") 또는 ({"권한1","권한2"})을 적용시킴
+	
+	@Secured({"ROLE_ADMIN","ROLE_MASTER"})
+	@RequestMapping("onedayclassWritePro")
+	public String chatting() {
+		logger.info("chatting 짜잔!!");
+		return "board/chatting";
+	}

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:security="http://www.springframework.org/schema/security"
+   xsi:schemaLocation="http://www.springframework.org/schema/security 
+   http://www.springframework.org/schema/security/spring-security-3.2.xsd
+      http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+   <security:http pattern="resources/**/*.js" security="none" />
+   <security:http pattern="resources/**/*.css" security="none" />
+   <!-- security 적용시 url에 경로로 security 적용 -->
+   <security:http use-expressions="true">
+      <!-- <security:intercept-url pattern="/admin/**"
+         access="hasAuthority('ROLE_ADMIN')" />
+      <security:intercept-url pattern="/manager/**"
+      
+          url 패턴 적용 access="권한종류메소드명('권한명')" 
+         access="hasAuthority('ROLE_MANAGER')" />
+      <security:intercept-url pattern="/member/**"
+         access="isAuthenticated()"/> -->
+      <security:intercept-url pattern="/**"
+         access="permitAll" />
+         <!-- <security:form-login/> -->
+         
+         <!-- 권한 없을 시 페이지로 이동시키는 코드 -->
+      
+      <!-- 원하는 로그인페이지로 이동 및 security 성공 후 이동페이지 실패시 이동페이지 정하는 코드 -->
+      <security:form-login
+          username-parameter="email" 
+          password-parameter="password" 
+          login-page="/index?loginPage=true"
+          authentication-failure-url="/index?loginPage=false"
+          authentication-success-handler-ref="customAuthenticationSuccessHandler"
+       />
+     
+      <security:logout logout-success-url="/index" />
+   </security:http>
+ 
+   <!-- 방법1. IN메모리 방식 -->
+	<!-- <security:authentication-manager>
+      <security:authentication-provider>
+         <security:user-service>
+            <security:user name="chae" password="p1234" 
+               authorities="USER"/>   home, member
+            
+            <security:user name="manager" password="m1234"
+               authorities="USER_MANAGER"/>   home, member, manager   
+               
+            <security:user name="admin" password="a1234"
+               authorities="USER_ADMIN"/>   home, member, admin, manager
+         </security:user-service>
+      </security:authentication-provider>
+   </security:authentication-manager> -->
+   
+   
+   <!-- Mybatis 설정 시작  : beans 삭제, mapper 주석처리, Oracle11g_security-->      
+   <bean name="dataSourceSpied" class="org.springframework.jndi.JndiObjectFactoryBean">
+      <property name="jndiName" value="java:comp/env/jdbc/Oracle11g_helper" /> <!-- context.xml의 컨넥션풀 lookup -->
+      <property name="resourceRef" value="true" />
+   </bean>
+    
+    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="dataSourceSpied" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="sqlPrefix" value="SQL         :  "/>
+            </bean>
+        </property>
+    </bean>
+    
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" /> <!-- 컨넥션풀 -->
+      <property name="mapperLocations" value="classpath:helper/mappers/*.xml" />  
+      <!-- Mybatis xml의 경로 -->
+   </bean>
+   
+   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+      <constructor-arg ref="sqlSessionFactory" />
+   </bean>
+   <!-- Mybatis 설정 종료 -->
+   
+   <!-- 방법2. DB 방식 -->
+   <security:authentication-manager>
+      <security:authentication-provider>
+      <!-- src>main>resources>의 <bean id="dataSource"의 이름과 일치해야 한다. -->
+         <security:jdbc-user-service data-source-ref="dataSource"
+         users-by-username-query="SELECT memberemail AS userName,password, enabled 
+               FROM users WHERE memberemail=?"
+            authorities-by-username-query="SELECT memberemail AS userName, authority 
+               FROM users WHERE memberemail=?" 
+         />      
+      </security:authentication-provider>                                                                            
+   </security:authentication-manager>
+   
+    	<bean id="customAuthenticationSuccessHandler" 
+    		class="com.spring.helper.security.authenticationhandler">
+		</bean>
+</beans>
