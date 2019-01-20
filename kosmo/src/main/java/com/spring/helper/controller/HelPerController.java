@@ -43,7 +43,7 @@ public class HelPerController{
 		return "index";
 	}
 
-	@Secured({"ROLE_USER,ROLE_ADMIN"})
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping("loginCheck")
 	public String loginCheck(HttpServletRequest req) {
 		logger.info("loginCheck 로딩 중....");
