@@ -43,14 +43,16 @@ public class HelPerController{
 		return "index";
 	}
 
+	//로그인 버튼
 	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping("loginCheck")
 	public String loginCheck(HttpServletRequest req) {
 		logger.info("loginCheck 로딩 중....");
-		String referer = req.getHeader("Referer");
+		String referer = req.getHeader("Referer"); //전 페이지로 이동 
 		return "redirect:"+referer;
 	}
 	
+	//로그인 페이지
 	@RequestMapping("loginPage")
 	public String loginPage() {
 		logger.info("loginPage 로딩 중....");

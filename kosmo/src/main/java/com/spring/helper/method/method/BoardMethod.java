@@ -10,9 +10,6 @@ import com.spring.helper.vo.BoardVO.RealestateVO;
 @Component
 public class BoardMethod {
 	
-	
-	
-	
 	/*int totalCnt = 0;
 	if(dao.gsGetBoardCount(aptNumber) != null)totalCnt = dao.gsGetBoardCount(aptNumber);
 	pVO.setTotalCount(totalCnt);
@@ -28,15 +25,8 @@ public class BoardMethod {
 	
 	public PageVO getRealestatePageVO(int cnt) {
 		PageVO pVO = new PageVO();
-		
-		
 		return pVO;
 	}
-	
-	
-	
-	
-	
 	
 	// 재영 부동산 VO 가져오기 메소드
 	public RealestateVO getFullRealestateVO(HttpServletRequest req) {
