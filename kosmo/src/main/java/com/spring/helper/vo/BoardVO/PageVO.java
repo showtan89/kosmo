@@ -1,9 +1,10 @@
 package com.spring.helper.vo.BoardVO;
 
+//재영사용 중
 //페이지 판단용 페이지 정보VO
 public class PageVO {
 	
-	private int pageSize = 15; 		// 한 페이지 당 출력 할 글 갯수
+	private int pageSize = 10; 		// 한 페이지 당 출력 할 글 갯수      
 	private	int pageBlock = 10; 		// 한 블럭 당 페이지 갯수
 
 	private	int totalCount = 0 ; 			// 글 갯수

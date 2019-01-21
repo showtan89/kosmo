@@ -18,6 +18,7 @@ import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
+import com.spring.helper.vo.BoardVO.PageVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
@@ -187,21 +188,27 @@ public class BoardServiceImpl implements BoardService {
 	//부동산 게시판 글 목록 보기
 	@Override
 	public void realestateList(HttpServletRequest req, Model model) {
-
 		//파라미터(검색조건) VO에 담기
 		RealestateVO rVO = boardMethod.getParameterRealestateVO(req); 
-
 		//검색 조건에 대한 게시글 갯수 구하기
 		Integer cnt = boardDao.getRealestateCount(rVO);
-		/*//검색 조건에 대한 게시글 갯수로 페이지 구하기
-			PageVO pVO = boardMethod.getRealestatePageVO(cnt);
-
-			logger.info(rVO.toString());
-
-			List<RealestateVO> list = boardDao.realestateList(rVO);
-
-			model.addAttribute("list", list);*/
-
+		//검색 조건에 대한 게시글 갯수로 페이지 구하기
+		int pageNum = 1;
+		if(req.getParameter("pageNum")!=null) {
+			int temp = Integer.parseInt(req.getParameter("pageNum"));
+			if(temp>1) pageNum = temp;
+		}
+		PageVO pVO = boardMethod.getRealestatePageVO(pageNum,cnt);
+		List<RealestateVO> list = new ArrayList<RealestateVO>();
+		pVO.setPageNum(String.valueOf(pageNum));
+		rVO.setRealestateStart(pVO.getStartNumber());
+		rVO.setRealestateEnd(pVO.getEndNumber());
+		list = boardDao.realestateList(rVO);
+		logger.info("start:"+pVO.getStartNumber());
+		logger.info("end:"+pVO.getEndNumber());
+		logger.info(pVO.toString());
+		model.addAttribute("list", list);
+		model.addAttribute("pVO", pVO);
 	}
 
 	//부동산 게시판 글 쓰기
@@ -217,10 +224,10 @@ public class BoardServiceImpl implements BoardService {
 		logger.info(realestateWriteProResult.toString());
 	}
 
-	//부동산 게시판 글 쓰기
+	//부동산 게시판 더미 데이터생성기 - 현재 버튼 주석 처리
 	@Override
 	public void realestateDummyMaker(HttpServletRequest req, Model model) {
-		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
+		RealestateVO rVO = boardMethod.realestateDummyDataMaker(); 
 		logger.info(rVO.toString());
 		Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
 		logger.info(realestateWriteProResult.toString());
