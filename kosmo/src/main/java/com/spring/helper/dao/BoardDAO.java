@@ -66,10 +66,10 @@ public interface BoardDAO {
 	public ArrayList<onedayclassVO> onedayclassGetArticleList(Map<String, Object> map);
 
 	// 조회수 증가
-	public int onedayclassAddReadCnt(int number);
+	public int onedayclassAddReadCnt(int onedayclassNumber);
 
 	// 게시글 상세 페이지, 수정을 위한 상세페이지
-	public onedayclassVO onedayclassGetArticle(int number);
+	public onedayclassVO onedayclassGetArticle(int onedayclassNumber);
 	
 	// 진호 메소드 종료--------------------------------------
 	

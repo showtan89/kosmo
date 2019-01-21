@@ -421,14 +421,14 @@ public class BoardServiceImpl implements BoardService {
 		
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-		int number = Integer.parseInt(req.getParameter("number"));
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		
-		boardDao.onedayclassAddReadCnt(number);
-		onedayclassVO vo = boardDao.onedayclassGetArticle(number);
+		boardDao.onedayclassAddReadCnt(onedayclassNumber);
+		onedayclassVO vo = boardDao.onedayclassGetArticle(onedayclassNumber);
 		
 		model.addAttribute("dto", vo);
 		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("number", number);
+		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
 	//진호 메소드 종료---------------------------------------------------
 	

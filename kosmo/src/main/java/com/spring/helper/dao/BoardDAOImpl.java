@@ -137,19 +137,19 @@ public class BoardDAOImpl implements BoardDAO {
 
 	// 조회수 증가
 	@Override
-	public int onedayclassAddReadCnt(int number) {
+	public int onedayclassAddReadCnt(int onedayclassNumber) {
 		
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
-		int updateCnt = boardDao.onedayclassAddReadCnt(number);
+		int updateCnt = boardDao.onedayclassAddReadCnt(onedayclassNumber);
 		return updateCnt;
 	}
 
 	// 게시글 상세페이지, 수정을 위한 상세페이지
 	@Override
-	public onedayclassVO onedayclassGetArticle(int number) {
+	public onedayclassVO onedayclassGetArticle(int onedayclassNumber) {
 		
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
-		return boardDao.onedayclassGetArticle(number);
+		return boardDao.onedayclassGetArticle(onedayclassNumber);
 	}
 	
 	// 진호 메소드 종료------------------------------------------------
