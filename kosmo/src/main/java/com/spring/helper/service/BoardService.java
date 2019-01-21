@@ -31,7 +31,7 @@ public interface BoardService {
 	//재영 boardService 끝
 	
 	
-	//민석이 시작-------------------------------------------------------
+	//민석이 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	public void messageForm(HttpServletRequest req, Model model);
 //	public List<> alarm(HttpServletRequest req, Model model);
 	
@@ -39,5 +39,13 @@ public interface BoardService {
 	messageAlarmForm
 	messageAlarmPro*/
 	
-	//민석이 종료----------------------------------------------------------
+	//민석이 종료+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	//진호 시작----------------------------------------------------------
+	// 글 목록
+	public void onedayclassBoardList(HttpServletRequest req, Model model);
+
+	// 상세페이지
+	public void onedayclassDetailForm(HttpServletRequest req, Model model);
+	//진호 끝-----------------------------------------------------------
 }
