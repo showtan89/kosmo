@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +35,7 @@
 	<!-- Top Breadcrumb Area -->
 	<div
 		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
-		style="background-image: url(img/bg-img/24.jpg);">
+		style="background-image: url(resources/img/min/JumBomessage.jpg);">
 		<h2>CHATTING</h2>
 	</div>
 
@@ -43,9 +44,9 @@
 			<div class="col-12">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#"><i
+						<!-- <li class="breadcrumb-item"><a href="#"><i
 								class="fa fa-home"></i> Home</a></li>
-						<li class="breadcrumb-item active" aria-current="page">About</li>
+						<li class="breadcrumb-item active" aria-current="page">About</li> -->
 					</ol>
 				</nav>
 			</div>
@@ -56,8 +57,8 @@
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px;">
 
-<!-- 동욱 시작 -->
-<style type="text/css">
+	<!-- 동욱 시작 -->
+	<style type="text/css">
 .tab-box {
 	margin: 50px auto 0 auto;
 	width: 520px;
@@ -94,26 +95,31 @@
 
 .tbl-ex {
 	margin: 10px auto 0px auto;
-	border:2px solid black;
+	border: 2px solid black;
 }
 
 .tbl-ex, .tbl-ex th, .tbl-ex td {
-	border: 2px solid black;
+	border: 2px solid white;
 	border-collapse: collapse;
 	padding: 8px;
 }
 
 .tbl-ex th {
-	background-color: #999;
+	background-color: #FF0040;
 	font-size: 1.1em;
 	color: #fff;
 	border-width: 2px 0;
-	border:2px solid black;
-	text-align:center;
+	border: 2px solid white;
+	text-align: center;
 }
 
 .tbl-ex td {
-border:2px solid black;
+	border: 2px dashed white;
+}
+
+.tbl-ex tr {
+	background-color: #F5A9F2;
+	cursor: pointer;
 }
 
 .tbl-ex tr:hover td {
@@ -124,41 +130,73 @@ border:2px solid black;
 .even {
 	background-color: highlight;
 }
-</style>
 
-<table class="tbl-ex" style="width:1000px;">
+</style>
+	<form action="">
+
+		<table class="tbl-ex"
+			style="width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100px;">
+			<tr>
+				<th>Sender</th>
+				<th>Contents</th>
+				<th>Sending time</th>
+				<th>Checked message</th>
+				<th>Delete</th>
+			</tr>
+			<c:forEach var="cos" items="${cos}">
+				<td align="center">comment alarm</td>
+				<td><a href="#">${cos.commentsubject}</a></td>
+				<td align="center">${cos.commentregdate}</td>
+				<td align="center">checked</td>
+				<td align="center"><input type="button" value="쪽지삭제"></td>
+			</c:forEach>
+
+			<c:forEach var="mos" items="${mos}">
+				<tr>
+					<td align="center">chatting alarm</td>
+					<td>${mos.messagesubject}</td>
+					<td align="center">${mos.messageregdate}</td>
+					<td align="center">checked</td>
+					<td align="center"><input type="button" value="쪽지삭제"></td>
+				</tr>
+			</c:forEach>
+		</table>
+
+	</form>
+	<!-- 동욱 끝 -->
+</div>
+
+<div id="page" align="center">
+	<table align="center">
 		<tr>
-			<th style="width:150px;">보낸사람</th>
-			<th style="width:400px;">쪽지내용</th>
-			<th style="width:150px;">보낸시간</th>
-			<th style="width:150px;">수신확인</th>
-			<th style="width:150px;">쪽지삭제</th>
-		</tr>
-		<tr>
-			<td>a</td>
-			<td>HTML</td>
-			<td>모든 HTML에 적용</td>
-			<td>IE4, FF1,Safari 1, 크롬 1,오페라 3.5, CSS1</td>
-			<td><input type="button" value="쪽지삭제"></td>
-		</tr>
-		<tr>
-			<td>a</td>
-			<td>HTML</td>
-			<td>모든 HTML에 적용</td>
-			<td>IE4, FF1,Safari 1, 크롬 1,오페라 3.5, CSS1</td>
-			<td><input type="button" value="쪽지삭제"></td>
-		</tr>
-		<tr>
-			<td>a</td>
-			<td>HTML</td>
-			<td>모든 HTML에 적용</td>
-			<td>IE4, FF1,Safari 1, 크롬 1,오페라 3.5, CSS1</td>
-			<td><input type="button" value="쪽지삭제"></td>
+			<th align="center">
+				<!-- 게시글이 있으면 --> <c:if test="${cnt > 0}">
+					<!-- 처음[◀◀]/ 이전블록 --[◀ ]-->
+					<c:if test="${startPage > pageBlock}">
+						<a href="message">[ ◀◀ ]</a>
+						<a href="message?pageNum=${startPage - pageBlock}">[ ◀ ]</a>
+					</c:if>
+
+					<!-- 블록내의 페이지 번호 -->
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<c:if test="${i == currentPage}">
+							<span><b>[${i}]</b></span>
+						</c:if>
+						<c:if test="${i != currentPage}">
+							<a href="message?pageNum=${i}">[${i}]</a>
+						</c:if>
+
+					</c:forEach>
+
+					<!--  다음[▶]/첫페이지[▶▶] -->
+					<c:if test="${pageCount > endPage}">
+						<a href="message?pageNum=${startPage + pageBlock}">[ ▶ ]</a>
+						<a href="message?pageNum=${pageCount}">[▶ ▶ ]</a>
+					</c:if>
+				</c:if>
+			</th>
 		</tr>
 	</table>
-	<!-- 동욱 끝 -->
-	
-	
 </div>
 
 <!-- ##### Contact Area End ##### -->

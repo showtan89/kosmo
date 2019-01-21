@@ -1,13 +1,16 @@
 package com.spring.helper.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
+import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 
 
@@ -70,5 +73,32 @@ public class BoardDAOImpl implements BoardDAO {
 	public Integer realestateWritePro(RealestateVO rVO) {
 		return sqlSession.getMapper(BoardDAO.class).realestateWritePro(rVO);
 	}
+
+
+	//민석이 메소드 시작+++++++++++++++++++++++++++++++++++++++++++++++++
+
+	@Override
+	public int messageReadCnt1() {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageReadCnt1");
+	}
+
+	@Override
+	public int messageReadCnt2() {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageReadCnt2");
+	}
+
+
+	@Override
+	public List<CommentAlarmVO> messageReadList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.messageReadList", map);
+	}
+
+	@Override
+	public List<MessageAlarmVO> commentReadList(Map<String, Object> map) {
+
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.commentReadList", map);
+	}
+
+	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }

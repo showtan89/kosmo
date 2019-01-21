@@ -137,6 +137,35 @@
 
 	<!-- 재영 끝 -->
 
+	<!-- 민석이 시작 -->
+	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
+	<select id="messageReadCnt1" resultType="int">
+		select count(*) cnt from  commentalarm where memberid = 'min'
+	</select>		
+	
+	<select id="messageReadCnt2" resultType="int">
+		select count(*) cnt from  messagealarm where memberid = 'min'
+	</select>
+	
+	<!-- 멧세지 알람의 리스트 -->
+	<select id="messageReadList" resultType="com.spring.helper.vo.BoardVO.MessageAlarmVO" parameterType="java.util.Map">
+		<![CDATA[
+			SELECT * FROM (SELECT messagenumber, membernumber, boardcode, memberemail, memberid, membercountry, messagesubject, messagecontent, messagealarm, messageregdate, rownum rNum 
+			FROM ( SELECT * FROM messagealarm ORDER BY messageregdate DESC ))
+			WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
+	
+	<!-- 댓글 알람의 리스트 -->
+	<select id="commentReadList" resultType="com.spring.helper.vo.BoardVO.CommentAlarmVO" parameterType="java.util.Map">
+		<![CDATA[
+				SELECT * FROM (SELECT commentnumber, membernumber, boardcode, memberemail, memberid, membercountry, commentoriginalnumber, commentcommentnumber, commentsubject, commentalarm, commentregdate, rownum rNum 
+				FROM ( SELECT * FROM commentalarm ORDER BY commentregdate DESC ))
+				WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
+	</select>
+
+	<!-- 민석이 종료 -->
 
 
 </mapper>
