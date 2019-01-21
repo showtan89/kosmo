@@ -144,9 +144,11 @@ function knowledgeDetailForm(knowledgeNumber){
 								onclick="knowledgeDetailForm(${dto.knowledgeNumber});">
 								<span> ${dto.knowledgeReward}</span> &nbsp; &nbsp; 
 								<span><a style="font-size: 16px; "href="#">${dto.knowledgeSubject}</a></span>
-								아이디 같으면 출력
+								
+								<c:if test="${userVO.memberId==dto.memberId}">
 								<span style="float: right; margin-right: 10px;">삭제</span>
 								<span style="float: right; margin-right: 20px;">수정</span>
+								</c:if>
 							</p>
 
 							<p style="margin: 8px 0; line-height: 18px;"

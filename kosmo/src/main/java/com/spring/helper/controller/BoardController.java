@@ -29,13 +29,11 @@ public class BoardController {
 		return "board/knowledge/knowledge";
 	}
 	// 질문등록 폼 이동
-	@Secured("ROLE_USER")
 	@RequestMapping("knowledgeWriteForm")
 	public String knowledgeWriteForm() throws Exception {
 		logger.info("knowledgeWriteForm 로딩 중....");
 		return "board/knowledge/knowledgeWriteForm";
 	}
-
 	// 질문등록 처리
 	@RequestMapping("knowledgeWritePro")
 	public String knowledgeWritePro(HttpServletRequest req, Model model) throws Exception {

@@ -56,7 +56,7 @@
 							<button type="submit">
 								<span>Submit</span>
 							</button>
-							<button onclick="window.history.back()">
+							<button type="button" onclick="window.history.back();">
 								<span>Back</span>
 							</button>
 						</div>

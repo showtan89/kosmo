@@ -124,13 +124,13 @@
 				${dtos.knowledgeContent}
 			</li>
 			<li>
-			<span>${dtos.knowledgeCategory}</span>
 			<c:if test="${dtos.knowledgeOpenCheck=='Y'}">
-			<span style="margin-left:50px;">${dtos.memberId}</span>
+			<span style="">${dtos.memberId}</span>
 			</c:if>
 			<c:if test="${dto.sknowledgeOpenCheck=='N'}">
-			<span style="margin-left:50px;">비공개</span>
+			<span >비공개</span>
 			</c:if>
+			<span style="margin-left:50px;">${dtos.knowledgeCategory}</span>
 			<span style="margin-left:50px;">${dtos.knowledgeRegdate}</span>
 			</li>	
 		</ul>

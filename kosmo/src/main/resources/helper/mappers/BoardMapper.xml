@@ -55,7 +55,7 @@
 	<!-- 답변등록 처리시 알림 처리 -->
 	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
 		INSERT INTO commentAlarm
-		VALUES(commentAlarmSeq.nextval,#{memberNumber},'101',#{memberEmail},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
+		VALUES(commentAlarmSeq.nextval,#{memberNumber},'10',#{memberEmail},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
 	</insert>
 	<!-- 댓글 갯수 구하기 -->
 	<select id="knowledgeCommentListCnt" resultType="int">
