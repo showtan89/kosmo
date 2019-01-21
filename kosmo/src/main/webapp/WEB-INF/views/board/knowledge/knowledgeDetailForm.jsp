@@ -182,7 +182,7 @@
 	<c:if test="${kCommentVO != null}">
 		<div style="width:800px;background-color:#fff;margin-top:30px;padding:3px 10px">
 			<c:forEach var="kc" items="${kCommentVO}">
-				<ul align="left" style="padding:0;margin:0">
+				<ul align="left" style="padding:0;margin:0" id="${kc.kCommentNumber}">
 					<li>
 						<c:if test="${kc.kCommentTemp1=='N'}">
 						<span>비공개</span>
