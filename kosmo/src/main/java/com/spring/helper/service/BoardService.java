@@ -15,6 +15,8 @@ public interface BoardService {
 	public void knowledgeDetailForm(HttpServletRequest req,Model model);
 	// 답변등록 처리
 	public void knowledgeCommentPro(HttpServletRequest req,Model model);
+	// 댓글 목록 리스트 출력
+	public void knowledgeCommentList(HttpServletRequest req,Model model);
 	// 동욱이 메소드 종료
 
 
@@ -27,4 +29,15 @@ public interface BoardService {
 	public void realestateDummyMaker(HttpServletRequest req, Model model);
 
 	//재영 boardService 끝
+	
+	
+	//민석이 시작-------------------------------------------------------
+	public void messageForm(HttpServletRequest req, Model model);
+//	public List<> alarm(HttpServletRequest req, Model model);
+	
+	/*messagePro
+	messageAlarmForm
+	messageAlarmPro*/
+	
+	//민석이 종료----------------------------------------------------------
 }

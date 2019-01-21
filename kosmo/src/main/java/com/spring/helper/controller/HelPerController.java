@@ -51,14 +51,14 @@ public class HelPerController{
 		String referer = req.getHeader("Referer"); //전 페이지로 이동 
 		return "redirect:"+referer;
 	}
-	
+
 	//로그인 페이지
 	@RequestMapping("loginPage")
 	public String loginPage() {
 		logger.info("loginPage 로딩 중....");
 		return "login";
 	}
-	
+
 	@RequestMapping("content")
 	public String contents() {
 		logger.info("content 로딩 중....");
@@ -87,11 +87,17 @@ public class HelPerController{
 		return "board/onedayclass/onedayclass";
 	}
 
+	//민석이 시작------------
 	@RequestMapping("message")
-	public String chatting() {
+	public String chatting(HttpServletRequest req,Model model) {
 		logger.info("message 로딩 중....");
+		service.messageForm(req, model);
+
 		return "board/message/message";
 	}
+	//민석이 끝------------------------------------
+
+
 	/*@Secured({"ROLE_ADMIN","ROLE_MASTER"})
 	@RequestMapping("onedayclassWritePro")
 	public String chatting() {
