@@ -78,7 +78,15 @@ public class BoardServiceImpl implements BoardService {
 		map.put("end", end);
 		if(cnt>0) {
 			// 게시글 목록 조회
+			Map<Integer, Integer> map2 = new HashMap<Integer, Integer>();
 			ArrayList<KnowledgeVO> dtos = boardDao.knowledgeGetArticleList(map);
+			int i=0;
+			for (KnowledgeVO c : dtos) {
+				Integer knowledgeCommentListCnt = boardDao.knowledgeCommentListCnt(c.getKnowledgeNumber());
+				map2.put(i,knowledgeCommentListCnt);
+				i++;
+			}
+			req.setAttribute("kcommentCnt",map2);
 			model.addAttribute("dtos", dtos); // 큰바구니 : 게시글 목록 cf)작은 바구니 1건
 			String pageSize2 = String.valueOf(pageSize);
 			model.addAttribute("btn_select", pageSize2);
@@ -113,6 +121,9 @@ public class BoardServiceImpl implements BoardService {
 		String knowledgeCategory = req.getParameter("knowledgeCategory");
 		int knowledgeReward = Integer.parseInt(req.getParameter("addReward"));
 		KnowledgeVO Knowledge = new KnowledgeVO();
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		Knowledge.setMemberEmail(userVO.getMemberEmail());
+		Knowledge.setMemberId(userVO.getMemberId());
 		Knowledge.setKnowledgeReward(knowledgeReward);
 		Knowledge.setKnowledgeSubject(knowledgeSubject);
 		Knowledge.setKnowledgeContent(knowledgeContent);
@@ -145,7 +156,7 @@ public class BoardServiceImpl implements BoardService {
 		map.put("kCommentContent", kCommentContent);
 		map.put("knowledgeNumber", knowledgeNumber);
 		map.put("kCommentTemp1", kCommentTemp1);
-		map.put("knowledgememberId", knowledgememberId);
+		map.put("memberId", memberId);
 		map.put("memberNumber", userVO.getMemberNumber());
 		map.put("memberEmail", memberEmail);
 		map.put("memberId", memberId);

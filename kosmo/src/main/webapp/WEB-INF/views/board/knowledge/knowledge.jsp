@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="com.spring.helper.vo.BoardVO.KnowledgeVO"%>
+<%@ page import="java.util.Map" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -135,16 +136,17 @@ function knowledgeDetailForm(knowledgeNumber){
 						onclick="knowledgeWriteForm();"></li>
 				</ul>
 			</div>
+			<%
+			Map<Integer, Integer> arr = (Map<Integer, Integer>)request.getAttribute("kcommentCnt");
+			int i=0;
+			%>
 			<table class="tbl-ex" style="width: 100%; margin-top: 50px;">
 				<c:forEach var="dto" items="${dtos}">
 					<tr>
 						<td style="max-width: 100%; word-break: break-all;">
-
-							<p style="margin: 0 0 2px 0"
-								onclick="knowledgeDetailForm(${dto.knowledgeNumber});">
+							<p style="margin: 0 0 2px 0" onclick="knowledgeDetailForm(${dto.knowledgeNumber});">
 								<span> ${dto.knowledgeReward}</span> &nbsp; &nbsp; 
 								<span><a style="font-size: 16px; "href="#">${dto.knowledgeSubject}</a></span>
-								
 								<c:if test="${userVO.memberId==dto.memberId}">
 								<span style="float: right; margin-right: 10px;">삭제</span>
 								<span style="float: right; margin-right: 20px;">수정</span>
@@ -158,9 +160,10 @@ function knowledgeDetailForm(knowledgeNumber){
 
 							<p style="margin: 2px 0 0 0">
 								<span>답변</span>
-								<span>답변개수</span>
-								<span>${dto.knowledgeCategory}</span>&nbsp;&nbsp;
-								<span>${dto.knowledgeRegdate}</span>
+								<span><%= arr.get(i)%> </span>
+									  <% i++; %>
+								<span style="margin-left:20px;">${dto.knowledgeCategory}</span>&nbsp;&nbsp;
+								<span style="margin-left:20px;">${dto.knowledgeRegdate}</span>
 								<span style="float: right; margin-right: 10px;">추천수&nbsp;1&nbsp;</span>
 								<span style="float: right; margin-right: 20px;">조회수&nbsp;1&nbsp;</span>
 							</p>
