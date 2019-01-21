@@ -47,11 +47,19 @@ public class BoardDAOImpl implements BoardDAO {
 	public KnowledgeVO knowledgeGetArticle(int knowledgeNumber) {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.knowledgeGetArticle",knowledgeNumber);
 	}
-	// 댓글작성 처리
+	// 답변등록 처리
 	@Override
 	public int knowledgeCommentPro(Map<String, Object> map) {
+		// 답변등록 처리 시 답장 처리
+		sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeCommentPro2",map);
 		// TODO Auto-generated method stub
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeCommentPro",map);
+	}
+	// 댓글 갯수 구하기
+	@Override
+	public int knowledgeCommentListCnt(int knowledgeNumber) {
+		
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.knowledgeCommentListCnt",knowledgeNumber);
 	}
 	// 댓글 리스트 출력
 	@Override
@@ -109,6 +117,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.commentReadList", map);
 	}
+	
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -137,19 +146,19 @@ public class BoardDAOImpl implements BoardDAO {
 
 	// 조회수 증가
 	@Override
-	public int onedayclassAddReadCnt(int number) {
+	public int onedayclassAddReadCnt(int onedayclassNumber) {
 		
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
-		int updateCnt = boardDao.onedayclassAddReadCnt(number);
+		int updateCnt = boardDao.onedayclassAddReadCnt(onedayclassNumber);
 		return updateCnt;
 	}
 
 	// 게시글 상세페이지, 수정을 위한 상세페이지
 	@Override
-	public onedayclassVO onedayclassGetArticle(int number) {
+	public onedayclassVO onedayclassGetArticle(int onedayclassNumber) {
 		
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
-		return boardDao.onedayclassGetArticle(number);
+		return boardDao.onedayclassGetArticle(onedayclassNumber);
 	}
 	
 	// 진호 메소드 종료------------------------------------------------

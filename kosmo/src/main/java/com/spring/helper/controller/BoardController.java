@@ -28,14 +28,12 @@ public class BoardController {
 		service.knowledgeBoardList(req, model);
 		return "board/knowledge/knowledge";
 	}
-
-	@Secured("ROLE_USER")
+	// 질문등록 폼 이동
 	@RequestMapping("knowledgeWriteForm")
 	public String knowledgeWriteForm() throws Exception {
 		logger.info("knowledgeWriteForm 로딩 중....");
 		return "board/knowledge/knowledgeWriteForm";
 	}
-
 	// 질문등록 처리
 	@RequestMapping("knowledgeWritePro")
 	public String knowledgeWritePro(HttpServletRequest req, Model model) throws Exception {
@@ -43,7 +41,7 @@ public class BoardController {
 		service.knowledgeInsertArticle(req, model);
 		return "board/knowledge/knowledgeWritePro";
 	}
-
+	
 	// 게시글 클릭시 글 상세페이지 출력
 	@RequestMapping("knowledgeDetailForm")
 	public String knowledgeDetailForm(HttpServletRequest req, Model model) throws Exception {
@@ -52,16 +50,15 @@ public class BoardController {
 		service.knowledgeCommentList(req,model);
 		return "board/knowledge/knowledgeDetailForm";
 	}
-
+	
 	// 답변등록 처리
-	@Secured("ROLE_USER")
 	@RequestMapping("knowledgeCommentPro")
 	public String knowledgeCommentPro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeCommentPro 로딩 중....");
 		service.knowledgeCommentPro(req, model);
 		return "board/knowledge/knowledgeWritePro";
 	}
-
+	
 
 	// 동욱이 메소드 종료
 

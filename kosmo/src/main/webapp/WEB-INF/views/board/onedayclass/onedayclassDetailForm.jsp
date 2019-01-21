@@ -64,13 +64,23 @@
 	border-radius: 150px 300px;   /* 위오른쪽 아래왼쪽을 곡선으로 만들기 */
 	box-sizing: border-box;
 	width: 1000px;
-	height: 1000px;
+	height: 2000px;
 	margin: 20px auto;
 	border: 3px solid orange;
 	overflow-x: auto;			  /* 표에서만 가로스크롤 생성 */
+	text-align: center;
+	font-size: x-large;
 }
 th {
-	padding-top: 30%;
+	padding-top: 3%;
+	font-weight: bold;
+	width: 1000px;
+	verical-align: middle;
+	border-bottom: 1px solid #ccc;
+}
+td {
+	border: 3px solid orange;
+	height: 200px;
 }
 
 </style>
@@ -80,26 +90,27 @@ th {
 <div class = "odf_table">
 <table>
   <tr>
-    <td colspan="6" style="width : 400px">${dto.onedayclassImg1}</td>
+    <%-- <td colspan="6" style="width : 400px">${dto.onedayclassImg1}</td> --%>
+    <td colspan="6" style="width : 400px"><img src="resources/img/board/onedayclass/odc9.jpg" style="width:100%"></td>
   </tr>
   <tr>
     <th colspan="2" rowspan="4">${dto.memberId}</th>
     <th colspan="4">${dto.onedayclassSubject}</th>
   </tr>
   <tr>
-    <td colspan="4">${dto.onedayclassGrade}</td>
+    <th colspan="4">${dto.onedayclassGrade}</th>
   </tr>
   <tr>
-    <td>${dto.onedayclassLocation}</td>
-    <td>${dto.onedayclassOpendate}</td>
-    <td>${dto.onedayclassRecruitment}</td>
-    <td>${dto.onedayclassPrice}</td>
+    <th>${dto.onedayclassLocation}</th>
+    <th><img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px"><pre>${dto.onedayclassOpendate}</th>
+    <th>${dto.onedayclassRecruitment}</th>
+    <th><img src="resources/img/board/onedayclass/iconMoney.jpeg" style="width:110px"><pre>${dto.onedayclassPrice}</th>
   </tr>
   <tr>
-    <td>${dto.onedayclassLookup}</td>
-    <td>${dto.onedayclassTotalpeople}</td>
-    <td>${dto.onedayclassCategory}</td>
-    <td>${dto.onedayclassRegdate}</td>
+    <th>${dto.onedayclassLookup}</th>
+    <th>${dto.onedayclassTotalpeople}</th>
+    <th>${dto.onedayclassCategory}</th>
+    <th>${dto.onedayclassRegdate}</th>
   </tr>
   <tr>
     <td colspan="6">${dto.onedayclassContent}</td>

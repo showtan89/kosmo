@@ -25,8 +25,11 @@ public interface BoardDAO {
 	public KnowledgeVO knowledgeGetArticle(int knowledgeNumber);
 	// 댓글작성 처리
 	public int knowledgeCommentPro(Map<String, Object> map);
+	// 댓글 갯수 구하기
+	public int knowledgeCommentListCnt(int knowledgeNumber);
 	// 댓글 리스트 출력
 	public ArrayList<kCommentVO> knowledgeCommentList(int knowledgeNumber);
+	
 	// 동욱이 메소드 종료
 
 
@@ -66,10 +69,10 @@ public interface BoardDAO {
 	public ArrayList<onedayclassVO> onedayclassGetArticleList(Map<String, Object> map);
 
 	// 조회수 증가
-	public int onedayclassAddReadCnt(int number);
+	public int onedayclassAddReadCnt(int onedayclassNumber);
 
 	// 게시글 상세 페이지, 수정을 위한 상세페이지
-	public onedayclassVO onedayclassGetArticle(int number);
+	public onedayclassVO onedayclassGetArticle(int onedayclassNumber);
 	
 	// 진호 메소드 종료--------------------------------------
 	

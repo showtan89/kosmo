@@ -55,12 +55,16 @@
 	<script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript">
 function ehddnr_select1(){
-	$('#ehddnr_1').css('border','2px solid black');
+	$('#ehddnr_1').css('border-bottom','2px solid black');
+	$('#ehddnr_1').css('font-weight','bold');
 	$('#ehddnr_2').css('border','none');
+	$('#ehddnr_2').css('font-weight','none');
 }
 function ehddnr_select2(){
-	$('#ehddnr_2').css('border','2px solid black');
+	$('#ehddnr_2').css('border-bottom','2px solid black');
+	$('#ehddnr_2').css('font-weight','bold');
 	$('#ehddnr_1').css('border','none');
+	$('#ehddnr_1').css('font-weight','none');
 }	
 $(function (){ 
 	$('#btn_select').change(function(){
@@ -77,7 +81,7 @@ function knowledgeDetailForm(knowledgeNumber){
 </script>
 	<div id="knowledge_div" align="center">
 		<div class="knowledge_div2" id="ehddnr_1"
-			style="padding: 0; margint: 0; border: 2px solid black;">
+			style="padding: 0; margint: 0; border-bottom: 2px solid black;">
 			<button
 				style="padding: 0; margint: 0; font-size: 25px; background: none; border: none; width: 100%; height: 100%;"
 				onclick="ehddnr_select1()">답변을 기다리는 질문</button>
@@ -140,9 +144,11 @@ function knowledgeDetailForm(knowledgeNumber){
 								onclick="knowledgeDetailForm(${dto.knowledgeNumber});">
 								<span> ${dto.knowledgeReward}</span> &nbsp; &nbsp; 
 								<span><a style="font-size: 16px; "href="#">${dto.knowledgeSubject}</a></span>
-								아이디 같으면 출력
+								
+								<c:if test="${userVO.memberId==dto.memberId}">
 								<span style="float: right; margin-right: 10px;">삭제</span>
 								<span style="float: right; margin-right: 20px;">수정</span>
+								</c:if>
 							</p>
 
 							<p style="margin: 8px 0; line-height: 18px;"
@@ -175,9 +181,9 @@ function knowledgeDetailForm(knowledgeNumber){
 					<!-- 게시글이 있으면 -->
 					<!-- 처음 ◀◀  / 이전블록◀ -->
 					<c:if test="${startPage > pageBlock }">
-						<a href="knowledge?btn_select=${btn_select}">[◀◀ ]</a>
+						<a href="knowledgeBoardList?btn_select=${btn_select}">[◀◀ ]</a>
 						<a
-							href="knowledge?pageNum=${startPage-pageBlock}&btn_select=${btn_select}">[◀
+							href="knowledgeBoardList?pageNum=${startPage-pageBlock}&btn_select=${btn_select}">[◀
 							]</a>
 					</c:if>
 					<c:forEach var="i" begin="${startPage}" end="${endPage}">
@@ -185,15 +191,15 @@ function knowledgeDetailForm(knowledgeNumber){
 							<span><b>[&nbsp;${i}&nbsp;]</b></span>
 						</c:if>
 						<c:if test="${i!=currentPage}">
-							<a href="knowledge?pageNum=${i}&btn_select=${btn_select}">[${i}]</a>
+							<a href="knowledgeBoardList?pageNum=${i}&btn_select=${btn_select}">[${i}]</a>
 						</c:if>
 					</c:forEach>
 					<!-- 끝 ▶▶  / 다음블록▶ -->
 					<c:if test="${pageCount > endPage }">
 						<a
-							href="knowledge?pageNum=${startPage + pageBlock}&btn_select=${btn_select}">[▶
+							href="knowledgeBoardList?pageNum=${startPage + pageBlock}&btn_select=${btn_select}">[▶
 							]</a>
-						<a href="knowledge?pageNum=${pageCount}&btn_select=${btn_select}">[▶▶
+						<a href="knowledgeBoardList?pageNum=${pageCount}&btn_select=${btn_select}">[▶▶
 							]</a>
 					</c:if>
 				</c:if>

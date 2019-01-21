@@ -20,6 +20,7 @@ import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.PageVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
+import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
@@ -106,7 +107,6 @@ public class BoardServiceImpl implements BoardService {
 	//질문등록 처리
 	@Override
 	public void knowledgeInsertArticle(HttpServletRequest req, Model model) {
-
 		String knowledgeSubject = req.getParameter("knowledgeSubject");
 		String knowledgeContent = req.getParameter("knowledgeContent");
 		String knowledgeOpenCheck = req.getParameter("knowledgeOpenCheck");
@@ -137,11 +137,19 @@ public class BoardServiceImpl implements BoardService {
 		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
 		String kCommentTemp1 = req.getParameter("kCommentTemp1");
 		String knowledgememberId = req.getParameter("knowledgememberId");
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		String memberEmail = userVO.getMemberEmail();
+		String memberId = userVO.getMemberId();
+		String memberCountry = userVO.getMemberCountry();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("kCommentContent", kCommentContent);
 		map.put("knowledgeNumber", knowledgeNumber);
 		map.put("kCommentTemp1", kCommentTemp1);
 		map.put("knowledgememberId", knowledgememberId);
+		map.put("memberNumber", userVO.getMemberNumber());
+		map.put("memberEmail", memberEmail);
+		map.put("memberId", memberId);
+		map.put("memberCountry", memberCountry);
 		int kCommentCnt = boardDao.knowledgeCommentPro(map);
 		req.setAttribute("knowledgeNumber", knowledgeNumber);
 		req.setAttribute("kCommentCnt", kCommentCnt);
@@ -151,8 +159,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void knowledgeCommentList(HttpServletRequest req, Model model) {
 		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		int cnt = boardDao.knowledgeCommentListCnt(knowledgeNumber);
+		if(cnt > 0) {
 		ArrayList<kCommentVO> kCommentVO = boardDao.knowledgeCommentList(knowledgeNumber);
 		req.setAttribute("kCommentVO", kCommentVO);
+		}
 	}
 	
 	// 동욱이 메소드 종료
@@ -428,14 +439,14 @@ public class BoardServiceImpl implements BoardService {
 		
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-		int number = Integer.parseInt(req.getParameter("number"));
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		
-		boardDao.onedayclassAddReadCnt(number);
-		onedayclassVO vo = boardDao.onedayclassGetArticle(number);
+		boardDao.onedayclassAddReadCnt(onedayclassNumber);
+		onedayclassVO vo = boardDao.onedayclassGetArticle(onedayclassNumber);
 		
 		model.addAttribute("dto", vo);
 		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("number", number);
+		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
 	//진호 메소드 종료---------------------------------------------------
 	

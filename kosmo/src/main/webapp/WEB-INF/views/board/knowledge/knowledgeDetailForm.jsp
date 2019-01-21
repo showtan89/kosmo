@@ -124,13 +124,13 @@
 				${dtos.knowledgeContent}
 			</li>
 			<li>
-			<span>${dtos.knowledgeCategory}</span>
 			<c:if test="${dtos.knowledgeOpenCheck=='Y'}">
-			<span style="margin-left:50px;">${dtos.memberId}</span>
+			<span style="">${dtos.memberId}</span>
 			</c:if>
 			<c:if test="${dto.sknowledgeOpenCheck=='N'}">
-			<span style="margin-left:50px;">비공개</span>
+			<span >비공개</span>
 			</c:if>
+			<span style="margin-left:50px;">${dtos.knowledgeCategory}</span>
 			<span style="margin-left:50px;">${dtos.knowledgeRegdate}</span>
 			</li>	
 		</ul>
@@ -138,12 +138,13 @@
 
 </div>
 <div align="center" style="background-color:#c0c0c0;padding:30px 0">
+	<c:if test="${userVO.memberId!=null}">
 	<div style="width:800px;background-color:#fff;">
 		<form action="knowledgeCommentPro" method="post" name="knowledgeCommentForm" onsubmit="return knowledgeCommentFormchk()">
 			<ul>
 				<li style="border-bottom:1px solid black;">
-					<p align="left" style="padding:0 50px;">
-						<span style="font-size:18px;">xxxx님, 답변해주세요!</span><br>
+					<p align="left" style="padding:10px 50px 0 50px;">
+						<span style="font-size:18px;">${userVO.memberId}님, 답변해주세요!</span><br>
 						<span>답변하시면 포인트 10점을 답변이 채택되면 포인트 25점을 드립니다.</span>
 					</p>
 				</li>
@@ -164,28 +165,49 @@
 			</ul>
 		</form>
 	</div>
-	<c:if test='${kCommentVO!=null}'>
-	<div style="width:800px;background-color:#fff;margin-top:30px;padding:3px 10px">
-	<c:forEach var="kc" items="${kCommentVO}">
-		<ul align="left" style="padding">
-			<li>
-				<c:if test="${kc.kCommentTemp1=='N'}">
-				<span>비공개</span>
-				</c:if>
-				<c:if test="${kc.kCommentTemp1=='Y'}">
-				<span>${kc.memberId}</span>
-				</c:if>
+	</c:if>
+	<c:if test="${userVO.memberId==null}">
+	<div style="width:800px;height:60px;margin:auto auto;background-color:#fff;">
+		<ul>
+			<li style="padding:13px 10px 0 0;display:inline-block;">
+				<span style="font-size:20px;">
+				답변하시면 포인트 10점을 답변이 채택되면 포인트 25점을 드립니다.</span>
 			</li>
-			<li>
-				<span>${kc.kCommentContent}</span>
-			</li>
-			<li>
-				<span>${kc.kCommentRegdate}</span>
+			<li style="display:inline;padding-top:2.5px;">
+				<input class="knowledgeDetailForm_button2" style="font-weight: bold;display:inline;font-size:15px;" type="button" value="답변등록" onclick="window.location='loginCheck'">
 			</li>
 		</ul>
-		<hr>
-	</c:forEach>
 	</div>
+	</c:if>
+	<c:if test="${kCommentVO != null}">
+		<div style="width:800px;background-color:#fff;margin-top:30px;padding:3px 10px">
+			<c:forEach var="kc" items="${kCommentVO}">
+				<ul align="left" style="padding:0;margin:0">
+					<li>
+						<c:if test="${kc.kCommentTemp1=='N'}">
+						<span>비공개</span>
+						</c:if>
+						<c:if test="${kc.kCommentTemp1=='Y'}">
+						<span>${kc.memberId}</span>
+						</c:if>
+						<c:if test="${dtos.memberId==userVO.memberId}">
+						<span style="float:right;margin-left:10px;"><a href="">채택</a></span>
+						</c:if>
+						<c:if test="${kc.memberId==userVO.memberId}">
+						<span style="float:right;margin-left:10px;"><a href="">삭제</a></span>
+						<span style="float:right;margin-left:10px;"><a href="">수정</a></span>
+						</c:if>
+					</li>
+					<li>
+						<span>${kc.kCommentContent}</span>
+					</li>
+					<li>
+						<span>${kc.kCommentRegdate}</span>
+					</li>
+				</ul>
+				<hr style="margin:3px 0;">
+			</c:forEach>
+		</div>
 	</c:if>
 </div>
 
