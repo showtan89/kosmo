@@ -46,11 +46,19 @@ public class BoardDAOImpl implements BoardDAO {
 	public KnowledgeVO knowledgeGetArticle(int knowledgeNumber) {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.knowledgeGetArticle",knowledgeNumber);
 	}
-	// 댓글작성 처리
+	// 답변등록 처리
 	@Override
 	public int knowledgeCommentPro(Map<String, Object> map) {
+		// 답변등록 처리 시 답장 처리
+		sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeCommentPro2",map);
 		// TODO Auto-generated method stub
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeCommentPro",map);
+	}
+	// 댓글 갯수 구하기
+	@Override
+	public int knowledgeCommentListCnt(int knowledgeNumber) {
+		
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.knowledgeCommentListCnt",knowledgeNumber);
 	}
 	// 댓글 리스트 출력
 	@Override
@@ -108,6 +116,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.commentReadList", map);
 	}
+	
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 

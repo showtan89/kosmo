@@ -23,18 +23,18 @@
 		parameterType="java.util.Map"
 		resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
 	<![CDATA[
-	SELECT *  
-	FROM(SELECT knowledgeNumber, memberNumber, boardCode, memberEmail, memberId, knowledgeSubject, 
-		 		knowledgeContent, knowledgeOpenCheck, knowledgeReward, knowledgeCategory, knowledgeLookup,
-		 		knowledgeRegdate,knowledgeReply,knowledgeTemp1,knowledgeTemp2,knowledgeTemp3, rownum rNum  
-		 FROM ( 
-			 	SELECT * 
-			 	FROM knowledge
-			 	ORDER BY knowledgeRegdate DESC
-			  )
-		 )  
-	WHERE rNum >= #{start} AND rNum <= #{end}
-	]]>
+		SELECT *  
+		FROM(SELECT knowledgeNumber, memberNumber, boardCode, memberEmail, memberId, knowledgeSubject, 
+			 		knowledgeContent, knowledgeOpenCheck, knowledgeReward, knowledgeCategory, knowledgeLookup,
+			 		knowledgeRegdate,knowledgeReply,knowledgeTemp1,knowledgeTemp2,knowledgeTemp3, rownum rNum  
+			 FROM ( 
+				 	SELECT * 
+				 	FROM knowledge
+				 	ORDER BY knowledgeRegdate DESC
+				  )
+			 )  
+		WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
 	</select>
 	<!-- 질문등록 처리 -->
 	<insert id="knowledgeInsertArticle"
@@ -50,8 +50,17 @@
 	<!-- 답변등록 처리 -->
 	<insert id="knowledgeCommentPro" parameterType="java.util.Map">
 		INSERT INTO kComment
-		VALUES(knowledgeseq.nextval,#{knowledgeNumber},'10','park@gmail.com','park',#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
+		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10','park@gmail.com','park',#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
+	<!-- 답변등록 처리시 알림 처리 -->
+	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
+		INSERT INTO commentAlarm
+		VALUES(commentAlarmSeq.nextval,#{memberNumber},'101',#{memberEmail},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
+	</insert>
+	<!-- 댓글 갯수 구하기 -->
+	<select id="knowledgeCommentListCnt" resultType="int">
+		SELECT count(*) from kComment where knowledgeNumber = #{knowledgeNumber}
+	</select>
 	<!-- 댓글 리스트 출력 -->
 	<select id="knowledgeCommentList" resultType="com.spring.helper.vo.BoardVO.kCommentVO">
 		SELECT * FROM kComment WHERE knowledgeNumber=#{knowledgeNumber} 

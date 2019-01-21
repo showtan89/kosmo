@@ -73,11 +73,15 @@ display:inline;
 .knowledge_div2{
 width:49.8%;
 height:50px;
-background-color:#70c745;
 display:inline-block;
 padding-top:5px;
 padding:0;
 margin:0;
+	outline:0;
+}
+.knowledge_div2 button{
+	outline:0;
+	border:none;	
 }
 #knowledge_div3{
 	width: 100%; 

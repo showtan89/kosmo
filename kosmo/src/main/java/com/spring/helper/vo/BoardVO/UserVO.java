@@ -9,14 +9,13 @@ public class UserVO {
 	 private String password ; 		// 패스워드
 	 private String memberCountry ; // 출신국
 	 private Timestamp memberRegdate ; // 가입일
-	 private String memberPoint ; 	// 포인트
+	 private int memberPoint ; 	// 포인트
 	 private String memberRecommend ; // 추천
 	 private String authority ;		 // 시큐리티권한
 	 private char enabled ; 		// 사용여부
 	 private String memberTemp1 ;	 // 회원컬럼1
 	 private String memberTemp2 ;	 // 회원컬럼2
 	 private int memberTemp3 ; 		// 회원컬럼3
-	 
 	 
 	 public int getMemberNumber() {
 		return memberNumber;
@@ -54,10 +53,10 @@ public class UserVO {
 	public void setMemberRegdate(Timestamp memberRegdate) {
 		this.memberRegdate = memberRegdate;
 	}
-	public String getMemberPoint() {
+	public int getMemberPoint() {
 		return memberPoint;
 	}
-	public void setMemberPoint(String memberPoint) {
+	public void setMemberPoint(int memberPoint) {
 		this.memberPoint = memberPoint;
 	}
 	public String getMemberRecommend() {
@@ -96,6 +95,6 @@ public class UserVO {
 	public void setMemberTemp3(int memberTemp3) {
 		this.memberTemp3 = memberTemp3;
 	}
-
 	 
 }
+
