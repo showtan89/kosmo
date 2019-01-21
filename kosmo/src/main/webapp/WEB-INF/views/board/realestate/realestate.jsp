@@ -49,6 +49,7 @@
 				</div>
 				<!-- Search by Terms -->
 				<div class="search_by_terms">
+					<a href="realestateDummyMaker"><button type="button" class='btn alazea-btn'>DUMMY</button></a>
 					<a href="realestateWrite"><button type="button" class='btn alazea-btn'>Write</button></a>
 					<!-- 필터 기능 일단 주석 -->
 					<!-- <form action="#" method="post" class="form-inline">

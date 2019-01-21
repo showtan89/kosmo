@@ -23,6 +23,8 @@ public interface BoardService {
 	public void realestateWritePro(HttpServletRequest req, Model model);
 
 	public void realestateList(HttpServletRequest req, Model model);
+	
+	public void realestateDummyMaker(HttpServletRequest req, Model model);
 
 	//재영 boardService 끝
 }

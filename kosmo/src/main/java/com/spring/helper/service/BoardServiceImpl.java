@@ -24,7 +24,7 @@ public class BoardServiceImpl implements BoardService {
 	BoardDAO boardDao;
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
-	
+
 	// 동욱이 메소드 시작(지식인게시판)
 	// 지식인게시판 리스트 출력
 	@Override
@@ -45,21 +45,21 @@ public class BoardServiceImpl implements BoardService {
 		int endPage = 0;		// 마지막 페이지
 		cnt = boardDao.knowledgeGetArticleCnt();
 		pageNum = req.getParameter("pageNum");
-		
+
 		if(pageNum== null) {
 			pageNum = "1"; // 첫페이지를 1로 주겠다.
 		}
 		// 글 30건 기준
 		currentPage = Integer.parseInt(pageNum); // 현재 페이지
 		System.out.println("currentPage : "+currentPage);
-		
+
 		// 페이지 갯수 6 = (30 / 5 ) + (0)
 		pageCount = (cnt / pageSize) +(cnt % pageSize > 0 ? 1 : 0);
-		
+
 		//현재 페이지 시작 글번호
 		// 1 = (1 - 1) * 5 + 1
 		start = (currentPage-1) * pageSize + 1;
-		
+
 		//현재 페이지 마지막 글번호
 		//5 = 1 + 5 - 1;
 		end = start + pageSize -1;
@@ -76,9 +76,9 @@ public class BoardServiceImpl implements BoardService {
 			String pageSize2 = String.valueOf(pageSize);
 			model.addAttribute("btn_select", pageSize2);
 		}
-		
+
 		// 6단계. request나 session에 처리 결과를 저장(jsp에 전달하기 위함)
-		
+
 		// 시작페이지 1 = (1/3) * 3 + 1
 		startPage = (currentPage / pageBlock) * pageBlock + 1;
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
@@ -95,12 +95,12 @@ public class BoardServiceImpl implements BoardService {
 			req.setAttribute("pageCount", pageCount); // 페이지 갯수
 			req.setAttribute("currentPage", currentPage); // 현재페이지
 		}
-		
+
 	}
 	//질문등록 처리
 	@Override
 	public void knowledgeInsertArticle(HttpServletRequest req, Model model) {
-		
+
 		String knowledgeSubject = req.getParameter("knowledgeSubject");
 		String knowledgeContent = req.getParameter("knowledgeContent");
 		String knowledgeOpenCheck = req.getParameter("knowledgeOpenCheck");
@@ -114,7 +114,7 @@ public class BoardServiceImpl implements BoardService {
 		Knowledge.setKnowledgeCategory(knowledgeCategory);
 		int insertcnt = boardDao.knowledgeInsertArticle(Knowledge);
 		model.addAttribute("insertcnt",insertcnt);
-		
+
 	}
 	// 지식인게시판 게시글 상세페이지 출력
 	@Override
@@ -137,51 +137,55 @@ public class BoardServiceImpl implements BoardService {
 		req.setAttribute("kCommentCnt", kCommentCnt);
 	}
 	// 동욱이 메소드 종료
-	
+
 
 	//재영 boardServiceImpl 시작====================================================================================
-	
-		@Autowired
-		BoardMethod boardMethod;
-		
-		//부동산 게시판 글 목록 보기
-		@Override
-		public void realestateList(HttpServletRequest req, Model model) {
-			
-			//파라미터(검색조건) VO에 담기
-			RealestateVO rVO = boardMethod.getParameterRealestateVO(req); 
-			
-			//검색 조건에 대한 게시글 갯수 구하기
-			System.out.println("111");
-			Integer cnt = boardDao.getRealestateCount(rVO);
-			System.out.println("333");
-			/*//검색 조건에 대한 게시글 갯수로 페이지 구하기
+
+	@Autowired
+	BoardMethod boardMethod;
+
+	//부동산 게시판 글 목록 보기
+	@Override
+	public void realestateList(HttpServletRequest req, Model model) {
+
+		//파라미터(검색조건) VO에 담기
+		RealestateVO rVO = boardMethod.getParameterRealestateVO(req); 
+
+		//검색 조건에 대한 게시글 갯수 구하기
+		Integer cnt = boardDao.getRealestateCount(rVO);
+
+		/*//검색 조건에 대한 게시글 갯수로 페이지 구하기
 			PageVO pVO = boardMethod.getRealestatePageVO(cnt);
-			
-			logger.info(rVO.toString());
-			
-			List<RealestateVO> list = boardDao.realestateList(rVO);
-			
-			model.addAttribute("list", list);*/
-			
-		}
-		
-		//부동산 게시판 글 쓰기
-		@Override
-		public void realestateWritePro(HttpServletRequest req, Model model) {
-			
-			RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
 
 			logger.info(rVO.toString());
-			
-			Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
-			
-			logger.info(realestateWriteProResult.toString());
-		}
-		
-		
-		
-		
-		
-		//재영 boardServiceImpl 끝
+
+			List<RealestateVO> list = boardDao.realestateList(rVO);
+
+			model.addAttribute("list", list);*/
+
+	}
+
+	//부동산 게시판 글 쓰기
+	@Override
+	public void realestateWritePro(HttpServletRequest req, Model model) {
+
+		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
+
+		logger.info(rVO.toString());
+
+		Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
+
+		logger.info(realestateWriteProResult.toString());
+	}
+
+	//부동산 게시판 글 쓰기
+	@Override
+	public void realestateDummyMaker(HttpServletRequest req, Model model) {
+		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
+		logger.info(rVO.toString());
+		Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
+		logger.info(realestateWriteProResult.toString());
+	}
+
+	//재영 boardServiceImpl 끝
 }

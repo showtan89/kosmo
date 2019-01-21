@@ -19,7 +19,7 @@ public class BoardController {
 
 	@Autowired
 	BoardService service;
-	//ㅇㅇㅇㅇ
+	
 	// 동욱이 메소드 시작
 	// 질문하기 Form 이동
 	@RequestMapping("knowledgeBoardList")
@@ -92,7 +92,15 @@ public class BoardController {
 		service.realestateWritePro(req, model);
 		return "board/realestate/realestate";
 	}
-
+	
+	//부동산 게시판 게시글 생성기
+	@RequestMapping("realestateDummyMaker")
+	public String realestateDummyMaker(HttpServletRequest req, Model model) throws Exception {
+		logger.info("realestateDummyMaker 로딩 중....");
+		service.realestateDummyMaker(req, model);
+		return "board/realestate/realestate";
+	}
+	
 	//재영 BoardController 끝
 
 }

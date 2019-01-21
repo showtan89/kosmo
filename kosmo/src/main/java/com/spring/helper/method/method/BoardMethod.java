@@ -285,6 +285,26 @@ rVO.setMemberId("member");
 			return rVO;
 		}
 	
-	
+		// 부동산 데이터 필터링 테스트 할 데이터 생성기
+		public RealestateVO realestateDummyDataMaker() {
+			
+			/*(#{memberNumber},20,#{memberEmail},#{memberId},#{realestateSubject},
+					#{realestateContent},#{realestatePrice},#{realestateCategory1},'empty',#{realestateDeposit},#{realestateDepositCheck},
+					#{realestateManagement},#{realestateOptionCheck},#{realestateTobaccoCheck},#{realestateState},#{realestateHeatingtype},#{realestateBalcony},
+					#{realestatePetCheck},#{realestateTerm},#{realestateMoveindate},#{realestateGender},#{realestateRoom},#{realestateToilet},#{realestateCar},
+					#{realestateSize},#{realestateType},#{realestateLocation},'empty',0,0,sysdate,
+					'empty',#{realestateImg1},#{realestateImg2,jdbcType=VARCHAR},#{realestateImg3,jdbcType=VARCHAR},#{realestateTemp1})
+			*/
+			
+	/*		memberNumber = 10006,10007,10008,10009,10010,10011,10012;
+			memberEmail = "min@gmail.com","chae@gmail.com","song@gmail.com","so@gmail.com","park@gmail.com","korea@naver.com","usa@naver.com";
+			memberId = "min","chae","song","so","park","korea","usa",
+			
+			*/
+			
+			
+			RealestateVO rVO= new RealestateVO();
+			return rVO;
+		}
 	
 }
