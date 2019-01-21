@@ -40,7 +40,7 @@
 	<insert id="knowledgeInsertArticle"
 		parameterType="com.spring.helper.vo.BoardVO.KnowledgeVO">
 		INSERT INTO knowledge
-		VALUES(knowledgeseq.nextval,'10005','10','park@gmail.com','park',#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'0','0','0',0)
+		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'0','0','0',0)
 	</insert>
 	<!-- 지식인게시판 게시글 상세페이지 출력 -->
 	<select id="knowledgeGetArticle"
@@ -50,7 +50,7 @@
 	<!-- 답변등록 처리 -->
 	<insert id="knowledgeCommentPro" parameterType="java.util.Map">
 		INSERT INTO kComment
-		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10','park@gmail.com','park',#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
+		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10',#{memberEmail},#{memberId},#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
 	<!-- 답변등록 처리시 알림 처리 -->
 	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">

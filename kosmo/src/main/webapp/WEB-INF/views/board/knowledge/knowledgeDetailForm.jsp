@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
@@ -138,35 +140,35 @@
 
 </div>
 <div align="center" style="background-color:#c0c0c0;padding:30px 0">
-	<c:if test="${userVO.memberId!=null}">
-	<div style="width:800px;background-color:#fff;">
-		<form action="knowledgeCommentPro" method="post" name="knowledgeCommentForm" onsubmit="return knowledgeCommentFormchk()">
-			<ul>
-				<li style="border-bottom:1px solid black;">
-					<p align="left" style="padding:10px 50px 0 50px;">
-						<span style="font-size:18px;">${userVO.memberId}님, 답변해주세요!</span><br>
-						<span>답변하시면 포인트 10점을 답변이 채택되면 포인트 25점을 드립니다.</span>
-					</p>
-				</li>
-				<li style="width: 100%; height: 300px; margin: 0 0 0 0;">
-				<textarea style="border:none;width: 100%; height: 100%; padding:3px 10px;margin:0; border-top:1px solid black;" name="kCommentContent" id="kCommentContent"></textarea>
-				</li>
-				<li align="center" style="padding:30px 0; border-top:1.5px solid black;">
-					<p align="left">
-					<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID 공개여부">
-					<input type="radio" name="kCommentTemp1" value="Y" checked="checked">공개
-					<input type="radio" name="kCommentTemp1" value="N" >비공개
-					</p>
-					<input type="hidden" name="knowledgeNumber" value="${dtos.knowledgeNumber}">
-					<input type="hidden" name="knowledgememberId" value="${dtos.memberId}">
-					<input class="knowledgeDetailForm_button2" type="submit" value="답변등록">
-					<input class="knowledgeDetailForm_button2" type="button" value="목록보기" onclick="window.location='knowledgeBoardList'">
-				</li>
-			</ul>
-		</form>
-	</div>
-	</c:if>
-	<c:if test="${userVO.memberId==null}">
+	<sec:authorize access="isAuthenticated()">
+		<div style="width:800px;background-color:#fff;">
+			<form action="knowledgeCommentPro" method="post" name="knowledgeCommentForm" onsubmit="return knowledgeCommentFormchk()">
+				<ul>
+					<li style="border-bottom:1px solid black;">
+						<p align="left" style="padding:10px 50px 0 50px;">
+							<span style="font-size:18px;">${userVO.memberId}님, 답변해주세요!</span><br>
+							<span>답변하시면 포인트 10점을 답변이 채택되면 포인트 25점을 드립니다.</span>
+						</p>
+					</li>
+					<li style="width: 100%; height: 300px; margin: 0 0 0 0;">
+						<textarea style="border:none;width: 100%; height: 100%; padding:3px 10px;margin:0; border-top:1px solid black;" name="kCommentContent" id="kCommentContent"></textarea>
+					</li>
+					<li align="center" style="padding:30px 0; border-top:1.5px solid black;">
+						<p align="left">
+						<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID 공개여부">
+						<input type="radio" name="kCommentTemp1" value="Y" checked="checked">공개
+						<input type="radio" name="kCommentTemp1" value="N" >비공개
+						</p>
+						<input type="hidden" name="knowledgeNumber" value="${dtos.knowledgeNumber}">
+						<input type="hidden" name="knowledgememberId" value="${dtos.memberId}">
+						<input class="knowledgeDetailForm_button2" type="submit" value="답변등록">
+						<input class="knowledgeDetailForm_button2" type="button" value="목록보기" onclick="window.location='knowledgeBoardList'">
+					</li>
+				</ul>
+			</form>
+		</div>
+	</sec:authorize>
+<sec:authorize access="isAnonymous()">
 	<div style="width:800px;height:60px;margin:auto auto;background-color:#fff;">
 		<ul>
 			<li style="padding:13px 10px 0 0;display:inline-block;">
@@ -178,7 +180,8 @@
 			</li>
 		</ul>
 	</div>
-	</c:if>
+</sec:authorize>
+	
 	<c:if test="${kCommentVO != null}">
 		<div style="width:800px;background-color:#fff;margin-top:30px;padding:3px 10px">
 			<c:forEach var="kc" items="${kCommentVO}">
@@ -190,7 +193,7 @@
 						<c:if test="${kc.kCommentTemp1=='Y'}">
 						<span>${kc.memberId}</span>
 						</c:if>
-						<c:if test="${dtos.memberId==userVO.memberId}">
+						<c:if test="${dtos.memberId==userVO.memberId && kc.memberId!=userVO.memberId}">
 						<span style="float:right;margin-left:10px;"><a href="">채택</a></span>
 						</c:if>
 						<c:if test="${kc.memberId==userVO.memberId}">
