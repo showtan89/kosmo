@@ -153,16 +153,40 @@
 				<li align="center" style="padding:30px 0; border-top:1.5px solid black;">
 					<p align="left">
 					<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID 공개여부">
-					<input type="radio" name="knowledgeOpenCheck" value="Y" checked="checked">공개
-					<input type="radio" name="knowledgeOpenCheck" value="N" >비공개
+					<input type="radio" name="kCommentTemp1" value="Y" checked="checked">공개
+					<input type="radio" name="kCommentTemp1" value="N" >비공개
 					</p>
 					<input type="hidden" name="knowledgeNumber" value="${dtos.knowledgeNumber}">
+					<input type="hidden" name="knowledgememberId" value="${dtos.memberId}">
 					<input class="knowledgeDetailForm_button2" type="submit" value="답변등록">
 					<input class="knowledgeDetailForm_button2" type="button" value="목록보기" onclick="window.location='knowledgeBoardList'">
 				</li>
 			</ul>
 		</form>
 	</div>
+	<c:if test='${kCommentVO!=null}'>
+	<div style="width:800px;background-color:#fff;margin-top:30px;padding:3px 10px">
+	<c:forEach var="kc" items="${kCommentVO}">
+		<ul align="left" style="padding">
+			<li>
+				<c:if test="${kc.kCommentTemp1=='N'}">
+				<span>비공개</span>
+				</c:if>
+				<c:if test="${kc.kCommentTemp1=='Y'}">
+				<span>${kc.memberId}</span>
+				</c:if>
+			</li>
+			<li>
+				<span>${kc.kCommentContent}</span>
+			</li>
+			<li>
+				<span>${kc.kCommentRegdate}</span>
+			</li>
+		</ul>
+		<hr>
+	</c:forEach>
+	</div>
+	</c:if>
 </div>
 
 <!-- ##### Contact Area End ##### -->

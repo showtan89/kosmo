@@ -16,6 +16,7 @@ import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
+import com.spring.helper.vo.BoardVO.kCommentVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -129,13 +130,25 @@ public class BoardServiceImpl implements BoardService {
 	public void knowledgeCommentPro(HttpServletRequest req, Model model) {
 		String kCommentContent = req.getParameter("kCommentContent");
 		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		String kCommentTemp1 = req.getParameter("kCommentTemp1");
+		String knowledgememberId = req.getParameter("knowledgememberId");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("kCommentContent", kCommentContent);
 		map.put("knowledgeNumber", knowledgeNumber);
+		map.put("kCommentTemp1", kCommentTemp1);
+		map.put("knowledgememberId", knowledgememberId);
 		int kCommentCnt = boardDao.knowledgeCommentPro(map);
 		req.setAttribute("knowledgeNumber", knowledgeNumber);
 		req.setAttribute("kCommentCnt", kCommentCnt);
 	}
+	// 댓글 등록 리스트 출력
+	@Override
+	public void knowledgeCommentList(HttpServletRequest req, Model model) {
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		ArrayList<kCommentVO> kCommentVO = boardDao.knowledgeCommentList(knowledgeNumber);
+		req.setAttribute("kCommentVO", kCommentVO);
+	}
+	
 	// 동욱이 메소드 종료
 	
 
@@ -178,10 +191,6 @@ public class BoardServiceImpl implements BoardService {
 			
 			logger.info(realestateWriteProResult.toString());
 		}
-		
-		
-		
-		
 		
 		//재영 boardServiceImpl 끝
 }

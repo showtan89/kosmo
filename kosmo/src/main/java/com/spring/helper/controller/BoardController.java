@@ -19,7 +19,7 @@ public class BoardController {
 
 	@Autowired
 	BoardService service;
-	//ㅇㅇㅇㅇ
+	
 	// 동욱이 메소드 시작
 	// 질문하기 Form 이동
 	@RequestMapping("knowledgeBoardList")
@@ -49,6 +49,7 @@ public class BoardController {
 	public String knowledgeDetailForm(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeDetailForm 로딩 중....");
 		service.knowledgeDetailForm(req, model);
+		service.knowledgeCommentList(req,model);
 		return "board/knowledge/knowledgeDetailForm";
 	}
 

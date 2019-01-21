@@ -15,6 +15,8 @@ public interface BoardService {
 	public void knowledgeDetailForm(HttpServletRequest req,Model model);
 	// 답변등록 처리
 	public void knowledgeCommentPro(HttpServletRequest req,Model model);
+	// 댓글 목록 리스트 출력
+	public void knowledgeCommentList(HttpServletRequest req,Model model);
 	// 동욱이 메소드 종료
 
 

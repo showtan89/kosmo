@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
+import com.spring.helper.vo.BoardVO.kCommentVO;
 
 
 @Repository
@@ -48,6 +49,14 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeCommentPro",map);
 	}
+	// 댓글 리스트 출력
+	@Override
+	public ArrayList<kCommentVO> knowledgeCommentList(int knowledgeNumber) {
+		ArrayList<kCommentVO> dtos = null;
+		BoardDAO dao = sqlSession.getMapper(BoardDAO.class);
+		dtos = dao.knowledgeCommentList(knowledgeNumber);
+		return dtos;
+	}
 	// 동욱이 메소드 종료
 
 
@@ -70,5 +79,6 @@ public class BoardDAOImpl implements BoardDAO {
 	public Integer realestateWritePro(RealestateVO rVO) {
 		return sqlSession.getMapper(BoardDAO.class).realestateWritePro(rVO);
 	}
+	
 
 }

@@ -50,8 +50,12 @@
 	<!-- 답변등록 처리 -->
 	<insert id="knowledgeCommentPro" parameterType="java.util.Map">
 		INSERT INTO kComment
-		VALUES(knowledgeseq.nextval,#{knowledgeNumber},'10','park@gmail.com','park',#{kCommentContent},'N',sysdate,'N','N',0)
+		VALUES(knowledgeseq.nextval,#{knowledgeNumber},'10','park@gmail.com','park',#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
+	<!-- 댓글 리스트 출력 -->
+	<select id="knowledgeCommentList" resultType="com.spring.helper.vo.BoardVO.kCommentVO">
+		SELECT * FROM kComment WHERE knowledgeNumber=#{knowledgeNumber} 
+	</select>
 	<!-- 동욱이 종료 -->
 
 

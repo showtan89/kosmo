@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
+import com.spring.helper.vo.BoardVO.kCommentVO;
 
 
 public interface BoardDAO {
@@ -20,6 +21,8 @@ public interface BoardDAO {
 	public KnowledgeVO knowledgeGetArticle(int knowledgeNumber);
 	// 댓글작성 처리
 	public int knowledgeCommentPro(Map<String, Object> map);
+	// 댓글 리스트 출력
+	public ArrayList<kCommentVO> knowledgeCommentList(int knowledgeNumber);
 	// 동욱이 메소드 종료
 
 

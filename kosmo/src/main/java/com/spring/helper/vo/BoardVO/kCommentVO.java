@@ -11,7 +11,7 @@ public class kCommentVO {
 	 private String kCommentContent ; // 댓글내용
 	 private String kCommentSelection ; // 댓글채택
 	 private Timestamp kCommentRegdate ; // 댓글발생일
-	 private String kCommentTemp1 ; // 댓글컬럼1
+	 private String kCommentTemp1 ; //  댓글작성자 공개여부
 	 private String kCommentTemp2 ; // 댓글컬럼2
 	 private int kCommentTemp3 ; // 댓글컬럼3
 	 

@@ -64,7 +64,7 @@ function ehddnr_select2(){
 }	
 $(function (){ 
 	$('#btn_select').change(function(){
-		location.href='knowledge?btn_select='+$('#btn_select').val();		
+		location.href='knowledgeBoardList?btn_select='+$('#btn_select').val();		
 	});
 	$("#btn_select").val(<%=btn_select%>).attr("selected", true);
 });
