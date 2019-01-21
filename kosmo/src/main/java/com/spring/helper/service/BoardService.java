@@ -27,4 +27,15 @@ public interface BoardService {
 	public void realestateList(HttpServletRequest req, Model model);
 
 	//재영 boardService 끝
+	
+	
+	//민석이 시작-------------------------------------------------------
+	public void messageForm(HttpServletRequest req, Model model);
+//	public List<> alarm(HttpServletRequest req, Model model);
+	
+	/*messagePro
+	messageAlarmForm
+	messageAlarmPro*/
+	
+	//민석이 종료----------------------------------------------------------
 }

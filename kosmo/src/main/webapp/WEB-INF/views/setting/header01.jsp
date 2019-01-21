@@ -143,8 +143,9 @@ input:focus {
 								</div>
 								<!-- Cart -->
 								<div class="cart">
-									<a href="#"><i class="fa fa-shopping-cart"
-										aria-hidden="true"></i> <span>Messege </span> <span><class="messege-quantity">(1)</span></a>
+									<a href="#"><i class="fa fa-envelope"
+										aria-hidden="true"></i> <span>Message </span> 
+									<span><class="messege-quantity">(0)</span></a>
 								</div>
 
 							</div>
