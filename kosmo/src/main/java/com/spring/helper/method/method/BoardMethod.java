@@ -299,7 +299,14 @@ rVO.setMemberId("member");
 	/*		memberNumber = 10006,10007,10008,10009,10010,10011,10012;
 			memberEmail = "min@gmail.com","chae@gmail.com","song@gmail.com","so@gmail.com","park@gmail.com","korea@naver.com","usa@naver.com";
 			memberId = "min","chae","song","so","park","korea","usa",
+			realestateSubject = "좋은 집입니다.","전망 좋은 집","교통이 좋아요.","교통 편리합니다.","볕이 잘들어요.","역세권 주거지","어디든 갈 수 있어요.","강남까지 30분"
+			realestateContent= "좋은 집입니다.","전망 좋은 집","교통이 좋아요.","교통 편리합니다.","볕이 잘들어요.","역세권 주거지","어디든 갈 수 있어요.","강남까지 30분"
+			realestatePrice 
 			
+			
+			
+			*
+			*
 			*/
 			
 			
