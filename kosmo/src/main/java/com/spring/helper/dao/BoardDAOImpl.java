@@ -13,6 +13,7 @@ import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
+import com.spring.helper.vo.BoardVO.onedayclassVO;
 
 
 @Repository
@@ -111,4 +112,46 @@ public class BoardDAOImpl implements BoardDAO {
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 
+	
+	
+	// 진호 메소드 시작---------------------------------------------------
+
+	// 게시글 갯수 구하기
+	@Override
+	public int onedayclassGetArticleCnt() {
+
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int selectCnt = boardDao.onedayclassGetArticleCnt();
+		return selectCnt;
+	}
+	
+	// 게시글 목록 조회
+	@Override
+	public ArrayList<onedayclassVO> onedayclassGetArticleList(Map<String, Object> map) {
+
+		ArrayList<onedayclassVO> dtos = null;
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		dtos = boardDao.onedayclassGetArticleList(map);
+		return dtos;
+	}
+
+	// 조회수 증가
+	@Override
+	public int onedayclassAddReadCnt(int number) {
+		
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int updateCnt = boardDao.onedayclassAddReadCnt(number);
+		return updateCnt;
+	}
+
+	// 게시글 상세페이지, 수정을 위한 상세페이지
+	@Override
+	public onedayclassVO onedayclassGetArticle(int number) {
+		
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		return boardDao.onedayclassGetArticle(number);
+	}
+	
+	// 진호 메소드 종료------------------------------------------------
+	
 }
