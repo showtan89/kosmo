@@ -103,4 +103,24 @@ public class BoardController {
 	
 	//재영 BoardController 끝
 
+	//진호 BoardController 시작----------------------------------------------------
+	// 원데이 리스트 출력
+	@RequestMapping("onedayclassBoardList")
+	public String onedayclassBoardList(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 게시판 리스트 호출중....");
+		
+		service.onedayclassBoardList(req, model);
+		return "board/onedayclass/onedayclassBoardList";
+	}
+	
+	// 원데이 상세페이지
+	@RequestMapping("onedayclassDetailForm")
+	public String onedayclassDetailForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 게시판 상세페이지 호출중 ....");
+		
+		service.onedayclassDetailForm(req, model);
+		return "board/onedayclass/onedayclassDetailForm";
+	}
+	
+	// 진호  BoardController 끝----------------------------------------------------
 }

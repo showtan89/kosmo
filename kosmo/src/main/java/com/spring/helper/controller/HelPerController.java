@@ -81,13 +81,15 @@ public class HelPerController{
 	}
 	// 재영 끝
 
+	// 진호 시작-------------------------------------------
 	@RequestMapping("onedayclass")
-	public String onedayclass() {
+	public void onedayclass(HttpServletResponse res) throws Exception {
 		logger.info("onedayclass 로딩 중....");
-		return "board/onedayclass/onedayclass";
+		res.sendRedirect("onedayclassBoardList");
 	}
+	// 진호 끝---------------------------------
 
-	//민석이 시작------------
+	//민석이 시작+++++++++++++++++++++++++++++++
 	@RequestMapping("message")
 	public String chatting(HttpServletRequest req,Model model) {
 		logger.info("message 로딩 중....");
@@ -95,7 +97,7 @@ public class HelPerController{
 
 		return "board/message/message";
 	}
-	//민석이 끝------------------------------------
+	//민석이 끝++++++++++++++++++++++++++++++++
 
 
 	/*@Secured({"ROLE_ADMIN","ROLE_MASTER"})

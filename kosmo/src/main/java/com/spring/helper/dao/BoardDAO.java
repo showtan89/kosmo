@@ -9,6 +9,7 @@ import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
+import com.spring.helper.vo.BoardVO.onedayclassVO;
 
 
 public interface BoardDAO {
@@ -56,4 +57,24 @@ public interface BoardDAO {
 	public List<MessageAlarmVO> commentReadList(Map<String, Object> map);
 
 	//민석이 메소드 종료+++++++++++++++++++++++++++++++
+	
+	
+	
+	// 진호 메소드 시작----------------------------------
+	
+	// 게시글 갯수 구하기
+	public int onedayclassGetArticleCnt();
+
+	// 게시글 목록조회
+	public ArrayList<onedayclassVO> onedayclassGetArticleList(Map<String, Object> map);
+
+	// 조회수 증가
+	public int onedayclassAddReadCnt(int onedayclassNumber);
+
+	// 게시글 상세 페이지, 수정을 위한 상세페이지
+	public onedayclassVO onedayclassGetArticle(int onedayclassNumber);
+	
+	// 진호 메소드 종료--------------------------------------
+	
+	
 }

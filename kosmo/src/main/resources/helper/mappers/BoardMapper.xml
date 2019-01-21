@@ -180,5 +180,39 @@
 
 	<!-- 민석이 종료 -->
 
-
+	<!-- 진호 시작ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
+	
+	<!-- 게시글 갯수 구하기 -->
+	<select id="onedayclassGetArticleCnt" resultType="int">
+		SELECT count(*) as cnt FROM onedayclass
+	</select>
+	
+	<!-- 게시글 목록 조회 -->
+	<select id="onedayclassGetArticleList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.onedayclassVO">
+		<![CDATA[
+		SELECT * 
+		  FROM(SELECT onedayclassNumber, memberNumber, memberEmail, memberId, onedayclassSubject, onedayclassContent, onedayclassLookup,
+		  onedayclassRegdate, onedayclassAuthority, onedayclassCategory, onedayclassOpendate, onedayclassLocation, onedayclassRecruitment,
+		  onedayclassPrice, onedayclassEndCheck, onedayclassDeadlineCheck, onedayclassGrade, onedayclassTotalpeople,
+		  onedayclassImg1, onedayclassImg2, onedayclassImg3, rownum rNum  
+			     FROM ( 
+					   SELECT * FROM onedayclass  
+					   ORDER BY onedayclassNumber DESC 
+			           )
+			      )  
+		WHERE rNum >= #{start} AND rNum <= #{end}		
+		]]>
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="onedayclassAddReadCnt" parameterType="int" >
+		UPDATE onedayclass SET onedayclassLookup=(onedayclassLookup+1) WHERE onedayclassNumber=#{onedayclassNumber}
+	</update>
+	
+	<!-- 게시글 상세 페이지, 수정을 위한 상세페이지 -->
+	<select id="onedayclassGetArticle" resultType="com.spring.helper.vo.BoardVO.onedayclassVO">
+		SElECT * FROM onedayclass WHERE onedayclassNumber=#{onedayclassNumber}
+	</select>
+	
+	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 </mapper>
