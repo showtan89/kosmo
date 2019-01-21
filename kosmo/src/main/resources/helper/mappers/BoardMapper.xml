@@ -138,6 +138,84 @@
 			</if>
 		</where>
 	</select>
+	
+	<sql id="getRealestateList">
+		SELECT *  
+		FROM(SELECT realestateNumber,memberNumber,boardCode,memberEmail,memberId,realestateSubject,
+			realestateContent,realestatePrice,realestateCategory1,realestateCategory2,realestateDeposit,realestateDepositCheck,
+			realestateManagement,realestateOptionCheck,realestateTobaccoCheck,realestateState,realestateHeatingtype,realestateBalcony,
+			realestatePetCheck,realestateTerm,realestateMoveindate,realestateGender,realestateRoom,realestateToilet,realestateCar,
+			realestateSize,realestateType,realestateLocation,realestateFavorite,realestateRecommend,realestateLookup,realestateRegdate,
+			realestateCheckday,realestateImg1,realestateImg2,realestateImg3,realestateTemp1, rownum rNum  
+			 FROM ( 
+				 	SELECT * 
+				 	FROM realestate
+				 	ORDER BY realestatenumber DESC
+				  )
+			 )  
+	</sql>
+	
+	<select id="realestateList" parameterType="com.spring.helper.vo.BoardVO.RealestateVO" resultType="com.spring.helper.vo.BoardVO.RealestateVO">
+	<include refid="getRealestateList"/>
+		<where>
+			<if test="realestateCategory1 != null"> <!--지역 -->
+				realestateCategory1 in #{realestateCategory1}
+			</if>
+			<if test="realestatePrice != 0"> <!-- 금액 범위  -->
+			<![CDATA[
+				and realestatePrice < #{realestatePrice}
+			]]>
+			</if>
+			<if test="realestatePriceEnd != 0"> <!-- 금액 끝 범위  -->
+			<![CDATA[
+				and realestatePrice > #{realestatePriceEnd}
+			]]>
+			</if>
+			<if test="realestateDepositCheck != null"> <!-- 보증금 -->
+				and realestateDepositCheck in #{realestateDepositCheck}
+			</if>
+			<if test="realestateRoom != null"> <!-- 방갯수 -->
+				and realestateRoom in #{realestateRoom}
+			</if>
+			<if test="realestateToilet != null"> <!-- 화장실 갯수 -->
+				and realestateToilet in #{realestateToilet}
+			</if>
+			<if test="realestateType != null"> <!-- 방형태 -->
+				and realestateType in #{realestateType}
+			</if>
+			<if test="realestateTerm != null"> <!-- 계약기간 -->
+				and realestateTerm in #{realestateTerm}
+			</if>
+			<if test="realestateGender != null"> <!-- 성별 -->
+				and realestateGender in #{realestateGender}
+			</if>
+			<if test="realestateSize != null"> <!-- 방크기 -->
+				and realestateSize in #{realestateSize}
+			</if>
+			<if test="realestateOptionCheck != null"> <!-- 풀옵션 -->
+				and realestateOptionCheck in #{realestateOptionCheck}
+			</if>
+			<if test="realestateTobaccoCheck != null"> <!-- 담배 -->
+				and realestateTobaccoCheck in #{realestateTobaccoCheck}
+			</if>
+			<if test="realestatePetCheck != null"> <!-- 펫 -->
+				and realestatePetCheck in #{realestatePetCheck}
+			</if>
+			<if test="realestateBalcony != null"> <!-- 성별 -->
+				and realestateBalcony in #{realestateBalcony}
+			</if>
+			<if test="realestateCar != null"> <!-- 주차장 -->
+				and realestateCar in #{realestateCar}
+			</if>
+			<if test="realestateTemp1 != null"> <!-- 엘리베이터 -->
+				and realestateTemp1 in #{realestateTemp1}
+			</if>
+			<![CDATA[
+				rNum >= #{realestateStart} AND rNum <= #{realestateEnd}
+			]]>
+		</where>
+	</select>
+	
 
 	<!-- 재영 끝 -->
 

@@ -68,10 +68,10 @@ public class BoardDAOImpl implements BoardDAO {
 	//재영 boardDAOImpl 시작
 
 	//부동산 게시판 글 목록 보기
-	/*@Override
+	@Override
 		public List<RealestateVO> realestateList(RealestateVO rVO) {
 			return sqlSession.getMapper(BoardDAO.class).realestateList(rVO);
-		}*/
+		}
 
 	//부동산 게시판 글 목록 갯수 카운트
 	@Override

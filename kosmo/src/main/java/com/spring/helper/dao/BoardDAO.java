@@ -34,7 +34,7 @@ public interface BoardDAO {
 
 	//재영 boardDAO 시작
 
-	//public List<RealestateVO> realestateList(RealestateVO rVO);
+	public List<RealestateVO> realestateList(RealestateVO rVO);
 
 	public Integer getRealestateCount(RealestateVO rVO);
 
