@@ -178,14 +178,6 @@ public class BoardDAOImpl implements BoardDAO {
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 		return boardDao.onedayclassGetArticle(onedayclassNumber);
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo
 	// 진호 메소드 종료------------------------------------------------
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo
 }
