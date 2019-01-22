@@ -41,7 +41,15 @@ public class BoardController {
 		service.knowledgeInsertArticle(req, model);
 		return "board/knowledge/knowledgeWritePro";
 	}
-	
+	// 질문수정 처리
+	// 질문삭제 처리
+	@RequestMapping("knowledgeDeleteForm")
+	public String knowledgeDeleteForm(HttpServletRequest req, Model model) throws Exception{
+		logger.info("knowledgeDeleteForm 로딩 중....");
+		service.knowledgeDeleteForm(req, model);
+		System.out.println("실행");
+		return "board/knowledge/knowledgeWritePro";
+	}
 	// 게시글 클릭시 글 상세페이지 출력
 	@RequestMapping("knowledgeDetailForm")
 	public String knowledgeDetailForm(HttpServletRequest req, Model model) throws Exception {
@@ -58,8 +66,14 @@ public class BoardController {
 		service.knowledgeCommentPro(req, model);
 		return "board/knowledge/knowledgeWritePro";
 	}
-	
-
+	// 답변수정 처리
+	// 답변삭제 처리
+	@RequestMapping("kCommentdelete")
+	public String kCommentdelete(HttpServletRequest req, Model model) throws Exception {
+		logger.info("kCommentdelete 로딩 중....");
+		service.kCommentdelete(req, model);
+		return "board/knowledge/knowledgeWritePro";
+	}
 	// 동욱이 메소드 종료
 
 

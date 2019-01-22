@@ -336,10 +336,10 @@
 				</div>
 
 				<!-- 페이지 -->
-				<c:set var="linkURL" value="${requestScope['javax.servlet.forward.servlet_path']}"/>
-				<c:set var="URL1" value="${pageContext.request.requestURL}" />
-				<c:set var="URL2" value="${pageContext.request.requestURI}" />
-				<h1>${linkURL}</h1>
+				<%-- <c:set var="linkURL" value="${requestScope['javax.servlet.forward.servlet_path']}"/> --%>
+				<%-- <c:set var="URL1" value="${pageContext.request.requestURL}" />
+				<c:set var="URL2" value="${pageContext.request.requestURI}" /> --%>
+				<c:set var="linkURL" value="realestate"/>
 				<nav aria-label="Page navigation">
 					<ul class="pagination">
 					<c:if test="${pVO.totalCount>0}">

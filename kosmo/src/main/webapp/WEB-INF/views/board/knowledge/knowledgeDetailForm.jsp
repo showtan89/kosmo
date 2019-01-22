@@ -197,7 +197,7 @@
 						<span style="float:right;margin-left:10px;"><a href="">채택</a></span>
 						</c:if>
 						<c:if test="${kc.memberId==userVO.memberId}">
-						<span style="float:right;margin-left:10px;"><a href="">삭제</a></span>
+						<span style="float:right;margin-left:10px;"><a href="kCommentdelete?kCommentNumber=${kc.kCommentNumber}&knowledgeNumber=${kc.knowledgeNumber}">삭제</a></span>
 						<span style="float:right;margin-left:10px;"><a href="">수정</a></span>
 						</c:if>
 					</li>

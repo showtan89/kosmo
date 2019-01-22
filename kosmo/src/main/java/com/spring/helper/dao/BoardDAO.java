@@ -21,13 +21,19 @@ public interface BoardDAO {
 	public ArrayList<KnowledgeVO> knowledgeGetArticleList(Map<String, Object> map);
 	// 질문등록 처리
 	public int knowledgeInsertArticle(KnowledgeVO Knowledge);
+	// 질문수정 처리
+	// 질문삭제 처리
+	public int knowledgeDeleteForm(int knowledgeNumber);
 	// 지식인게시판 게시글 상세페이지 출력
 	public KnowledgeVO knowledgeGetArticle(int knowledgeNumber);
-	// 댓글작성 처리
+	// 답변작성 처리
 	public int knowledgeCommentPro(Map<String, Object> map);
-	// 댓글 갯수 구하기
+	// 답변수정 처리
+	// 답변삭제 처리
+	public int kCommentdelete(int kCommentNumber);
+	// 답변 갯수 구하기
 	public int knowledgeCommentListCnt(int knowledgeNumber);
-	// 댓글 리스트 출력
+	// 답변 리스트 출력
 	public ArrayList<kCommentVO> knowledgeCommentList(int knowledgeNumber);
 	
 	// 동욱이 메소드 종료
