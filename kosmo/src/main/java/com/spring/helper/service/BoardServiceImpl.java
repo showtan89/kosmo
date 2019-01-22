@@ -133,6 +133,19 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("insertcnt",insertcnt);
 
 	}
+	// 질문수정 처리
+	// 질문삭제 처리
+	@Override
+	public void knowledgeDeleteForm(HttpServletRequest req, Model model) {
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		System.out.println(knowledgeNumber);
+		String pageNum = req.getParameter("pageNum"); 
+		String btn_select = req.getParameter("btn_select");
+		int knowledgedeletecnt = boardDao.knowledgeDeleteForm(knowledgeNumber);
+		model.addAttribute("knowledgedeletecnt",knowledgedeletecnt);
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("btn_select",btn_select);
+	}
 	// 지식인게시판 게시글 상세페이지 출력
 	@Override
 	public void knowledgeDetailForm(HttpServletRequest req, Model model) {
@@ -165,8 +178,19 @@ public class BoardServiceImpl implements BoardService {
 		req.setAttribute("knowledgeNumber", knowledgeNumber);
 		req.setAttribute("kCommentCnt", kCommentCnt);
 	}
-
-	// 댓글 등록 리스트 출력
+	// 답변 수정 처리
+	// 답변 삭제 처리
+	@Override
+	public void kCommentdelete(HttpServletRequest req, Model model) {
+		int kCommentNumber = Integer.parseInt(req.getParameter("kCommentNumber"));
+		System.out.println(kCommentNumber);
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		System.out.println(knowledgeNumber);
+		int kCommentdeletecnt =  boardDao.kCommentdelete(kCommentNumber);
+		model.addAttribute("knowledgeNumber",knowledgeNumber);
+		model.addAttribute("kCommentdeletecnt",kCommentdeletecnt);
+	}
+	// 답변 등록 리스트 출력
 	@Override
 	public void knowledgeCommentList(HttpServletRequest req, Model model) {
 		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
@@ -460,6 +484,8 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
 	//진호 메소드 종료---------------------------------------------------
+	
+	
 	
 	
 }

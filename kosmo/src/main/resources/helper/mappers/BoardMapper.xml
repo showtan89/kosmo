@@ -42,6 +42,16 @@
 		INSERT INTO knowledge
 		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'0','0','0',0)
 	</insert>
+	<!-- 질문수정 처리 -->
+	<!-- 질문삭제 처리 시작-->
+	<delete id="knowledgeDeleteForm" parameterType="int">
+		DELETE FROM knowledge WHERE knowledgeNumber=#{knowledgeNumber}
+	</delete>
+	<!-- 질문삭제시 답변 전체 삭제 -->
+	<delete id="knowledgeDeleteForm2" parameterType="int">
+		DELETE FROM kComment WHERE knowledgeNumber=#{knowledgeNumber}
+	</delete>
+	<!-- 질문삭제 처리 종료 -->
 	<!-- 지식인게시판 게시글 상세페이지 출력 -->
 	<select id="knowledgeGetArticle"
 		resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
@@ -52,16 +62,21 @@
 		INSERT INTO kComment
 		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10',#{memberEmail},#{memberId},#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
+	<!-- 답변수정 처리 -->
+	<!-- 답변삭제 처리 -->
+	<delete id="kCommentdelete" parameterType="int">
+		DELETE FROM kComment WHERE kCommentNumber=#{kCommentNumber}
+	</delete>
 	<!-- 답변등록 처리시 알림 처리 -->
 	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
 		INSERT INTO commentAlarm
 		VALUES(commentAlarmSeq.nextval,#{memberNumber},'10',#{memberEmail},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
 	</insert>
-	<!-- 댓글 갯수 구하기 -->
+	<!-- 답변 갯수 구하기 -->
 	<select id="knowledgeCommentListCnt" resultType="int">
 		SELECT count(*) from kComment where knowledgeNumber = #{knowledgeNumber}
 	</select>
-	<!-- 댓글 리스트 출력 -->
+	<!-- 답변 리스트 출력 -->
 	<select id="knowledgeCommentList" resultType="com.spring.helper.vo.BoardVO.kCommentVO">
 		SELECT * FROM kComment WHERE knowledgeNumber=#{knowledgeNumber} 
 	</select>

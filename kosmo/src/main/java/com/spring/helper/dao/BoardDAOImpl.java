@@ -39,8 +39,14 @@ public class BoardDAOImpl implements BoardDAO {
 	// 질문등록 처리
 	@Override
 	public int knowledgeInsertArticle(KnowledgeVO Knowledge) {
-
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeInsertArticle",Knowledge);
+	}
+	// 질문수정 처리
+	// 질문삭제 처리
+	@Override
+	public int knowledgeDeleteForm(int knowledgeNumber) {
+		sqlSession.delete("com.spring.helper.dao.BoardDAO.knowledgeDeleteForm2",knowledgeNumber);
+		return sqlSession.delete("com.spring.helper.dao.BoardDAO.knowledgeDeleteForm",knowledgeNumber);
 	}
 	// 지식인 게시판 게시글 상세페이지 출력
 	@Override
@@ -55,13 +61,19 @@ public class BoardDAOImpl implements BoardDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeCommentPro",map);
 	}
-	// 댓글 갯수 구하기
+	// 답변수정 처리
+	// 답변삭제 처리
+	@Override
+	public int kCommentdelete(int kCommentNumber) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.kCommentdelete",kCommentNumber);
+	}
+	// 답변 갯수 구하기
 	@Override
 	public int knowledgeCommentListCnt(int knowledgeNumber) {
 		
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.knowledgeCommentListCnt",knowledgeNumber);
 	}
-	// 댓글 리스트 출력
+	// 답변 리스트 출력
 	@Override
 	public ArrayList<kCommentVO> knowledgeCommentList(int knowledgeNumber) {
 		ArrayList<kCommentVO> dtos = null;
@@ -160,7 +172,7 @@ public class BoardDAOImpl implements BoardDAO {
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 		return boardDao.onedayclassGetArticle(onedayclassNumber);
 	}
-	
 	// 진호 메소드 종료------------------------------------------------
+
 	
 }
