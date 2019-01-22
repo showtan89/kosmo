@@ -23,24 +23,24 @@
 		parameterType="java.util.Map"
 		resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
 	<![CDATA[
-	SELECT *  
-	FROM(SELECT knowledgeNumber, memberNumber, boardCode, memberEmail, memberId, knowledgeSubject, 
-		 		knowledgeContent, knowledgeOpenCheck, knowledgeReward, knowledgeCategory, knowledgeLookup,
-		 		knowledgeRegdate,knowledgeReply,knowledgeTemp1,knowledgeTemp2,knowledgeTemp3, rownum rNum  
-		 FROM ( 
-			 	SELECT * 
-			 	FROM knowledge
-			 	ORDER BY knowledgeRegdate DESC
-			  )
-		 )  
-	WHERE rNum >= #{start} AND rNum <= #{end}
-	]]>
+		SELECT *  
+		FROM(SELECT knowledgeNumber, memberNumber, boardCode, memberEmail, memberId, knowledgeSubject, 
+			 		knowledgeContent, knowledgeOpenCheck, knowledgeReward, knowledgeCategory, knowledgeLookup,
+			 		knowledgeRegdate,knowledgeReply,knowledgeTemp1,knowledgeTemp2,knowledgeTemp3, rownum rNum  
+			 FROM ( 
+				 	SELECT * 
+				 	FROM knowledge
+				 	ORDER BY knowledgeRegdate DESC
+				  )
+			 )  
+		WHERE rNum >= #{start} AND rNum <= #{end}
+		]]>
 	</select>
 	<!-- 질문등록 처리 -->
 	<insert id="knowledgeInsertArticle"
 		parameterType="com.spring.helper.vo.BoardVO.KnowledgeVO">
 		INSERT INTO knowledge
-		VALUES(knowledgeseq.nextval,'10005','10','park@gmail.com','park',#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'0','0','0',0)
+		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'0','0','0',0)
 	</insert>
 	<!-- 지식인게시판 게시글 상세페이지 출력 -->
 	<select id="knowledgeGetArticle"
@@ -50,8 +50,17 @@
 	<!-- 답변등록 처리 -->
 	<insert id="knowledgeCommentPro" parameterType="java.util.Map">
 		INSERT INTO kComment
-		VALUES(knowledgeseq.nextval,#{knowledgeNumber},'10','park@gmail.com','park',#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
+		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10',#{memberEmail},#{memberId},#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
+	<!-- 답변등록 처리시 알림 처리 -->
+	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
+		INSERT INTO commentAlarm
+		VALUES(commentAlarmSeq.nextval,#{memberNumber},'10',#{memberEmail},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
+	</insert>
+	<!-- 댓글 갯수 구하기 -->
+	<select id="knowledgeCommentListCnt" resultType="int">
+		SELECT count(*) from kComment where knowledgeNumber = #{knowledgeNumber}
+	</select>
 	<!-- 댓글 리스트 출력 -->
 	<select id="knowledgeCommentList" resultType="com.spring.helper.vo.BoardVO.kCommentVO">
 		SELECT * FROM kComment WHERE knowledgeNumber=#{knowledgeNumber} 
@@ -138,6 +147,84 @@
 			</if>
 		</where>
 	</select>
+	
+	<sql id="getRealestateList">
+		SELECT *  
+		FROM(SELECT realestateNumber,memberNumber,boardCode,memberEmail,memberId,realestateSubject,
+			realestateContent,realestatePrice,realestateCategory1,realestateCategory2,realestateDeposit,realestateDepositCheck,
+			realestateManagement,realestateOptionCheck,realestateTobaccoCheck,realestateState,realestateHeatingtype,realestateBalcony,
+			realestatePetCheck,realestateTerm,realestateMoveindate,realestateGender,realestateRoom,realestateToilet,realestateCar,
+			realestateSize,realestateType,realestateLocation,realestateFavorite,realestateRecommend,realestateLookup,realestateRegdate,
+			realestateCheckday,realestateImg1,realestateImg2,realestateImg3,realestateTemp1, rownum rNum  
+			 FROM ( 
+				 	SELECT * 
+				 	FROM realestate
+				 	ORDER BY realestatenumber DESC
+				  )
+			 )  
+	</sql>
+	
+	<select id="realestateList" parameterType="com.spring.helper.vo.BoardVO.RealestateVO" resultType="com.spring.helper.vo.BoardVO.RealestateVO">
+	<include refid="getRealestateList"/>
+		<where>
+			<if test="realestateCategory1 != null"> <!--지역 -->
+				realestateCategory1 in #{realestateCategory1}
+			</if>
+			<if test="realestatePrice != 0"> <!-- 금액 범위  -->
+			<![CDATA[
+				and realestatePrice < #{realestatePrice}
+			]]>
+			</if>
+			<if test="realestatePriceEnd != 0"> <!-- 금액 끝 범위  -->
+			<![CDATA[
+				and realestatePrice > #{realestatePriceEnd}
+			]]>
+			</if>
+			<if test="realestateDepositCheck != null"> <!-- 보증금 -->
+				and realestateDepositCheck in #{realestateDepositCheck}
+			</if>
+			<if test="realestateRoom != null"> <!-- 방갯수 -->
+				and realestateRoom in #{realestateRoom}
+			</if>
+			<if test="realestateToilet != null"> <!-- 화장실 갯수 -->
+				and realestateToilet in #{realestateToilet}
+			</if>
+			<if test="realestateType != null"> <!-- 방형태 -->
+				and realestateType in #{realestateType}
+			</if>
+			<if test="realestateTerm != null"> <!-- 계약기간 -->
+				and realestateTerm in #{realestateTerm}
+			</if>
+			<if test="realestateGender != null"> <!-- 성별 -->
+				and realestateGender in #{realestateGender}
+			</if>
+			<if test="realestateSize != null"> <!-- 방크기 -->
+				and realestateSize in #{realestateSize}
+			</if>
+			<if test="realestateOptionCheck != null"> <!-- 풀옵션 -->
+				and realestateOptionCheck in #{realestateOptionCheck}
+			</if>
+			<if test="realestateTobaccoCheck != null"> <!-- 담배 -->
+				and realestateTobaccoCheck in #{realestateTobaccoCheck}
+			</if>
+			<if test="realestatePetCheck != null"> <!-- 펫 -->
+				and realestatePetCheck in #{realestatePetCheck}
+			</if>
+			<if test="realestateBalcony != null"> <!-- 성별 -->
+				and realestateBalcony in #{realestateBalcony}
+			</if>
+			<if test="realestateCar != null"> <!-- 주차장 -->
+				and realestateCar in #{realestateCar}
+			</if>
+			<if test="realestateTemp1 != null"> <!-- 엘리베이터 -->
+				and realestateTemp1 in #{realestateTemp1}
+			</if>
+			<![CDATA[
+				rNum >= #{realestateStart} AND rNum <= #{realestateEnd}
+			]]>
+		</where>
+	</select>
+	
 
 	<!-- 재영 끝 -->
 

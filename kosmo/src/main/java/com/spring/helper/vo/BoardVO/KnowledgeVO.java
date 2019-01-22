@@ -3,7 +3,7 @@ package com.spring.helper.vo.BoardVO;
 import java.sql.Timestamp;
 
 public class KnowledgeVO {
-	private String knowledgeNumber; 		// PK지식인게시판번호 NOT NULL
+	private int knowledgeNumber; 		// PK지식인게시판번호 NOT NULL
 	private String  memberNumber;   		// FK회원번호 NOT NULL
 	private String boardCode;       		// 지식인 게시판 판별코드 NOT NULL
 	private String memberEmail;     		// 이메일 NOT NULL   
@@ -19,10 +19,10 @@ public class KnowledgeVO {
 	private String knowledgeTemp1;          // 예비컬럼 1 NULL
 	private String knowledgeTemp2;          // 예비컬럼 2 NULL
 	private int knowledgeTemp3;             // 예비컬럼 3 NULL
-	public String getKnowledgeNumber() {
+	public int getKnowledgeNumber() {
 		return knowledgeNumber;
 	}
-	public void setKnowledgeNumber(String knowledgeNumber) {
+	public void setKnowledgeNumber(int knowledgeNumber) {
 		this.knowledgeNumber = knowledgeNumber;
 	}
 	public String getMemberNumber() {

@@ -18,7 +18,9 @@ import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
+import com.spring.helper.vo.BoardVO.PageVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
+import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
@@ -76,7 +78,15 @@ public class BoardServiceImpl implements BoardService {
 		map.put("end", end);
 		if(cnt>0) {
 			// 게시글 목록 조회
+			Map<Integer, Integer> map2 = new HashMap<Integer, Integer>();
 			ArrayList<KnowledgeVO> dtos = boardDao.knowledgeGetArticleList(map);
+			int i=0;
+			for (KnowledgeVO c : dtos) {
+				Integer knowledgeCommentListCnt = boardDao.knowledgeCommentListCnt(c.getKnowledgeNumber());
+				map2.put(i,knowledgeCommentListCnt);
+				i++;
+			}
+			req.setAttribute("kcommentCnt",map2);
 			model.addAttribute("dtos", dtos); // 큰바구니 : 게시글 목록 cf)작은 바구니 1건
 			String pageSize2 = String.valueOf(pageSize);
 			model.addAttribute("btn_select", pageSize2);
@@ -105,13 +115,15 @@ public class BoardServiceImpl implements BoardService {
 	//질문등록 처리
 	@Override
 	public void knowledgeInsertArticle(HttpServletRequest req, Model model) {
-
 		String knowledgeSubject = req.getParameter("knowledgeSubject");
 		String knowledgeContent = req.getParameter("knowledgeContent");
 		String knowledgeOpenCheck = req.getParameter("knowledgeOpenCheck");
 		String knowledgeCategory = req.getParameter("knowledgeCategory");
 		int knowledgeReward = Integer.parseInt(req.getParameter("addReward"));
 		KnowledgeVO Knowledge = new KnowledgeVO();
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		Knowledge.setMemberEmail(userVO.getMemberEmail());
+		Knowledge.setMemberId(userVO.getMemberId());
 		Knowledge.setKnowledgeReward(knowledgeReward);
 		Knowledge.setKnowledgeSubject(knowledgeSubject);
 		Knowledge.setKnowledgeContent(knowledgeContent);
@@ -136,11 +148,19 @@ public class BoardServiceImpl implements BoardService {
 		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
 		String kCommentTemp1 = req.getParameter("kCommentTemp1");
 		String knowledgememberId = req.getParameter("knowledgememberId");
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		String memberEmail = userVO.getMemberEmail();
+		String memberId = userVO.getMemberId();
+		String memberCountry = userVO.getMemberCountry();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("kCommentContent", kCommentContent);
 		map.put("knowledgeNumber", knowledgeNumber);
 		map.put("kCommentTemp1", kCommentTemp1);
-		map.put("knowledgememberId", knowledgememberId);
+		map.put("memberId", memberId);
+		map.put("memberNumber", userVO.getMemberNumber());
+		map.put("memberEmail", memberEmail);
+		map.put("memberId", memberId);
+		map.put("memberCountry", memberCountry);
 		int kCommentCnt = boardDao.knowledgeCommentPro(map);
 		req.setAttribute("knowledgeNumber", knowledgeNumber);
 		req.setAttribute("kCommentCnt", kCommentCnt);
@@ -150,8 +170,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void knowledgeCommentList(HttpServletRequest req, Model model) {
 		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		int cnt = boardDao.knowledgeCommentListCnt(knowledgeNumber);
+		if(cnt > 0) {
 		ArrayList<kCommentVO> kCommentVO = boardDao.knowledgeCommentList(knowledgeNumber);
 		req.setAttribute("kCommentVO", kCommentVO);
+		}
 	}
 	
 	// 동욱이 메소드 종료
@@ -165,21 +188,27 @@ public class BoardServiceImpl implements BoardService {
 	//부동산 게시판 글 목록 보기
 	@Override
 	public void realestateList(HttpServletRequest req, Model model) {
-
 		//파라미터(검색조건) VO에 담기
 		RealestateVO rVO = boardMethod.getParameterRealestateVO(req); 
-
 		//검색 조건에 대한 게시글 갯수 구하기
 		Integer cnt = boardDao.getRealestateCount(rVO);
-		/*//검색 조건에 대한 게시글 갯수로 페이지 구하기
-			PageVO pVO = boardMethod.getRealestatePageVO(cnt);
-
-			logger.info(rVO.toString());
-
-			List<RealestateVO> list = boardDao.realestateList(rVO);
-
-			model.addAttribute("list", list);*/
-
+		//검색 조건에 대한 게시글 갯수로 페이지 구하기
+		int pageNum = 1;
+		if(req.getParameter("pageNum")!=null) {
+			int temp = Integer.parseInt(req.getParameter("pageNum"));
+			if(temp>1) pageNum = temp;
+		}
+		PageVO pVO = boardMethod.getRealestatePageVO(pageNum,cnt);
+		List<RealestateVO> list = new ArrayList<RealestateVO>();
+		pVO.setPageNum(String.valueOf(pageNum));
+		rVO.setRealestateStart(pVO.getStartNumber());
+		rVO.setRealestateEnd(pVO.getEndNumber());
+		list = boardDao.realestateList(rVO);
+		logger.info("start:"+pVO.getStartNumber());
+		logger.info("end:"+pVO.getEndNumber());
+		logger.info(pVO.toString());
+		model.addAttribute("list", list);
+		model.addAttribute("pVO", pVO);
 	}
 
 	//부동산 게시판 글 쓰기
@@ -195,10 +224,10 @@ public class BoardServiceImpl implements BoardService {
 		logger.info(realestateWriteProResult.toString());
 	}
 
-	//부동산 게시판 글 쓰기
+	//부동산 게시판 더미 데이터생성기 - 현재 버튼 주석 처리
 	@Override
 	public void realestateDummyMaker(HttpServletRequest req, Model model) {
-		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
+		RealestateVO rVO = boardMethod.realestateDummyDataMaker(); 
 		logger.info(rVO.toString());
 		Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
 		logger.info(realestateWriteProResult.toString());

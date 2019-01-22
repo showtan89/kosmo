@@ -1,5 +1,7 @@
 package com.spring.helper.method.method;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
@@ -9,25 +11,25 @@ import com.spring.helper.vo.BoardVO.RealestateVO;
 
 @Component
 public class BoardMethod {
-	
-	/*int totalCnt = 0;
-	if(dao.gsGetBoardCount(aptNumber) != null)totalCnt = dao.gsGetBoardCount(aptNumber);
-	pVO.setTotalCount(totalCnt);
-	pVO.setCurrentPage(Integer.parseInt(pageNum));
-	pVO.setPageCount((totalCnt / pVO.getPageSize()) + (totalCnt%pVO.getPageSize()>0 ?1:0));
-	pVO.setStartNumber((pVO.getCurrentPage()-1) * pVO.getPageSize()+1);
-	pVO.setEndNumber(pVO.getStartNumber() + pVO.getPageSize() - 1);
-	if(pVO.getEndNumber() > totalCnt) pVO.setEndNumber(totalCnt);
-	pVO.setStartPage((pVO.getCurrentPage() / pVO.getPageBlock()) * pVO.getPageBlock() + 1);
-	if(pVO.getCurrentPage() % pVO.getPageBlock() == 0) pVO.setStartPage(pVO.getStartPage()-pVO.getPageBlock());
-	pVO.setEndPage(pVO.getStartPage() + pVO.getPageBlock() - 1);
-	if(pVO.getEndPage() > pVO.getPageCount()) pVO.setEndPage(pVO.getPageCount());*/
-	
-	public PageVO getRealestatePageVO(int cnt) {
+
+//재영 메소드 시작	
+	//재영 - 글 갯수로 페이지 만드는 메소드 
+	public PageVO getRealestatePageVO(int pageNum, int cnt) {
 		PageVO pVO = new PageVO();
+		int totalCnt = cnt;
+		pVO.setTotalCount(totalCnt);
+		pVO.setCurrentPage(pageNum);
+		pVO.setPageCount((totalCnt / pVO.getPageSize()) + (totalCnt%pVO.getPageSize()>0 ?1:0));
+		pVO.setStartNumber((pVO.getCurrentPage()-1) * pVO.getPageSize()+1);
+		pVO.setEndNumber(pVO.getStartNumber() + pVO.getPageSize() - 1);
+		if(pVO.getEndNumber() > totalCnt) pVO.setEndNumber(totalCnt);
+		pVO.setStartPage((pVO.getCurrentPage() / pVO.getPageBlock()) * pVO.getPageBlock() + 1);
+		if(pVO.getCurrentPage() % pVO.getPageBlock() == 0) pVO.setStartPage(pVO.getStartPage()-pVO.getPageBlock());
+		pVO.setEndPage(pVO.getStartPage() + pVO.getPageBlock() - 1);
+		if(pVO.getEndPage() > pVO.getPageCount()) pVO.setEndPage(pVO.getPageCount());
 		return pVO;
 	}
-	
+
 	// 재영 부동산 VO 가져오기 메소드
 	public RealestateVO getFullRealestateVO(HttpServletRequest req) {
 
@@ -35,21 +37,21 @@ public class BoardMethod {
 
 		//	NUMBER(12,0)	No 		부동산번호
 		if(req.getParameter("realestateNumber") != null) rVO.setRealestateNumber(Integer.parseInt(req.getParameter("realestateNumber").toString())); 			
-		
+
 		//	NUMBER(12,0)	No		회원번호
-/*if(req.getParameter("memberNumber") != null) rVO.setMemberNumber(Integer.parseInt(req.getParameter("memberNumber").toString()));*/
-rVO.setMemberNumber(10008);
+		/*if(req.getParameter("memberNumber") != null) rVO.setMemberNumber(Integer.parseInt(req.getParameter("memberNumber").toString()));*/
+		rVO.setMemberNumber(10008);
 		//	VARCHAR2(120 BYTE)	No	게시판별코드
 		/*if(req.getParameter("boardCode") != null) rVO.setBoardCode(req.getParameter("boardCode").toString());*/
 
 		//  VARCHAR2(120 BYTE)	No	이메일
-/*if(req.getParameter("memberEmail") != null) rVO.setMemberEmail(req.getParameter("memberEmail").toString());*/
-rVO.setMemberEmail("member@email.com");
-		
+		/*if(req.getParameter("memberEmail") != null) rVO.setMemberEmail(req.getParameter("memberEmail").toString());*/
+		rVO.setMemberEmail("member@email.com");
+
 		//  VARCHAR2(120 BYTE)	No	아이디
-/*if(req.getParameter("memberId") != null) rVO.setMemberId(req.getParameter("memberId").toString());*/
-rVO.setMemberId("member");
-			
+		/*if(req.getParameter("memberId") != null) rVO.setMemberId(req.getParameter("memberId").toString());*/
+		rVO.setMemberId("member");
+
 		//	VARCHAR2(120 BYTE)	No	부동산제목
 		if(req.getParameter("realestateSubject") != null) rVO.setRealestateSubject(req.getParameter("realestateSubject").toString());
 
@@ -63,7 +65,7 @@ rVO.setMemberId("member");
 		if(req.getParameter("realestateCategory1") != null) rVO.setRealestateCategory1(req.getParameter("realestateCategory1").toString());
 
 		//	VARCHAR2(120 BYTE)	No	부동산카테고리2 - 미사용
-/*if(req.getParameter("realestateCategory2") != null) rVO.setRealestateCategory2(req.getParameter("realestateCategory1").toString());*/
+		/*if(req.getParameter("realestateCategory2") != null) rVO.setRealestateCategory2(req.getParameter("realestateCategory1").toString());*/
 
 		//	NUMBER(12,0)	No		부동산보증금
 		if(req.getParameter("realestateDeposit") != null) rVO.setRealestateDeposit(Integer.parseInt(req.getParameter("realestateDeposit").toString()));
@@ -156,7 +158,7 @@ rVO.setMemberId("member");
 		if(req.getParameter("realestateRegdate") != null) rVO.setRealestateRegdate(req.getParameter("realestateRegdate").toString());
 
 		//	DATE	No				확인매물날짜
-//if(req.getParameter("realestateCheckday") != null) rVO.setRealestateCheckday(req.getParameter("realestateCheckday").toString());
+		//if(req.getParameter("realestateCheckday") != null) rVO.setRealestateCheckday(req.getParameter("realestateCheckday").toString());
 
 		//	VARCHAR2(120 BYTE)	No	부동산사진1
 		if(req.getParameter("realestateImg1") != null) {
@@ -188,123 +190,223 @@ rVO.setMemberId("member");
 		}
 
 		//	VARCHAR2(120 BYTE)	Yes	부동산임시컬럼2
-//if(req.getParameter("realestateTemp2") != null) rVO.setRealestateTemp2(req.getParameter("realestateTemp2").toString());
+		//if(req.getParameter("realestateTemp2") != null) rVO.setRealestateTemp2(req.getParameter("realestateTemp2").toString());
 
 		//	NUMBER(12,0)	Yes		부동산임시컬럼3	
-//if(req.getParameter("realestateTemp3") != null)	rVO.setRealestateTemp3(Integer.parseInt(req.getParameter("realestateTemp3").toString()));
+		//if(req.getParameter("realestateTemp3") != null)	rVO.setRealestateTemp3(Integer.parseInt(req.getParameter("realestateTemp3").toString()));
 
 		return rVO;
 	}
-	
+
 	// 재영 부동산 VO 가져오기 메소드
-		public RealestateVO getParameterRealestateVO(HttpServletRequest req) {
+	public RealestateVO getParameterRealestateVO(HttpServletRequest req) {
 
-			RealestateVO rVO = new RealestateVO();
+		RealestateVO rVO = new RealestateVO();
 
-			//	NUMBER(12,0)	No 		부동산번호
-			if(req.getParameter("realestateNumber") != null) rVO.setRealestateNumber(Integer.parseInt(req.getParameter("realestateNumber").toString())); 			
-			
-			//	NUMBER(12,0)	No		회원번호
-			if(req.getParameter("memberNumber") != null) rVO.setMemberNumber(Integer.parseInt(req.getParameter("memberNumber").toString()));
+		//	NUMBER(12,0)	No 		부동산번호
+		if(req.getParameter("realestateNumber") != null) rVO.setRealestateNumber(Integer.parseInt(req.getParameter("realestateNumber").toString())); 			
 
-			//  VARCHAR2(120 BYTE)	No	아이디
-			if(req.getParameter("memberId") != null) rVO.setMemberId(req.getParameter("memberId").toString());
-				
-			//	VARCHAR2(120 BYTE)	No	부동산제목
-			if(req.getParameter("realestateSubject") != null) rVO.setRealestateSubject(req.getParameter("realestateSubject").toString());
+		//	NUMBER(12,0)	No		회원번호
+		if(req.getParameter("memberNumber") != null) rVO.setMemberNumber(Integer.parseInt(req.getParameter("memberNumber").toString()));
 
-			//	VARCHAR2(4000 BYTE)	No	부동산내용
-			if(req.getParameter("realestateContent") != null) rVO.setRealestateContent(req.getParameter("realestateContent").toString());
+		//  VARCHAR2(120 BYTE)	No	아이디
+		if(req.getParameter("memberId") != null) rVO.setMemberId(req.getParameter("memberId").toString());
 
-			//	NUMBER(12,0)	No		부동산금액
-			if(req.getParameter("realestatePrice") != null) rVO.setRealestatePrice(Integer.parseInt(req.getParameter("realestatePrice").toString()));
+		//	VARCHAR2(120 BYTE)	No	부동산제목
+		if(req.getParameter("realestateSubject") != null) rVO.setRealestateSubject(req.getParameter("realestateSubject").toString());
 
-			//	NUMBER(12,0)	No		부동산금액
-			if(req.getParameter("realestatePriceEnd") != null) rVO.setRealestatePriceEnd(Integer.parseInt(req.getParameter("realestatePriceEnd").toString()));
-			
-			//	VARCHAR2(120 BYTE)	No	부동산카테고리1 - 지역권으로 사용
-			if(req.getParameter("realestateCategory1") != null) rVO.setRealestateCategory1(req.getParameter("realestateCategory1").toString());
+		//	VARCHAR2(4000 BYTE)	No	부동산내용
+		if(req.getParameter("realestateContent") != null) rVO.setRealestateContent(req.getParameter("realestateContent").toString());
 
-			//	NUMBER(12,0)	No		부동산보증금
-			if(req.getParameter("realestateDeposit") != null) rVO.setRealestateDeposit(Integer.parseInt(req.getParameter("realestateDeposit").toString()));
+		//	NUMBER(12,0)	No		부동산금액
+		if(req.getParameter("realestatePrice") != null) rVO.setRealestatePrice(Integer.parseInt(req.getParameter("realestatePrice").toString()));
 
-			//	VARCHAR2(120 BYTE)	No	부동산보증금여부
-			if(req.getParameter("realestateDeposit") != null) rVO.setRealestateDepositCheck(req.getParameter("realestateDeposit").toString());
+		//	NUMBER(12,0)	No		부동산금액
+		if(req.getParameter("realestatePriceEnd") != null) rVO.setRealestatePriceEnd(Integer.parseInt(req.getParameter("realestatePriceEnd").toString()));
 
-			//	NUMBER(12,0)	No		관리비
-			if(req.getParameter("realestateManagement") != null) rVO.setRealestateManagement(Integer.parseInt(req.getParameter("realestateManagement").toString()));
+		//	VARCHAR2(120 BYTE)	No	부동산카테고리1 - 지역권으로 사용
+		if(req.getParameter("realestateCategory1") != null) rVO.setRealestateCategory1(req.getParameter("realestateCategory1").toString());
 
-			//	VARCHAR2(120 BYTE)	No	풀옵션여부
-			if(req.getParameter("realestateOptionCheck") != null) rVO.setRealestateOptionCheck(req.getParameter("realestateOptionCheck").toString());
+		//	NUMBER(12,0)	No		부동산보증금
+		if(req.getParameter("realestateDeposit") != null) rVO.setRealestateDeposit(Integer.parseInt(req.getParameter("realestateDeposit").toString()));
 
-			//	VARCHAR2(120 BYTE)	No	흡연가능여부
-			if(req.getParameter("realestateTobaccoCheck") != null) rVO.setRealestateTobaccoCheck(req.getParameter("realestateTobaccoCheck").toString());
+		//	VARCHAR2(120 BYTE)	No	부동산보증금여부
+		if(req.getParameter("realestateDeposit") != null) rVO.setRealestateDepositCheck(req.getParameter("realestateDeposit").toString());
 
-			//	VARCHAR2(120 BYTE)	No	해당층건물층
-			if(req.getParameter("realestateState") != null) rVO.setRealestateState(req.getParameter("realestateState").toString());
+		//	NUMBER(12,0)	No		관리비
+		if(req.getParameter("realestateManagement") != null) rVO.setRealestateManagement(Integer.parseInt(req.getParameter("realestateManagement").toString()));
 
-			//	VARCHAR2(120 BYTE)	No	난방종류
-			if(req.getParameter("realestateHeatingtype") != null) rVO.setRealestateHeatingtype(req.getParameter("realestateHeatingtype").toString());
+		//	VARCHAR2(120 BYTE)	No	풀옵션여부
+		if(req.getParameter("realestateOptionCheck") != null) rVO.setRealestateOptionCheck(req.getParameter("realestateOptionCheck").toString());
 
-			//	VARCHAR2(120 BYTE)	No	베란다발코니유무
-			if(req.getParameter("realestateBalcony") != null) rVO.setRealestateBalcony(req.getParameter("realestateBalcony").toString());
-			
-			//	VARCHAR2(120 BYTE)	No	애완동물가능여부
-			if(req.getParameter("realestatePetCheck") != null) rVO.setRealestatePetCheck(req.getParameter("realestatePetCheck").toString());
-			
-			//	NUMBER(12,0)	No		최소계약기간	
-			if(req.getParameter("realestateTerm") != null) rVO.setRealestateTerm(req.getParameter("realestateTerm").toString());
+		//	VARCHAR2(120 BYTE)	No	흡연가능여부
+		if(req.getParameter("realestateTobaccoCheck") != null) rVO.setRealestateTobaccoCheck(req.getParameter("realestateTobaccoCheck").toString());
 
-			//	DATE	No				입주가능일
-			if(req.getParameter("realestateMoveindate") != null) rVO.setRealestateMoveindate(req.getParameter("realestateMoveindate").toString());
+		//	VARCHAR2(120 BYTE)	No	해당층건물층
+		if(req.getParameter("realestateState") != null) rVO.setRealestateState(req.getParameter("realestateState").toString());
 
-			//	VARCHAR2(120 BYTE)	No	성별
-			if(req.getParameter("realestateGender") != null) rVO.setRealestateGender(req.getParameter("realestateGender").toString());
+		//	VARCHAR2(120 BYTE)	No	난방종류
+		if(req.getParameter("realestateHeatingtype") != null) rVO.setRealestateHeatingtype(req.getParameter("realestateHeatingtype").toString());
 
-			//	VARCHAR2(120 BYTE)	No	방갯수
-			if(req.getParameter("realestateRoom") != null) rVO.setRealestateRoom(req.getParameter("realestateRoom").toString());
+		//	VARCHAR2(120 BYTE)	No	베란다발코니유무
+		if(req.getParameter("realestateBalcony") != null) rVO.setRealestateBalcony(req.getParameter("realestateBalcony").toString());
 
-			//	VARCHAR2(120 BYTE)	No	화장실갯수
-			if(req.getParameter("realestateToilet") != null) rVO.setRealestateToilet(req.getParameter("realestateToilet").toString());
+		//	VARCHAR2(120 BYTE)	No	애완동물가능여부
+		if(req.getParameter("realestatePetCheck") != null) rVO.setRealestatePetCheck(req.getParameter("realestatePetCheck").toString());
 
-			//	VARCHAR2(120 BYTE)	No	주차가능여부
-			if(req.getParameter("realestateCar") != null) rVO.setRealestateCar(req.getParameter("realestateCar").toString());
+		//	NUMBER(12,0)	No		최소계약기간	
+		if(req.getParameter("realestateTerm") != null) rVO.setRealestateTerm(req.getParameter("realestateTerm").toString());
 
-			//	NUMBER(12,0)	No		부동산크기
-			if(req.getParameter("realestateSize") != null) rVO.setRealestateSize(req.getParameter("realestateSize"));
+		//	DATE	No				입주가능일
+		if(req.getParameter("realestateMoveindate") != null) rVO.setRealestateMoveindate(req.getParameter("realestateMoveindate").toString());
 
-			//	VARCHAR2(120 BYTE)	No	부동산형태
-			if(req.getParameter("realestateType") != null) rVO.setRealestateType(req.getParameter("realestateType").toString());
+		//	VARCHAR2(120 BYTE)	No	성별
+		if(req.getParameter("realestateGender") != null) rVO.setRealestateGender(req.getParameter("realestateGender").toString());
 
-			//	VARCHAR2(120 BYTE)	No	부동산지도위치
-			if(req.getParameter("realestateLocation") != null) rVO.setRealestateLocation(req.getParameter("realestateLocation").toString());
+		//	VARCHAR2(120 BYTE)	No	방갯수
+		if(req.getParameter("realestateRoom") != null) rVO.setRealestateRoom(req.getParameter("realestateRoom").toString());
 
-			//	VARCHAR2(120 BYTE)	Yes	부동산임시컬럼1 - 엘리베이터 여부로 사용
-			if(req.getParameter("realestateTemp1") != null) rVO.setRealestateTemp1(req.getParameter("realestateTemp1").toString());
+		//	VARCHAR2(120 BYTE)	No	화장실갯수
+		if(req.getParameter("realestateToilet") != null) rVO.setRealestateToilet(req.getParameter("realestateToilet").toString());
 
-			return rVO;
+		//	VARCHAR2(120 BYTE)	No	주차가능여부
+		if(req.getParameter("realestateCar") != null) rVO.setRealestateCar(req.getParameter("realestateCar").toString());
+
+		//	NUMBER(12,0)	No		부동산크기
+		if(req.getParameter("realestateSize") != null) rVO.setRealestateSize(req.getParameter("realestateSize"));
+
+		//	VARCHAR2(120 BYTE)	No	부동산형태
+		if(req.getParameter("realestateType") != null) rVO.setRealestateType(req.getParameter("realestateType").toString());
+
+		//	VARCHAR2(120 BYTE)	No	부동산지도위치
+		if(req.getParameter("realestateLocation") != null) rVO.setRealestateLocation(req.getParameter("realestateLocation").toString());
+
+		//	VARCHAR2(120 BYTE)	Yes	부동산임시컬럼1 - 엘리베이터 여부로 사용
+		if(req.getParameter("realestateTemp1") != null) rVO.setRealestateTemp1(req.getParameter("realestateTemp1").toString());
+
+		return rVO;
+	}
+
+	// 부동산 데이터 필터링 테스트 할 데이터 생성기
+	public RealestateVO realestateDummyDataMaker() {
+
+		Random random = new Random();
+		RealestateVO rVO= new RealestateVO();
+
+		int[] memberNumberList = {10006,10007,10008,10009,10010,10011,10012};
+		int memberNumber = memberNumberList[random.nextInt(memberNumberList.length)];
+		rVO.setMemberNumber(memberNumber);
+
+		String[] memberEmailList = {"min@gmail.com","chae@gmail.com","song@gmail.com","so@gmail.com","park@gmail.com","korea@naver.com","usa@naver.com"};
+		int temp = random.nextInt(memberEmailList.length);
+		String memberEmail = memberEmailList[temp];
+		rVO.setMemberEmail(memberEmail);
+
+		String[] memberIdList = {"min","chae","song","so","park","korea","usa"};
+		String memberId = memberIdList[temp];
+		rVO.setMemberId(memberId);
+
+		String[] realestateSubjectList = {"좋은 집입니다.","전망 좋은 집","교통이 좋아요.","교통 편리합니다.",
+				"볕이 잘들어요.","역세권 주거지","어디든 갈 수 있어요.","강남까지 30분",
+				"조용한 곳 찾으시는분.","살기 좋은 동네","편의시설 가까워요","출퇴근 하기 편한곳"};
+		String realestateSubject = realestateSubjectList[random.nextInt(realestateSubjectList.length)];
+		rVO.setRealestateSubject(realestateSubject);
+		rVO.setRealestateContent(realestateSubject);
+
+		int realestatePrice = (random.nextInt(100)+1)*20000 ;
+		rVO.setRealestatePrice(realestatePrice);
+
+		String[] realestateCategory1List = {"seoul","busan","incheon","gwangju","daejeon","sejong","daegu","ulsan","gyeonggi",
+				"gangwon","chungcheongbuk","chungcheongnam","gyeongsangbuk","gyeongsangnam","jeollabuk","jeollanam","jeju"};
+		String realestateCategory1 = realestateCategory1List[random.nextInt(realestateCategory1List.length)];
+		rVO.setRealestateCategory1(realestateCategory1);
+
+		String[] realestateLocationList1 = {"서울","부산","인천","광주","대전","세종","대구","울산","경기",
+				"강원","충북","충남","경북","경남","전북","전남","제주"};
+		String[] realestateLocationList2 = {"종로구","중구","용산구","성동구","광진구","동대문구","중랑구","성북구","강북구",
+				"도봉구","노원구","은평구","서대문구","마포구","양천구","강서구","구로구","금천구","영등포구","동작구","관악구",
+				"서초구","강남구","송파구","강동구"	};
+		String local1 = realestateLocationList1[random.nextInt(realestateLocationList1.length)];
+		String local2 = realestateLocationList2[random.nextInt(realestateLocationList2.length)];
+		rVO.setRealestateLocation(local1+" "+local2);
+
+		String[] check = {"on","off"};
+		String realestateDepositCheck = check[random.nextInt(2)];
+		rVO.setRealestateDepositCheck(realestateDepositCheck);
+
+		int realestateDeposit = 0;
+		if(realestateDepositCheck.equals("on")) {
+			realestateDeposit = (random.nextInt(100)+1)*10000 ;
 		}
-	
-		// 부동산 데이터 필터링 테스트 할 데이터 생성기
-		public RealestateVO realestateDummyDataMaker() {
-			
-			/*(#{memberNumber},20,#{memberEmail},#{memberId},#{realestateSubject},
-					#{realestateContent},#{realestatePrice},#{realestateCategory1},'empty',#{realestateDeposit},#{realestateDepositCheck},
-					#{realestateManagement},#{realestateOptionCheck},#{realestateTobaccoCheck},#{realestateState},#{realestateHeatingtype},#{realestateBalcony},
-					#{realestatePetCheck},#{realestateTerm},#{realestateMoveindate},#{realestateGender},#{realestateRoom},#{realestateToilet},#{realestateCar},
-					#{realestateSize},#{realestateType},#{realestateLocation},'empty',0,0,sysdate,
-					'empty',#{realestateImg1},#{realestateImg2,jdbcType=VARCHAR},#{realestateImg3,jdbcType=VARCHAR},#{realestateTemp1})
-			*/
-			
-	/*		memberNumber = 10006,10007,10008,10009,10010,10011,10012;
-			memberEmail = "min@gmail.com","chae@gmail.com","song@gmail.com","so@gmail.com","park@gmail.com","korea@naver.com","usa@naver.com";
-			memberId = "min","chae","song","so","park","korea","usa",
-			
-			*/
-			
-			
-			RealestateVO rVO= new RealestateVO();
-			return rVO;
-		}
-	
+		rVO.setRealestateDeposit(realestateDeposit);
+
+		int realestateManagement = (random.nextInt(100)+1)*10000 ;
+		rVO.setRealestateManagement(realestateManagement);
+
+		String realestateBalcony = check[random.nextInt(2)];
+		rVO.setRealestateBalcony(realestateBalcony);
+
+		String realestatePetCheck = check[random.nextInt(2)];
+		rVO.setRealestatePetCheck(realestatePetCheck);
+
+		String realestateCar = check[random.nextInt(2)];
+		rVO.setRealestateCar(realestateCar);
+
+		String realestateTemp1 = check[random.nextInt(2)];
+		rVO.setRealestateTemp1(realestateTemp1);
+
+		String realestateOptionCheck = check[random.nextInt(2)];
+		rVO.setRealestateOptionCheck(realestateOptionCheck);
+
+		String realestateTobaccoCheck = check[random.nextInt(2)];
+		rVO.setRealestateTobaccoCheck(realestateTobaccoCheck);
+
+		String[] realestateStateList = {"1","2","3","4","5","6to10","11to15","16to20","over20","under"};
+		String realestateState = realestateStateList[random.nextInt(10)];
+		rVO.setRealestateState(realestateState);
+
+		String[] realestateHeatingtypeList = {"individual","central","district"};
+		String realestateHeatingtype = realestateHeatingtypeList[random.nextInt(3)];
+		rVO.setRealestateHeatingtype(realestateHeatingtype);
+
+		String[] realestateTermList = {"none","2w","1m","3m","6m","12m","over12m","undetemined"};
+		String realestateTerm = realestateTermList[random.nextInt(8)];
+		rVO.setRealestateTerm(realestateTerm);
+
+		String date1 = "19";
+		String date2 = String.valueOf(random.nextInt(9)+4); 
+		String date3 = String.valueOf(random.nextInt(28)+1);
+
+		String realestateMoveindate = date1+"/"+date2+"/"+date3;
+		rVO.setRealestateMoveindate(realestateMoveindate);
+
+		String[] realestateGenderList = {"both","male","female"};
+		String realestateGender = realestateGenderList[random.nextInt(3)];
+		rVO.setRealestateGender(realestateGender);
+
+		String[] realestateRoomList = {"1","2","3","over3"};
+		String realestateRoom = realestateRoomList[random.nextInt(4)];
+		rVO.setRealestateRoom(realestateRoom);
+
+		String[] realestateToiletList = {"0","1","2","3","over3"};
+		String realestateToilet = realestateToiletList[random.nextInt(5)];
+		rVO.setRealestateToilet(realestateToilet);
+
+		String[] realestateSizeList = {"under33","33to66","66to99","99to132","132to165","165to198","198to231","more231"};
+		String realestateSize = realestateSizeList[random.nextInt(8)];	
+		rVO.setRealestateSize(realestateSize);
+
+		String[] realestateTypeList = {"apart","villa","house","studio","office"};
+		String realestateType = realestateTypeList[random.nextInt(5)];
+		rVO.setRealestateType(realestateType);
+
+		String imgTemp = String.valueOf(random.nextInt(30)+1);
+		String realestateImg1 = "demo"+imgTemp+".jpg";
+		rVO.setRealestateImg1(realestateImg1);
+		rVO.setRealestateImg2("empty");
+		rVO.setRealestateImg3("empty");
+
+		return rVO;
+	}
+//재영 메소드 끝
 }

@@ -120,13 +120,13 @@
 			<li>
 				<p align="center">
 				 <img src="resources/img/ehddnr.gif" style="margin:0 0 10px 0;"> 
-				 <input type="text" maxlength="100" name="knowledgeSubject" id="knowledgeSubject" style="width: 100%;">
+				 <input type="text"  maxlength="100" name="knowledgeSubject" id="knowledgeSubject" style="width:100%;padding:0 5px;">
 				</p>
 			</li>
 			<li>
 			<p style="display: inline" class="bytes">0</p>/5000</li>
-			<li style="width: 100%; height: 500px; margin: 0 0 20px 0;">
-			<textarea class="content" maxlength="5000"style="width: 100%; height: 100%;" name="knowledgeContent" id="knowledgeContent">
+			<li style="width: 100%; height: 500px; margin: 0 0 20px 0;padding:5px 5px;">
+			<textarea class="content" maxlength="5000"style="width: 100%; height: 100%;padding:5px 5px;" name="knowledgeContent" id="knowledgeContent">
 			</textarea>
 			</li>
 			<li style="position: relative; display:inline;">

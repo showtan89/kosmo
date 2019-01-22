@@ -87,7 +87,7 @@ public class authenticationhandler implements AuthenticationSuccessHandler {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String email = request.getParameter("email");
+		String email = request.getParameter("loginEmail");
 		UserVO userVO = new UserVO();  
 		try {
 			conn = datasource.getConnection();
@@ -97,11 +97,16 @@ public class authenticationhandler implements AuthenticationSuccessHandler {
 			rs = pstmt.executeQuery();
 			System.out.println("로그인시 DB 실행");
 			if(rs.next()) {
-				userVO.setMemberPoint(rs.getString("memberPoint"));
+				userVO.setMemberNumber(rs.getInt("memberNumber"));
+				userVO.setMemberEmail(rs.getString("memberEmail"));
+				userVO.setMemberId(rs.getString("memberId"));
+				userVO.setPassword(rs.getString("password"));
+				userVO.setMemberCountry(rs.getString("memberCountry"));
+				userVO.setMemberRegdate(rs.getTimestamp("memberRegdate"));
+				userVO.setMemberPoint(rs.getInt("memberPoint"));
 			}
-			System.out.println("1");
 				request.getSession().setAttribute("userVO", userVO);
-			System.out.println(userVO.getMemberPoint());
+			System.out.println("uservo포인트값"+userVO.getMemberPoint());
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
