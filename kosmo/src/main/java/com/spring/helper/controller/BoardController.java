@@ -73,6 +73,16 @@ public class BoardController {
 		return "board/realestate/realestate";
 	}
 
+	
+	//부동산 게시판 글 상세 페이지로 이동
+	@RequestMapping("realestateView")
+	public String realestateView(HttpServletRequest req, Model model) throws Exception {
+		logger.info("realestateView 로딩 중....");
+		service.realestateView(req, model);
+		return "board/realestate/realestateView";
+	}
+	
+	
 	//부동산 게시판 글쓰기 페이지로 이동
 	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@RequestMapping("realestateWrite")

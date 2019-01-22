@@ -1,6 +1,7 @@
 package com.spring.helper.service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
 
@@ -28,6 +29,7 @@ public interface BoardService {
 	
 	public void realestateDummyMaker(HttpServletRequest req, Model model);
 
+	public void realestateView(HttpServletRequest req, Model model);
 	//재영 boardService 끝
 	
 	

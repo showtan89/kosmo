@@ -204,11 +204,28 @@ public class BoardServiceImpl implements BoardService {
 		rVO.setRealestateStart(pVO.getStartNumber());
 		rVO.setRealestateEnd(pVO.getEndNumber());
 		list = boardDao.realestateList(rVO);
-		logger.info("start:"+pVO.getStartNumber());
-		logger.info("end:"+pVO.getEndNumber());
 		logger.info(pVO.toString());
 		model.addAttribute("list", list);
 		model.addAttribute("pVO", pVO);
+	}
+	
+	//부동산 게시판 글 상세 페이지
+	@Override
+	public void realestateView(HttpServletRequest req, Model model) {
+		if(req.getParameter("realestateNumber") != null) {
+			int realestateNumber = Integer.parseInt(req.getParameter("realestateNumber"));
+			RealestateVO rVO = boardDao.realestateView(realestateNumber);
+			if(rVO != null) {
+				logger.info(rVO.toString());
+				model.addAttribute("rVO",rVO);
+			}else {
+				logger.info("에러이니 페이지 되돌리기");
+			}
+		}else {
+			logger.info("에러이니 페이지 되돌리기");
+		}
+		
+		
 	}
 
 	//부동산 게시판 글 쓰기
