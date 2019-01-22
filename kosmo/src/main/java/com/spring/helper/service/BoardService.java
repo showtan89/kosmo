@@ -47,5 +47,9 @@ public interface BoardService {
 
 	// 상세페이지
 	public void onedayclassDetailForm(HttpServletRequest req, Model model);
+	
+	// 수정 폼 - 비밀번호
+	public void onedayclassModifyForm(HttpServletRequest req, Model model);
+	
 	//진호 끝-----------------------------------------------------------
 }

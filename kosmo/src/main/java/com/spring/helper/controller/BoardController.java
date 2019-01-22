@@ -123,5 +123,14 @@ public class BoardController {
 		return "board/onedayclass/onedayclassDetailForm";
 	}
 	
+	// 수정 폼 - 비밀번호
+	@RequestMapping("onedayclassModifyForm")
+	public String onedayclassModifyForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 수정폼 호출중 ....");
+		
+		service.onedayclassModifyForm(req, model);
+		return "board/onedayclass/onedayclassModifyForm";
+	}
+	
 	// 진호  BoardController 끝----------------------------------------------------
 }
