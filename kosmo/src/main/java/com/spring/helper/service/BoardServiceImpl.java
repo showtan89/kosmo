@@ -483,8 +483,15 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
-	//진호 메소드 종료---------------------------------------------------
 	
+	// 수정 폼 - 비밀번호
+	@Override
+	public void onedayclassModifyForm(HttpServletRequest req, Model model) {
+
+		
+	}
+	
+	//진호 메소드 종료---------------------------------------------------
 	
 	
 	
