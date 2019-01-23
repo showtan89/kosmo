@@ -45,7 +45,7 @@
 				class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between">
 				<div class="shop-page-count">
 					<!-- 이부분 바꿔야함  -->
-					<p>Showing 1–9 of 72 results</p>
+					<p>Showing ${pVO.startNumber}–${pVO.endNumber} of ${pVO.totalCount} results</p>
 				</div>
 				<!-- Search by Terms -->
 				<div class="search_by_terms">
@@ -203,7 +203,7 @@
 					<c:forEach var="dto" items="${list}">
 						<div class="col-12">
 							<div class="card flex-md-row mb-4 shadow-sm h-md-250">
-								<a href=#><img class="card-img-right flex-auto d-none d-lg-block realImage"	src="${realimage}${dto.realestateImg1}" alt=""></a>
+								<a href=realestateView?realestateNumber=${dto.realestateNumber}><img class="card-img-right flex-auto d-none d-lg-block realImage"	src="${realimage}${dto.realestateImg1}" alt=""></a>
 								<div class="card-body d-flex flex-column align-items-start">
 									<strong class="d-inline-block mb-2 text-warning">
 									<c:set var="loca" value="${dto.realestateCategory1}"/>
@@ -336,19 +336,12 @@
 				</div>
 
 				<!-- 페이지 -->
-				
-				
-					<!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-				 -->
-				<!-- pageSize=10, pageBlock=10, totalCount=501, startNumber=1, endNumber=10, 
-				articleNumber=0, pageNum=1, currentPage=1, pageCount=51, startPage=1, endPage=10 -->
-				 <!-- Pagination -->
-				<!-- 페이지 -->
+				<%-- <c:set var="linkURL" value="${requestScope['javax.servlet.forward.servlet_path']}"/> --%>
+				<%-- <c:set var="URL1" value="${pageContext.request.requestURL}" />
+				<c:set var="URL2" value="${pageContext.request.requestURI}" /> --%>
+				<c:set var="linkURL" value="realestate"/>
 				<nav aria-label="Page navigation">
 					<ul class="pagination">
-					<c:set var="linkURL" value="realestateList"/>
 					<c:if test="${pVO.totalCount>0}">
 						<c:if test="${pVO.startPage>pVO.pageBlock}">
 							<li class="page-item"><a class="page-link" href="${linkURL}"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a></li>
@@ -371,7 +364,6 @@
 					</c:if>
 					</ul>
 				</nav>
-				
 			</div>
 		</div>
 	</div>

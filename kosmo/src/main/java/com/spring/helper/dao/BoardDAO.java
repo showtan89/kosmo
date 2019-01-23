@@ -47,6 +47,8 @@ public interface BoardDAO {
 
 	public List<RealestateVO> realestateList(RealestateVO rVO);
 
+	public RealestateVO realestateView(int realestateNumber);
+	
 	public Integer getRealestateCount(RealestateVO rVO);
 
 	public Integer realestateWritePro(RealestateVO rVO);

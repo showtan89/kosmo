@@ -76,7 +76,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 답변 갯수 구하기
 	@Override
 	public int knowledgeCommentListCnt(int knowledgeNumber) {
-		
+
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.knowledgeCommentListCnt",knowledgeNumber);
 	}
 	// 답변 리스트 출력
@@ -95,9 +95,15 @@ public class BoardDAOImpl implements BoardDAO {
 
 	//부동산 게시판 글 목록 보기
 	@Override
-		public List<RealestateVO> realestateList(RealestateVO rVO) {
-			return sqlSession.getMapper(BoardDAO.class).realestateList(rVO);
-		}
+	public List<RealestateVO> realestateList(RealestateVO rVO) {
+		return sqlSession.getMapper(BoardDAO.class).realestateList(rVO);
+	}
+	
+	//부동산 게시판 글 상세 페이지
+	@Override
+	public RealestateVO realestateView(int realestateNumber) {
+		return sqlSession.getMapper(BoardDAO.class).realestateView(realestateNumber);
+	}
 
 	//부동산 게시판 글 목록 갯수 카운트
 	@Override
@@ -109,7 +115,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public Integer realestateWritePro(RealestateVO rVO) {
 		return sqlSession.getMapper(BoardDAO.class).realestateWritePro(rVO);
 	}
-	
+
 
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++++++++++++++++++++
@@ -135,12 +141,12 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.commentReadList", map);
 	}
-	
+
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	
-	
+
+
 	// 진호 메소드 시작---------------------------------------------------
 
 	// 게시글 갯수 구하기
@@ -151,7 +157,7 @@ public class BoardDAOImpl implements BoardDAO {
 		int selectCnt = boardDao.onedayclassGetArticleCnt();
 		return selectCnt;
 	}
-	
+
 	// 게시글 목록 조회
 	@Override
 	public ArrayList<onedayclassVO> onedayclassGetArticleList(Map<String, Object> map) {
@@ -165,7 +171,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 조회수 증가
 	@Override
 	public int onedayclassAddReadCnt(int onedayclassNumber) {
-		
+
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 		int updateCnt = boardDao.onedayclassAddReadCnt(onedayclassNumber);
 		return updateCnt;
@@ -174,11 +180,10 @@ public class BoardDAOImpl implements BoardDAO {
 	// 게시글 상세페이지, 수정을 위한 상세페이지
 	@Override
 	public onedayclassVO onedayclassGetArticle(int onedayclassNumber) {
-		
+
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 		return boardDao.onedayclassGetArticle(onedayclassNumber);
 	}
 	// 진호 메소드 종료------------------------------------------------
 
-	
 }
