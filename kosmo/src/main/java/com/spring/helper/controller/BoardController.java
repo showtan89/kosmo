@@ -42,6 +42,12 @@ public class BoardController {
 		return "board/knowledge/knowledgeWritePro";
 	}
 	// 질문수정 처리
+	@RequestMapping("knowledgeModifyForm")
+	public String knowledgeModifyForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("knowledgeModifyForm 로딩 중....");
+		service.knowledgeModifyForm(req, model);
+		return "board/knowledge/knowledgeModifyForm";
+	}
 	// 질문삭제 처리
 	@RequestMapping("knowledgeDeleteForm")
 	public String knowledgeDeleteForm(HttpServletRequest req, Model model) throws Exception{

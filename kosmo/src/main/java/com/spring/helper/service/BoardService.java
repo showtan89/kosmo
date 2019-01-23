@@ -12,6 +12,7 @@ public interface BoardService {
 	// 질문등록 처리
 	public void knowledgeInsertArticle(HttpServletRequest req,Model model);
 	// 질문수정 처리
+	public void knowledgeModifyForm(HttpServletRequest req,Model model);
 	// 질문삭제 처리
 	public void knowledgeDeleteForm(HttpServletRequest req,Model model);
 	// 지식인게시판 글 상세페이지 출력

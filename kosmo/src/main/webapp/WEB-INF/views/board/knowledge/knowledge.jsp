@@ -149,7 +149,7 @@ function knowledgeDetailForm(knowledgeNumber){
 								<span><a style="font-size: 16px; "href="#">${dto.knowledgeSubject}</a></span>
 								<c:if test="${userVO.memberId==dto.memberId}">
 								<span style="float: right; margin-right: 10px;"><a href="knowledgeDeleteForm?knowledgeNumber=${dto.knowledgeNumber}&pageNum=${pageNum}&btn_select=${btn_select}">삭제</a></span>
-								<span style="float: right; margin-right: 20px;"><a href="">수정</a></span>
+								<span style="float: right; margin-right: 20px;"><a href="knowledgeModifyForm?knowledgeNumber=${dto.knowledgeNumber}&pageNum=${pageNum}&btn_select=${btn_select}">수정</a></span>
 								</c:if>
 							</p>
 

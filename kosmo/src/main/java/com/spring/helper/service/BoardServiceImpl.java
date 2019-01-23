@@ -133,6 +133,17 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("insertcnt",insertcnt);
 
 	}
+	// 질문수정 폼 이동
+	@Override
+	public void knowledgeModifyForm(HttpServletRequest req, Model model) {
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		String pageNum = req.getParameter("pageNum"); 
+		String btn_select = req.getParameter("btn_select");
+		KnowledgeVO Knowledge = boardDao.knowledgeModifyForm(knowledgeNumber);
+		model.addAttribute("Knowledge",Knowledge);
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("btn_select",btn_select);
+	}
 	// 질문수정 처리
 	// 질문삭제 처리
 	@Override
