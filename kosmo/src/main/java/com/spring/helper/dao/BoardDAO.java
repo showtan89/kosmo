@@ -15,6 +15,8 @@ import com.spring.helper.vo.BoardVO.onedayclassVO;
 public interface BoardDAO {
 
 	// 동욱이 메소드 시작(지식인게시판)
+	// 파일업로드 테스트
+	public int test(String images);
 	// 지식인 게시판 출력 자료 갯수 구하기
 	public int knowledgeGetArticleCnt();
 	// 지식인 게시판 리스트 출력

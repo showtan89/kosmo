@@ -5,7 +5,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.helper.dao.BoardDAO">
-
+	<!-- 파일업로드 테스트 -->
+	<insert id="test" parameterType="String">
+		INSERT INTO test VALUES (#{images})
+	</insert>
 	<!-- 공통 로그인 회원정보 가져오기 -->
 	<select id="memberIdPwdCheck"
 		resultType="com.spring.helper.vo.BoardVO.UserVO">

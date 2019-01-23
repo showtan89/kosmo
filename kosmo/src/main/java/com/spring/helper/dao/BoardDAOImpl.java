@@ -23,6 +23,11 @@ public class BoardDAOImpl implements BoardDAO {
 	SqlSession sqlSession;
 
 	// 동욱이 메소드 시작
+	// 파일업로드 테스트
+	@Override
+	public int test(String images) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.test",images);
+	}
 	// 지식인 게시판 게시글 갯수 구하기
 	@Override
 	public int knowledgeGetArticleCnt() {
@@ -189,5 +194,6 @@ public class BoardDAOImpl implements BoardDAO {
 		return boardDao.onedayclassGetArticle(onedayclassNumber);
 	}
 	// 진호 메소드 종료------------------------------------------------
+	
 
 }
