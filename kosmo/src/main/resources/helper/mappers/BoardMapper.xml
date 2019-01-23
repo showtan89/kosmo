@@ -5,7 +5,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spring.helper.dao.BoardDAO">
-
+	<!-- 파일업로드 테스트 -->
+	<insert id="test" parameterType="String">
+		INSERT INTO test VALUES (#{images})
+	</insert>
 	<!-- 공통 로그인 회원정보 가져오기 -->
 	<select id="memberIdPwdCheck"
 		resultType="com.spring.helper.vo.BoardVO.UserVO">
@@ -59,6 +62,7 @@
 		DELETE FROM kComment WHERE knowledgeNumber=#{knowledgeNumber}
 	</delete>
 	<!-- 질문삭제 처리 종료 -->
+	
 	<!-- 지식인게시판 게시글 상세페이지 출력 -->
 	<select id="knowledgeGetArticle"
 		resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
@@ -70,6 +74,7 @@
 		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10',#{memberEmail},#{memberId},#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
 	<!-- 답변수정 처리 -->
+	
 	<!-- 답변삭제 처리 -->
 	<delete id="kCommentdelete" parameterType="int">
 		DELETE FROM kComment WHERE kCommentNumber=#{kCommentNumber}

@@ -1,7 +1,5 @@
 package com.spring.helper.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,11 +10,9 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.service.BoardService;
-import com.spring.helper.vo.BoardVO.PageVO;
-import com.spring.helper.vo.BoardVO.RealestateVO;
 
 @Controller
 public class BoardController {
@@ -26,8 +22,16 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
+	
+	@RequestMapping("test")
+	public String test(MultipartHttpServletRequest req, Model model) throws Exception {
+		service.test(req,model);
+		logger.info("test 로딩 중....");
+		return "test";
+	}
+	
 	// 동욱이 메소드 시작
-	// 질문하기 Form 이동
+	// 지식인게시판 리스트 출력
 	@RequestMapping("knowledgeBoardList")
 	public String knowledgeBoardList(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeBoardList 로딩 중....");
@@ -35,6 +39,7 @@ public class BoardController {
 		return "board/knowledge/knowledge";
 	}
 	// 질문등록 폼 이동
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping("knowledgeWriteForm")
 	public String knowledgeWriteForm() throws Exception {
 		logger.info("knowledgeWriteForm 로딩 중....");
@@ -77,6 +82,7 @@ public class BoardController {
 		service.knowledgeCommentList(req,model);
 		return "board/knowledge/knowledgeDetailForm";
 	}
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	// 답변등록 처리
 	@RequestMapping("knowledgeCommentPro")
 	public String knowledgeCommentPro(HttpServletRequest req, Model model) throws Exception {
@@ -84,7 +90,6 @@ public class BoardController {
 		service.knowledgeCommentPro(req, model);
 		return "board/knowledge/knowledgePro";
 	}
-	// 답변수정 처리
 	// 답변삭제 처리
 	@RequestMapping("kCommentdelete")
 	public String kCommentdelete(HttpServletRequest req, Model model) throws Exception {
