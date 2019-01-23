@@ -142,7 +142,7 @@ function knowledgeDetailForm(knowledgeNumber){
 			%>
 			<table class="tbl-ex" style="width: 100%; margin-top: 50px;">
 				<c:forEach var="dto" items="${dtos}">
-					<tr>
+					<tr id="${dto.knowledgeNumber}">
 						<td style="max-width: 100%; word-break: break-all;">
 							<p style="margin: 0 0 2px 0" onclick="knowledgeDetailForm(${dto.knowledgeNumber});">
 								<span> ${dto.knowledgeReward}</span> &nbsp; &nbsp; 

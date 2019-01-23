@@ -39,14 +39,21 @@ public class BoardController {
 	public String knowledgeWritePro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeWritePro 로딩 중....");
 		service.knowledgeInsertArticle(req, model);
-		return "board/knowledge/knowledgeWritePro";
+		return "board/knowledge/knowledgePro";
 	}
-	// 질문수정 처리
+	// 질문수정 폼 이동
 	@RequestMapping("knowledgeModifyForm")
 	public String knowledgeModifyForm(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeModifyForm 로딩 중....");
 		service.knowledgeModifyForm(req, model);
 		return "board/knowledge/knowledgeModifyForm";
+	}
+	// 질문수정 처리
+	@RequestMapping("knowledgeModifyPro")
+	public String knowledgeModifyPro(HttpServletRequest req, Model model) throws Exception {
+		logger.info("knowledgeModifyPro 로딩 중....");
+		service.knowledgeModifyPro(req, model);
+		return "board/knowledge/knowledgePro";
 	}
 	// 질문삭제 처리
 	@RequestMapping("knowledgeDeleteForm")
@@ -54,7 +61,7 @@ public class BoardController {
 		logger.info("knowledgeDeleteForm 로딩 중....");
 		service.knowledgeDeleteForm(req, model);
 		System.out.println("실행");
-		return "board/knowledge/knowledgeWritePro";
+		return "board/knowledge/knowledgePro";
 	}
 	// 게시글 클릭시 글 상세페이지 출력
 	@RequestMapping("knowledgeDetailForm")
@@ -64,13 +71,12 @@ public class BoardController {
 		service.knowledgeCommentList(req,model);
 		return "board/knowledge/knowledgeDetailForm";
 	}
-	
 	// 답변등록 처리
 	@RequestMapping("knowledgeCommentPro")
 	public String knowledgeCommentPro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeCommentPro 로딩 중....");
 		service.knowledgeCommentPro(req, model);
-		return "board/knowledge/knowledgeWritePro";
+		return "board/knowledge/knowledgePro";
 	}
 	// 답변수정 처리
 	// 답변삭제 처리
@@ -78,7 +84,7 @@ public class BoardController {
 	public String kCommentdelete(HttpServletRequest req, Model model) throws Exception {
 		logger.info("kCommentdelete 로딩 중....");
 		service.kCommentdelete(req, model);
-		return "board/knowledge/knowledgeWritePro";
+		return "board/knowledge/knowledgePro";
 	}
 	// 동욱이 메소드 종료
 

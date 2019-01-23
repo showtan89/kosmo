@@ -154,7 +154,7 @@
 			}
 		}
 	</script>
-	<form action="knowledgeWritePro" method="post" name="knowledgeForm" onsubmit="return onsubmitcheck();">
+	<form action="knowledgeModifyPro" method="post" name="knowledgeForm" onsubmit="return onsubmitcheck();">
 		<ul>
 			<li>
 				<p align="center">
@@ -236,6 +236,9 @@
 						<option value="쇼핑">쇼핑</option>
 						<option value="고민Q&A">고민Q&A</option>
 					</select>
+					<input type="hidden" name="knowledgeNumber" value="${Knowledge.knowledgeNumber}">
+					<input type="hidden" name="pageNum" value="${pageNum}">
+					<input type="hidden" name="btn_select" value="${btn_select}">
 					<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID 공개여부">
 					<input type="radio" name="knowledgeOpenCheck" id="knowledgeOpenCheck1"value="Y" >공개
 					<input type="radio" name="knowledgeOpenCheck" id="knowledgeOpenCheck2"value="N" >비공개

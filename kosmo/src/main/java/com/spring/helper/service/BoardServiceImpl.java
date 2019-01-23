@@ -145,6 +145,29 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("btn_select",btn_select);
 	}
 	// 질문수정 처리
+	@Override
+	public void knowledgeModifyPro(HttpServletRequest req, Model model) {
+		String pageNum = req.getParameter("pageNum"); 
+		String btn_select = req.getParameter("btn_select");
+		String knowledgeSubject = req.getParameter("knowledgeSubject");
+		String knowledgeContent = req.getParameter("knowledgeContent");
+		String knowledgeOpenCheck = req.getParameter("knowledgeOpenCheck");
+		String knowledgeCategory = req.getParameter("knowledgeCategory");
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		int knowledgeReward = Integer.parseInt(req.getParameter("addReward"));
+		KnowledgeVO Knowledge = new KnowledgeVO();
+		Knowledge.setKnowledgeNumber(knowledgeNumber);
+		Knowledge.setKnowledgeReward(knowledgeReward);
+		Knowledge.setKnowledgeSubject(knowledgeSubject);
+		Knowledge.setKnowledgeContent(knowledgeContent);
+		Knowledge.setKnowledgeOpenCheck(knowledgeOpenCheck);
+		Knowledge.setKnowledgeCategory(knowledgeCategory);
+		int Knowledgeupdatecnt = boardDao.knowledgeModifyPro(Knowledge);
+		model.addAttribute("knowledgeNumber",knowledgeNumber);
+		model.addAttribute("Knowledgeupdatecnt",Knowledgeupdatecnt);
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("btn_select",btn_select);
+	}
 	// 질문삭제 처리
 	@Override
 	public void knowledgeDeleteForm(HttpServletRequest req, Model model) {
@@ -518,7 +541,6 @@ public class BoardServiceImpl implements BoardService {
 
 		
 	}
-	
 	//진호 메소드 종료---------------------------------------------------
 	
 	

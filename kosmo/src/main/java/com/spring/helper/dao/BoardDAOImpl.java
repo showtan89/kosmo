@@ -48,6 +48,10 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// 질문수정 처리
+	@Override
+	public int knowledgeModifyPro(KnowledgeVO Knowledge) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeModifyPro",Knowledge);
+	}
 	// 질문삭제 처리
 	@Override
 	public int knowledgeDeleteForm(int knowledgeNumber) {
