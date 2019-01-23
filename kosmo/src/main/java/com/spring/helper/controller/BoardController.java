@@ -1,5 +1,7 @@
 package com.spring.helper.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -9,8 +11,11 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.helper.service.BoardService;
+import com.spring.helper.vo.BoardVO.PageVO;
+import com.spring.helper.vo.BoardVO.RealestateVO;
 
 @Controller
 public class BoardController {
@@ -87,6 +92,19 @@ public class BoardController {
 		return "board/realestate/realestate";
 	}
 
+	//부동산 Json 보류 ㅠㅠ
+	/*@RequestMapping("realestateListJson")
+	public ModelAndView realestateListJson(HttpServletRequest req, Model model) throws Exception{
+		logger.info("realestateListJson 호출");
+		RealestateVO rVO = service.realestateGetVO(req);
+		PageVO pVO = service.realestateListPage(req, rVO);
+		int startNumber = pVO.getStartNumber();
+		int endNumber = pVO.getEndNumber();
+		List<RealestateVO> list = service.realestateListJson(rVO,startNumber,endNumber);
+		model.addAttribute("list",list);
+		model.addAttribute("pVO",pVO);
+		return new ModelAndView("board/realestate/realestateJson");
+	}*/
 	
 	//부동산 게시판 글 상세 페이지로 이동
 	@RequestMapping("realestateView")
@@ -95,7 +113,6 @@ public class BoardController {
 		service.realestateView(req, model);
 		return "board/realestate/realestateView";
 	}
-	
 	
 	//부동산 게시판 글쓰기 페이지로 이동
 	@Secured({"ROLE_ADMIN","ROLE_USER"})

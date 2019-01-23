@@ -186,7 +186,7 @@
 							 <div class="single-widget-area products--meta">
 								 <ol class="popular-tags d-flex flex-wrap">
 								 
-								 	<c:if test="${rVO.realestateCategory1.equals('seoul')}">
+								 	<c:if test="${rVO.realestateCategory1.equals('seoul')}">,
 								 		<li><a>Seoul (서울)</a></li>
 								 	</c:if>
 								 	<c:if test="${rVO.realestateCategory1.equals('busan')}">

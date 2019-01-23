@@ -1,9 +1,14 @@
 package com.spring.helper.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
+
+import com.spring.helper.vo.BoardVO.PageVO;
+import com.spring.helper.vo.BoardVO.RealestateVO;
 
 public interface BoardService {
 
@@ -33,11 +38,17 @@ public interface BoardService {
 
 	public void realestateList(HttpServletRequest req, Model model);
 	
+	/*public RealestateVO realestateGetVO(HttpServletRequest req);
+	
+	public PageVO realestateListPage(HttpServletRequest req, RealestateVO rVO);
+	
+	public List<RealestateVO> realestateListJson(RealestateVO rVO, int startNumber, int endNumber);*/
+	
 	public void realestateDummyMaker(HttpServletRequest req, Model model);
 
 	public void realestateView(HttpServletRequest req, Model model);
 	//재영 boardService 끝
-	
+
 	
 	//민석이 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	public void messageForm(HttpServletRequest req, Model model);

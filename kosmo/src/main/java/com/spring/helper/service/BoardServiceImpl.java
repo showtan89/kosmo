@@ -196,15 +196,15 @@ public class BoardServiceImpl implements BoardService {
 		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
 		int cnt = boardDao.knowledgeCommentListCnt(knowledgeNumber);
 		if(cnt > 0) {
-		ArrayList<kCommentVO> kCommentVO = boardDao.knowledgeCommentList(knowledgeNumber);
-		req.setAttribute("kCommentVO", kCommentVO);
+			ArrayList<kCommentVO> kCommentVO = boardDao.knowledgeCommentList(knowledgeNumber);
+			req.setAttribute("kCommentVO", kCommentVO);
 		}
 	}
-	
+
 	// 동욱이 메소드 종료
 
 
-	//재영 boardServiceImpl 시작====================================================================================
+	//재영 boardServiceImpl 시작 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@Autowired
 	BoardMethod boardMethod;
@@ -232,8 +232,45 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("list", list);
 		model.addAttribute("pVO", pVO);
 	}
+
+	// Json 시도하다가 검색 조건 들어가서 시작 
+	/*@Override
+	public RealestateVO realestateGetVO(HttpServletRequest req) {
+		//파라미터(검색조건) VO에 담기
+		RealestateVO rVO = boardMethod.getParameterRealestateVO(req); 
+		return rVO;
+	}*/
 	
-	//부동산 게시판 글 상세 페이지
+	//부동산 게시판 페이지 만들기
+	/*@Override
+	public PageVO realestateListPage(HttpServletRequest req, RealestateVO rVO) {
+		//검색 조건에 대한 게시글 갯수 구하기
+		Integer cnt = boardDao.getRealestateCount(rVO);
+		
+		//검색 조건에 대한 게시글 갯수로 페이지 구하기
+		int pageNum = 1;
+		if(req.getParameter("pageNum")!=null) {
+			int temp = Integer.parseInt(req.getParameter("pageNum"));
+			if(temp>1) pageNum = temp;
+		}
+		PageVO pVO = boardMethod.getRealestatePageVO(pageNum,cnt);
+		logger.info(pVO.toString());
+		pVO.setPageNum(String.valueOf(pageNum));
+		return pVO;
+	}
+	
+	//부동산 게시판 글 목록 보기
+	@Override
+	public List<RealestateVO> realestateListJson(RealestateVO rVO, int startNumber, int endNumber) {
+		List<RealestateVO> list = new ArrayList<RealestateVO>();
+		rVO.setRealestateStart(startNumber);
+		rVO.setRealestateEnd(endNumber);
+		list = boardDao.realestateList(rVO);
+		return list;
+	}*/
+	// Json 시도하다가 검색 조건 들어가서 보류 끝
+	
+	//부동산 게시판 글 상세 페이지 
 	@Override
 	public void realestateView(HttpServletRequest req, Model model) {
 		if(req.getParameter("realestateNumber") != null) {
@@ -243,25 +280,19 @@ public class BoardServiceImpl implements BoardService {
 				logger.info(rVO.toString());
 				model.addAttribute("rVO",rVO);
 			}else {
-				logger.info("에러이니 페이지 되돌리기");
+				logger.info("에러이니 페이지 되돌리기 기능넣기!!!");
 			}
 		}else {
-			logger.info("에러이니 페이지 되돌리기");
+			logger.info("에러이니 페이지 되돌리기 기능넣기!!!");
 		}
-		
-		
 	}
 
 	//부동산 게시판 글 쓰기
 	@Override
 	public void realestateWritePro(HttpServletRequest req, Model model) {
-
 		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
-
 		logger.info(rVO.toString());
-
 		Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
-
 		logger.info(realestateWriteProResult.toString());
 	}
 
@@ -274,7 +305,7 @@ public class BoardServiceImpl implements BoardService {
 		logger.info(realestateWriteProResult.toString());
 	}
 
-	//재영 boardServiceImpl 끝
+	//재영 boardServiceImpl 끝 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -306,7 +337,7 @@ public class BoardServiceImpl implements BoardService {
 		if(pageNum == null) {
 			pageNum = "1"; //첫페이지를 1페이지로 지정
 		}
-		
+
 		//재영 boardServiceImpl 끝
 
 		// 글 30건 기준
@@ -384,7 +415,7 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("글목록");
 	}
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
-	
+
 	//진호 메소드 시작---------------------------------------------------
 	// 게시글 목록
 	@Override
@@ -393,22 +424,22 @@ public class BoardServiceImpl implements BoardService {
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageSize = 9;		// 한페이지당 출력할 글 갯수
 		int pageBlock = 3;		// 한블록당 페이지 갯수
-		
+
 		int cnt = 0;			// 글 갯수
 		int start = 0;			// 현재 페이지 시작 글번호
 		int end = 0;			// 현재 페이지 마지막 글번호
 		int number = 0;			// 출력용 글번호
 		String pageNum = ""; 	// 페이지 번호
 		int currentPage = 0; 	// 현재페이지
-		
+
 		int pageCount = 0;		// 페이지 갯수
 		int startPage = 0;		// 시작 페이지
 		int endPage = 0;		// 마지막 페이지
-		
+
 		cnt = boardDao.onedayclassGetArticleCnt();
-		
+
 		System.out.println("cnt:" + cnt);
-		
+
 		if(req.getParameter("pageNum") != null) {
 			pageNum = req.getParameter("pageNum").toString();
 		}else {
@@ -418,62 +449,62 @@ public class BoardServiceImpl implements BoardService {
 		// 글 48건 기준
 		currentPage = Integer.parseInt(pageNum); // 현재 페이지 : 1
 		System.out.println("currentPage : " + currentPage);
-		
+
 		// 페이지 갯수
 		pageCount = (cnt / pageSize) + (cnt % pageSize > 0 ? 1 : 0);  // 페이지 갯수 + 나머지 있으면 1
-		
+
 		// 현재 페이지 시작번호(페이지별)
 		// 1 = (1 - 1) * 5 + 1
 		start = (currentPage - 1) * pageSize + 1;
-		
+
 		// 현재 페이지 마지막 글번호(페이지별)
 		// 5 = 1 + 5 -1;
 		end = start + pageSize - 1;
-		
+
 		System.out.println("start : " + start);
 		System.out.println("end : " + end);
-		
+
 		if(end > cnt) end = cnt;
-		
+
 		// 출력용 글번호
 		// 30 = 30 - (1 - 1) * 5
 		number = cnt - (currentPage - 1) * pageSize;	// 출력용 글번호
-		
+
 		System.out.println("number : " + number);
 		System.out.println("pageSize : " + pageSize);	
-		
+
 		if(cnt > 0) {
 			// 5-2. 게시글 목록 조회
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("start", start);
 			map.put("end", end);
-			
+
 			ArrayList<onedayclassVO> dtos = boardDao.onedayclassGetArticleList(map);
-			
+
 			req.setAttribute("dtos", dtos); // 큰바구니 : 게시글 목록  cf)작은 바구니: 게시글1건
 
 			System.out.println("dtos 나오냐?" + dtos+" / cnt :"+cnt);
 		}
 
 		// 6단계. request나 session에 처리 결과를 저장(jsp에 전달하기 위함)
-		
+
 		// 시작페이지
 		// 1 = (1 /3) * 3 + 1;  int계산이므로 (1/3)이 0이 됨
 		startPage = (currentPage / pageBlock) * pageBlock + 1; 
 		if(currentPage % pageBlock == 0) startPage -= pageBlock;
 		System.out.println("startPage : " + startPage);		
-		
+
 		// 마지막 페이지
 		// 3 = 1 + 3 -1;
 		endPage = startPage + pageBlock -1;
 		if(endPage > pageCount) endPage = pageCount;
 		System.out.println("endPage : " + endPage);
 		System.out.println("===================");
-		
+
 		req.setAttribute("cnt", cnt); 	// 글갯수
 		req.setAttribute("number", number); 	// 출력용 글번호
 		req.setAttribute("pageNum", pageNum); 	// 페이지 번호
-		
+
 		if(cnt > 0) {
 			req.setAttribute("startPage", startPage); 		//시작페이지
 			req.setAttribute("endPage", endPage); 			//마지막 페이지
@@ -481,35 +512,35 @@ public class BoardServiceImpl implements BoardService {
 			req.setAttribute("pageCount", pageCount); 		// 페이지 갯수
 			req.setAttribute("currentPage", currentPage); 	// 현재페이지
 		}
-		
-		
+
+
 	}
 
 	// 상세페이지
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
-		
+
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
-		
+
 		boardDao.onedayclassAddReadCnt(onedayclassNumber);
 		onedayclassVO vo = boardDao.onedayclassGetArticle(onedayclassNumber);
-		
+
 		model.addAttribute("dto", vo);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
-	
+
 	// 수정 폼 - 비밀번호
 	@Override
 	public void onedayclassModifyForm(HttpServletRequest req, Model model) {
 
-		
+
 	}
-	
+
 	//진호 메소드 종료---------------------------------------------------
-	
-	
-	
+
+
+
 }
