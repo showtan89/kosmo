@@ -252,11 +252,11 @@ public class BoardServiceImpl implements BoardService {
 
 	//부동산 게시판 글 목록 보기
 	@Override
-	public void realestateList(HttpServletRequest req, Model model) {
+	public void realestateGetArticleList(HttpServletRequest req, Model model) {
 		//파라미터(검색조건) VO에 담기
 		RealestateVO rVO = boardMethod.getParameterRealestateVO(req); 
 		//검색 조건에 대한 게시글 갯수 구하기
-		Integer cnt = boardDao.getRealestateCount(rVO);
+		Integer cnt = boardDao.realestateGetArticleCnt(rVO);
 		//검색 조건에 대한 게시글 갯수로 페이지 구하기
 		int pageNum = 1;
 		if(req.getParameter("pageNum")!=null) {
@@ -268,7 +268,7 @@ public class BoardServiceImpl implements BoardService {
 		pVO.setPageNum(String.valueOf(pageNum));
 		rVO.setRealestateStart(pVO.getStartNumber());
 		rVO.setRealestateEnd(pVO.getEndNumber());
-		list = boardDao.realestateList(rVO);
+		list = boardDao.realestateGetArticleList(rVO);
 		logger.info(pVO.toString());
 		model.addAttribute("list", list);
 		model.addAttribute("pVO", pVO);
@@ -313,10 +313,10 @@ public class BoardServiceImpl implements BoardService {
 	
 	//부동산 게시판 글 상세 페이지 
 	@Override
-	public void realestateView(HttpServletRequest req, Model model) {
+	public void realestateGetArticle(HttpServletRequest req, Model model) {
 		if(req.getParameter("realestateNumber") != null) {
 			int realestateNumber = Integer.parseInt(req.getParameter("realestateNumber"));
-			RealestateVO rVO = boardDao.realestateView(realestateNumber);
+			RealestateVO rVO = boardDao.realestateGetArticle(realestateNumber);
 			if(rVO != null) {
 				logger.info(rVO.toString());
 				model.addAttribute("rVO",rVO);
@@ -330,11 +330,10 @@ public class BoardServiceImpl implements BoardService {
 
 	//부동산 게시판 글 쓰기
 	@Override
-	public void realestateWritePro(HttpServletRequest req, Model model) {
+	public Integer realestateInsertArticle(HttpServletRequest req, Model model) {
 		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
 		logger.info(rVO.toString());
-		Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
-		logger.info(realestateWriteProResult.toString());
+		return boardDao.realestateInsertArticle(rVO);
 	}
 
 	//부동산 게시판 더미 데이터생성기 - 현재 버튼 주석 처리
@@ -342,7 +341,7 @@ public class BoardServiceImpl implements BoardService {
 	public void realestateDummyMaker(HttpServletRequest req, Model model) {
 		RealestateVO rVO = boardMethod.realestateDummyDataMaker(); 
 		logger.info(rVO.toString());
-		Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
+		Integer realestateWriteProResult = boardDao.realestateInsertArticle(rVO);
 		logger.info(realestateWriteProResult.toString());
 	}
 
@@ -560,12 +559,7 @@ public class BoardServiceImpl implements BoardService {
 	// 글 목록 상세페이지
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
-<<<<<<< HEAD
-		
-=======
-
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 
@@ -576,13 +570,10 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
-<<<<<<< HEAD
 	
 	// 수정 상세 페이지
-=======
 
 	// 수정 폼 - 비밀번호
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 	@Override
 	public void onedayclassModifyForm(HttpServletRequest req, Model model) {
 	
@@ -599,7 +590,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void onedayclassModifyPro(HttpServletRequest req, Model model) {
 
-<<<<<<< HEAD
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
 		
@@ -622,9 +612,6 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 		/*model.addAttribute("pageNum", pageNum);*/
 		
-=======
-
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 	}
 	
 	// 글쓰기 페이지

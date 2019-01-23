@@ -3,6 +3,7 @@ package com.spring.helper.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,11 +98,11 @@ public class BoardController {
 	//재영 BoardController 시작
 
 	//부동산 게시판 글 목록 페이지로 이동
-	@RequestMapping("realestateList")
-	public String realestateList(HttpServletRequest req, Model model) throws Exception {
-		logger.info("realestateList 로딩 중....");
-		service.realestateList(req, model);
-		return "board/realestate/realestate";
+	@RequestMapping("realestateBoardList")
+	public String realestateBoardList(HttpServletRequest req, Model model) throws Exception {
+		logger.info("realestateBoardList 로딩 중....");
+		service.realestateGetArticleList(req, model);
+		return "board/realestate/realestateBoardList";
 	}
 
 	//부동산 Json 보류 ㅠㅠ
@@ -119,14 +120,14 @@ public class BoardController {
 	}*/
 	
 	//부동산 게시판 글 상세 페이지로 이동
-	@RequestMapping("realestateView")
-	public String realestateView(HttpServletRequest req, Model model) throws Exception {
-		logger.info("realestateView 로딩 중....");
-		service.realestateView(req, model);
-		return "board/realestate/realestateView";
+	@RequestMapping("realestateDetailForm")
+	public String realestateDetailForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("realestateDetailForm 로딩 중....");
+		service.realestateGetArticle(req, model);
+		return "board/realestate/realestateDetailForm";
 	}
 	
-	//부동산 게시판 글쓰기 페이지로 이동
+	/*//부동산 게시판 댓글 등록
 	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@RequestMapping("realestateWrite")
 	public String realestateWrite(HttpServletRequest req, Model model) throws Exception {
@@ -134,14 +135,25 @@ public class BoardController {
 		if(req.getParameter("loginPage")!=null);
 		model.addAttribute("loginPage",req.getParameter("loginPage"));
 		return "board/realestate/realestateWrite";
-	}
+	}*/
 
 	//부동산 게시판 글쓰기 실행
 	@RequestMapping("realestateWritePro")
-	public String realestateWritePro(HttpServletRequest req, Model model) throws Exception {
+	public void realestateWritePro(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
 		logger.info("realestateWritePro 로딩 중....");
-		service.realestateWritePro(req, model);
-		return "board/realestate/realestate";
+		Integer realestateInsertArticle = service.realestateInsertArticle(req, model);
+		res.sendRedirect("knowledgeBoardList?insertResult="+realestateInsertArticle);
+		//return "board/realestate/realestateBoardList";
+	}
+	
+	//부동산 게시판 글쓰기 페이지로 이동
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
+	@RequestMapping("realestateWriteForm")
+	public String realestateWriteForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("realestateWriteForm 로딩 중....");
+		if(req.getParameter("loginPage")!=null);
+		model.addAttribute("loginPage",req.getParameter("loginPage"));
+		return "board/realestate/realestateWriteForm";
 	}
 	
 	//부동산 게시판 게시글 생성기

@@ -100,25 +100,25 @@ public class BoardDAOImpl implements BoardDAO {
 
 	//부동산 게시판 글 목록 보기
 	@Override
-	public List<RealestateVO> realestateList(RealestateVO rVO) {
-		return sqlSession.getMapper(BoardDAO.class).realestateList(rVO);
+	public List<RealestateVO> realestateGetArticleList(RealestateVO rVO) {
+		return sqlSession.getMapper(BoardDAO.class).realestateGetArticleList(rVO);
 	}
 	
 	//부동산 게시판 글 상세 페이지
 	@Override
-	public RealestateVO realestateView(int realestateNumber) {
-		return sqlSession.getMapper(BoardDAO.class).realestateView(realestateNumber);
+	public RealestateVO realestateGetArticle(int realestateNumber) {
+		return sqlSession.getMapper(BoardDAO.class).realestateGetArticle(realestateNumber);
 	}
 
 	//부동산 게시판 글 목록 갯수 카운트
 	@Override
-	public Integer getRealestateCount(RealestateVO rVO) {
-		return sqlSession.getMapper(BoardDAO.class).getRealestateCount(rVO);
+	public Integer realestateGetArticleCnt(RealestateVO rVO) {
+		return sqlSession.getMapper(BoardDAO.class).realestateGetArticleCnt(rVO);
 	}
 
 	//부동산 게시판 글 쓰기
-	public Integer realestateWritePro(RealestateVO rVO) {
-		return sqlSession.getMapper(BoardDAO.class).realestateWritePro(rVO);
+	public Integer realestateInsertArticle(RealestateVO rVO) {
+		return sqlSession.getMapper(BoardDAO.class).realestateInsertArticle(rVO);
 	}
 
 

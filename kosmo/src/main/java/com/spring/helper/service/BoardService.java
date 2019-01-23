@@ -37,9 +37,9 @@ public interface BoardService {
 
 	//재영 boardService 시작
 
-	public void realestateWritePro(HttpServletRequest req, Model model);
+	public Integer realestateInsertArticle(HttpServletRequest req, Model model);
 
-	public void realestateList(HttpServletRequest req, Model model);
+	public void realestateGetArticleList(HttpServletRequest req, Model model);
 	
 	/*public RealestateVO realestateGetVO(HttpServletRequest req);
 	
@@ -49,7 +49,7 @@ public interface BoardService {
 	
 	public void realestateDummyMaker(HttpServletRequest req, Model model);
 
-	public void realestateView(HttpServletRequest req, Model model);
+	public void realestateGetArticle(HttpServletRequest req, Model model);
 	//재영 boardService 끝
 
 	

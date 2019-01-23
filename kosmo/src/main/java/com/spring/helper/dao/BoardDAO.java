@@ -46,13 +46,13 @@ public interface BoardDAO {
 
 	//재영 boardDAO 시작
 
-	public List<RealestateVO> realestateList(RealestateVO rVO);
+	public List<RealestateVO> realestateGetArticleList(RealestateVO rVO);
 
-	public RealestateVO realestateView(int realestateNumber);
+	public RealestateVO realestateGetArticle(int realestateNumber);
 	
-	public Integer getRealestateCount(RealestateVO rVO);
+	public Integer realestateGetArticleCnt(RealestateVO rVO);
 
-	public Integer realestateWritePro(RealestateVO rVO);
+	public Integer realestateInsertArticle(RealestateVO rVO);
 
 
 	//재영 boardDAO 끝
