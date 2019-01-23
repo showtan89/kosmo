@@ -42,7 +42,14 @@
 		INSERT INTO knowledge
 		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'0','0','0',0)
 	</insert>
+	<!-- 질문수정 폼 자료 -->
+	<select id="knowledgeModifyForm" resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
+		SELECT * FROM knowledge WHERE knowledgeNumber=#{knowledgeNumber}
+	</select>
 	<!-- 질문수정 처리 -->
+	<update id="" parameterType="">
+		UPDATE knowledge SET knowledgeReward=#{knowledgeReward},knowledgeSubject=#{knowledgeSubject},knowledgeContent=#{knowledgeContent},knowledgeOpenCheck=#{knowledgeOpenCheck}    WHERE knowledgeNumber=#{knowledgeNumber}
+	</update>
 	<!-- 질문삭제 처리 시작-->
 	<delete id="knowledgeDeleteForm" parameterType="int">
 		DELETE FROM knowledge WHERE knowledgeNumber=#{knowledgeNumber}

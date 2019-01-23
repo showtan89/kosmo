@@ -41,7 +41,17 @@ public class BoardDAOImpl implements BoardDAO {
 	public int knowledgeInsertArticle(KnowledgeVO Knowledge) {
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeInsertArticle",Knowledge);
 	}
+	// 질문수정 폼 이동
+	@Override
+	public KnowledgeVO knowledgeModifyForm(int knowledgeNumber) {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.knowledgeModifyForm",knowledgeNumber);
+	}
+
 	// 질문수정 처리
+	@Override
+	public int knowledgeModifyPro(KnowledgeVO Knowledge) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeModifyPro",Knowledge);
+	}
 	// 질문삭제 처리
 	@Override
 	public int knowledgeDeleteForm(int knowledgeNumber) {

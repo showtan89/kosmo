@@ -21,7 +21,10 @@ public interface BoardDAO {
 	public ArrayList<KnowledgeVO> knowledgeGetArticleList(Map<String, Object> map);
 	// 질문등록 처리
 	public int knowledgeInsertArticle(KnowledgeVO Knowledge);
+	// 질문수정 폼 이동
+	public KnowledgeVO knowledgeModifyForm(int knowledgeNumber);
 	// 질문수정 처리
+	public int knowledgeModifyPro(KnowledgeVO Knowledge);
 	// 질문삭제 처리
 	public int knowledgeDeleteForm(int knowledgeNumber);
 	// 지식인게시판 게시글 상세페이지 출력
