@@ -59,6 +59,7 @@
 		DELETE FROM kComment WHERE knowledgeNumber=#{knowledgeNumber}
 	</delete>
 	<!-- 질문삭제 처리 종료 -->
+	
 	<!-- 지식인게시판 게시글 상세페이지 출력 -->
 	<select id="knowledgeGetArticle"
 		resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
@@ -70,6 +71,7 @@
 		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10',#{memberEmail},#{memberId},#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
 	<!-- 답변수정 처리 -->
+	
 	<!-- 답변삭제 처리 -->
 	<delete id="kCommentdelete" parameterType="int">
 		DELETE FROM kComment WHERE kCommentNumber=#{kCommentNumber}
