@@ -120,14 +120,45 @@ public class BoardController {
 		return "board/onedayclass/onedayclassDetailForm";
 	}
 	
-	// 수정 폼 - 비밀번호
+	
+	// 수정 상세 페이지
 	@RequestMapping("onedayclassModifyForm")
 	public String onedayclassModifyForm(HttpServletRequest req, Model model) throws Exception {
-		logger.info("원데이 클래스 수정폼 호출중 ....");
+		logger.info("원데이 클래스 수정 상세페이지 호출중 ....");
 		
 		service.onedayclassModifyForm(req, model);
 		return "board/onedayclass/onedayclassModifyForm";
 	}
 	
+	// 수정 처리
+	@RequestMapping("onedayclassModifyPro")
+	public String onedayclassModifyPro(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 수정 처리 호출중 ....");
+	
+		service.onedayclassModifyPro(req, model);
+		return "board/onedayclass/onedayclassModifyPro";
+	}
+	
+	// 글쓰기 페이지
+	@RequestMapping("onedayclassWriteForm")
+	public String onedayclassWriteForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 글쓰기 호출중 ....");
+		
+		service.onedayclassWriteForm(req, model);
+		return "board/onedayclass/onedayclassWriteForm";
+	}
+	
+	// 글쓰기 처리페이지
+	@RequestMapping("onedayclassWritePro")
+	public String onedayclassWritePro(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 글처리 호출중 ....");
+		
+		service.onedayclassWritePro(req, model);
+		return "board/onedayclass/onedayclassWritePro";
+	}
+		
 	// 진호  BoardController 끝----------------------------------------------------
+	
+
+
 }

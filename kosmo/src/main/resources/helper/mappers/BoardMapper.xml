@@ -292,5 +292,13 @@
 		SElECT * FROM onedayclass WHERE onedayclassNumber=#{onedayclassNumber}
 	</select>
 	
+	<!-- 수정 처리 , onedayclassImg2=#{onedayclassImg2}, onedayclassImg3=#{onedayclassImg3}-->
+	<update id="onedayclassModifyUpdate" parameterType="com.spring.helper.vo.BoardVO.onedayclassVO">
+		UPDATE onedayclass SET onedayclassSubject=#{onedayclassSubject}, onedayclassLocation=#{onedayclassLocation}
+		, onedayclassRecruitment=#{onedayclassRecruitment}, onedayclassPrice=#{onedayclassPrice}
+		, onedayclassCategory=#{onedayclassCategory}, onedayclassContent=#{onedayclassContent}
+		, onedayclassDeadlineCheck=#{onedayclassDeadlineCheck} WHERE onedayclassNumber=#{onedayclassNumber}
+	</update>
+	
 	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 </mapper>

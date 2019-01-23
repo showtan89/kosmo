@@ -106,6 +106,7 @@ public class authenticationhandler implements AuthenticationSuccessHandler {
 				userVO.setMemberPoint(rs.getInt("memberPoint"));
 			}
 				request.getSession().setAttribute("userVO", userVO);
+				//${userVO.memberNumber}
 			System.out.println("uservo포인트값"+userVO.getMemberPoint());
 		} catch(SQLException e) {
 			e.printStackTrace();
