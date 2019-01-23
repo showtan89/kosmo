@@ -1,8 +1,14 @@
 package com.spring.helper.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
+
+import com.spring.helper.vo.BoardVO.PageVO;
+import com.spring.helper.vo.BoardVO.RealestateVO;
 
 public interface BoardService {
 
@@ -11,11 +17,20 @@ public interface BoardService {
 	public void knowledgeBoardList(HttpServletRequest req,Model model);
 	// 질문등록 처리
 	public void knowledgeInsertArticle(HttpServletRequest req,Model model);
+	// 질문수정 폼 이동
+	public void knowledgeModifyForm(HttpServletRequest req,Model model);
+	// 질문수정 처리
+	public void knowledgeModifyPro(HttpServletRequest req,Model model);
+	// 질문삭제 처리
+	public void knowledgeDeleteForm(HttpServletRequest req,Model model);
 	// 지식인게시판 글 상세페이지 출력
 	public void knowledgeDetailForm(HttpServletRequest req,Model model);
 	// 답변등록 처리
 	public void knowledgeCommentPro(HttpServletRequest req,Model model);
-	// 댓글 목록 리스트 출력
+	// 답변수정 처리
+	// 답변삭제 처리
+	public void kCommentdelete(HttpServletRequest req,Model model);
+	// 답변 목록 리스트 출력
 	public void knowledgeCommentList(HttpServletRequest req,Model model);
 	// 동욱이 메소드 종료
 
@@ -26,10 +41,17 @@ public interface BoardService {
 
 	public void realestateList(HttpServletRequest req, Model model);
 	
+	/*public RealestateVO realestateGetVO(HttpServletRequest req);
+	
+	public PageVO realestateListPage(HttpServletRequest req, RealestateVO rVO);
+	
+	public List<RealestateVO> realestateListJson(RealestateVO rVO, int startNumber, int endNumber);*/
+	
 	public void realestateDummyMaker(HttpServletRequest req, Model model);
 
+	public void realestateView(HttpServletRequest req, Model model);
 	//재영 boardService 끝
-	
+
 	
 	//민석이 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	public void messageForm(HttpServletRequest req, Model model);

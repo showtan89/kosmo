@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.spring.helper.vo.BoardVO.KnowledgeVO"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,10 +44,9 @@
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px;margin-top: 30px;">
 	<div style="width:800px; margin:auto;">
-
+	<% KnowledgeVO Knowledge = (KnowledgeVO)request.getAttribute("Knowledge"); %>
 <!-- 동욱이 css -->
 <link rel="stylesheet" href="resources/ehddnr.css">
-<script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	function onsubmitcheck(){
 		if(!$('#knowledgeSubject').val()){
@@ -66,7 +66,7 @@
 				bytesHandler(this);
 			});
 		});
-
+		
 		function getTextLength(str) {
 			var len = 0;
 
@@ -99,8 +99,43 @@
 		}
 		function knowledgeWriteForm_Reward_none() {
 			$('.knowledgeWriteForm_Reward').css('display', 'none')
-			$('#addReward').val('0');
+			$('#addReward').val(<%=Knowledge.getKnowledgeReward()%>);
 		}
+		$(document).ready(function() {
+			$(function() {
+				$('textarea.content').text(function() {
+					bytesHandler(this);
+				});
+			});
+			
+			function getTextLength(str) {
+				var len = 0;
+
+				for (var i = 0; i < str.length; i++) {
+					if (escape(str.charAt(i)).length == 6) {
+						len++;
+					}
+					len++;
+				}
+				return len;
+			}
+
+			function bytesHandler(obj) {
+				var text = $(obj).val();
+				$('p.bytes').text(getTextLength(text));
+			}
+			$("#btn_select").val("<%=Knowledge.getKnowledgeCategory()%>").prop("selected", true);
+			if('<%=Knowledge.getKnowledgeOpenCheck()%>'=='Y'){
+				$('#knowledgeOpenCheck1').prop("checked", true);
+			} else {
+				$('#knowledgeOpenCheck2').prop("checked", true);
+			}
+			if('<%=Knowledge.getKnowledgeReward()%>'!='0'){
+				$('p.class_addReward').text('포인트 '+<%=Knowledge.getKnowledgeReward()%>+'을 채택자에게 드립니다.');
+			} else {
+				$('p.class_addReward').text('채택한 답변자에게 포인트를 드리며, 질문자에게도 포인트의 50%(최대100점)을 돌려드립니다.');
+			}
+		});
 		function knowledgeWriteForm_addReward(){
 			var addReward = $('#addReward').val();
 			if(!$.isNumeric(addReward)){
@@ -118,19 +153,18 @@
 			}
 		}
 	</script>
-	<form action="knowledgeWritePro" method="post" name="knowledgeForm" onsubmit="return onsubmitcheck();">
+	<form action="knowledgeModifyPro" method="post" name="knowledgeForm" onsubmit="return onsubmitcheck();">
 		<ul>
 			<li>
 				<p align="center">
 				 <img src="resources/img/ehddnr.gif" style="margin:0 0 10px 0;"> 
-				 <input type="text"  maxlength="100" name="knowledgeSubject" id="knowledgeSubject" style="width:100%;padding:0 5px;">
+				 <input type="text"  maxlength="100" name="knowledgeSubject" id="knowledgeSubject" value="${Knowledge.knowledgeSubject}" style="width:100%;padding:0 5px;">
 				</p>
 			</li>
 			<li>
 			<p style="display: inline" class="bytes">0</p>/5000</li>
 			<li style="width: 100%; height: 500px; margin: 0 0 20px 0;padding:5px 5px;">
-			<textarea class="content" maxlength="5000"style="width: 100%; height: 100%;padding:5px 5px;" name="knowledgeContent" id="knowledgeContent"></textarea>
-			
+			<textarea class="content" maxlength="5000"style="width: 100%; height: 100%;padding:5px 5px;" name="knowledgeContent" id="knowledgeContent">${Knowledge.knowledgeContent}</textarea>
 			</li>
 			<li style="position: relative; display:inline;">
 					<input class="knowledgeWriteForm_button3" type="button" value="포인트 설정"
@@ -171,7 +205,7 @@
 							<td colspan="5" style="padding-top: 10px; text-align: left;">
 								<p>
 									<span style="font-size: 10px; float: right;">보유포인트 : ${userVO.memberPoint} </span><br>
-									<input style="width: 100%;" type="text" id="addReward" name="addReward" value="0">
+									<input style="width: 100%;" type="text" id="addReward" name="addReward" value="${Knowledge.knowledgeReward}">
 								</p>
 							</td>
 						</tr>
@@ -199,15 +233,18 @@
 						<option value="쇼핑">쇼핑</option>
 						<option value="고민Q&A">고민Q&A</option>
 					</select>
+					<input type="hidden" name="knowledgeNumber" value="${Knowledge.knowledgeNumber}">
+					<input type="hidden" name="pageNum" value="${pageNum}">
+					<input type="hidden" name="btn_select" value="${btn_select}">
 					<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID 공개여부">
-					<input type="radio" name="knowledgeOpenCheck" value="Y" checked="checked">공개
-					<input type="radio" name="knowledgeOpenCheck" value="N" >비공개
+					<input type="radio" name="knowledgeOpenCheck" id="knowledgeOpenCheck1"value="Y" >공개
+					<input type="radio" name="knowledgeOpenCheck" id="knowledgeOpenCheck2"value="N" >비공개
 				</p>
 			</li>
 			<li align="center">
 				<br>
-				<input class="knowledgeWriteForm_button3" type="submit" value="질문등록">
-				<input class="knowledgeWriteForm_button3" type="button"	value="목록보기" onclick="knowledge();">
+				<input class="knowledgeWriteForm_button3" type="submit" value="수정하기">
+				<input class="knowledgeWriteForm_button3" type="button"	value="수정취소" onclick="window.history.back();">
 			</li>
 		</ul>
 	</form>

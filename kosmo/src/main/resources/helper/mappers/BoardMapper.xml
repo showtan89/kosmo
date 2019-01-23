@@ -42,6 +42,23 @@
 		INSERT INTO knowledge
 		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'0','0','0',0)
 	</insert>
+	<!-- 질문수정 폼 자료 -->
+	<select id="knowledgeModifyForm" resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
+		SELECT * FROM knowledge WHERE knowledgeNumber=#{knowledgeNumber}
+	</select>
+	<!-- 질문수정 처리 -->
+	<update id="knowledgeModifyPro" parameterType="com.spring.helper.vo.BoardVO.KnowledgeVO">
+		UPDATE knowledge SET knowledgeReward=#{knowledgeReward},knowledgeSubject=#{knowledgeSubject},knowledgeContent=#{knowledgeContent},knowledgeOpenCheck=#{knowledgeOpenCheck}    WHERE knowledgeNumber=#{knowledgeNumber}
+	</update>
+	<!-- 질문삭제 처리 시작-->
+	<delete id="knowledgeDeleteForm" parameterType="int">
+		DELETE FROM knowledge WHERE knowledgeNumber=#{knowledgeNumber}
+	</delete>
+	<!-- 질문삭제시 답변 전체 삭제 -->
+	<delete id="knowledgeDeleteForm2" parameterType="int">
+		DELETE FROM kComment WHERE knowledgeNumber=#{knowledgeNumber}
+	</delete>
+	<!-- 질문삭제 처리 종료 -->
 	<!-- 지식인게시판 게시글 상세페이지 출력 -->
 	<select id="knowledgeGetArticle"
 		resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
@@ -52,16 +69,21 @@
 		INSERT INTO kComment
 		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10',#{memberEmail},#{memberId},#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
+	<!-- 답변수정 처리 -->
+	<!-- 답변삭제 처리 -->
+	<delete id="kCommentdelete" parameterType="int">
+		DELETE FROM kComment WHERE kCommentNumber=#{kCommentNumber}
+	</delete>
 	<!-- 답변등록 처리시 알림 처리 -->
 	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
 		INSERT INTO commentAlarm
 		VALUES(commentAlarmSeq.nextval,#{memberNumber},'10',#{memberEmail},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
 	</insert>
-	<!-- 댓글 갯수 구하기 -->
+	<!-- 답변 갯수 구하기 -->
 	<select id="knowledgeCommentListCnt" resultType="int">
 		SELECT count(*) from kComment where knowledgeNumber = #{knowledgeNumber}
 	</select>
-	<!-- 댓글 리스트 출력 -->
+	<!-- 답변 리스트 출력 -->
 	<select id="knowledgeCommentList" resultType="com.spring.helper.vo.BoardVO.kCommentVO">
 		SELECT * FROM kComment WHERE knowledgeNumber=#{knowledgeNumber} 
 	</select>
@@ -71,6 +93,7 @@
 
 
 	<!-- 재영 시작 -->
+	<!-- 부동산 글 등록 -->
 	<insert id='realestateWritePro' parameterType="com.spring.helper.vo.BoardVO.RealestateVO">
 		insert into realestate(realestateNumber,memberNumber,boardCode,memberEmail,memberId,realestateSubject,
 		realestateContent,realestatePrice,realestateCategory1,realestateCategory2,realestateDeposit,realestateDepositCheck,
@@ -86,10 +109,16 @@
 		'empty',#{realestateImg1},#{realestateImg2,jdbcType=VARCHAR},#{realestateImg3,jdbcType=VARCHAR},#{realestateTemp1})
 	</insert>
 	
+	<!-- 부동산 게시글 상세보기 -->
+	<select id="realestateView" parameterType="Integer" resultType="com.spring.helper.vo.BoardVO.RealestateVO">
+		select * from realestate where realestateNumber = #{realestateNumber} 
+	</select>
+	
+	
+	<!-- 부동산 검색 조건에 따른 갯수 구하기 -->
 	<sql id="getRealCount">
 		select count(*) from realestate
 	</sql>
-	
 	<select id="getRealestateCount" parameterType="com.spring.helper.vo.BoardVO.RealestateVO" resultType="Integer">
 	<include refid="getRealCount"/>
 		<where>
@@ -98,12 +127,12 @@
 			</if>
 			<if test="realestatePrice != 0"> <!-- 금액 범위  -->
 			<![CDATA[
-				and realestatePrice < #{realestatePrice}
+				and realestatePrice >= #{realestatePrice}
 			]]>
 			</if>
 			<if test="realestatePriceEnd != 0"> <!-- 금액 끝 범위  -->
 			<![CDATA[
-				and realestatePrice > #{realestatePriceEnd}
+				and realestatePrice <= #{realestatePriceEnd}
 			]]>
 			</if>
 			<if test="realestateDepositCheck != null"> <!-- 보증금 -->
@@ -148,36 +177,32 @@
 		</where>
 	</select>
 	
+	<!-- 부동산 검색조건에 따른 게시글 LIST 구하기 by start ~ end -->
 	<sql id="getRealestateList">
-		SELECT *  
-		FROM(SELECT realestateNumber,memberNumber,boardCode,memberEmail,memberId,realestateSubject,
-			realestateContent,realestatePrice,realestateCategory1,realestateCategory2,realestateDeposit,realestateDepositCheck,
-			realestateManagement,realestateOptionCheck,realestateTobaccoCheck,realestateState,realestateHeatingtype,realestateBalcony,
-			realestatePetCheck,realestateTerm,realestateMoveindate,realestateGender,realestateRoom,realestateToilet,realestateCar,
-			realestateSize,realestateType,realestateLocation,realestateFavorite,realestateRecommend,realestateLookup,realestateRegdate,
-			realestateCheckday,realestateImg1,realestateImg2,realestateImg3,realestateTemp1, rownum rNum  
-			 FROM ( 
-				 	SELECT * 
-				 	FROM realestate
-				 	ORDER BY realestatenumber DESC
-				  )
-			 )  
+		SELECT *  FROM ( 
 	</sql>
-	
 	<select id="realestateList" parameterType="com.spring.helper.vo.BoardVO.RealestateVO" resultType="com.spring.helper.vo.BoardVO.RealestateVO">
 	<include refid="getRealestateList"/>
+		SELECT realestateNumber,memberNumber,boardCode,memberEmail,memberId,realestateSubject,
+		    realestateContent,realestatePrice,realestateCategory1,realestateCategory2,realestateDeposit,realestateDepositCheck,
+		    realestateManagement,realestateOptionCheck,realestateTobaccoCheck,realestateState,realestateHeatingtype,realestateBalcony,
+		    realestatePetCheck,realestateTerm,realestateMoveindate,realestateGender,realestateRoom,realestateToilet,realestateCar,
+		    realestateSize,realestateType,realestateLocation,realestateFavorite,realestateRecommend,realestateLookup,realestateRegdate,
+		    realestateCheckday,realestateImg1,realestateImg2,realestateImg3,realestateTemp1, rownum rNum 
+		FROM realestate
 		<where>
+			boardcode = 20
 			<if test="realestateCategory1 != null"> <!--지역 -->
-				realestateCategory1 in #{realestateCategory1}
+				and realestateCategory1 in #{realestateCategory1}
 			</if>
 			<if test="realestatePrice != 0"> <!-- 금액 범위  -->
 			<![CDATA[
-				and realestatePrice < #{realestatePrice}
+				and realestatePrice >= #{realestatePrice}
 			]]>
 			</if>
 			<if test="realestatePriceEnd != 0"> <!-- 금액 끝 범위  -->
 			<![CDATA[
-				and realestatePrice > #{realestatePriceEnd}
+				and realestatePrice <= #{realestatePriceEnd}
 			]]>
 			</if>
 			<if test="realestateDepositCheck != null"> <!-- 보증금 -->
@@ -219,13 +244,14 @@
 			<if test="realestateTemp1 != null"> <!-- 엘리베이터 -->
 				and realestateTemp1 in #{realestateTemp1}
 			</if>
+				ORDER BY realestatenumber DESC)
+		</where>
+		<where>
 			<![CDATA[
-				rNum >= #{realestateStart} AND rNum <= #{realestateEnd}
-			]]>
+				rNum >= #{realestateStart} and rNum <= #{realestateEnd}
+			]]>  
 		</where>
 	</select>
-	
-
 	<!-- 재영 끝 -->
 
 	<!-- 민석이 시작 -->

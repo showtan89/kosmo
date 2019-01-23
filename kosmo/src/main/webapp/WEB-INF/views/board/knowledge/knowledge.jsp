@@ -142,14 +142,14 @@ function knowledgeDetailForm(knowledgeNumber){
 			%>
 			<table class="tbl-ex" style="width: 100%; margin-top: 50px;">
 				<c:forEach var="dto" items="${dtos}">
-					<tr>
+					<tr id="${dto.knowledgeNumber}">
 						<td style="max-width: 100%; word-break: break-all;">
 							<p style="margin: 0 0 2px 0" onclick="knowledgeDetailForm(${dto.knowledgeNumber});">
 								<span> ${dto.knowledgeReward}</span> &nbsp; &nbsp; 
 								<span><a style="font-size: 16px; "href="#">${dto.knowledgeSubject}</a></span>
 								<c:if test="${userVO.memberId==dto.memberId}">
-								<span style="float: right; margin-right: 10px;">삭제</span>
-								<span style="float: right; margin-right: 20px;">수정</span>
+								<span style="float: right; margin-right: 10px;"><a href="knowledgeDeleteForm?knowledgeNumber=${dto.knowledgeNumber}&pageNum=${pageNum}&btn_select=${btn_select}">삭제</a></span>
+								<span style="float: right; margin-right: 20px;"><a href="knowledgeModifyForm?knowledgeNumber=${dto.knowledgeNumber}&pageNum=${pageNum}&btn_select=${btn_select}">수정</a></span>
 								</c:if>
 							</p>
 

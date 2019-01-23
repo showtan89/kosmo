@@ -1,5 +1,7 @@
 package com.spring.helper.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -9,8 +11,11 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.helper.service.BoardService;
+import com.spring.helper.vo.BoardVO.PageVO;
+import com.spring.helper.vo.BoardVO.RealestateVO;
 
 @Controller
 public class BoardController {
@@ -39,9 +44,30 @@ public class BoardController {
 	public String knowledgeWritePro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeWritePro 로딩 중....");
 		service.knowledgeInsertArticle(req, model);
-		return "board/knowledge/knowledgeWritePro";
+		return "board/knowledge/knowledgePro";
 	}
-	
+	// 질문수정 폼 이동
+	@RequestMapping("knowledgeModifyForm")
+	public String knowledgeModifyForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("knowledgeModifyForm 로딩 중....");
+		service.knowledgeModifyForm(req, model);
+		return "board/knowledge/knowledgeModifyForm";
+	}
+	// 질문수정 처리
+	@RequestMapping("knowledgeModifyPro")
+	public String knowledgeModifyPro(HttpServletRequest req, Model model) throws Exception {
+		logger.info("knowledgeModifyPro 로딩 중....");
+		service.knowledgeModifyPro(req, model);
+		return "board/knowledge/knowledgePro";
+	}
+	// 질문삭제 처리
+	@RequestMapping("knowledgeDeleteForm")
+	public String knowledgeDeleteForm(HttpServletRequest req, Model model) throws Exception{
+		logger.info("knowledgeDeleteForm 로딩 중....");
+		service.knowledgeDeleteForm(req, model);
+		System.out.println("실행");
+		return "board/knowledge/knowledgePro";
+	}
 	// 게시글 클릭시 글 상세페이지 출력
 	@RequestMapping("knowledgeDetailForm")
 	public String knowledgeDetailForm(HttpServletRequest req, Model model) throws Exception {
@@ -50,16 +76,21 @@ public class BoardController {
 		service.knowledgeCommentList(req,model);
 		return "board/knowledge/knowledgeDetailForm";
 	}
-	
 	// 답변등록 처리
 	@RequestMapping("knowledgeCommentPro")
 	public String knowledgeCommentPro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeCommentPro 로딩 중....");
 		service.knowledgeCommentPro(req, model);
-		return "board/knowledge/knowledgeWritePro";
+		return "board/knowledge/knowledgePro";
 	}
-	
-
+	// 답변수정 처리
+	// 답변삭제 처리
+	@RequestMapping("kCommentdelete")
+	public String kCommentdelete(HttpServletRequest req, Model model) throws Exception {
+		logger.info("kCommentdelete 로딩 중....");
+		service.kCommentdelete(req, model);
+		return "board/knowledge/knowledgePro";
+	}
 	// 동욱이 메소드 종료
 
 
@@ -73,6 +104,28 @@ public class BoardController {
 		return "board/realestate/realestate";
 	}
 
+	//부동산 Json 보류 ㅠㅠ
+	/*@RequestMapping("realestateListJson")
+	public ModelAndView realestateListJson(HttpServletRequest req, Model model) throws Exception{
+		logger.info("realestateListJson 호출");
+		RealestateVO rVO = service.realestateGetVO(req);
+		PageVO pVO = service.realestateListPage(req, rVO);
+		int startNumber = pVO.getStartNumber();
+		int endNumber = pVO.getEndNumber();
+		List<RealestateVO> list = service.realestateListJson(rVO,startNumber,endNumber);
+		model.addAttribute("list",list);
+		model.addAttribute("pVO",pVO);
+		return new ModelAndView("board/realestate/realestateJson");
+	}*/
+	
+	//부동산 게시판 글 상세 페이지로 이동
+	@RequestMapping("realestateView")
+	public String realestateView(HttpServletRequest req, Model model) throws Exception {
+		logger.info("realestateView 로딩 중....");
+		service.realestateView(req, model);
+		return "board/realestate/realestateView";
+	}
+	
 	//부동산 게시판 글쓰기 페이지로 이동
 	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@RequestMapping("realestateWrite")

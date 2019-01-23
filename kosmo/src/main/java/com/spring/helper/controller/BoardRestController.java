@@ -1,24 +1,32 @@
 package com.spring.helper.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.helper.service.BoardService;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 
 @RestController
 public class BoardRestController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardRestController.class);
-	 
-	//pom.xml에 json 변환기(jackson-databind(*필수), jackson-mapper-asl) 추가.
-	//주소값(JSP)이 아닌 값을 넘길때 @ResponseBody를 추가한다.  -------< RestController를 사용하면 생략(스프링4이상 지원)
-	/*@RequestMapping("/realestateList")
-	public RealestateVO realestateList() throws Exception{
-		logger.info("realestateList 로딩 중....");
-		return new RealestateVO(); 
-	}*/
 	
+	@Autowired
+	BoardService service;
+	
+	//@RequestMapping("realestateListJson")
+	/*public List<RealestateVO> realestateListJson(HttpServletRequest req, Model model) throws Exception{
+		logger.info("realestateListJson 호출");
+		List<RealestateVO> list = service.realestateListJson(req, model);
+		return list;
+	}*/
 	
 }

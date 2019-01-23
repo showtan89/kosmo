@@ -1,20 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Helper - Realestate</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
-	<style>
-	.realImage {
-		max-width: 200px;
-		min-height: 150px;
-	}
-	</style>
+<style>
+.realImage {
+	max-width: 200px;
+	min-height: 150px;
+}
+</style>
 </head>
 
 <!-- 프리로더 이미지 -->
@@ -31,10 +33,12 @@
 
 <!-- 메뉴바 아래 이미지 -->
 <div class="breadcrumb-area">
-	<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
+	<div
+		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 		style="background-image: url(${realimage}realestatemenu.jpg);">
 		<h2>REALESTATE</h2>
-	</div><br><br>
+	</div>
+	<br> <br>
 </div>
 
 <!-- 부동산 게시판 본문  -->
@@ -45,13 +49,15 @@
 				class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between">
 				<div class="shop-page-count">
 					<!-- 이부분 바꿔야함  -->
-					<p>Showing ${pVO.startNumber}–${pVO.endNumber} of ${pVO.totalCount} results</p>
+					<p>Showing ${pVO.startNumber}–${pVO.endNumber} of
+						${pVO.totalCount} results</p>
 				</div>
 				<!-- Search by Terms -->
 				<div class="search_by_terms">
 					<!-- 데이터 생성용 버튼 - 주석 처리 -->
 					<!-- <a href="realestateDummyMaker"><button type="button" class='btn alazea-btn'>DUMMY</button></a> -->
-					<a href="realestateWrite"><button type="button" class='btn alazea-btn'>Write</button></a>
+					<a href="realestateWrite"><button type="button"
+							class='btn alazea-btn'>Write</button></a>
 					<!-- 필터 기능 일단 주석 -->
 					<!-- <form action="#" method="post" class="form-inline">
                                <select class="custom-select widget-title">
@@ -101,9 +107,11 @@
 						<h4 class="widget-title">Categories</h4>
 						<div class="widget-desc">
 							<!-- Single Checkbox -->
-							<div class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"	id="customCheck1"> 
-								<label class="custom-control-label" for="customCheck1">All plants <span class="text-muted">(72)</span></label>
+							<div
+								class="custom-control custom-checkbox d-flex align-items-center mb-2">
+								<input type="checkbox" class="custom-control-input"
+									id="customCheck1"> <label class="custom-control-label"
+									for="customCheck1">All plants <span class="text-muted">(72)</span></label>
 							</div>
 							<!-- Single Checkbox -->
 							<div
@@ -175,17 +183,15 @@
 							<div
 								class="custom-control custom-checkbox d-flex align-items-center mb-2">
 								<input type="checkbox" class="custom-control-input"
-									id="customCheck10"> <label
-									class="custom-control-label" for="customCheck10">Price:
-									low to high</label>
+									id="customCheck10"> <label class="custom-control-label"
+									for="customCheck10">Price: low to high</label>
 							</div>
 							<!-- Single Checkbox -->
 							<div
 								class="custom-control custom-checkbox d-flex align-items-center">
 								<input type="checkbox" class="custom-control-input"
-									id="customCheck11"> <label
-									class="custom-control-label" for="customCheck11">Price:
-									high to low</label>
+									id="customCheck11"> <label class="custom-control-label"
+									for="customCheck11">Price: high to low</label>
 							</div>
 						</div>
 						<hr>
@@ -203,82 +209,84 @@
 					<c:forEach var="dto" items="${list}">
 						<div class="col-12">
 							<div class="card flex-md-row mb-4 shadow-sm h-md-250">
-								<a href=realestateView?realestateNumber=${dto.realestateNumber}><img class="card-img-right flex-auto d-none d-lg-block realImage"	src="${realimage}${dto.realestateImg1}" alt=""></a>
+								<a href=realestateView?realestateNumber=${dto.realestateNumber}><img
+									class="card-img-right flex-auto d-none d-lg-block realImage"
+									src="${realimage}${dto.realestateImg1}" alt=""></a>
 								<div class="card-body d-flex flex-column align-items-start">
-									<strong class="d-inline-block mb-2 text-warning">
-									<c:set var="loca" value="${dto.realestateCategory1}"/>
-									<c:choose>
-										<c:when test="${loca.equals('seoul')}">
+									<strong class="d-inline-block mb-2 text-warning"> <c:set
+											var="loca" value="${dto.realestateCategory1}" /> <c:choose>
+											<c:when test="${loca.equals('seoul')}">
 											Seoul (서울)
 										</c:when>
-										<c:when test="${loca.equals('busan')}">
+											<c:when test="${loca.equals('busan')}">
 											Busan (부산)
 										</c:when>
-										<c:when test="${loca.equals('incheon')}">
+											<c:when test="${loca.equals('incheon')}">
 											Incheon (인천)
 										</c:when>
-										<c:when test="${loca.equals('gwangju')}">
+											<c:when test="${loca.equals('gwangju')}">
 											Gwangju (광주)
 										</c:when>
-										<c:when test="${loca.equals('daejeon')}">
+											<c:when test="${loca.equals('daejeon')}">
 											Daejeon (대전)
 										</c:when>
-										<c:when test="${loca.equals('sejong')}">
+											<c:when test="${loca.equals('sejong')}">
 											Sejong (세종)
 										</c:when>
-										<c:when test="${loca.equals('daegu')}">
+											<c:when test="${loca.equals('daegu')}">
 											Daegu (대구)
 										</c:when>
-										<c:when test="${loca.equals('ulsan')}">
+											<c:when test="${loca.equals('ulsan')}">
 											Ulsan (울산)
 										</c:when>
-										<c:when test="${loca.equals('gyeonggi')}">
+											<c:when test="${loca.equals('gyeonggi')}">
 											Gyeonggi-do (경기도)
 										</c:when>
-										<c:when test="${loca.equals('gangwon')}">
+											<c:when test="${loca.equals('gangwon')}">
 											Gangwon-do (강원도)
 										</c:when>
-										<c:when test="${loca.equals('chungcheongbuk')}">
+											<c:when test="${loca.equals('chungcheongbuk')}">
 											Chungcheongbuk-do (충청북도)
 										</c:when>
-										<c:when test="${loca.equals('chungcheongnam')}">
+											<c:when test="${loca.equals('chungcheongnam')}">
 											Chungcheongnam-do (충청남도)
 										</c:when>
-										<c:when test="${loca.equals('gyeongsangbuk')}">
+											<c:when test="${loca.equals('gyeongsangbuk')}">
 											Gyeongsangbuk-do (경상북도)
 										</c:when>
-										<c:when test="${loca.equals('gyeongsangnam')}">
+											<c:when test="${loca.equals('gyeongsangnam')}">
 											Gyeongsangnam-do (경상남도)
 										</c:when>
-										<c:when test="${loca.equals('jeollabuk')}">
+											<c:when test="${loca.equals('jeollabuk')}">
 											Jeollabuk-do (전라북도)
 										</c:when>
-										<c:when test="${loca.equals('jeollanam')}">
+											<c:when test="${loca.equals('jeollanam')}">
 											Jeollanam-do (전라남도)
 										</c:when>
-										<c:when test="${loca.equals('jeju')}">
+											<c:when test="${loca.equals('jeju')}">
 											Jeju-do (제주도)
 										</c:when>
-									</c:choose>
-									</strong>
-									<strong class="d-inline-block mb-2 text-success">${dto.realestateSubject}</strong>
+										</c:choose>
+									</strong> <strong class="d-inline-block mb-2 text-success">${dto.realestateSubject}</strong>
 									<%-- <span class="card-text mb-auto">${dto.realestateContent}</span> --%>
 									<div class='iconsArea'>
-										<!-- 풀옵션 --><!-- 아이콘 못찾겠다 꾀꼬리  -->
+										<!-- 풀옵션 -->
+										<!-- 아이콘 못찾겠다 꾀꼬리  -->
 										<c:if test="${dto.realestateOptionCheck.equals('on')}">
-										
+
 										</c:if>
 										<!-- 흡연 -->
 										<c:if test="${dto.realestateTobaccoCheck.equals('on')}">
 											<i class="fa fa-cloud">&nbsp </i>
 										</c:if>
-										<!-- 발코니 --><!-- 아이콘 못찾겠다 꾀꼬리  -->
+										<!-- 발코니 -->
+										<!-- 아이콘 못찾겠다 꾀꼬리  -->
 										<c:if test="${dto.realestateBalcony.equals('on')}">
-										
+
 										</c:if>
 										<!-- 애완동물 -->
 										<c:if test="${dto.realestatePetCheck.equals('on')}">
-											 <i class="fa fa-paw">&nbsp </i> 
+											<i class="fa fa-paw">&nbsp </i>
 										</c:if>
 										<!-- 엘리베이터 -->
 										<c:if test="${dto.realestateTemp1.equals('on')}">
@@ -286,7 +294,7 @@
 										</c:if>
 										<!-- 주차가능 -->
 										<c:if test="${dto.realestateCar.equals('on')}">
-											<i class="fa fa-car">&nbsp </i> 
+											<i class="fa fa-car">&nbsp </i>
 										</c:if>
 										<!-- 성별 -->
 										<c:if test="${dto.realestateGender.equals('female')}">
@@ -299,34 +307,32 @@
 											<i class="fa fa-transgender">&nbsp </i>
 										</c:if>
 										<!-- 방 수 -->
-										<i class="fa fa-bed">
-										<c:set var="room" value="${dto.realestateRoom}"/>
-										<c:choose>
-											<c:when test="${room.equals('over3')}">
+										<i class="fa fa-bed"> <c:set var="room"
+												value="${dto.realestateRoom}" /> <c:choose>
+												<c:when test="${room.equals('over3')}">
 											3↑&nbsp 
 											</c:when>
-											<c:when test="${!room.equals('over3')}">
+												<c:when test="${!room.equals('over3')}">
 											${dto.realestateRoom}&nbsp 
 											</c:when>
-										</c:choose>
-										</i> 
+											</c:choose>
+										</i>
 										<!-- 화장실 수 -->
-										<i class="fa fa-bath">
-										<c:set var="bath" value="${dto.realestateToilet}"/>
-										<c:choose>
-											<c:when test="${bath.equals('over3')}">
+										<i class="fa fa-bath"> <c:set var="bath"
+												value="${dto.realestateToilet}" /> <c:choose>
+												<c:when test="${bath.equals('over3')}">
 											3↑&nbsp 
 											</c:when>
-											<c:when test="${!bath.equals('over3')}">
+												<c:when test="${!bath.equals('over3')}">
 											${dto.realestateToilet}&nbsp 
 											</c:when>
-										</c:choose>
+											</c:choose>
 										</i>
-										<!-- 금액 --> 
-										<span class='text-success'>
-										<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-										<fmt:setLocale value = "ko_KR"/>
-       									<fmt:formatNumber value = "${dto.realestatePrice}" type = "currency"/>			
+										<!-- 금액 -->
+										<span class='text-success'> <%@ taglib prefix="fmt"
+												uri="http://java.sun.com/jsp/jstl/fmt"%>
+											<fmt:setLocale value="ko_KR" /> <fmt:formatNumber
+												value="${dto.realestatePrice}" type="currency" />
 										</span>
 									</div>
 								</div>
@@ -334,36 +340,46 @@
 						</div>
 					</c:forEach>
 				</div>
-
 				<!-- 페이지 -->
 				<%-- <c:set var="linkURL" value="${requestScope['javax.servlet.forward.servlet_path']}"/> --%>
 				<%-- <c:set var="URL1" value="${pageContext.request.requestURL}" />
 				<c:set var="URL2" value="${pageContext.request.requestURI}" /> --%>
-				<c:set var="linkURL" value="realestate"/>
+				<c:set var="linkURL" value="realestate" />
 				<nav aria-label="Page navigation">
 					<ul class="pagination">
-					<c:if test="${pVO.totalCount>0}">
-						<c:if test="${pVO.startPage>pVO.pageBlock}">
-							<li class="page-item"><a class="page-link" href="${linkURL}"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a></li>
-							<li class="page-item"><a class="page-link" href="${linkURL}?pageNum=${(pVO.startPage-pVO.pageBlock)+(pVO.pageBlock-1)}"><i class="fa fa-angle-left"></i></a></li>
-						</c:if>
-	
-						<c:forEach var="i" begin="${pVO.startPage}" end="${pVO.endPage}">
-							<c:if test="${i==pVO.currentPage}">
-								<li class="page-item"><a class="page-link" style="background-color: #28a745 !important; color:white !important">${i}</a></li>
+						<c:if test="${pVO.totalCount>0}">
+							<c:if test="${pVO.startPage>pVO.pageBlock}">
+								<li class="page-item"><a class="page-link"
+									href="${linkURL}"><i class="fa fa-angle-left"></i><i
+										class="fa fa-angle-left"></i></a></li>
+								<li class="page-item"><a class="page-link"
+									href="${linkURL}?pageNum=${(pVO.startPage-pVO.pageBlock)+(pVO.pageBlock-1)}"><i
+										class="fa fa-angle-left"></i></a></li>
 							</c:if>
-							<c:if test="${i!=pVO.currentPage}">
-								<li class="page-item"><a class="page-link" href="${linkURL}?pageNum=${i}">${i}</a></li>
+
+							<c:forEach var="i" begin="${pVO.startPage}" end="${pVO.endPage}">
+								<c:if test="${i==pVO.currentPage}">
+									<li class="page-item"><a class="page-link"
+										style="background-color: #28a745 !important; color: white !important">${i}</a></li>
+								</c:if>
+								<c:if test="${i!=pVO.currentPage}">
+									<li class="page-item"><a class="page-link"
+										href="${linkURL}?pageNum=${i}">${i}</a></li>
+								</c:if>
+							</c:forEach>
+
+							<c:if test="${pVO.pageCount > pVO.endPage }">
+								<li class="page-item"><a class="page-link"
+									href="${linkURL}?pageNum=${(pVO.startPage + pVO.pageBlock)}"><i
+										class="fa fa-angle-right"></i></a></li>
+								<li class="page-item"><a class="page-link"
+									href="${linkURL}?pageNum=${pVO.pageCount}"><i
+										class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
 							</c:if>
-						</c:forEach>
-	
-						<c:if test="${pVO.pageCount > pVO.endPage }">
-							<li class="page-item"><a class="page-link" href="${linkURL}?pageNum=${(pVO.startPage + pVO.pageBlock)}"><i class="fa fa-angle-right"></i></a></li>
-							<li class="page-item"><a class="page-link" href="${linkURL}?pageNum=${pVO.pageCount}"><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
 						</c:if>
-					</c:if>
 					</ul>
 				</nav>
+
 			</div>
 		</div>
 	</div>
