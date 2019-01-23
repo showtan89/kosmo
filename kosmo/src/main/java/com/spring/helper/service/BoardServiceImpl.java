@@ -3,11 +3,8 @@ package com.spring.helper.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-<<<<<<< HEAD
-=======
 import java.io.IOException;
 import java.sql.Timestamp;
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,11 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-<<<<<<< HEAD
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-=======
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
-
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
