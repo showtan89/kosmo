@@ -47,7 +47,6 @@
 	<% KnowledgeVO Knowledge = (KnowledgeVO)request.getAttribute("Knowledge"); %>
 <!-- 동욱이 css -->
 <link rel="stylesheet" href="resources/ehddnr.css">
-<script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 	function onsubmitcheck(){
 		if(!$('#knowledgeSubject').val()){
@@ -166,8 +165,6 @@
 			<p style="display: inline" class="bytes">0</p>/5000</li>
 			<li style="width: 100%; height: 500px; margin: 0 0 20px 0;padding:5px 5px;">
 			<textarea class="content" maxlength="5000"style="width: 100%; height: 100%;padding:5px 5px;" name="knowledgeContent" id="knowledgeContent">${Knowledge.knowledgeContent}</textarea>
-			
-			
 			</li>
 			<li style="position: relative; display:inline;">
 					<input class="knowledgeWriteForm_button3" type="button" value="포인트 설정"
