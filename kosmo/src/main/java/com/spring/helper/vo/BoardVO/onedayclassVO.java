@@ -33,6 +33,23 @@ public class onedayclassVO {
 	private int onedayclassTemp3;				// 원데이클래스 컬럼3
 
 	
+	
+	@Override
+	public String toString() {
+		return "onedayclassVO [onedayclassNumber=" + onedayclassNumber + ", memberNumber=" + memberNumber
+				+ ", boardCode=" + boardCode + ", memberEmail=" + memberEmail + ", memberId=" + memberId
+				+ ", onedayclassSubject=" + onedayclassSubject + ", onedayclassContent=" + onedayclassContent
+				+ ", onedayclassLookup=" + onedayclassLookup + ", onedayclassRegdate=" + onedayclassRegdate
+				+ ", onedayclassAuthority=" + onedayclassAuthority + ", onedayclassCategory=" + onedayclassCategory
+				+ ", onedayclassOpendate=" + onedayclassOpendate + ", onedayclassLocation=" + onedayclassLocation
+				+ ", onedayclassRecruitment=" + onedayclassRecruitment + ", onedayclassPrice=" + onedayclassPrice
+				+ ", onedayclassReservation=" + onedayclassReservation + ", onedayclassPay=" + onedayclassPay
+				+ ", onedayclassEndCheck=" + onedayclassEndCheck + ", onedayclassDeadlineCheck="
+				+ onedayclassDeadlineCheck + ", onedayclassGrade=" + onedayclassGrade + ", onedayclassTotalpeople="
+				+ onedayclassTotalpeople + ", onedayclassImg1=" + onedayclassImg1 + ", onedayclassImg2="
+				+ onedayclassImg2 + ", onedayclassImg3=" + onedayclassImg3 + ", onedayclassTemp1=" + onedayclassTemp1
+				+ ", onedayclassTemp2=" + onedayclassTemp2 + ", onedayclassTemp3=" + onedayclassTemp3 + "]";
+	}
 	public int getOnedayclassNumber() {
 		return onedayclassNumber;
 	}

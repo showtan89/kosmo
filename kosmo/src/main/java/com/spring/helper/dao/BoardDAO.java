@@ -87,6 +87,10 @@ public interface BoardDAO {
 	// 게시글 상세 페이지, 수정을 위한 상세페이지
 	public onedayclassVO onedayclassGetArticle(int onedayclassNumber);
 	
+	// 게시글 수정 처리
+	public int onedayclassModifyUpdate(onedayclassVO vo);
+
+	
 	// 진호 메소드 종료--------------------------------------
 	
 	

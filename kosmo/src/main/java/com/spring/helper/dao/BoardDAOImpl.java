@@ -16,6 +16,7 @@ import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
 
+
 @Repository
 public class BoardDAOImpl implements BoardDAO {
 
@@ -193,6 +194,17 @@ public class BoardDAOImpl implements BoardDAO {
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 		return boardDao.onedayclassGetArticle(onedayclassNumber);
 	}
+
+	// 수정 처리
+	@Override
+	public int onedayclassModifyUpdate(onedayclassVO vo) {
+
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int updateCnt = boardDao.onedayclassModifyUpdate(vo);
+		return updateCnt;
+	}
+	
+	
 	// 진호 메소드 종료------------------------------------------------
 	
 

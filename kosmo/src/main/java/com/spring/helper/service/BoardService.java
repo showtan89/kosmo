@@ -68,8 +68,20 @@ public interface BoardService {
 	// 상세페이지
 	public void onedayclassDetailForm(HttpServletRequest req, Model model);
 	
-	// 수정 폼 - 비밀번호
+	// 수정 상세 페이지
 	public void onedayclassModifyForm(HttpServletRequest req, Model model);
+	
+	// 수정 처리
+	public void onedayclassModifyPro(HttpServletRequest req, Model model);
+	
+	// 글쓰기 페이지
+	public void onedayclassWriteForm(HttpServletRequest req, Model model);
+	
+	// 글 처리 페이지
+	public void onedayclassWritePro(HttpServletRequest req, Model model);
+	
+
+	
 	
 	//진호 끝-----------------------------------------------------------
 }

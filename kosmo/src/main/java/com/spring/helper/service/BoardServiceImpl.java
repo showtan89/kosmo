@@ -3,6 +3,11 @@ package com.spring.helper.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+<<<<<<< HEAD
+=======
+import java.io.IOException;
+import java.sql.Timestamp;
+>>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+<<<<<<< HEAD
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+=======
+>>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
@@ -583,10 +591,9 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
-	// 상세페이지
+	// 글 목록 상세페이지
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
-
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
@@ -598,15 +605,60 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
-
+	// 수정 상세 페이지
 	// 수정 폼 - 비밀번호
 	@Override
 	public void onedayclassModifyForm(HttpServletRequest req, Model model) {
-
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		boardDao.onedayclassAddReadCnt(onedayclassNumber);
+		onedayclassVO vo = boardDao.onedayclassGetArticle(onedayclassNumber);
+		
+		model.addAttribute("dto", vo);
+		model.addAttribute("onedayclassNumber", onedayclassNumber);
+	}
+	// 수정 처리
+	@Override
+	public void onedayclassModifyPro(HttpServletRequest req, Model model) {
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
+		
+		onedayclassVO vo = new onedayclassVO();
+		
+		vo.setOnedayclassNumber(onedayclassNumber);
+		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
+		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
+		vo.setOnedayclassRecruitment(req.getParameter("onedayclassRecruitment"));
+		vo.setOnedayclassPrice(Integer.parseInt(req.getParameter("onedayclassPrice")));
+		vo.setOnedayclassCategory(req.getParameter("onedayclassCategory"));
+		vo.setOnedayclassContent(req.getParameter("onedayclassContent"));
+		vo.setOnedayclassImg2(req.getParameter("onedayclassImg2"));
+		vo.setOnedayclassImg3(req.getParameter("onedayclassImg3"));
+		vo.setOnedayclassDeadlineCheck(req.getParameter("onedayclassDeadlineCheck"));
+		System.out.println("vo나오나?" + vo.toString());
+		int updateCnt = boardDao.onedayclassModifyUpdate(vo);
+		
+		model.addAttribute("updateCnt", updateCnt);
+		model.addAttribute("onedayclassNumber", onedayclassNumber);
+		/*model.addAttribute("pageNum", pageNum);*/
+		
 
 	}
 	
+	// 글쓰기 페이지
+	@Override
+	public void onedayclassWriteForm(HttpServletRequest req, Model model) {
+		
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		
+		model.addAttribute("onedayclassNumber", onedayclassNumber);
+		model.addAttribute("pageNum", pageNum);
+	}
 	
+	// 글 처리 페이지
+	@Override
+	public void onedayclassWritePro(HttpServletRequest req, Model model) {
+	}
 	//진호 메소드 종료---------------------------------------------------
 
 }
