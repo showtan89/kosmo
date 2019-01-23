@@ -58,7 +58,7 @@
 
 <c:if test="${Knowledgeupdatecnt==1}">
 <script type="text/javascript">
-	alert("답변이 삭제 되었습니다.")
+	alert("질문이 수정 되었습니다.")
 	window.location="knowledgeBoardList?pageNum="+${pageNum}+"&btn_select="+${btn_select}+"#"+${knowledgeNumber};
 </script>
 </c:if>

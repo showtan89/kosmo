@@ -47,7 +47,7 @@
 		SELECT * FROM knowledge WHERE knowledgeNumber=#{knowledgeNumber}
 	</select>
 	<!-- 질문수정 처리 -->
-	<update id="" parameterType="">
+	<update id="knowledgeModifyPro" parameterType="com.spring.helper.vo.BoardVO.KnowledgeVO">
 		UPDATE knowledge SET knowledgeReward=#{knowledgeReward},knowledgeSubject=#{knowledgeSubject},knowledgeContent=#{knowledgeContent},knowledgeOpenCheck=#{knowledgeOpenCheck}    WHERE knowledgeNumber=#{knowledgeNumber}
 	</update>
 	<!-- 질문삭제 처리 시작-->
