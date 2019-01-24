@@ -209,6 +209,32 @@
 		</dependency>	
  		
  		<!-- 파일 업로드 -->
+ 		
+ 		
+ 		<!-- 메일 Send API 시작 -->
+ 		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.5.6</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.1.3.RELEASE</version>
+		</dependency>
+		<!-- 메일 인증 API 종료 -->
+ 		
+ 		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

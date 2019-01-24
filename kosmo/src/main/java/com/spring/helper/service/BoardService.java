@@ -86,4 +86,13 @@ public interface BoardService {
 	
 	
 	//진호 끝-----------------------------------------------------------
+	
+	
+	// 대호 시작 =================================================================
+	public void memberConfirmidForm(HttpServletRequest req, Model model);
+	
+	public void memberInputPro(HttpServletRequest req, Model model);
+	
+	public void memberEmailConfirmed(HttpServletRequest req, Model model);
+	// 대호 끝 ==================================================================
 }

@@ -327,4 +327,29 @@
 	</update>
 	
 	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
+	
+	<!-- 대호 시작 ======================================================================== -->
+	<select id="memberConfirmidForm" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		  FROM USERS
+		 WHERE MEMBEREMAIL = #{email}
+	</select>
+	
+	<insert id="memberInputPro" parameterType="java.util.Map">
+		INSERT INTO USERS (MEMBERNUMBER, MEMBEREMAIL, MEMBERID, 
+						PASSWORD, MEMBERCOUNTRY, MEMBERREGDATE, 
+						MEMBERPOINT, MEMBERRECOMMEND, AUTHORITY, 
+						ENABLED, EmailConfirm, EmailKey)
+		VALUES (USERSSEQ.nextVal, #{memberEmail}, #{memberId}, #{password}, 
+				#{memberCountry}, sysdate, 0, 0, 'ROLE_GUEST', 
+				1, 0, #{emailKey})
+	</insert>
+	
+	<update id="memberEmailConfirmed" parameterType="String">
+		UPDATE users
+		   SET emailConfirm = 1, authority = 'ROLE_USER'
+		 WHERE emailKey = #{emailKey}
+	</update>
+	
+	<!-- 대호 끝 ========================================================================= -->
 </mapper>

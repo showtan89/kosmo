@@ -106,5 +106,31 @@ public class HelPerController{
 		logger.info("chatting 로딩 중....");
 		return "board/chatting";
 	}*/
+	
+	// 대호 시작
+	@RequestMapping("memberConfirmidForm")
+	public String memberConfirmidForm(HttpServletRequest req, Model model) {
+		logger.info("memberConfirmidForm 로딩 중..");
+		service.memberConfirmidForm(req, model);
+		
+		return "board/memberInput/memberConfirmidForm";
+	}
+	
+	@RequestMapping("memberInputPro")
+	public String memberInputPro(HttpServletRequest req, Model model) {
+		logger.info("memberInputPro 로딩 중..");
+		service.memberInputPro(req, model);
+		
+		return "board/memberInput/memberInputPro";
+	}
+	
+	@RequestMapping("memberEmailConfirmed")
+	public String memberEmailConfirmed(HttpServletRequest req, Model model) {
+		logger.info("memberEmailConfirmed 로딩 중..");
+		service.memberEmailConfirmed(req, model);
+		
+		return "board/memberInput/memberEmailConfirmed";
+	}
+	// 대호 끝
 
 }

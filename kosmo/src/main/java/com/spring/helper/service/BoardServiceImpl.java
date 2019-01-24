@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -560,12 +561,9 @@ public class BoardServiceImpl implements BoardService {
 	// 글 목록 상세페이지
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
-<<<<<<< HEAD
 		
-=======
 
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 
@@ -576,13 +574,10 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
-<<<<<<< HEAD
 	
 	// 수정 상세 페이지
-=======
 
 	// 수정 폼 - 비밀번호
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 	@Override
 	public void onedayclassModifyForm(HttpServletRequest req, Model model) {
 	
@@ -599,7 +594,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void onedayclassModifyPro(HttpServletRequest req, Model model) {
 
-<<<<<<< HEAD
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
 		
@@ -622,9 +616,7 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 		/*model.addAttribute("pageNum", pageNum);*/
 		
-=======
 
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 	}
 	
 	// 글쓰기 페이지
@@ -648,5 +640,77 @@ public class BoardServiceImpl implements BoardService {
 
 	
 	//진호 메소드 종료---------------------------------------------------
+	
+	// 대호 메소드 시작 ===================================================
+	// 이메일 (아이디) 중복 확인
+	@Override
+	public void memberConfirmidForm(HttpServletRequest req, Model model) {
+		
+		String email = (String)req.getParameter("email");
+		
+		int selectCnt = boardDao.memberConfirmidForm(email);
+		
+		model.addAttribute("selectCnt", selectCnt);
+		model.addAttribute("email", email);
+	}
+	
+	// 회원가입 처리
+	@Override
+	public void memberInputPro(HttpServletRequest req, Model model) {
+		
+		String memberCountry = req.getParameter("memberCountry");
+		String memberEmail = req.getParameter("memberEmail");
+		String password = req.getParameter("password");
+		String memberId = req.getParameter("memberId");
+		
+		StringBuffer temp = new StringBuffer();
+		Random random = new Random();
+
+		for ( int i = 0; i < 6; i++ ) {
+
+			int rIndex = random.nextInt(2);
+
+			switch (rIndex) {
+			case 0 : // A-Z
+				temp.append((char)((int)(random.nextInt(26)) + 65));
+				break;
+			case 1 : // 0-9
+				temp.append((random.nextInt(10)));
+				break;
+			}
+		}
+		
+		String emailKey = temp.toString();
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberCountry", memberCountry);
+		map.put("memberEmail", memberEmail);
+		map.put("password", password);
+		map.put("memberId", memberId);
+		map.put("emailKey", emailKey);
+		
+		
+		int insertCnt = boardDao.memberInputPro(map);
+		
+		if (insertCnt == 1) {
+			boardDao.sendEmailKey(map);
+		}
+		
+		model.addAttribute("insertCnt", insertCnt);
+	}
+	
+	// 이메일 인증 완료
+	@Override
+	public void memberEmailConfirmed(HttpServletRequest req, Model model) {
+		
+		String emailKey = req.getParameter("emailKey");
+		
+		int updateCnt = boardDao.memberEmailConfirmed(emailKey);
+		
+		model.addAttribute("updateCnt", updateCnt);
+	}
+	
+	// 대호 메소드 종료 ===================================================
 
 }
