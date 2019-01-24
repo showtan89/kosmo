@@ -560,12 +560,8 @@ public class BoardServiceImpl implements BoardService {
 	// 글 목록 상세페이지
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
-<<<<<<< HEAD
-		
-=======
 
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 
@@ -576,13 +572,10 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
-<<<<<<< HEAD
 	
 	// 수정 상세 페이지
-=======
 
 	// 수정 폼 - 비밀번호
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 	@Override
 	public void onedayclassModifyForm(HttpServletRequest req, Model model) {
 	
@@ -599,7 +592,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void onedayclassModifyPro(HttpServletRequest req, Model model) {
 
-<<<<<<< HEAD
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
 		
@@ -615,16 +607,14 @@ public class BoardServiceImpl implements BoardService {
 		vo.setOnedayclassImg2(req.getParameter("onedayclassImg2"));
 		vo.setOnedayclassImg3(req.getParameter("onedayclassImg3"));
 		vo.setOnedayclassDeadlineCheck(req.getParameter("onedayclassDeadlineCheck"));
-		System.out.println("vo나오나?" + vo.toString());
+		/*System.out.println("vo나오나?" + vo.toString());*/
 		int updateCnt = boardDao.onedayclassModifyUpdate(vo);
 		
 		model.addAttribute("updateCnt", updateCnt);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 		/*model.addAttribute("pageNum", pageNum);*/
 		
-=======
 
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
 	}
 	
 	// 글쓰기 페이지
@@ -642,7 +632,34 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void onedayclassWritePro(HttpServletRequest req, Model model) {
 
+		onedayclassVO vo = new onedayclassVO();
+		
+		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
+		/*vo.setOnedayclassNumber(Integer.parseInt(req.getParameter("onedayclassNumber")));*/
+
+		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
+		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
+		vo.setOnedayclassRecruitment(req.getParameter("onedayclassRecruitment"));
+		vo.setOnedayclassPrice(Integer.parseInt(req.getParameter("onedayclassPrice")));
+		vo.setOnedayclassCategory(req.getParameter("onedayclassCategory"));
+		vo.setOnedayclassContent(req.getParameter("onedayclassContent"));
+		vo.setOnedayclassDeadlineCheck(req.getParameter("onedayclassDeadlineCheck"));
+		
+		int onedayclassInsertCnt = boardDao.onedayclassInsertBoard(vo);
+		
+		model.addAttribute("onedayclassInsertCnt", onedayclassInsertCnt);
+		/*model.addAttribute("pageNum", pageNum);*/
+	}
 	
+	// 글 삭제 처리
+	@Override
+	public void onedayclassDeletePro(HttpServletRequest req, Model model) {
+
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		
+		int onedayclassDeleteCnt = boardDao.onedayclassDeleteBoard(onedayclassNumber);
+		
+		model.addAttribute("onedayclassDeleteCnt", onedayclassDeleteCnt);
 	}
 	
 

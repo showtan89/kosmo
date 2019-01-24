@@ -209,6 +209,15 @@ public class BoardController {
 		service.onedayclassWritePro(req, model);
 		return "board/onedayclass/onedayclassWritePro";
 	}
+	
+	// 글 삭제 처리
+	@RequestMapping("onedayclassDeletePro")
+	public String onedayclassDeletePro(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 삭제처리 호출중 ....");
+		
+		service.onedayclassDeletePro(req, model);
+		return "board/onedayclass/onedayclassDeletePro";
+	}
 		
 	// 진호  BoardController 끝----------------------------------------------------
 	

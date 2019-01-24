@@ -4,8 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<c:set var="images" value="/kosmo/resources/img/board/onedayclass/" />
 	
 <!DOCTYPE html>
 <html lang="en">
@@ -60,19 +58,38 @@
 	</div>
 </div>
 
-	<h2> <center> 글수정</center></h2>
-	<c:if test="${onedayclassUpdateCnt == 0}">
+
+<!-- 	<table align="center">
+		<tr>
+			<th colspan="2">
+				정말삭제 하시겠습니까?
+			</th>
+		</tr>
+			<th colspan="2">
+				<input class="inputButton" type="button" value="확인" 
+						onclick="javascript:btn()">
+							<script type="text/javascript">
+								alert("글이 삭제되었습니다!!");
+								window.location="onedayclassBoardList?";
+							</script>
+				<input class="inputButton" type="reset" value="취소"
+						onclick="window.history.back();">				
+			</th>
+	</table> -->
+
+	<c:if test="${onedayclassDeleteCnt == 0}">
 		<script type="text/javascript">
-			errorAlert(updateError);
+		errorAlert(deleteError);
 		</script>
 	</c:if>
-	<c:if test="${onedayclassUpdateCnt != 0}">
+	<c:if test="${onedayclassDeleteCnt != 0}">
 		<script type="text/javascript">
-			alert("글이 수정되었습니다!!");
-			/* window.location="onedayclassBoardList?pageNum=${pageNum}"; */
+			alert("글이 삭제되었습니다!!");
 			window.location="onedayclassBoardList";
 		</script>
 	</c:if>	
+
+
 
 
 <!-- ##### Contact Area End ##### -->

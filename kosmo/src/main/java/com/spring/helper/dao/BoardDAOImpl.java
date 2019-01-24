@@ -199,6 +199,24 @@ public class BoardDAOImpl implements BoardDAO {
 		return updateCnt;
 	}
 	
+	// 글 쓰기 처리
+	@Override
+	public int onedayclassInsertBoard(onedayclassVO vo) {
+
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int onedayclassInsertCnt = boardDao.onedayclassInsertBoard(vo);
+		return onedayclassInsertCnt;
+	}
+	
+	// 글 삭제 처리
+	@Override
+	public int onedayclassDeleteBoard(int onedayclassNumber) {
+
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int onedayclassDeleteCnt = boardDao.onedayclassDeleteBoard(onedayclassNumber);
+		return onedayclassDeleteCnt;
+	}
+	
 	
 	// 진호 메소드 종료------------------------------------------------
 

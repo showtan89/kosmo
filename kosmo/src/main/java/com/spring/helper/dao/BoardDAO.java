@@ -87,6 +87,12 @@ public interface BoardDAO {
 	
 	// 게시글 수정 처리
 	public int onedayclassModifyUpdate(onedayclassVO vo);
+	
+	// 글 쓰기 처리
+	public int onedayclassInsertBoard(onedayclassVO vo);
+	
+	// 글 삭제 처리
+	public int onedayclassDeleteBoard(int onedayclassNumber);
 
 	
 	// 진호 메소드 종료--------------------------------------
