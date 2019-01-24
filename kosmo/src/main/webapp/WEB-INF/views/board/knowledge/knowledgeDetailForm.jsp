@@ -155,7 +155,7 @@
 					</li>
 					<li align="center" style="padding:30px 0; border-top:1.5px solid black;">
 						<p align="left">
-						<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID 공개여부">
+						<input style="margin-left:30px;"class="knowledgeDetailForm_button3" type="button" value="ID 공개여부">
 						<input type="radio" name="kCommentTemp1" value="Y" checked="checked">공개
 						<input type="radio" name="kCommentTemp1" value="N" >비공개
 						</p>
@@ -197,8 +197,8 @@
 						<span style="float:right;margin-left:10px;"><a href="">채택</a></span>
 						</c:if>
 						<c:if test="${kc.memberId==userVO.memberId}">
-						<span style="float:right;margin-left:10px;"><a href="kCommentdelete?kCommentNumber=${kc.kCommentNumber}&knowledgeNumber=${kc.knowledgeNumber}">삭제</a></span>
-						<span style="float:right;margin-left:10px;"><a href="">수정</a></span>
+						<span style="float:right;margin-left:10px;"><input type="button" class="knowledgeDetailForm_button4" onclick="window.location='kCommentdelete?kCommentNumber=${kc.kCommentNumber}&knowledgeNumber=${kc.knowledgeNumber}';" value="삭제"></span>
+						<span style="float:right;margin-left:10px;"><input type="button" class="knowledgeDetailForm_button4" onclick="displayblock();" value="수정"></span>
 						</c:if>
 					</li>
 					<li>

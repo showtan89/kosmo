@@ -29,6 +29,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="realimage" value="resources/img/board/realestate/" />
 
+
+
+
+
+
+<!-- 글 등록 후 처리 - 모달로 바꿀 것 -->
+<c:if test="${param.insertResult!=0}">
+<script type="text/javascript">
+	alert('글 등록이 성공 되었습니다.');
+</script>
+</c:if>
+<c:if test="${param.insertResult==0}">
+<script type="text/javascript">
+	alert('글 등록이 실패 했습니다.');
+</script>
+</c:if>
+
+
+
+
+
 <!-- 메뉴바 아래 이미지 -->
 <div class="breadcrumb-area">
 	<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
@@ -51,7 +72,7 @@
 				<div class="search_by_terms">
 					<!-- 데이터 생성용 버튼 - 주석 처리 -->
 					<!-- <a href="realestateDummyMaker"><button type="button" class='btn alazea-btn'>DUMMY</button></a> -->
-					<a href="realestateWrite"><button type="button" class='btn alazea-btn'>Write</button></a>
+					<a href="realestateWriteForm"><button type="button" class='btn alazea-btn'>Write</button></a>
 					<!-- 필터 기능 일단 주석 -->
 					<!-- <form action="#" method="post" class="form-inline">
                                <select class="custom-select widget-title">
@@ -203,7 +224,7 @@
 					<c:forEach var="dto" items="${list}">
 						<div class="col-12">
 							<div class="card flex-md-row mb-4 shadow-sm h-md-250">
-								<a href=realestateView?realestateNumber=${dto.realestateNumber}><img class="card-img-right flex-auto d-none d-lg-block realImage"	src="${realimage}${dto.realestateImg1}" alt=""></a>
+								<a href=realestateDetailForm?realestateNumber=${dto.realestateNumber}><img class="card-img-right flex-auto d-none d-lg-block realImage"	src="${realimage}${dto.realestateImg1}" alt=""></a>
 								<div class="card-body d-flex flex-column align-items-start">
 									<strong class="d-inline-block mb-2 text-warning">
 									<c:set var="loca" value="${dto.realestateCategory1}"/>
@@ -339,7 +360,7 @@
 				<%-- <c:set var="linkURL" value="${requestScope['javax.servlet.forward.servlet_path']}"/> --%>
 				<%-- <c:set var="URL1" value="${pageContext.request.requestURL}" />
 				<c:set var="URL2" value="${pageContext.request.requestURI}" /> --%>
-				<c:set var="linkURL" value="realestate"/>
+				<c:set var="linkURL" value="realestateBoardList"/>
 				<nav aria-label="Page navigation">
 					<ul class="pagination">
 					<c:if test="${pVO.totalCount>0}">

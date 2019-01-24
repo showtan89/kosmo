@@ -1,18 +1,16 @@
 package com.spring.helper.service;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
-
-import com.spring.helper.vo.BoardVO.PageVO;
-import com.spring.helper.vo.BoardVO.RealestateVO;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public interface BoardService {
 
 	// 동욱이 메소드 시작(지식인 게시판 관련)
+	// 파일업로드 테스트
+	public void test(MultipartHttpServletRequest req, Model model);
 	// 지식인게시판 리스트 출력
 	public void knowledgeBoardList(HttpServletRequest req,Model model);
 	// 질문등록 처리
@@ -37,9 +35,9 @@ public interface BoardService {
 
 	//재영 boardService 시작
 
-	public void realestateWritePro(HttpServletRequest req, Model model);
+	public Integer realestateInsertArticle(HttpServletRequest req, Model model);
 
-	public void realestateList(HttpServletRequest req, Model model);
+	public void realestateGetArticleList(HttpServletRequest req, Model model);
 	
 	/*public RealestateVO realestateGetVO(HttpServletRequest req);
 	
@@ -49,7 +47,7 @@ public interface BoardService {
 	
 	public void realestateDummyMaker(HttpServletRequest req, Model model);
 
-	public void realestateView(HttpServletRequest req, Model model);
+	public void realestateGetArticle(HttpServletRequest req, Model model);
 	//재영 boardService 끝
 
 	

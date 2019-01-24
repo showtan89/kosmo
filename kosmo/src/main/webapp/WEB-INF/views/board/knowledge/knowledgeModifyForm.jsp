@@ -44,7 +44,9 @@
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px;margin-top: 30px;">
 	<div style="width:800px; margin:auto;">
+	
 	<% KnowledgeVO Knowledge = (KnowledgeVO)request.getAttribute("Knowledge"); %>
+	
 <!-- 동욱이 css -->
 <link rel="stylesheet" href="resources/ehddnr.css">
 <script type="text/javascript">

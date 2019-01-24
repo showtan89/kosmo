@@ -210,16 +210,16 @@ Eclipse 실행에 Servers > context에 DB 정보 넣기
 			<!-- 권한 없을 시 페이지로 이동시키는 코드 -->
 		
 			<!-- 원하는 로그인페이지로 이동 및 security 성공 후 이동페이지 실패시 이동페이지 정하는 코드 -->
-		<security:form-login
-			 username-parameter="email" 
-			 password-parameter="password" 
-			 login-page="/index?loginPage=true"
-			 default-target-url="/index" 
-			 authentication-failure-url="/index?loginPage=false"
-		 />
-		<security:logout logout-success-url="/index" />
-		
-	</security:http>
+	    <security:form-login
+          username-parameter="loginEmail" 
+          password-parameter="loginPwd" 
+          login-page="/loginPage"
+          authentication-failure-url="/loginPage?loginResult=false"
+          authentication-success-handler-ref="customAuthenticationSuccessHandler"
+       />
+     
+      <security:logout logout-success-url="/index" />
+   </security:http>
 
 	<!-- 방법1. IN메모리 방식 -->
 <!-- <security:authentication-manager>
