@@ -77,7 +77,7 @@ public class HelPerController{
 	@RequestMapping("realestate")
 	public void realestate(HttpServletResponse res) throws Exception {
 		logger.info("realestate 로딩 중....");
-		res.sendRedirect("realestateList");
+		res.sendRedirect("realestateBoardList");
 	}
 	// 재영 끝
 

@@ -87,73 +87,72 @@ td {
 
 </style>
 
-<form action="onedayclassWritePro" method="post" enctype="multipart/form-data" name="onedayclassWritePro" onsubmit="return writeCheck()">
-<input type="hidden" name="onedayclassNumber" value="${dto.onedayclassNumber}">
-<input type="hidden" name="pageNum" value="${pageNum}">
+<form action="onedayclassWritePro" method="post" name="onedayclassWritePro" onsubmit="return writeCheck()">
+<%-- <input type="hidden" name="onedayclassNumber" value="${dto.onedayclassNumber}"> --%>
+<%-- <input type="hidden" name="pageNum" value="${pageNum}"> --%>
 
 <div class = "odf_table">
 <table>
   <tr>
     <td colspan="6" style="width : 400px"> 메인사진 <pre>
-    		<input class="input" type="file" name="onedayclassImg1" id="onedayclassImg1" maxlength="50"
-						value="${images}${dto.onedayclassImg1}" style="width:270px">
+<%--     		<input class="input" type="file" name="onedayclassImg1" id="onedayclassImg1" maxlength="50"
+						value="${images}${dto.onedayclassImg1}" style="width:270px"> --%>			
     </td>
   </tr>
   <tr>
-    <th colspan="2" rowspan="4">${dto.memberId}</th>
     <th colspan="4"> 개설클래스 제목 <pre>
-    	<input class="input" type="text" name="onedayclassSubject" maxlength="50" value="${dto.onedayclassSubject}" style="width:80%">
+    	<input class="input" type="text" name="onedayclassSubject" maxlength="50" placeholder="클래스 제목을 입력하세요">
     </th>
   </tr>
   <tr>
-    <th colspan="4">${dto.onedayclassGrade}</th>
+    <th colspan="4">평점</th>
   </tr>
   <tr>
     <th> 위치 <pre>
-    	<input class="input" type="text" name="onedayclassLocation" maxlength="50" value="${dto.onedayclassLocation}">
+    	<input class="input" type="text" name="onedayclassLocation" maxlength="50" placeholder="위치를 입력하세요">
     </th>
     <th> 오픈일 <pre>
-    	${dto.onedayclassOpendate}
     </th>
     <th> 모집인원 <pre>
-    	<input class="input" type="text" name="onedayclassRecruitment" maxlength="50" value="${dto.onedayclassRecruitment}">
+    	<input class="input" type="text" name="onedayclassRecruitment" maxlength="50" placeholder="모집인원을 입력하세요">
     </th>   
     <th> 가격 <pre>
-    	<input class="input" type="number" name="onedayclassPrice" maxlength="50" value="${dto.onedayclassPrice}">
+    	<input class="input" type="number" name="onedayclassPrice" maxlength="50" placeholder="가격을 입력하세요">
     </th>
   </tr>
   <tr>
-    <th> 조회수 <pre>${dto.onedayclassLookup}</th>
-    <th> 누적인원 <pre>${dto.onedayclassTotalpeople}</th>
+    <th> 조회수 <pre></th>
+    <th> 누적인원 <pre></th>
     <th> 카테고리 <pre>
-    	<input class="input" type="text" name="onedayclassCategory" maxlength="50" value="${dto.onedayclassCategory}" style="width:60%">
+    	<input class="input" type="text" name="onedayclassCategory" maxlength="50" placeholder="카테고리를 입력하세요">
     </th>
-    <th>작성일 <pre> ${dto.onedayclassRegdate}</th>
+    <th>작성일 <pre> </th>
   </tr>
   <tr>
     <td colspan="6">글 내용 <pre>
-    	<textarea class="input" rows="10" cols="80" name="onedayclassContent" word-break:break-all>${dto.onedayclassContent}</textarea>
+    	<textarea class="input" rows="10" cols="80" name="onedayclassContent" placeholder="글내용을 입력하세요" word-break:break-all></textarea>
     </td>
   </tr>
   <tr>
     <td colspan="6">사진2 <pre>
-    	<input class="input" type="file" name="onedayclassImg2" id="onedayclassImg2" maxlength="50"
-						value="${images}${dto.onedayclassImg2}" style="width:80%">
+<%--     	<input class="input" type="file" name="onedayclassImg2" id="onedayclassImg2" maxlength="50"
+						value="${images}${dto.onedayclassImg2}" style="width:80%"> --%>						
     </td>
   </tr>
   <tr>
     <td colspan="6">사진3 <pre>
-    	<input class="input" type="file" name="onedayclassImg3" id="onedayclassImg3" maxlength="50"
-						value="${images}${dto.onedayclassImg3}" style="width:80%">
+<%--     	<input class="input" type="file" name="onedayclassImg3" id="onedayclassImg3" maxlength="50"
+						value="${images}${dto.onedayclassImg3}" style="width:80%"> --%>
+
     </td>
   </tr>
   <tr>
-    <td>종료여부 <pre>${dto.onedayclassEndCheck}</td>
+    <td>종료여부 <pre></td>
     <td>마감여부 <pre>
-    	<input class="input" type="text" name="onedayclassDeadlineCheck" maxlength="50" value="${dto.onedayclassDeadlineCheck}">
+    	<input class="input" type="text" name="onedayclassDeadlineCheck" maxlength="50" placeholder="마감여부를 입력하세요">
     </td>
-    <td colspan="2">예약 <pre>${dto.onedayclassReservation}</td>
-    <td colspan="2">결제 <pre>${dto.onedayclassPay}</td>
+    <td colspan="2">예약 <pre></td>
+    <td colspan="2">결제 <pre></td>
   </tr>
 </table>
 </div>
@@ -164,7 +163,7 @@ td {
 			<input class="inputButton" type="submit" value="작성">
 			<input class="inputButton" type="reset" value="취소">
 			<input class="inputButton" type="button" value="목록"
-					onclick="window.location='onedayBoardList?pageNum=${pageNum}'">
+					onclick="window.location='onedayclassBoardList'">
 		</th>
 	</table>
 <%-- </c:if> --%>

@@ -25,11 +25,7 @@ import com.spring.helper.vo.BoardVO.UserVO;
 
 public class authenticationhandler implements AuthenticationSuccessHandler {
 
-	
-	
 	// VO 제대로 담고 세션에 보관하는 코드로 수정 해야함
-	
-	
 	
 	BoardService service2 = new BoardServiceImpl();
 

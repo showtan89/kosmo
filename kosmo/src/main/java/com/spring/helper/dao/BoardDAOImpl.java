@@ -33,6 +33,11 @@ public class BoardDAOImpl implements BoardDAO {
 	JavaMailSender sender;
 
 	// 동욱이 메소드 시작
+	// 파일업로드 테스트
+	@Override
+	public int test(String images) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.test",images);
+	}
 	// 지식인 게시판 게시글 갯수 구하기
 	@Override
 	public int knowledgeGetArticleCnt() {
@@ -109,25 +114,25 @@ public class BoardDAOImpl implements BoardDAO {
 
 	//부동산 게시판 글 목록 보기
 	@Override
-	public List<RealestateVO> realestateList(RealestateVO rVO) {
-		return sqlSession.getMapper(BoardDAO.class).realestateList(rVO);
+	public List<RealestateVO> realestateGetArticleList(RealestateVO rVO) {
+		return sqlSession.getMapper(BoardDAO.class).realestateGetArticleList(rVO);
 	}
 	
 	//부동산 게시판 글 상세 페이지
 	@Override
-	public RealestateVO realestateView(int realestateNumber) {
-		return sqlSession.getMapper(BoardDAO.class).realestateView(realestateNumber);
+	public RealestateVO realestateGetArticle(int realestateNumber) {
+		return sqlSession.getMapper(BoardDAO.class).realestateGetArticle(realestateNumber);
 	}
 
 	//부동산 게시판 글 목록 갯수 카운트
 	@Override
-	public Integer getRealestateCount(RealestateVO rVO) {
-		return sqlSession.getMapper(BoardDAO.class).getRealestateCount(rVO);
+	public Integer realestateGetArticleCnt(RealestateVO rVO) {
+		return sqlSession.getMapper(BoardDAO.class).realestateGetArticleCnt(rVO);
 	}
 
 	//부동산 게시판 글 쓰기
-	public Integer realestateWritePro(RealestateVO rVO) {
-		return sqlSession.getMapper(BoardDAO.class).realestateWritePro(rVO);
+	public Integer realestateInsertArticle(RealestateVO rVO) {
+		return sqlSession.getMapper(BoardDAO.class).realestateInsertArticle(rVO);
 	}
 
 
@@ -208,10 +213,29 @@ public class BoardDAOImpl implements BoardDAO {
 		return updateCnt;
 	}
 	
+	// 글 쓰기 처리
+	@Override
+	public int onedayclassInsertBoard(onedayclassVO vo) {
+
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int onedayclassInsertCnt = boardDao.onedayclassInsertBoard(vo);
+		return onedayclassInsertCnt;
+	}
+	
+	// 글 삭제 처리
+	@Override
+	public int onedayclassDeleteBoard(int onedayclassNumber) {
+
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int onedayclassDeleteCnt = boardDao.onedayclassDeleteBoard(onedayclassNumber);
+		return onedayclassDeleteCnt;
+	}
+	
 	
 	
 	// 진호 메소드 종료------------------------------------------------
 	
+
 	// 대호 메소드 시작 ======================================================
 	// 이메일 중복 확인
 	@Override

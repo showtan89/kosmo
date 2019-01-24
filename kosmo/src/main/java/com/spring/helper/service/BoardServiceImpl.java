@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
@@ -41,9 +41,36 @@ public class BoardServiceImpl implements BoardService {
 	private static final Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
 
 	// 동욱이 메소드 시작(지식인게시판)
+	// 파일업로드 테스트
+	@Override
+	public void test(MultipartHttpServletRequest req,Model model) {
+		MultipartFile file = req.getFile("test");
+		String saveDir = req.getRealPath("/resources/img/");
+		String realDir = req.getSession().getServletContext().getRealPath("/resources/img/");
+		System.out.println(realDir);
+		try {
+			file.transferTo(new File(saveDir+file.getOriginalFilename())); // 파일데이터를 읽어서 저장
+			FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+			FileOutputStream fos = new FileOutputStream(realDir + file.getOriginalFilename());
+			int data = 0;
+			while((data = fis.read()) != -1){
+				fos.write(data);
+			}
+			fis.close();
+			fos.close();
+			String images = file.getOriginalFilename();
+			int insertcnt =boardDao.test(images);
+			req.setAttribute("insertcnt", insertcnt);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	// 지식인게시판 리스트 출력
 	@Override
 	public void knowledgeBoardList(HttpServletRequest req, Model model) {
+		
 		int pageSize = 10; 		// 한 페이지당 출력할 글 갯수
 		if(req.getParameter("btn_select")!=null) {
 			pageSize = Integer.parseInt(req.getParameter("btn_select"));
@@ -253,11 +280,11 @@ public class BoardServiceImpl implements BoardService {
 
 	//부동산 게시판 글 목록 보기
 	@Override
-	public void realestateList(HttpServletRequest req, Model model) {
+	public void realestateGetArticleList(HttpServletRequest req, Model model) {
 		//파라미터(검색조건) VO에 담기
 		RealestateVO rVO = boardMethod.getParameterRealestateVO(req); 
 		//검색 조건에 대한 게시글 갯수 구하기
-		Integer cnt = boardDao.getRealestateCount(rVO);
+		Integer cnt = boardDao.realestateGetArticleCnt(rVO);
 		//검색 조건에 대한 게시글 갯수로 페이지 구하기
 		int pageNum = 1;
 		if(req.getParameter("pageNum")!=null) {
@@ -269,7 +296,7 @@ public class BoardServiceImpl implements BoardService {
 		pVO.setPageNum(String.valueOf(pageNum));
 		rVO.setRealestateStart(pVO.getStartNumber());
 		rVO.setRealestateEnd(pVO.getEndNumber());
-		list = boardDao.realestateList(rVO);
+		list = boardDao.realestateGetArticleList(rVO);
 		logger.info(pVO.toString());
 		model.addAttribute("list", list);
 		model.addAttribute("pVO", pVO);
@@ -314,10 +341,10 @@ public class BoardServiceImpl implements BoardService {
 	
 	//부동산 게시판 글 상세 페이지 
 	@Override
-	public void realestateView(HttpServletRequest req, Model model) {
+	public void realestateGetArticle(HttpServletRequest req, Model model) {
 		if(req.getParameter("realestateNumber") != null) {
 			int realestateNumber = Integer.parseInt(req.getParameter("realestateNumber"));
-			RealestateVO rVO = boardDao.realestateView(realestateNumber);
+			RealestateVO rVO = boardDao.realestateGetArticle(realestateNumber);
 			if(rVO != null) {
 				logger.info(rVO.toString());
 				model.addAttribute("rVO",rVO);
@@ -331,11 +358,10 @@ public class BoardServiceImpl implements BoardService {
 
 	//부동산 게시판 글 쓰기
 	@Override
-	public void realestateWritePro(HttpServletRequest req, Model model) {
+	public Integer realestateInsertArticle(HttpServletRequest req, Model model) {
 		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
 		logger.info(rVO.toString());
-		Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
-		logger.info(realestateWriteProResult.toString());
+		return boardDao.realestateInsertArticle(rVO);
 	}
 
 	//부동산 게시판 더미 데이터생성기 - 현재 버튼 주석 처리
@@ -343,7 +369,7 @@ public class BoardServiceImpl implements BoardService {
 	public void realestateDummyMaker(HttpServletRequest req, Model model) {
 		RealestateVO rVO = boardMethod.realestateDummyDataMaker(); 
 		logger.info(rVO.toString());
-		Integer realestateWriteProResult = boardDao.realestateWritePro(rVO);
+		Integer realestateWriteProResult = boardDao.realestateInsertArticle(rVO);
 		logger.info(realestateWriteProResult.toString());
 	}
 
@@ -561,7 +587,7 @@ public class BoardServiceImpl implements BoardService {
 	// 글 목록 상세페이지
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
-		
+
 
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
@@ -580,16 +606,13 @@ public class BoardServiceImpl implements BoardService {
 	// 수정 폼 - 비밀번호
 	@Override
 	public void onedayclassModifyForm(HttpServletRequest req, Model model) {
-	
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
-		
 		boardDao.onedayclassAddReadCnt(onedayclassNumber);
 		onedayclassVO vo = boardDao.onedayclassGetArticle(onedayclassNumber);
 		
 		model.addAttribute("dto", vo);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 	}
-	
 	// 수정 처리
 	@Override
 	public void onedayclassModifyPro(HttpServletRequest req, Model model) {
@@ -609,7 +632,7 @@ public class BoardServiceImpl implements BoardService {
 		vo.setOnedayclassImg2(req.getParameter("onedayclassImg2"));
 		vo.setOnedayclassImg3(req.getParameter("onedayclassImg3"));
 		vo.setOnedayclassDeadlineCheck(req.getParameter("onedayclassDeadlineCheck"));
-		System.out.println("vo나오나?" + vo.toString());
+		/*System.out.println("vo나오나?" + vo.toString());*/
 		int updateCnt = boardDao.onedayclassModifyUpdate(vo);
 		
 		model.addAttribute("updateCnt", updateCnt);
@@ -634,11 +657,37 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void onedayclassWritePro(HttpServletRequest req, Model model) {
 
-	
+
+		onedayclassVO vo = new onedayclassVO();
+		
+		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
+		/*vo.setOnedayclassNumber(Integer.parseInt(req.getParameter("onedayclassNumber")));*/
+
+		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
+		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
+		vo.setOnedayclassRecruitment(req.getParameter("onedayclassRecruitment"));
+		vo.setOnedayclassPrice(Integer.parseInt(req.getParameter("onedayclassPrice")));
+		vo.setOnedayclassCategory(req.getParameter("onedayclassCategory"));
+		vo.setOnedayclassContent(req.getParameter("onedayclassContent"));
+		vo.setOnedayclassDeadlineCheck(req.getParameter("onedayclassDeadlineCheck"));
+		
+		int onedayclassInsertCnt = boardDao.onedayclassInsertBoard(vo);
+		
+		model.addAttribute("onedayclassInsertCnt", onedayclassInsertCnt);
+		/*model.addAttribute("pageNum", pageNum);*/
 	}
 	
+	// 글 삭제 처리
+	@Override
+	public void onedayclassDeletePro(HttpServletRequest req, Model model) {
 
-	
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		
+		int onedayclassDeleteCnt = boardDao.onedayclassDeleteBoard(onedayclassNumber);
+		
+		model.addAttribute("onedayclassDeleteCnt", onedayclassDeleteCnt);
+
+	}
 	//진호 메소드 종료---------------------------------------------------
 	
 	// 대호 메소드 시작 ===================================================

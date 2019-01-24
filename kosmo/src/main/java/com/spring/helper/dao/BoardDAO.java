@@ -16,6 +16,8 @@ import com.spring.helper.vo.BoardVO.onedayclassVO;
 public interface BoardDAO {
 
 	// 동욱이 메소드 시작(지식인게시판)
+	// 파일업로드 테스트
+	public int test(String images);
 	// 지식인 게시판 출력 자료 갯수 구하기
 	public int knowledgeGetArticleCnt();
 	// 지식인 게시판 리스트 출력
@@ -47,13 +49,13 @@ public interface BoardDAO {
 
 	//재영 boardDAO 시작
 
-	public List<RealestateVO> realestateList(RealestateVO rVO);
+	public List<RealestateVO> realestateGetArticleList(RealestateVO rVO);
 
-	public RealestateVO realestateView(int realestateNumber);
+	public RealestateVO realestateGetArticle(int realestateNumber);
 	
-	public Integer getRealestateCount(RealestateVO rVO);
+	public Integer realestateGetArticleCnt(RealestateVO rVO);
 
-	public Integer realestateWritePro(RealestateVO rVO);
+	public Integer realestateInsertArticle(RealestateVO rVO);
 
 
 	//재영 boardDAO 끝
@@ -88,6 +90,12 @@ public interface BoardDAO {
 	
 	// 게시글 수정 처리
 	public int onedayclassModifyUpdate(onedayclassVO vo);
+	
+	// 글 쓰기 처리
+	public int onedayclassInsertBoard(onedayclassVO vo);
+	
+	// 글 삭제 처리
+	public int onedayclassDeleteBoard(int onedayclassNumber);
 
 	
 	// 진호 메소드 종료--------------------------------------

@@ -81,4 +81,5 @@
     	<bean id="customAuthenticationSuccessHandler" 
     		class="com.spring.helper.security.authenticationhandler">
 		</bean>
+		
 </beans>
