@@ -222,6 +222,15 @@ public class BoardDAOImpl implements BoardDAO {
 		return onedayclassDeleteCnt;
 	}
 	
+	// 계좌번호 업데이트
+/*	@Override
+	public int onedayclassAccountUpdate(int onedayclassNumber) {
+		
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int onedayclassAccountUpdateCnt = boardDao.onedayclassAccountUpdate(onedayclassNumber);
+		return onedayclassAccountUpdateCnt;
+	}*/
+	
 	
 	// 진호 메소드 종료------------------------------------------------
 	

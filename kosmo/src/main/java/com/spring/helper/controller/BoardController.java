@@ -235,7 +235,26 @@ public class BoardController {
 		service.onedayclassDeletePro(req, model);
 		return "board/onedayclass/onedayclassDeletePro";
 	}
+	
+	// 클래스개설 권한 신청 폼
+	@RequestMapping("onedayclassAuthorityForm")
+	public String onedayclassAuthorityForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 권한신청폼 호출중 ....");
 		
+		return "board/onedayclass/onedayclassAuthorityForm";
+		
+	}
+	
+	// 클래스개설 권한 신청 처리페이지
+/*	@RequestMapping("onedayclassAuthorityPro")
+	public String onedayclassAuthorityPro(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 권한신청처리페이지 호출중 ....");
+		
+		service.onedayclassAuthorityPro(req, model);
+		return "board/onedayclass/onedayclassAuthorityPro";
+	}*/
+	
+	
 	// 진호  BoardController 끝----------------------------------------------------
 	
 

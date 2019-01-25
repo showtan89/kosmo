@@ -587,9 +587,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
 
-
-
-
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
@@ -603,8 +600,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	// 수정 상세 페이지
-
-	// 수정 폼 - 비밀번호
 	@Override
 	public void onedayclassModifyForm(HttpServletRequest req, Model model) {
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
@@ -639,8 +634,6 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("updateCnt", updateCnt);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
 		/*model.addAttribute("pageNum", pageNum);*/
-		
-
 	}
 	
 	// 글쓰기 페이지
@@ -657,7 +650,6 @@ public class BoardServiceImpl implements BoardService {
 	// 글 처리 페이지
 	@Override
 	public void onedayclassWritePro(HttpServletRequest req, Model model) {
-
 
 		onedayclassVO vo = new onedayclassVO();
 		
@@ -689,6 +681,22 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("onedayclassDeleteCnt", onedayclassDeleteCnt);
 
 	}
+	
+	// 클래스개설 권한 신청 처리페이지
+/*	@Override
+	public void onedayclassAuthorityPro(HttpServletRequest req, Model model) {
+	
+		int onedayclassAccountNumber = Integer.parseInt(req.getParameter("onedayclassAccountNumber"));
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		
+		int onedayclassAccountUpdate =  boardDao.onedayclassAccountUpdate(onedayclassNumber);
+		
+		model.addAttribute("onedayclassAccountNumber", onedayclassAccountNumber);
+		model.addAttribute("onedayclassAccountUpdate", onedayclassAccountUpdate);
+	}*/
+	
+	
 	//진호 메소드 종료---------------------------------------------------
+	
 
 }

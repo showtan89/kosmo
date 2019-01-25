@@ -83,7 +83,9 @@ public interface BoardService {
 	// 글 삭제 처리
 	public void onedayclassDeletePro(HttpServletRequest req, Model model);
 	
-
+	// 클래스개설 권한 신청 처리페이지
+	/*public void onedayclassAuthorityPro(HttpServletRequest req, Model model);*/
+	
 	
 	
 	//진호 끝-----------------------------------------------------------

@@ -95,6 +95,9 @@ public interface BoardDAO {
 	
 	// 글 삭제 처리
 	public int onedayclassDeleteBoard(int onedayclassNumber);
+	
+	// 계좌번호 업데이트
+	/*public int onedayclassAccountUpdate(int onedayclassNumber);*/
 
 	
 	// 진호 메소드 종료--------------------------------------
