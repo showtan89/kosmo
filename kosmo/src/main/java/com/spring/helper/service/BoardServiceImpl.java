@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -612,6 +613,8 @@ public class BoardServiceImpl implements BoardService {
 	// 글 목록 상세페이지
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
+
+
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
@@ -655,7 +658,7 @@ public class BoardServiceImpl implements BoardService {
 		vo.setOnedayclassImg2(req.getParameter("onedayclassImg2"));
 		vo.setOnedayclassImg3(req.getParameter("onedayclassImg3"));
 		vo.setOnedayclassDeadlineCheck(req.getParameter("onedayclassDeadlineCheck"));
-		System.out.println("vo나오나?" + vo.toString());
+		/*System.out.println("vo나오나?" + vo.toString());*/
 		int updateCnt = boardDao.onedayclassModifyUpdate(vo);
 		
 		model.addAttribute("updateCnt", updateCnt);
@@ -679,8 +682,110 @@ public class BoardServiceImpl implements BoardService {
 	// 글 처리 페이지
 	@Override
 	public void onedayclassWritePro(HttpServletRequest req, Model model) {
+
+
+		onedayclassVO vo = new onedayclassVO();
+		
+		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
+		/*vo.setOnedayclassNumber(Integer.parseInt(req.getParameter("onedayclassNumber")));*/
+
+		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
+		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
+		vo.setOnedayclassRecruitment(req.getParameter("onedayclassRecruitment"));
+		vo.setOnedayclassPrice(Integer.parseInt(req.getParameter("onedayclassPrice")));
+		vo.setOnedayclassCategory(req.getParameter("onedayclassCategory"));
+		vo.setOnedayclassContent(req.getParameter("onedayclassContent"));
+		vo.setOnedayclassDeadlineCheck(req.getParameter("onedayclassDeadlineCheck"));
+		
+		int onedayclassInsertCnt = boardDao.onedayclassInsertBoard(vo);
+		
+		model.addAttribute("onedayclassInsertCnt", onedayclassInsertCnt);
+		/*model.addAttribute("pageNum", pageNum);*/
+	}
+	
+	// 글 삭제 처리
+	@Override
+	public void onedayclassDeletePro(HttpServletRequest req, Model model) {
+
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		
+		int onedayclassDeleteCnt = boardDao.onedayclassDeleteBoard(onedayclassNumber);
+		
+		model.addAttribute("onedayclassDeleteCnt", onedayclassDeleteCnt);
+
 	}
 	//진호 메소드 종료---------------------------------------------------
 	
+	// 대호 메소드 시작 ===================================================
+	// 이메일 (아이디) 중복 확인
+	@Override
+	public void memberConfirmidForm(HttpServletRequest req, Model model) {
+		
+		String email = (String)req.getParameter("email");
+		
+		int selectCnt = boardDao.memberConfirmidForm(email);
+		
+		model.addAttribute("selectCnt", selectCnt);
+		model.addAttribute("email", email);
+	}
+	
+	// 회원가입 처리
+	@Override
+	public void memberInputPro(HttpServletRequest req, Model model) {
+		
+		String memberCountry = req.getParameter("memberCountry");
+		String memberEmail = req.getParameter("memberEmail");
+		String password = req.getParameter("password");
+		String memberId = req.getParameter("memberId");
+		
+		StringBuffer temp = new StringBuffer();
+		Random random = new Random();
+
+		for ( int i = 0; i < 6; i++ ) {
+
+			int rIndex = random.nextInt(2);
+
+			switch (rIndex) {
+			case 0 : // A-Z
+				temp.append((char)((int)(random.nextInt(26)) + 65));
+				break;
+			case 1 : // 0-9
+				temp.append((random.nextInt(10)));
+				break;
+			}
+		}
+		
+		String emailKey = temp.toString();
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberCountry", memberCountry);
+		map.put("memberEmail", memberEmail);
+		map.put("password", password);
+		map.put("memberId", memberId);
+		map.put("emailKey", emailKey);
+		
+		
+		int insertCnt = boardDao.memberInputPro(map);
+		
+		if (insertCnt == 1) {
+			boardDao.sendEmailKey(map);
+		}
+		
+		model.addAttribute("insertCnt", insertCnt);
+	}
+	
+	// 이메일 인증 완료
+	@Override
+	public void memberEmailConfirmed(HttpServletRequest req, Model model) {
+		
+		String emailKey = req.getParameter("emailKey");
+		
+		int updateCnt = boardDao.memberEmailConfirmed(emailKey);
+		
+		model.addAttribute("updateCnt", updateCnt);
+	}
+	
+	// 대호 메소드 종료 ===================================================
 
 }

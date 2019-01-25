@@ -62,15 +62,15 @@
 
 
 	<!-- 글추가 실패 -->
-	<c:if test="${insertCnt == 0}">
+	<c:if test="${onedayclassInsertCnt == 0}">
 		<script type="text/javascript">
 			errorAlert(insertProductError);
 		</script>	
 	</c:if>
 
 	<!-- 글추가 성공 -->
-	<c:if test="${insertCnt != 0}">
-		<c:redirect url="onedayBoardList?pageNum=${pageNum}" /> <!-- 추가 -->	
+	<c:if test="${onedayclassInsertCnt != 0}">
+		<c:redirect url="onedayclassBoardList" /> <!-- 추가 -->	
 	</c:if>
 
 

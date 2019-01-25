@@ -28,6 +28,58 @@
 	</div>
 </div>
 
+<!-- 대호 회원가입 스크립트 시작 -->
+<script type="text/javascript">
+	function EmailCheck() {
+		
+		var email = document.memberInputForm.memberEmail.value;
+		
+		if (!email) {
+			alert("Please input your Email");
+			return false;
+		} else if (email.indexOf("@") < 0) {
+			alert("Please input your Email correctly")
+			return false;
+		} else {
+			var url = "memberConfirmidForm?email=" + email;
+			var popup = window.open(url, "", "width=600, height=400, toolba=no");
+			popup.moveTo(0, 0);
+		}
+	}
+	
+
+	function memberInputSubmit() {
+
+		var email = document.memberInputForm.memberEmail.value;
+
+		if (!email) {
+			alert("Please input your Email");
+			return false;
+		} else if (email.indexOf("@") < 0) {
+			alert("Please input your Email correctly")
+			return false;
+		} else if (document.memberInputForm.confirmChk.value < 1) {
+			alert("Please check and confirm your Email");
+			return false;
+		} else if (document.memberInputForm.memberCountry.value == "null") {
+			alert("Please select your country");
+			return false;
+		} else if (document.memberInputForm.password.value != document.memberInputForm. Repeat_Password.value) {
+			alert("Password is incorrenct. Please check it.");
+			return false;
+		} else if (document.memberInputForm.memberId.value.length < 3) {
+			alert("Your name is too short. Please check it.");
+			return false;
+		} else if (document.memberInputForm.memberId.value.length > 40) {
+			alert("Your name is too long. Please check it.");
+			return false;
+		}
+	
+	}
+</script>
+
+<!-- 회원가입 스트립트 종료 -->
+
 <body>
 	<div class="container">
 		<div class="row">
@@ -71,26 +123,66 @@
 						Register
 						<div class="close"></div>
 					</h1>
-					<form>
+					
+					<form action="memberInputPro" method="post" name="memberInputForm" onsubmit="return memberInputSubmit();">
+					
+						<input type="hidden" name="confirmChk" value="0">
+					
 						<div class="input-container">
-							<input type="text" id="Username" required="required" /> <label
-								for="Username">Username</label>
+							<select class="custom-select d-block w-100" id="memberCountry" name="memberCountry">
+								<option style="display: none;" value="null">Select Your Country</option>
+								<option value="USA">United State America</option>
+								<option value="UK">United Kingdom</option>
+								<option value="Korea">Korea</option>
+								<option value="Japan">Japan</option>
+								<option value="China">China</option>
+								<option value="Canada">Canada</option>
+								<option value="Bangla">Bangladesh</option>
+								<option value="Hindi">Hindi</option>
+								<option value="Spanish">Spain</option>
+							</select>
 							<div class="bar"></div>
 						</div>
+					
 						<div class="input-container">
-							<input type="password" id="Password" required="required" /> <label
+							<input type="text" id="memberEmail" name="memberEmail" required="required" /> <label
+								for="memberEmail">Email</label>
+							<div class="bar"></div>
+						</div>
+						
+						<div class="button-container">
+							<button onclick="return EmailCheck();">
+								<span>
+									Confirm Email
+								</span>
+							</button>
+						</div>
+						<br>
+						<br>
+						<div class="input-container">
+							<input type="password" id="Password" name="password" required="required" /> <label
 								for="Password">Password</label>
 							<div class="bar"></div>
 						</div>
+						
 						<div class="input-container">
-							<input type="password" id="Repeat Password" required="required" />
+							<input type="password" id="Repeat_Password" required="required" />
 							<label for="Repeat Password">Repeat Password</label>
 							<div class="bar"></div>
 						</div>
+						
+						<div class="input-container">
+							<input type="text" id="memberId" name="memberId" required="required" />
+							<label for="Repeat Password">Full Name</label>
+							<div class="bar"></div>
+						</div>
+						
 						<div class="button-container">
-							<button>
-								<span>Next</span>
-							</button>
+							<a href="memberInputPro" onclick="return memberInputSubmit();">
+								<button type="submit">
+									<span>Next</span>
+								</button>
+							</a>
 						</div>
 					</form>
 				</div>

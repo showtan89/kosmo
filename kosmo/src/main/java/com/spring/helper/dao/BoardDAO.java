@@ -8,6 +8,7 @@ import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
+import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
@@ -90,9 +91,24 @@ public interface BoardDAO {
 	
 	// 게시글 수정 처리
 	public int onedayclassModifyUpdate(onedayclassVO vo);
+	
+	// 글 쓰기 처리
+	public int onedayclassInsertBoard(onedayclassVO vo);
+	
+	// 글 삭제 처리
+	public int onedayclassDeleteBoard(int onedayclassNumber);
 
 	
 	// 진호 메소드 종료--------------------------------------
 	
+	// 대호 메소드 시작 ============================================================
 	
+	public int memberConfirmidForm(String email);
+	
+	public int memberInputPro(Map<String, Object> map);
+	
+	public void sendEmailKey(Map<String, Object> map);
+	
+	public int memberEmailConfirmed(String emailKey);
+	// 대호 메소드 종료 ============================================================
 }

@@ -136,7 +136,7 @@ td {
 			<input class="inputButton" type="button" value="글수정"
 					onclick="window.location='onedayclassModifyForm?onedayclassNumber=${dto.onedayclassNumber}'">
 			<input class="inputButton" type="button" value="글삭제"
-					onclick="window.location='onedayclassDeleteForm?onedayclassNumber=${dto.onedayclassNumber}'">
+					onclick="window.location='onedayclassDeletePro?onedayclassNumber=${dto.onedayclassNumber}'">
 		</th>
 	</table>
 <%-- </c:if> --%>

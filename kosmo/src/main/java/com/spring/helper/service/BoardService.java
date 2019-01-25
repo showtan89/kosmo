@@ -81,8 +81,20 @@ public interface BoardService {
 	// 글 처리 페이지
 	public void onedayclassWritePro(HttpServletRequest req, Model model);
 	
+	// 글 삭제 처리
+	public void onedayclassDeletePro(HttpServletRequest req, Model model);
+	
 
 	
 	
 	//진호 끝-----------------------------------------------------------
+	
+	
+	// 대호 시작 =================================================================
+	public void memberConfirmidForm(HttpServletRequest req, Model model);
+	
+	public void memberInputPro(HttpServletRequest req, Model model);
+	
+	public void memberEmailConfirmed(HttpServletRequest req, Model model);
+	// 대호 끝 ==================================================================
 }

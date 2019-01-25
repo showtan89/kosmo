@@ -4,14 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
+import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
@@ -22,6 +28,9 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Autowired
+	JavaMailSender sender;
 
 	// 동욱이 메소드 시작
 	// 파일업로드 테스트
@@ -210,9 +219,73 @@ public class BoardDAOImpl implements BoardDAO {
 		return updateCnt;
 	}
 	
+	// 글 쓰기 처리
+	@Override
+	public int onedayclassInsertBoard(onedayclassVO vo) {
+
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int onedayclassInsertCnt = boardDao.onedayclassInsertBoard(vo);
+		return onedayclassInsertCnt;
+	}
+	
+	// 글 삭제 처리
+	@Override
+	public int onedayclassDeleteBoard(int onedayclassNumber) {
+
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int onedayclassDeleteCnt = boardDao.onedayclassDeleteBoard(onedayclassNumber);
+		return onedayclassDeleteCnt;
+	}
+	
+	
 	
 	
 	// 진호 메소드 종료------------------------------------------------
 	
+
+	// 대호 메소드 시작 ======================================================
+	// 이메일 중복 확인
+	@Override
+	public int memberConfirmidForm(String email) {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.memberConfirmidForm", email);
+	}
+	
+	// 회원 가입 완료
+	@Override
+	public int memberInputPro(Map<String, Object> map) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.memberInputPro", map);
+	}
+	
+	// 이메일 키 메일로 전송
+	@Override
+	public void sendEmailKey(Map<String, Object> map) {
+		
+		try {
+			
+			MimeMessage message = sender.createMimeMessage();
+			
+			message.setSubject("[Helper]Thanks to join us");
+			
+			String txt = "If you click this link to emailConfirm" + "<br>"
+						+ "<a href='http://localhost/project/memberEmailConfirmed?emailKey=" + (String)map.get("emailKey") + "'> Click this Link </a>";
+			
+			message.setText(txt, "UTF-8", "html");
+			
+			message.setFrom(new InternetAddress("admin@helper.shop"));
+			message.addRecipient(RecipientType.TO, new InternetAddress((String) map.get("memberEmail")));
+			sender.send(message);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 이메일 인증 완료
+	@Override
+	public int memberEmailConfirmed(String emailKey) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberEmailConfirmed", emailKey);
+	}
+	
+	// 대호 메소드 종료 ======================================================
 
 }
