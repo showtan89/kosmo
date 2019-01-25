@@ -26,6 +26,7 @@ public interface BoardService {
 	// 답변등록 처리
 	public void knowledgeCommentPro(HttpServletRequest req,Model model);
 	// 답변수정 처리
+	public void kCommentModifyUpdate(HttpServletRequest req,Model model);
 	// 답변삭제 처리
 	public void kCommentdelete(HttpServletRequest req,Model model);
 	// 답변 목록 리스트 출력

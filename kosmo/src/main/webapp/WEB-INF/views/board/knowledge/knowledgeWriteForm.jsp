@@ -113,7 +113,7 @@
 				$('p.class_addReward').text('포인트 '+addReward+'을 채택자에게 드립니다.');
 				$('.knowledgeWriteForm_Reward').css('display', 'none');
 			} else {
-				$('p.class_addReward').text('채택한 답변자에게 포인트를 드리며, 질문자에게도 포인트의 50%(최대100점)을 돌려드립니다.');
+				$('p.class_addReward').text('채택한 답변자에게 포인트를 드립니다.');
 				$('.knowledgeWriteForm_Reward').css('display', 'none');
 			}
 		}
@@ -136,7 +136,7 @@
 					<input class="knowledgeWriteForm_button3" type="button" value="포인트 설정"
 						onclick="knowledgeWriteForm_Reward_block();" style="display:inline-block;">
 						&nbsp;<p class="class_addReward" style="display:inline-block;">채택한
-					답변자에게 포인트를 드리며, 질문자에게도 포인트의 50%(최대100점)을 돌려드립니다.
+					답변자에게 포인트를 드립니다.
 				</p>
 				<div class="knowledgeWriteForm_Reward">
 					<table>

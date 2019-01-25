@@ -68,5 +68,18 @@
 	window.history.back;
 </script>
 </c:if>
+
+<c:if test="${kCommentModifycnt==1}">
+<script type="text/javascript">
+	alert("답변이 수정 되었습니다.")
+	window.location="knowledgeDetailForm?knowledgeNumber="+${knowledgeNumber}+"#"+${kCommentNumber};
+</script>
+</c:if>
+<c:if test="${kCommentModifycnt==0}">
+<script type="text/javascript">
+	alert('오류 발생. 잠시 후 다시 시도해 주세요.');
+	window.history.back;
+</script>
+</c:if>
 </body>
 </html>

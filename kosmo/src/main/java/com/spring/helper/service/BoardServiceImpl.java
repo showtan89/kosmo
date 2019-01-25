@@ -46,7 +46,8 @@ public class BoardServiceImpl implements BoardService {
 		MultipartFile file = req.getFile("test");
 		String saveDir = req.getRealPath("/resources/img/");
 		String realDir = req.getSession().getServletContext().getRealPath("/resources/img/");
-		System.out.println(realDir);
+		System.out.println("realDir"+realDir);
+		System.out.println("saveDir"+saveDir);
 		try {
 			file.transferTo(new File(saveDir+file.getOriginalFilename())); // 파일데이터를 읽어서 저장
 			FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
@@ -221,6 +222,8 @@ public class BoardServiceImpl implements BoardService {
 		KnowledgeVO Knowledge = new KnowledgeVO();
 		Knowledge = boardDao.knowledgeGetArticle(knowledgeNumber);
 		model.addAttribute("dtos",Knowledge);
+		int emailcheck = 0;
+		req.setAttribute("emailcheck", emailcheck);
 	}
 	// 답변 등록 처리
 	@Override
@@ -247,6 +250,21 @@ public class BoardServiceImpl implements BoardService {
 		req.setAttribute("kCommentCnt", kCommentCnt);
 	}
 	// 답변 수정 처리
+	@Override
+	public void kCommentModifyUpdate(HttpServletRequest req, Model model) {
+		String kCommentContent = req.getParameter("kCommentContent");
+		String kCommentTemp1 = req.getParameter("kCommentTemp2");
+		int kCommentNumber = Integer.parseInt(req.getParameter("kCommentNumber"));
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("kCommentContent", kCommentContent);
+		map.put("kCommentTemp1", kCommentTemp1);
+		map.put("kCommentNumber", kCommentNumber);
+		int kCommentModifycnt = boardDao.kCommentModifyUpdate(map);
+		req.setAttribute("knowledgeNumber", knowledgeNumber);
+		req.setAttribute("kCommentNumber", kCommentNumber);
+		req.setAttribute("kCommentModifycnt", kCommentModifycnt);
+	}
 	// 답변 삭제 처리
 	@Override
 	public void kCommentdelete(HttpServletRequest req, Model model) {
@@ -263,10 +281,18 @@ public class BoardServiceImpl implements BoardService {
 	public void knowledgeCommentList(HttpServletRequest req, Model model) {
 		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
 		int cnt = boardDao.knowledgeCommentListCnt(knowledgeNumber);
+		int emailcheck = 0;
 		if(cnt > 0) {
 			ArrayList<kCommentVO> kCommentVO = boardDao.knowledgeCommentList(knowledgeNumber);
 			req.setAttribute("kCommentVO", kCommentVO);
+			UserVO user = (UserVO)req.getSession().getAttribute("userVO");
+			for(kCommentVO cc : kCommentVO) {
+				if(cc.getMemberEmail().equals(user.getMemberEmail())){
+					emailcheck = 1;
+				}
+			}
 		}
+		req.setAttribute("emailcheck", emailcheck);
 	}
 
 	// 동욱이 메소드 종료
@@ -655,5 +681,6 @@ public class BoardServiceImpl implements BoardService {
 	public void onedayclassWritePro(HttpServletRequest req, Model model) {
 	}
 	//진호 메소드 종료---------------------------------------------------
+	
 
 }

@@ -27,7 +27,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 파일업로드 테스트
 	@Override
 	public int test(String images) {
-		return sqlSession.insert("com.spring.helper.dao.BoardDAO.test",images);
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.imagesupload",images);
 	}
 	// 지식인 게시판 게시글 갯수 구하기
 	@Override
@@ -74,10 +74,16 @@ public class BoardDAOImpl implements BoardDAO {
 	public int knowledgeCommentPro(Map<String, Object> map) {
 		// 답변등록 처리 시 답장 처리
 		sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeCommentPro2",map);
+		// 답변등록 처리 시 포인트 처리
+		sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeCommentPro3",map);
 		// TODO Auto-generated method stub
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeCommentPro",map);
 	}
 	// 답변수정 처리
+	@Override
+	public int kCommentModifyUpdate(Map<String, Object> map) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.kCommentModifyUpdate",map);
+	}
 	// 답변삭제 처리
 	@Override
 	public int kCommentdelete(int kCommentNumber) {
@@ -203,6 +209,7 @@ public class BoardDAOImpl implements BoardDAO {
 		int updateCnt = boardDao.onedayclassModifyUpdate(vo);
 		return updateCnt;
 	}
+	
 	
 	
 	// 진호 메소드 종료------------------------------------------------

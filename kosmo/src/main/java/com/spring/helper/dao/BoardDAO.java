@@ -34,6 +34,7 @@ public interface BoardDAO {
 	// 답변작성 처리
 	public int knowledgeCommentPro(Map<String, Object> map);
 	// 답변수정 처리
+	public int kCommentModifyUpdate(Map<String, Object> map);
 	// 답변삭제 처리
 	public int kCommentdelete(int kCommentNumber);
 	// 답변 갯수 구하기

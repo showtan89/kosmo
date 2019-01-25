@@ -22,9 +22,14 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
-	
 	@RequestMapping("test")
-	public String test(MultipartHttpServletRequest req, Model model) throws Exception {
+	public String test() throws Exception {
+		logger.info("test 로딩 중....");
+		return "test";
+	}
+	
+	@RequestMapping("imagesupload")
+	public String imagesupload(MultipartHttpServletRequest req, Model model) throws Exception {
 		service.test(req,model);
 		logger.info("test 로딩 중....");
 		return "test";
@@ -88,6 +93,13 @@ public class BoardController {
 	public String knowledgeCommentPro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeCommentPro 로딩 중....");
 		service.knowledgeCommentPro(req, model);
+		return "board/knowledge/knowledgePro";
+	}
+	// 답변수정 처리
+	@RequestMapping("kCommentModifyUpdate")
+	public String kCommentModifyUpdate(HttpServletRequest req, Model model) throws Exception {
+		logger.info("kCommentModifyUpdate 로딩 중....");
+		service.kCommentModifyUpdate(req, model);
 		return "board/knowledge/knowledgePro";
 	}
 	// 답변삭제 처리
