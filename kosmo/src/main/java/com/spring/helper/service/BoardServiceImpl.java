@@ -24,7 +24,6 @@ import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
-import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.PageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
@@ -298,7 +297,22 @@ public class BoardServiceImpl implements BoardService {
 		}
 		req.setAttribute("emailcheck", emailcheck);
 	}
-
+	// 채택 처리
+	@Override
+	public void knowledgeSelectComent(HttpServletRequest req, Model model) {
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		String memberEmail = userVO.getMemberEmail();
+		String kCommentmemberId = req.getParameter("kCommentmemberId");
+		int knowledgeReward = Integer.parseInt(req.getParameter("knowledgeReward"));
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("kCommentmemberId", kCommentmemberId);
+		map.put("knowledgeReward", knowledgeReward);
+		map.put("memberEmail", memberEmail);
+		map.put("knowledgeNumber", knowledgeNumber);
+		int knowledgeSelectComent = boardDao.knowledgeSelectComent(map);
+		model.addAttribute("knowledgeSelectComent",knowledgeSelectComent);
+	}
 	// 동욱이 메소드 종료
 
 
@@ -882,6 +896,7 @@ public class BoardServiceImpl implements BoardService {
 
 		model.addAttribute("updateCnt", updateCnt);
 	}
+
 
 	// 대호 메소드 종료 ===================================================
 

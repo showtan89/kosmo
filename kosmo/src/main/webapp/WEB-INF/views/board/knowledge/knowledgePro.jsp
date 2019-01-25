@@ -7,7 +7,7 @@
 
 <c:if test="${insertcnt==1}">
 <script type="text/javascript">
-	window.location="knowledge";
+	window.location="knowledgeBoardList";
 </script>
 </c:if>
 <c:if test="${insertcnt==0}">
@@ -76,6 +76,19 @@
 </script>
 </c:if>
 <c:if test="${kCommentModifycnt==0}">
+<script type="text/javascript">
+	alert('오류 발생. 잠시 후 다시 시도해 주세요.');
+	window.history.back;
+</script>
+</c:if>
+
+<c:if test="${knowledgeSelectComent==1}">
+<script type="text/javascript">
+	alert("채택이 완료 되었습니다.")
+	window.location="knowledgeBoardList";
+</script>
+</c:if>
+<c:if test="${knowledgeSelectComent==0}">
 <script type="text/javascript">
 	alert('오류 발생. 잠시 후 다시 시도해 주세요.');
 	window.history.back;

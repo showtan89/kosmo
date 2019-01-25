@@ -35,6 +35,8 @@ public interface BoardService {
 	public void kCommentdelete(HttpServletRequest req,Model model);
 	// 답변 목록 리스트 출력
 	public void knowledgeCommentList(HttpServletRequest req,Model model);
+	// 채택 처리
+	public void knowledgeSelectComent(HttpServletRequest req,Model model);
 	// 동욱이 메소드 종료
 
 

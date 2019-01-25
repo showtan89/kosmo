@@ -32,6 +32,7 @@ public class BoardRestController {
 		logger.info("realestateCommentsJson - GET 호출");
 		List<RealestateCommentsVO> list = service.realestateGetCommentsList(req,model); //댓글 리스트 가져오기
 		return new ResponseEntity<>(list,HttpStatus.OK);
+		
 	}
 	
 	// 부동산 댓글 등록 호출

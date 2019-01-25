@@ -1,14 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<<<<<<< HEAD
 <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-=======
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -129,70 +123,41 @@
 	</sec:authorize>
 
 	<c:if test="${kCommentVO != null}">
-		<div
-			style="width: 800px; background-color: #fff; margin-top: 30px; padding: 3px 10px">
+		<div style="width: 800px; background-color: #fff; margin-top: 30px; padding: 3px 10px">
+			<!-- Ajax 넣는 곳 시작 -->
 			<c:forEach var="kc" items="${kCommentVO}">
 				<ul align="left" style="padding: 0; margin: 0">
-					<li><c:if test="${kc.kCommentTemp1=='N'}">
-							<span>비공개</span>
-						</c:if> <c:if test="${kc.kCommentTemp1=='Y'}">
-							<span>${kc.memberId}</span>
-						</c:if> <c:if
-							test="${dtos.memberId==userVO.memberId && kc.memberId!=userVO.memberId}">
-						<c:if test="${dtos.knowledgeReply != 'Y'}">	
-							<span style="float: right; margin-left: 10px;">
-							<input  
-								type="button" class="knowledgeDetailForm_button4"
-								onclick="window.location='';" value="채택"></span>
-						</c:if>
-						</c:if> <c:if test="${kc.memberId==userVO.memberId}">
-							<span style="float: right; margin-left: 10px;"><input
-								type="button" class="knowledgeDetailForm_button4"
-								onclick="window.location='kCommentdelete?kCommentNumber=${kc.kCommentNumber}&knowledgeNumber=${kc.knowledgeNumber}';"
-								value="삭제"></span>
-							<span style="float: right; margin-left: 10px;"><input
-								type="button" class="knowledgeDetailForm_button4"
-								onclick="displayblock(${kc.kCommentNumber});" value="수정"></span>
-						</c:if></li>
+					<li><c:if test="${kc.kCommentTemp1=='N'}"><span>비공개</span></c:if>
+					    <c:if test="${kc.kCommentTemp1=='Y'}"><span>${kc.memberId}</span></c:if>
+					    <c:if test="${dtos.memberId==userVO.memberId && kc.memberId!=userVO.memberId}">
+						<c:if test="${dtos.knowledgeReply != 'Y'}"><span style="float: right; margin-left: 10px;">
+						<input type="button" class="knowledgeDetailForm_button4" onclick="window.location='knowledgeSelectComent?kCommentmemberId=${kc.memberId}&knowledgeReward=${dtos.knowledgeReward}&knowledgeNumber=${kc.knowledgeNumber}';" value="채택"></span></c:if></c:if>
+						<c:if test="${kc.memberId==userVO.memberId}"><span style="float: right; margin-left: 10px;">
+						<input type="button" class="knowledgeDetailForm_button4" onclick="window.location='kCommentdelete?kCommentNumber=${kc.kCommentNumber}&knowledgeNumber=${kc.knowledgeNumber}';" value="삭제"></span>
+						<span style="float: right; margin-left: 10px;">
+						<input type="button" class="knowledgeDetailForm_button4" onclick="displayblock(${kc.kCommentNumber});" value="수정"></span></c:if></li>
 					<li><span>${kc.kCommentContent}</span></li>
-					<li><span>${kc.kCommentRegdate}</span></li>
-				</ul>
+					<li><span>${kc.kCommentRegdate}</span></li></ul>
 				<div class="kCommentModifyUpdate" id="${kc.kCommentNumber}">
 					<form action="kCommentModifyUpdate" method="post" onsubmit="return knowledgeCommentFormchk2();">
 						<ul>
 							<li style="border-bottom: 1px solid black;">
 								<p align="left" style="padding: 10px 50px 0 50px;">
-									<span style="font-size: 18px;">${userVO.memberId}님,
-										수정해주세요!</span><br> <span>답변하시면 포인트 10점을 드립니다.</span>
-								</p>
-							</li>
-							<li style="width: 100%; height: 300px; margin: 0 0 0 0;"><textarea
-									style="border: none; width: 100%; height: 100%; padding: 3px 10px; margin: 0; border-top: 1px solid black;"
-									name="kCommentContent" class="kCommentContent2">${kc.kCommentContent}</textarea>
-							</li>
-							<li align="center"
-								style="padding: 30px 0; border-top: 1.5px solid black;">
+									<span style="font-size: 18px;">${userVO.memberId}님,	수정해주세요!</span><br><span>답변하시면 포인트 10점을 드립니다.</span></p></li>
+							<li style="width: 100%; height: 300px; margin: 0 0 0 0;"><textarea	style="border: none; width: 100%; height: 100%; padding: 3px 10px; margin: 0; border-top: 1px solid black;"	name="kCommentContent" class="kCommentContent2">${kc.kCommentContent}</textarea></li>
+							<li align="center"	style="padding: 30px 0; border-top: 1.5px solid black;">
 								<p align="left">
-									<input style="margin-left: 30px;"
-										class="knowledgeDetailForm_button3" type="button"
-										value="ID 공개여부"> <input type="radio"
-										name="kCommentTemp2" id="kCommentTemp2" value="Y">공개
-									<input type="radio" name="kCommentTemp2" id="kCommentTemp2"
-										value="N">비공개
+									<input style="margin-left: 30px;" class="knowledgeDetailForm_button3" type="button"	value="ID 공개여부"> 
+									<input type="radio"	name="kCommentTemp2" id="kCommentTemp2" value="Y">공개
+									<input type="radio" name="kCommentTemp2" id="kCommentTemp2"	value="N">비공개
 									<input type="hidden" name="knowledgeNumber" value="${dtos.knowledgeNumber}">	
-									<input type="hidden" name="kCommentNumber" value="${kc.kCommentNumber}">
-								</p> <input class="knowledgeDetailForm_button2" type="submit"
-								value="답변수정"> <input class="knowledgeDetailForm_button2"
-								type="button" value="취소"
-								onclick="displaynone(${kc.kCommentNumber});">
-							</li>
-						</ul>
-					</form>
-				</div>
-				<hr style="margin: 3px 0;">
+									<input type="hidden" name="kCommentNumber" value="${kc.kCommentNumber}"></p>
+								 <input class="knowledgeDetailForm_button2" type="submit" value="답변수정"> 
+								 <input class="knowledgeDetailForm_button2"	type="button" value="취소"onclick="displaynone(${kc.kCommentNumber});">
+							</li></ul></form></div><hr style="margin:3px 0;">
 			</c:forEach>
+			<!-- Ajax 넣는 곳 종료 -->
 		</div>
-
 	</c:if>
 </div>
 

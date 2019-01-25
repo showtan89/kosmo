@@ -44,7 +44,8 @@ public interface BoardDAO {
 	public int knowledgeCommentListCnt(int knowledgeNumber);
 	// 답변 리스트 출력
 	public ArrayList<kCommentVO> knowledgeCommentList(int knowledgeNumber);
-	
+	// 채택 처리
+	public int knowledgeSelectComent(Map<String, Object> map);
 	// 동욱이 메소드 종료
 
 
