@@ -451,5 +451,25 @@
 		 WHERE emailKey = #{emailKey}
 	</update>
 	
+	<update id="memberModifyPro" parameterType="java.util.Map">
+		UPDATE users
+		   SET password = #{password},
+		       memberCountry = #{memberCountry}
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	
+	<select id="memberDeleteForm" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM users
+		 WHERE memberEmail = #{memberEmail}
+		   AND password = #{password}
+	</select>
+	
+	<update id="memberDeletePro" parameterType="java.util.Map">
+		UPDATE users
+		   SET enabled = 0, AUTHORITY = 'ROLE_GUEST'
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	
 	<!-- 대호 끝 ========================================================================= -->
 </mapper>

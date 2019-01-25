@@ -110,15 +110,15 @@ body {
   height: auto;
   border-radius: 5px;
   padding: 60px 0 40px;
-  overflow: hidden;
+  overflow: hidden; 
 }
 .container.active .card.alt .toggle {
   position: absolute;
   top: 40px;
   right: -70px;
   box-shadow: none;
-  -webkit-transform: scale(14);
-  transform: scale(15);
+  -webkit-transform: scale(20);
+  transform: scale(40);
   -webkit-transition: -webkit-transform .5s ease;
   transition: -webkit-transform .5s ease;
   transition: transform .5s ease;

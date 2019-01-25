@@ -109,5 +109,12 @@ public interface BoardDAO {
 	public void sendEmailKey(Map<String, Object> map);
 	
 	public int memberEmailConfirmed(String emailKey);
+	
+	public int memberModifyPro(Map<String, Object> map);
+	
+	public int memberDeleteForm(Map<String, Object> map);
+	
+	public int memberDeletePro(Map<String, Object> map);
+	
 	// 대호 메소드 종료 ============================================================
 }

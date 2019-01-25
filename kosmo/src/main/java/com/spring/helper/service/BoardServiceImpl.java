@@ -760,6 +760,54 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("updateCnt", updateCnt);
 	}
 	
+	// 회원정보 수정
+	@Override
+	public void memberModifyPro(HttpServletRequest req, Model model) {
+		
+		String password = req.getParameter("password");
+		String memberCountry = req.getParameter("memberCountry");
+		
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("password", password);
+		map.put("memberCountry", memberCountry);
+		map.put("memberEmail", userVO.getMemberEmail());
+		
+		int updateCnt = boardDao.memberModifyPro(map);
+		
+		if (updateCnt == 1) {
+			userVO.setPassword(password);
+			userVO.setMemberCountry(memberCountry);
+		}
+		
+		model.addAttribute("updateCnt", updateCnt);
+		model.addAttribute("memberId", userVO.getMemberId());
+	}
+	
+	// 회원 탈퇴
+	@Override
+	public void memberDeletePro(HttpServletRequest req, Model model) {
+		
+		String password = req.getParameter("password");
+		
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("password", password);
+		map.put("memberEmail", userVO.getMemberEmail());
+		
+		int selectCnt = boardDao.memberDeleteForm(map);
+		
+		if (selectCnt == 1) {
+			int updateCnt = boardDao.memberDeletePro(map);
+			model.addAttribute("updateCnt", updateCnt);
+		} else {
+			model.addAttribute("selectCnt", selectCnt);
+		}
+	}
+	
+	
 	// 대호 메소드 종료 ===================================================
 
 }
