@@ -166,6 +166,9 @@ margin:0;
 /* knowledgeWriteForm 스타일 적용 종료 */
 
 /* knowledgeDetailForm 스타일 적용 시작 */
+.kCommentModifyUpdate{
+	display:none;	
+}
 .knowledgeDetailForm_button2{
 	width:130px;
 	height:50px;

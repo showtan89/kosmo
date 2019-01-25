@@ -1,5 +1,7 @@
 package com.spring.helper.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,8 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.helper.service.BoardService;
+import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 
 @Controller
 public class BoardController {
@@ -22,9 +26,14 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
-	
 	@RequestMapping("test")
-	public String test(MultipartHttpServletRequest req, Model model) throws Exception {
+	public String test() throws Exception {
+		logger.info("test 로딩 중....");
+		return "test";
+	}
+	
+	@RequestMapping("imagesupload")
+	public String imagesupload(MultipartHttpServletRequest req, Model model) throws Exception {
 		service.test(req,model);
 		logger.info("test 로딩 중....");
 		return "test";
@@ -90,6 +99,13 @@ public class BoardController {
 		service.knowledgeCommentPro(req, model);
 		return "board/knowledge/knowledgePro";
 	}
+	// 답변수정 처리
+	@RequestMapping("kCommentModifyUpdate")
+	public String kCommentModifyUpdate(HttpServletRequest req, Model model) throws Exception {
+		logger.info("kCommentModifyUpdate 로딩 중....");
+		service.kCommentModifyUpdate(req, model);
+		return "board/knowledge/knowledgePro";
+	}
 	// 답변삭제 처리
 	@RequestMapping("kCommentdelete")
 	public String kCommentdelete(HttpServletRequest req, Model model) throws Exception {
@@ -110,20 +126,6 @@ public class BoardController {
 		return "board/realestate/realestateBoardList";
 	}
 
-	//부동산 Json 보류 ㅠㅠ
-	/*@RequestMapping("realestateListJson")
-	public ModelAndView realestateListJson(HttpServletRequest req, Model model) throws Exception{
-		logger.info("realestateListJson 호출");
-		RealestateVO rVO = service.realestateGetVO(req);
-		PageVO pVO = service.realestateListPage(req, rVO);
-		int startNumber = pVO.getStartNumber();
-		int endNumber = pVO.getEndNumber();
-		List<RealestateVO> list = service.realestateListJson(rVO,startNumber,endNumber);
-		model.addAttribute("list",list);
-		model.addAttribute("pVO",pVO);
-		return new ModelAndView("board/realestate/realestateJson");
-	}*/
-	
 	//부동산 게시판 글 상세 페이지로 이동
 	@RequestMapping("realestateDetailForm")
 	public String realestateDetailForm(HttpServletRequest req, Model model) throws Exception {
@@ -131,16 +133,6 @@ public class BoardController {
 		service.realestateGetArticle(req, model);
 		return "board/realestate/realestateDetailForm";
 	}
-	
-	/*//부동산 게시판 댓글 등록
-	@Secured({"ROLE_ADMIN","ROLE_USER"})
-	@RequestMapping("realestateWrite")
-	public String realestateWrite(HttpServletRequest req, Model model) throws Exception {
-		logger.info("realestateWrite 로딩 중....");
-		if(req.getParameter("loginPage")!=null);
-		model.addAttribute("loginPage",req.getParameter("loginPage"));
-		return "board/realestate/realestateWrite";
-	}*/
 
 	//부동산 게시판 글쓰기 실행
 	@RequestMapping("realestateWritePro")
@@ -156,8 +148,9 @@ public class BoardController {
 	@RequestMapping("realestateWriteForm")
 	public String realestateWriteForm(HttpServletRequest req, Model model) throws Exception {
 		logger.info("realestateWriteForm 로딩 중....");
-		if(req.getParameter("loginPage")!=null);
-		model.addAttribute("loginPage",req.getParameter("loginPage"));
+		if(req.getParameter("loginPage")!=null) {
+			model.addAttribute("loginPage",req.getParameter("loginPage"));
+		}
 		return "board/realestate/realestateWriteForm";
 	}
 	
@@ -235,7 +228,26 @@ public class BoardController {
 		service.onedayclassDeletePro(req, model);
 		return "board/onedayclass/onedayclassDeletePro";
 	}
+	
+	// 클래스개설 권한 신청 폼
+	@RequestMapping("onedayclassAuthorityForm")
+	public String onedayclassAuthorityForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 권한신청폼 호출중 ....");
 		
+		return "board/onedayclass/onedayclassAuthorityForm";
+		
+	}
+	
+	// 클래스개설 권한 신청 처리페이지
+/*	@RequestMapping("onedayclassAuthorityPro")
+	public String onedayclassAuthorityPro(HttpServletRequest req, Model model) throws Exception {
+		logger.info("원데이 클래스 권한신청처리페이지 호출중 ....");
+		
+		service.onedayclassAuthorityPro(req, model);
+		return "board/onedayclass/onedayclassAuthorityPro";
+	}*/
+	
+	
 	// 진호  BoardController 끝----------------------------------------------------
 	
 

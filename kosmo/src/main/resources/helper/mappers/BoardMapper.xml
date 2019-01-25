@@ -6,15 +6,9 @@
 
 <mapper namespace="com.spring.helper.dao.BoardDAO">
 	<!-- 파일업로드 테스트 -->
-	<insert id="test" parameterType="String">
+	<insert id="imagesupload" parameterType="String">
 		INSERT INTO test VALUES (#{images})
 	</insert>
-	<!-- 공통 로그인 회원정보 가져오기 -->
-	<select id="memberIdPwdCheck"
-		resultType="com.spring.helper.vo.BoardVO.UserVO">
-		select memberNumber,memberEmail,memberId,memberCountry from
-		users where memberNumber=10010
-	</select>
 
 	<!-- 동욱이 시작 -->
 	<!-- 지식인 게시판 갯수 구하기 -->
@@ -43,7 +37,7 @@
 	<insert id="knowledgeInsertArticle"
 		parameterType="com.spring.helper.vo.BoardVO.KnowledgeVO">
 		INSERT INTO knowledge
-		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'0','0','0',0)
+		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'N','0','0',0)
 	</insert>
 	<!-- 질문수정 폼 자료 -->
 	<select id="knowledgeModifyForm" resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
@@ -73,17 +67,24 @@
 		INSERT INTO kComment
 		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10',#{memberEmail},#{memberId},#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
-	<!-- 답변수정 처리 -->
-	
-	<!-- 답변삭제 처리 -->
-	<delete id="kCommentdelete" parameterType="int">
-		DELETE FROM kComment WHERE kCommentNumber=#{kCommentNumber}
-	</delete>
 	<!-- 답변등록 처리시 알림 처리 -->
 	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
 		INSERT INTO commentAlarm
 		VALUES(commentAlarmSeq.nextval,#{memberNumber},'10',#{memberEmail},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
 	</insert>
+	<!-- 답변등록 처리시 포인트 처리 -->
+	<update id="knowledgeCommentPro3" parameterType="java.util.Map">
+		UPDATE  users SET memberPoint = (memberPoint+10) WHERE memberEmail=#{memberEmail}
+	</update>
+	<!-- 답변수정 처리 -->
+	<update id="kCommentModifyUpdate" parameterType="java.util.Map">
+		UPDATE kComment SET kCommentContent=#{kCommentContent},kCommentTemp1=#{kCommentTemp1} WHERE kCommentNumber=#{kCommentNumber}
+	</update>
+	
+	<!-- 답변삭제 처리 -->
+	<delete id="kCommentdelete" parameterType="int">
+		DELETE FROM kComment WHERE kCommentNumber=#{kCommentNumber}
+	</delete>
 	<!-- 답변 갯수 구하기 -->
 	<select id="knowledgeCommentListCnt" resultType="int">
 		SELECT count(*) from kComment where knowledgeNumber = #{knowledgeNumber}
@@ -119,6 +120,21 @@
 		select * from realestate where realestateNumber = #{realestateNumber} 
 	</select>
 	
+	<!-- 부동산 게시글 댓글 달기 -->
+	<insert id="realestateCommentPro" parameterType="com.spring.helper.vo.BoardVO.RealestateCommentsVO">
+		insert into rcomment(BOARDCODE,REALESTATENUMBER,RCOMMENTNUMBER,MEMBERID,MEMBEREMAIL,RCOMMENTCONTENT,RCOMMENTREGDATE) values(
+		21,#{realestateNumber},realestateseq.nextval,#{memberId},#{memberEmail},#{rCommentContent},sysdate)
+	</insert>
+	
+	<!-- 부동산 게시글 댓글 삭제 -->
+	<delete id="realestateCommentsDelete">
+		delete rcomment where rCommentNumber = #{rCommentNumber}
+	</delete>
+	
+	<!-- 부동산 게시글 댓글 리스트 -->
+	<select id="realestateGetCommentsList" parameterType="Integer" resultType="com.spring.helper.vo.BoardVO.RealestateCommentsVO">
+		select * from rComment where realestateNumber = #{realestateNumber} order by RCOMMENTREGDATE
+	</select>
 	
 	<!-- 부동산 검색 조건에 따른 갯수 구하기 -->
 	<sql id="getRealCount">
@@ -338,19 +354,19 @@
 
 	<!-- 민석이 시작 -->
 	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
-	<select id="messageReadCnt1" resultType="int">
-		select count(*) cnt from  commentalarm where memberid = 'min'
+	<select id="commentReadCnt" resultType="int" parameterType="String">
+		select count(*) cnt from  commentalarm where memberid = #{memId}
 	</select>		
 	
-	<select id="messageReadCnt2" resultType="int">
-		select count(*) cnt from  messagealarm where memberid = 'min'
+	<select id="chattingReadCnt" resultType="int" parameterType="String">
+		select count(*) cnt from  chattingalarm where memberid = #{memId}
 	</select>
 	
-	<!-- 멧세지 알람의 리스트 -->
-	<select id="messageReadList" resultType="com.spring.helper.vo.BoardVO.MessageAlarmVO" parameterType="java.util.Map">
+	<!-- 채팅 알람의 리스트 -->
+	<select id="chattingReadList" resultType="com.spring.helper.vo.BoardVO.ChattingAlarmVO" parameterType="java.util.Map">
 		<![CDATA[
-			SELECT * FROM (SELECT messagenumber, membernumber, boardcode, memberemail, memberid, membercountry, messagesubject, messagecontent, messagealarm, messageregdate, rownum rNum 
-			FROM ( SELECT * FROM messagealarm ORDER BY messageregdate DESC ))
+			SELECT * FROM (SELECT chattingnumber, membernumber, boardcode, memberemail, memberid, membercountry, chattingsubject, chattingcontent, chattingalarm, chattingregdate, rownum rNum 
+			FROM ( SELECT * FROM chattingalarm WHERE chattingalarm != 0 ORDER BY chattingregdate DESC ))
 			WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
@@ -359,10 +375,23 @@
 	<select id="commentReadList" resultType="com.spring.helper.vo.BoardVO.CommentAlarmVO" parameterType="java.util.Map">
 		<![CDATA[
 				SELECT * FROM (SELECT commentnumber, membernumber, boardcode, memberemail, memberid, membercountry, commentoriginalnumber, commentcommentnumber, commentsubject, commentalarm, commentregdate, rownum rNum 
-				FROM ( SELECT * FROM commentalarm ORDER BY commentregdate DESC ))
+				FROM ( SELECT * FROM commentalarm WHERE commentalarm!= 0 ORDER BY commentregdate DESC ))
 				WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
+	
+	<!-- ajax댓글 알람 -->
+	<select id="commentAlarm" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.CommentAlarmVO">
+		<!-- SELECT * FROM commentalarm where memberid='park' AND commentalarm=1 -->
+	</select>
+	
+	<delete id="commentDelete" parameterType="int">
+		 delete from commentalarm where commentnumber = #{commentnumber}
+	</delete>
+	
+	<delete id="chattingDelete" parameterType="int">
+		 delete from chattingalarm where chattingnumber = #{chattingnumber}
+	</delete>
 
 	<!-- 민석이 종료 -->
 

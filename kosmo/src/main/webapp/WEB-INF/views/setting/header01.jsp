@@ -141,6 +141,7 @@ input:focus {
 											class="fa fa-user" aria-hidden="true">Logout</i> </a>
 									</sec:authorize>
 								</div>
+<<<<<<< HEAD
 								
 								<!-- Mypage Button -->
 								<sec:authorize access="isAuthenticated()">
@@ -158,9 +159,11 @@ input:focus {
 								</sec:authorize>
 								
 								<!-- Cart -->
+
+								<!-- Alarm -->
 								<div class="cart">
 									<a href="#"><i class="fa fa-envelope"
-										aria-hidden="true"></i> <span>Message </span> 
+										aria-hidden="true"></i> <span>Alarm </span> 
 									<span><class="messege-quantity">(0)</span></a>
 								</div>
 
@@ -205,7 +208,7 @@ input:focus {
 											<li><a href="knowledge">Knowledge IN</a></li>
 											<li><a href="realestate">Real Estate</a></li>
 											<li><a href="onedayclass">Oneday Class</a></li>
-											<li><a href="message">message</a></li>
+											<li><a href="alarmBoard">Alarm</a></li>
 										</ul></li>
 									<li><a href="#">Traffic</a>
 										<ul class="dropdown">

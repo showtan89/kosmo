@@ -35,7 +35,7 @@
 
 
 <!-- 글 등록 후 처리 - 모달로 바꿀 것 -->
-<c:if test="${param.insertResult!=0}">
+<c:if test="${param.insertResult>0}">
 <script type="text/javascript">
 	alert('글 등록이 성공 되었습니다.');
 </script>

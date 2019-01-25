@@ -17,7 +17,15 @@ public class UserVO {
 	 private String memberTemp2 ;	 // 회원컬럼2
 	 private int memberTemp3 ; 		// 회원컬럼3
 	 
-	 public int getMemberNumber() {
+	 @Override
+	public String toString() {
+		return "UserVO [memberNumber=" + memberNumber + ", memberEmail=" + memberEmail + ", memberId=" + memberId
+				+ ", password=" + password + ", memberCountry=" + memberCountry + ", memberRegdate=" + memberRegdate
+				+ ", memberPoint=" + memberPoint + ", memberRecommend=" + memberRecommend + ", authority=" + authority
+				+ ", enabled=" + enabled + ", memberTemp1=" + memberTemp1 + ", memberTemp2=" + memberTemp2
+				+ ", memberTemp3=" + memberTemp3 + "]";
+	}
+	public int getMemberNumber() {
 		return memberNumber;
 	}
 	public void setMemberNumber(int memberNumber) {

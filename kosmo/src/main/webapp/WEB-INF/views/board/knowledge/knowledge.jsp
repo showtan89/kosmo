@@ -128,10 +128,6 @@ function knowledgeDetailForm(knowledgeNumber){
 						<option value="50">50개 보기</option>
 				</select></span>
 				<ul class="knowledge_ul" style="float: right; display: inline;">
-					<li>최신순&nbsp;</li>
-					<li>답변순&nbsp;</li>
-					<li>포인트높은순&nbsp;</li>
-					<li>추천순&nbsp;</li>
 					<li><input id="knowledge_button" type="button" value="질문하기"
 						onclick="knowledgeWriteForm();"></li>
 				</ul>

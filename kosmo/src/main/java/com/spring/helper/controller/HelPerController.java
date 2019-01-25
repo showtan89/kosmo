@@ -90,14 +90,43 @@ public class HelPerController{
 	// 진호 끝---------------------------------
 
 	//민석이 시작+++++++++++++++++++++++++++++++
-	@RequestMapping("message")
-	public String chatting(HttpServletRequest req,Model model) {
-		logger.info("message 로딩 중....");
-		service.messageForm(req, model);
-
-		return "board/message/message";
-	}
-	//민석이 끝++++++++++++++++++++++++++++++++
+	
+		//알람 게시판으로 이동
+		/*@Secured({"ROLE_USER","ROLE_ADMIN"}) */
+		@RequestMapping("alarmBoard")
+		public String alarmBoard(HttpServletRequest req,Model model) {
+			logger.info("alarmBoard 로딩 중....");
+			
+			/*if(req.getParameter("loginPage")!=null);
+			model.addAttribute("loginPage",req.getParameter("loginPage"));*/
+			
+			service.alarmBoard(req, model);
+			return "board/message/alarmBoard";
+		}
+		// 댓글 알람 삭제
+		@RequestMapping("commentAlarmDelete")
+		public String commentAlarmDelete(HttpServletRequest req,Model model) {
+			logger.info("commentAlarmDelete 로딩 중....");
+			
+			service.commentAlarmDelete(req, model);
+			
+			return "board/message/commentAlarmDelete";
+		}
+		/* ajax 댓글 알람 진행중
+		 * @Scheduled(cron = "0 * * * * *" )
+			public void scheduleRun() {
+			logger.info("스케쥴러러러러러러러러러러");
+			
+			service.scheduleRun(); //서비스 메소드 명
+			
+		}
+		@RequestMapping("commentAlarm")
+		public String commentAlarm(HttpServletRequest req,Model model) {
+			logger.info("commentAlarmDelete 로딩 중....");
+			
+			return "";
+		}*/
+		//민석이 끝++++++++++++++++++++++++++++++++
 
 
 	/*@Secured({"ROLE_ADMIN","ROLE_MASTER"})

@@ -1,0 +1,27 @@
+1. 기존 방식 
+	form submit -> controller -> service -> dao -> 정보 취득 및 처리 -> 돌아와서 return으로 jsp 페이지를 줘서 페이지 전환이 필요함
+	<form action="경로" method="방식">
+	<input type='text' name="str"> -> Controller의 경로에서 service 호출 -> Service에서 req.getParameter('text') 후 dao 호출 -> DAO 에서 DB 입력 및 조회
+	
+2. model and view 방식으로 부분 화면 전환 - 보류
+	적용 되는 거 확인 했으나 최종 방법에 비해 제한적인 기능
+	
+3. RestController 를 이용한 자료를 받아오는 방식 + Ajax
+	서버를 실행하고 http://localhost/project/realestateCommentsJson?realestateNumber=561 를 입력해보면 json 데이터가 리턴 됨을 확인 가능
+	model 등으로 값을 전달 하는 것이 아니라 RestController는 주소를 요청 받으면 정보를 제공을 하는 역할을 하게 되고, 
+	이를 호출 하는 곳에서 받아서 사용하는 방식 (대부분의 OpenAPI 방식)
+
+	JSP 페이지 전체가 변경 되는게 아니라 아래와 같이 빈 공간에 넣을 데이터(html코드)를 직접 가공해서 넣는 방식.
+	\views\board\realestate\realestateDetailForm.jsp
+		<div id="realestateCommentJson">
+			
+		</div>
+
+	\src\main\webapp\resources\js\realestate.js
+		json 요청 및 html 코드 작성
+		
+		
+추천 개발 순서
+	1. RestController의 select(데이터 출력) 부분을 설계하고 해당 주소로 요청(GET)을 하면 자료를 가져 오는지 확인(크롬 등 사용) (10번행 주소)
+	2. 해당 주소를 요청하는 Javscript 코드를 작성해서 SUCCESS 등 요청이 오면 변경 될 HTML 코드 작성
+	3. POST(등록) ,DELETE(삭제) 등 추가 부분 완성 
