@@ -392,10 +392,10 @@ public class BoardServiceImpl implements BoardService {
 	//부동산 게시판 댓글 달기
 	@Override
 	public Integer realestateCommentPro(RealestateCommentsVO cVO, HttpServletRequest req) {
-		if(req.getSession().getAttribute("userVO")==null) {
-			return 0;
+		if(req.getSession().getAttribute("userVO")==null) { 
+			return 0;	// 회원ID 가 없는 상태로 요청 받으면 0 리턴
 		}else {
-			UserVO uVO = (UserVO)req.getSession().getAttribute("userVO");
+			UserVO uVO = (UserVO)req.getSession().getAttribute("userVO"); // 있으면 자료 입력 시도
 			logger.info(uVO.toString());
 			cVO.setMemberId(uVO.getMemberId());
 			cVO.setMemberEmail(uVO.getMemberEmail());
@@ -405,7 +405,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	//부동산 게시판 댓글 삭제
 	@Override
-	public Integer realestateCommentsDelete(int rCommentNumber) {
+	public Integer realestateCommentsDelete(int rCommentNumber) { //전달 받은 댓글 번호 삭제
 		return boardDao.realestateCommentsDelete(rCommentNumber);
 	}
 	

@@ -401,7 +401,7 @@
 										<!-- </form> -->
 									</div>
 								</c:if>
-								<!-- Comment Area Start -->
+								<!-- JSON -->
 								<div id="realestateCommentJson">
 									
 								</div>

@@ -30,15 +30,15 @@ public class BoardRestController {
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.GET)
 	public ResponseEntity<List<RealestateCommentsVO>> realestateCommentsJson(HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - GET 호출");
-		List<RealestateCommentsVO> list = service.realestateGetCommentsList(req,model);
+		List<RealestateCommentsVO> list = service.realestateGetCommentsList(req,model); //댓글 리스트 가져오기
 		return new ResponseEntity<>(list,HttpStatus.OK);
 	}
 	
 	// 부동산 댓글 등록 호출
-	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.POST)
+	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.POST) //VO로 받는 부분
 	public ResponseEntity<String> realestateCommentsWrite(@RequestBody RealestateCommentsVO cVO, HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - POST 호출");
-		Integer realestateInsertArticle = service.realestateCommentPro(cVO, req);
+		Integer realestateInsertArticle = service.realestateCommentPro(cVO, req); //댓글 등록 실행
 		ResponseEntity<String> entity = null;
 		if(realestateInsertArticle==0||realestateInsertArticle==null) {
 			entity = new ResponseEntity<String>("FAILED",HttpStatus.BAD_REQUEST);
@@ -54,7 +54,7 @@ public class BoardRestController {
 		logger.info("realestateCommentsJson - DELETE 호출");
 		String cNum = cNumber.replace("{\"cNumber\":", "").replace("}",""); //깔끔하게 받을 방법이 없을까?
 		Integer commentNumber = Integer.valueOf(cNum);
-		Integer realestateDeleteArticle = service.realestateCommentsDelete(commentNumber);
+		Integer realestateDeleteArticle = service.realestateCommentsDelete(commentNumber); //삭제 실행
 		ResponseEntity<String> entity = null;
 		if(realestateDeleteArticle==0||realestateDeleteArticle==null) {
 			entity = new ResponseEntity<String>("FAILED",HttpStatus.BAD_REQUEST);
