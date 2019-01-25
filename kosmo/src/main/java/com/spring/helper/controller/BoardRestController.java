@@ -19,7 +19,6 @@ import com.spring.helper.service.BoardService;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 
 @RestController
-@RequestMapping("realestateCommentsJson")
 public class BoardRestController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardRestController.class);
@@ -28,7 +27,7 @@ public class BoardRestController {
 	BoardService service;
 	
 	// 부동산 댓글 출력 호출
-	@RequestMapping(value="", method = RequestMethod.GET)
+	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.GET)
 	public ResponseEntity<List<RealestateCommentsVO>> realestateCommentsJson(HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - GET 호출");
 		List<RealestateCommentsVO> list = service.realestateGetCommentsList(req,model);
@@ -36,7 +35,7 @@ public class BoardRestController {
 	}
 	
 	// 부동산 댓글 등록 호출
-	@RequestMapping(value="", method = RequestMethod.POST)
+	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.POST)
 	public ResponseEntity<String> realestateCommentsWrite(@RequestBody RealestateCommentsVO cVO, HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - POST 호출");
 		Integer realestateInsertArticle = service.realestateCommentPro(cVO, req);
@@ -49,13 +48,12 @@ public class BoardRestController {
 		return entity;
 	}
 	
-	// 부동산 댓글 삭제 호출 ===== 보류중
-	@RequestMapping(value="", method = RequestMethod.DELETE)
+	// 부동산 댓글 삭제 호출
+	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.DELETE)
 	public ResponseEntity<String> realestateCommentsDelete(@RequestBody String cNumber, HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - DELETE 호출");
-		String cNum = cNumber.replace("{\"cNumber\":", "").replace("}","");
+		String cNum = cNumber.replace("{\"cNumber\":", "").replace("}",""); //깔끔하게 받을 방법이 없을까?
 		Integer commentNumber = Integer.valueOf(cNum);
-		System.out.println("체크----:"+cNumber+"/"+commentNumber);
 		Integer realestateDeleteArticle = service.realestateCommentsDelete(commentNumber);
 		ResponseEntity<String> entity = null;
 		if(realestateDeleteArticle==0||realestateDeleteArticle==null) {
@@ -66,6 +64,7 @@ public class BoardRestController {
 		return entity;
 	}
 	
+	//수정 안해요!!!
 /*	@RequestMapping(value="realestateCommentsJson", method = {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> realestateCommentsModify(HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - PUT 호출");
