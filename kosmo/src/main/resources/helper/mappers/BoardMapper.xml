@@ -6,15 +6,9 @@
 
 <mapper namespace="com.spring.helper.dao.BoardDAO">
 	<!-- 파일업로드 테스트 -->
-	<insert id="test" parameterType="String">
+	<insert id="imagesupload" parameterType="String">
 		INSERT INTO test VALUES (#{images})
 	</insert>
-	<!-- 공통 로그인 회원정보 가져오기 -->
-	<select id="memberIdPwdCheck"
-		resultType="com.spring.helper.vo.BoardVO.UserVO">
-		select memberNumber,memberEmail,memberId,memberCountry from
-		users where memberNumber=10010
-	</select>
 
 	<!-- 동욱이 시작 -->
 	<!-- 지식인 게시판 갯수 구하기 -->
@@ -43,7 +37,7 @@
 	<insert id="knowledgeInsertArticle"
 		parameterType="com.spring.helper.vo.BoardVO.KnowledgeVO">
 		INSERT INTO knowledge
-		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'0','0','0',0)
+		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'N','0','0',0)
 	</insert>
 	<!-- 질문수정 폼 자료 -->
 	<select id="knowledgeModifyForm" resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
@@ -73,17 +67,24 @@
 		INSERT INTO kComment
 		VALUES(knowledgeseq.currval,#{knowledgeNumber},'10',#{memberEmail},#{memberId},#{kCommentContent},'N',sysdate,#{kCommentTemp1},'N',0)
 	</insert>
-	<!-- 답변수정 처리 -->
-	
-	<!-- 답변삭제 처리 -->
-	<delete id="kCommentdelete" parameterType="int">
-		DELETE FROM kComment WHERE kCommentNumber=#{kCommentNumber}
-	</delete>
 	<!-- 답변등록 처리시 알림 처리 -->
 	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
 		INSERT INTO commentAlarm
 		VALUES(commentAlarmSeq.nextval,#{memberNumber},'10',#{memberEmail},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
 	</insert>
+	<!-- 답변등록 처리시 포인트 처리 -->
+	<update id="knowledgeCommentPro3" parameterType="java.util.Map">
+		UPDATE  users SET memberPoint = (memberPoint+10) WHERE memberEmail=#{memberEmail}
+	</update>
+	<!-- 답변수정 처리 -->
+	<update id="kCommentModifyUpdate" parameterType="java.util.Map">
+		UPDATE kComment SET kCommentContent=#{kCommentContent},kCommentTemp1=#{kCommentTemp1} WHERE kCommentNumber=#{kCommentNumber}
+	</update>
+	
+	<!-- 답변삭제 처리 -->
+	<delete id="kCommentdelete" parameterType="int">
+		DELETE FROM kComment WHERE kCommentNumber=#{kCommentNumber}
+	</delete>
 	<!-- 답변 갯수 구하기 -->
 	<select id="knowledgeCommentListCnt" resultType="int">
 		SELECT count(*) from kComment where knowledgeNumber = #{knowledgeNumber}
@@ -119,6 +120,21 @@
 		select * from realestate where realestateNumber = #{realestateNumber} 
 	</select>
 	
+	<!-- 부동산 게시글 댓글 달기 -->
+	<insert id="realestateCommentPro" parameterType="com.spring.helper.vo.BoardVO.RealestateCommentsVO">
+		insert into rcomment(BOARDCODE,REALESTATENUMBER,RCOMMENTNUMBER,MEMBERID,MEMBEREMAIL,RCOMMENTCONTENT,RCOMMENTREGDATE) values(
+		21,#{realestateNumber},realestateseq.nextval,#{memberId},#{memberEmail},#{rCommentContent},sysdate)
+	</insert>
+	
+	<!-- 부동산 게시글 댓글 삭제 -->
+	<delete id="realestateCommentsDelete">
+		delete rcomment where rCommentNumber = #{rCommentNumber}
+	</delete>
+	
+	<!-- 부동산 게시글 댓글 리스트 -->
+	<select id="realestateGetCommentsList" parameterType="Integer" resultType="com.spring.helper.vo.BoardVO.RealestateCommentsVO">
+		select * from rComment where realestateNumber = #{realestateNumber} order by RCOMMENTREGDATE
+	</select>
 	
 	<!-- 부동산 검색 조건에 따른 갯수 구하기 -->
 	<sql id="getRealCount">
@@ -427,4 +443,29 @@
 	
 	
 	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
+	
+	<!-- 대호 시작 ======================================================================== -->
+	<select id="memberConfirmidForm" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		  FROM USERS
+		 WHERE MEMBEREMAIL = #{email}
+	</select>
+	
+	<insert id="memberInputPro" parameterType="java.util.Map">
+		INSERT INTO USERS (MEMBERNUMBER, MEMBEREMAIL, MEMBERID, 
+						PASSWORD, MEMBERCOUNTRY, MEMBERREGDATE, 
+						MEMBERPOINT, MEMBERRECOMMEND, AUTHORITY, 
+						ENABLED, EmailConfirm, EmailKey)
+		VALUES (USERSSEQ.nextVal, #{memberEmail}, #{memberId}, #{password}, 
+				#{memberCountry}, sysdate, 0, 0, 'ROLE_GUEST', 
+				1, 0, #{emailKey})
+	</insert>
+	
+	<update id="memberEmailConfirmed" parameterType="String">
+		UPDATE users
+		   SET emailConfirm = 1, authority = 'ROLE_USER'
+		 WHERE emailKey = #{emailKey}
+	</update>
+	
+	<!-- 대호 끝 ========================================================================= -->
 </mapper>

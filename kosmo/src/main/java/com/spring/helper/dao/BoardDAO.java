@@ -7,7 +7,9 @@ import java.util.Map;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
+import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
+import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
@@ -34,6 +36,7 @@ public interface BoardDAO {
 	// 답변작성 처리
 	public int knowledgeCommentPro(Map<String, Object> map);
 	// 답변수정 처리
+	public int kCommentModifyUpdate(Map<String, Object> map);
 	// 답변삭제 처리
 	public int kCommentdelete(int kCommentNumber);
 	// 답변 갯수 구하기
@@ -51,6 +54,12 @@ public interface BoardDAO {
 	public List<RealestateVO> realestateGetArticleList(RealestateVO rVO);
 
 	public RealestateVO realestateGetArticle(int realestateNumber);
+	
+	public List<RealestateCommentsVO> realestateGetCommentsList(int realestateNumber);
+	
+	public Integer realestateCommentPro(RealestateCommentsVO cVO);
+	
+	public Integer realestateCommentsDelete(int rCommentNumber);
 	
 	public Integer realestateGetArticleCnt(RealestateVO rVO);
 
@@ -102,5 +111,14 @@ public interface BoardDAO {
 	
 	// 진호 메소드 종료--------------------------------------
 	
+	// 대호 메소드 시작 ============================================================
 	
+	public int memberConfirmidForm(String email);
+	
+	public int memberInputPro(Map<String, Object> map);
+	
+	public void sendEmailKey(Map<String, Object> map);
+	
+	public int memberEmailConfirmed(String emailKey);
+	// 대호 메소드 종료 ============================================================
 }
