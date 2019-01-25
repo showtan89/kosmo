@@ -354,19 +354,19 @@
 
 	<!-- 민석이 시작 -->
 	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
-	<select id="messageReadCnt1" resultType="int">
-		select count(*) cnt from  commentalarm where memberid = 'min'
+	<select id="commentReadCnt" resultType="int">
+		select count(*) cnt from  commentalarm where memberid = 'park'
 	</select>		
 	
-	<select id="messageReadCnt2" resultType="int">
-		select count(*) cnt from  messagealarm where memberid = 'min'
+	<select id="chattingReadCnt" resultType="int">
+		select count(*) cnt from  chattingalarm where memberid = 'park'
 	</select>
 	
-	<!-- 멧세지 알람의 리스트 -->
-	<select id="messageReadList" resultType="com.spring.helper.vo.BoardVO.MessageAlarmVO" parameterType="java.util.Map">
+	<!-- 채팅 알람의 리스트 -->
+	<select id="chattingReadList" resultType="com.spring.helper.vo.BoardVO.ChattingAlarmVO" parameterType="java.util.Map">
 		<![CDATA[
-			SELECT * FROM (SELECT messagenumber, membernumber, boardcode, memberemail, memberid, membercountry, messagesubject, messagecontent, messagealarm, messageregdate, rownum rNum 
-			FROM ( SELECT * FROM messagealarm ORDER BY messageregdate DESC ))
+			SELECT * FROM (SELECT chattingnumber, membernumber, boardcode, memberemail, memberid, membercountry, chattingsubject, chattingcontent, chattingalarm, chattingregdate, rownum rNum 
+			FROM ( SELECT * FROM chattingalarm WHERE chattingalarm != 0 ORDER BY chattingregdate DESC ))
 			WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
@@ -375,10 +375,23 @@
 	<select id="commentReadList" resultType="com.spring.helper.vo.BoardVO.CommentAlarmVO" parameterType="java.util.Map">
 		<![CDATA[
 				SELECT * FROM (SELECT commentnumber, membernumber, boardcode, memberemail, memberid, membercountry, commentoriginalnumber, commentcommentnumber, commentsubject, commentalarm, commentregdate, rownum rNum 
-				FROM ( SELECT * FROM commentalarm ORDER BY commentregdate DESC ))
+				FROM ( SELECT * FROM commentalarm WHERE commentalarm!= 0 ORDER BY commentregdate DESC ))
 				WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
+	
+	<!-- ajax댓글 알람 -->
+	<select id="commentAlarm" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.CommentAlarmVO">
+		<!-- SELECT * FROM commentalarm where memberid='park' AND commentalarm=1 -->
+	</select>
+	
+	<delete id="commentDelete" parameterType="int">
+		 delete from commentalarm where commentnumber = #{commentnumber}
+	</delete>
+	
+	<delete id="chattingDelete" parameterType="int">
+		 delete from chattingalarm where chattingnumber = #{chattingnumber}
+	</delete>
 
 	<!-- 민석이 종료 -->
 
