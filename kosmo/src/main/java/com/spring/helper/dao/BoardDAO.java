@@ -71,9 +71,9 @@ public interface BoardDAO {
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++
 
-		public int commentReadCnt();
+		public int commentReadCnt(String memId);
 
-		public int chattingReadCnt();
+		public int chattingReadCnt(String memId);
 
 		public List<CommentAlarmVO> chattingReadList(Map<String, Object> map);
 

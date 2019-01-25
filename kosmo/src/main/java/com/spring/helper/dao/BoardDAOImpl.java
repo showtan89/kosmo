@@ -163,13 +163,13 @@ public class BoardDAOImpl implements BoardDAO {
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++++++++++++++++++++
 
 		@Override
-		public int commentReadCnt() {
-			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentReadCnt");
+		public int commentReadCnt(String memId) {
+			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentReadCnt", memId);
 		}
 
 		@Override
-		public int chattingReadCnt() {
-			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingReadCnt");
+		public int chattingReadCnt(String memId) {
+			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingReadCnt", memId);
 		}
 
 

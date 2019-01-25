@@ -354,12 +354,12 @@
 
 	<!-- 민석이 시작 -->
 	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
-	<select id="commentReadCnt" resultType="int">
-		select count(*) cnt from  commentalarm where memberid = 'park'
+	<select id="commentReadCnt" resultType="int" parameterType="String">
+		select count(*) cnt from  commentalarm where memberid = #{memId}
 	</select>		
 	
-	<select id="chattingReadCnt" resultType="int">
-		select count(*) cnt from  chattingalarm where memberid = 'park'
+	<select id="chattingReadCnt" resultType="int" parameterType="String">
+		select count(*) cnt from  chattingalarm where memberid = #{memId}
 	</select>
 	
 	<!-- 채팅 알람의 리스트 -->

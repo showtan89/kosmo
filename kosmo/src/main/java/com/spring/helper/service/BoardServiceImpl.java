@@ -448,11 +448,11 @@ public class BoardServiceImpl implements BoardService {
 		int startPage = 0;		// 시작 페이지
 		int endPage = 0;		// 마지막 페이지
 
-		/*UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
-				String memberId = userVO.getMemberId();
-				System.out.println("memberId : " + memberId);*/
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
+				String memId = userVO.getMemberId();
+				System.out.println("memberId : " + memId);
 		//5단계 글갯수 구하기
-		cnt = boardDao.commentReadCnt()+ boardDao.chattingReadCnt();
+		cnt = boardDao.commentReadCnt(memId)+ boardDao.chattingReadCnt(memId);
 		System.out.println("글 갯수cnt ===============: "+cnt);
 
 		pageNum = req.getParameter("pageNum");
@@ -493,7 +493,7 @@ public class BoardServiceImpl implements BoardService {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("start", start);
 			map.put("end", end);
-			/*map.put("userVO", userVO);*/
+			map.put("userVO", userVO);
 
 			//5-2. 게시글 목록 조회
 			List<CommentAlarmVO> mos =boardDao.chattingReadList(map);
@@ -697,7 +697,6 @@ public class BoardServiceImpl implements BoardService {
 	// 글 목록 상세페이지
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
-
 
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
