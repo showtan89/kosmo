@@ -287,11 +287,13 @@ public class BoardServiceImpl implements BoardService {
 		if(cnt > 0) {
 			ArrayList<kCommentVO> kCommentVO = boardDao.knowledgeCommentList(knowledgeNumber);
 			req.setAttribute("kCommentVO", kCommentVO);
+			if(req.getSession().getAttribute("userVO") != null) {
 			UserVO user = (UserVO)req.getSession().getAttribute("userVO");
 			for(kCommentVO cc : kCommentVO) {
 				if(cc.getMemberEmail().equals(user.getMemberEmail())){
 					emailcheck = 1;
 				}
+			}
 			}
 		}
 		req.setAttribute("emailcheck", emailcheck);
