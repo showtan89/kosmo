@@ -1,0 +1,2 @@
+1. 기존 방식 
+	form submit -> controller -> service -> dao -> 정보 취득 및 처리 -> 페이지 전환이 필요함

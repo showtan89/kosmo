@@ -3,8 +3,6 @@ package com.spring.helper.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +17,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.PageVO;
+import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
@@ -355,6 +355,33 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
+	// 부동산 게시판 댓글 가져오기
+	@Override
+	public List<RealestateCommentsVO> realestateGetCommentsList(HttpServletRequest req, Model model){
+		int realestateNumber = Integer.parseInt(req.getParameter("realestateNumber"));
+		return boardDao.realestateGetCommentsList(realestateNumber);
+	};
+	
+	//부동산 게시판 댓글 달기
+	@Override
+	public Integer realestateCommentPro(RealestateCommentsVO cVO, HttpServletRequest req) {
+		if(req.getSession().getAttribute("userVO")==null) {
+			return 0;
+		}else {
+			UserVO uVO = (UserVO)req.getSession().getAttribute("userVO");
+			logger.info(uVO.toString());
+			cVO.setMemberId(uVO.getMemberId());
+			cVO.setMemberEmail(uVO.getMemberEmail());
+			return boardDao.realestateCommentPro(cVO);
+		}
+	}
+	
+	//부동산 게시판 댓글 삭제
+	@Override
+	public Integer realestateCommentsDelete(int rCommentNumber) {
+		return boardDao.realestateCommentsDelete(rCommentNumber);
+	}
+	
 	//부동산 게시판 글 쓰기
 	@Override
 	public Integer realestateInsertArticle(HttpServletRequest req, Model model) {

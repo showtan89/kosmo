@@ -1,10 +1,13 @@
 package com.spring.helper.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 
 public interface BoardService {
 
@@ -35,15 +38,19 @@ public interface BoardService {
 
 	//재영 boardService 시작
 
+	/*public RealestateVO realestateGetVO(HttpServletRequest req);
+	public PageVO realestateListPage(HttpServletRequest req, RealestateVO rVO);
+	public List<RealestateVO> realestateListJson(RealestateVO rVO, int startNumber, int endNumber);*/
+
 	public Integer realestateInsertArticle(HttpServletRequest req, Model model);
 
 	public void realestateGetArticleList(HttpServletRequest req, Model model);
 	
-	/*public RealestateVO realestateGetVO(HttpServletRequest req);
+	public Integer realestateCommentPro(RealestateCommentsVO cVO, HttpServletRequest req);
 	
-	public PageVO realestateListPage(HttpServletRequest req, RealestateVO rVO);
+	public Integer realestateCommentsDelete(int rCommentNumber);
 	
-	public List<RealestateVO> realestateListJson(RealestateVO rVO, int startNumber, int endNumber);*/
+	public List<RealestateCommentsVO> realestateGetCommentsList(HttpServletRequest req, Model model);
 	
 	public void realestateDummyMaker(HttpServletRequest req, Model model);
 

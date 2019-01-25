@@ -119,6 +119,21 @@
 		select * from realestate where realestateNumber = #{realestateNumber} 
 	</select>
 	
+	<!-- 부동산 게시글 댓글 달기 -->
+	<insert id="realestateCommentPro" parameterType="com.spring.helper.vo.BoardVO.RealestateCommentsVO">
+		insert into rcomment(BOARDCODE,REALESTATENUMBER,RCOMMENTNUMBER,MEMBERID,MEMBEREMAIL,RCOMMENTCONTENT,RCOMMENTREGDATE) values(
+		21,#{realestateNumber},realestateseq.nextval,#{memberId},#{memberEmail},#{rCommentContent},sysdate)
+	</insert>
+	
+	<!-- 부동산 게시글 댓글 삭제 -->
+	<delete id="realestateCommentsDelete">
+		delete rcomment where rCommentNumber = #{rCommentNumber}
+	</delete>
+	
+	<!-- 부동산 게시글 댓글 리스트 -->
+	<select id="realestateGetCommentsList" parameterType="Integer" resultType="com.spring.helper.vo.BoardVO.RealestateCommentsVO">
+		select * from rComment where realestateNumber = #{realestateNumber} order by RCOMMENTREGDATE
+	</select>
 	
 	<!-- 부동산 검색 조건에 따른 갯수 구하기 -->
 	<sql id="getRealCount">

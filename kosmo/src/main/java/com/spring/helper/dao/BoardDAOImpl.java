@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
+import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
@@ -115,6 +116,21 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.getMapper(BoardDAO.class).realestateGetArticle(realestateNumber);
 	}
 
+	// 부동산 게시판 댓글 가져오기
+	public List<RealestateCommentsVO> realestateGetCommentsList(int realestateNumber){
+		return sqlSession.getMapper(BoardDAO.class).realestateGetCommentsList(realestateNumber);
+	}
+	
+	//부동산 게시판 댓글 달기
+	public Integer realestateCommentPro(RealestateCommentsVO cVO) {
+		return sqlSession.getMapper(BoardDAO.class).realestateCommentPro(cVO);
+	}
+	
+	//부동산 게시판 댓글 삭제
+	public Integer realestateCommentsDelete(int rCommentNumber) {
+		return sqlSession.getMapper(BoardDAO.class).realestateCommentsDelete(rCommentNumber);
+	}
+	
 	//부동산 게시판 글 목록 갯수 카운트
 	@Override
 	public Integer realestateGetArticleCnt(RealestateVO rVO) {
