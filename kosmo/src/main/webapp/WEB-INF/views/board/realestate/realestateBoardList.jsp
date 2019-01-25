@@ -9,6 +9,8 @@
 <title>Helper - Realestate</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
+<link rel="stylesheet" href="resources/css/multirange.css">
+<script src="resources/js/multirange.js"></script>
 	<style>
 	.realImage {
 		max-width: 200px;
@@ -65,7 +67,6 @@
 			<div
 				class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between">
 				<div class="shop-page-count">
-					<!-- 이부분 바꿔야함  -->
 					<p>Showing ${pVO.startNumber}–${pVO.endNumber} of ${pVO.totalCount} results</p>
 				</div>
 				<!-- Search by Terms -->
@@ -73,6 +74,7 @@
 					<!-- 데이터 생성용 버튼 - 주석 처리 -->
 					<!-- <a href="realestateDummyMaker"><button type="button" class='btn alazea-btn'>DUMMY</button></a> -->
 					<a href="realestateWriteForm"><button type="button" class='btn alazea-btn'>Write</button></a>
+				
 					<!-- 필터 기능 일단 주석 -->
 					<!-- <form action="#" method="post" class="form-inline">
                                <select class="custom-select widget-title">
@@ -98,12 +100,14 @@
 		<div class="col-12 col-md-4 col-lg-3">
 			<div class="shop-sidebar-area">
 				<form>
-					<div class="shop-widget price mb-50">
+					<!-- 기존 슬라이더 -->
+					<!-- <div class="shop-widget price mb-50">
 						<h4 class="widget-title">Prices</h4>
 						<div class="widget-desc">
 							<div class="slider-range">
-								<div data-min="8" data-max="30" data-unit="$"
-									class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
+								
+								
+								<div data-min="8" data-max="30" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
 									data-value-min="8" data-value-max="30"
 									data-label-result="Price:">
 									<div class="ui-slider-range ui-widget-header ui-corner-all"></div>
@@ -114,9 +118,20 @@
 										tabindex="0"></span>
 								</div>
 								<div class="range-price">Price: $8 - $30</div>
+								
 							</div>
 						</div>
-					</div>
+					</div> -->
+					
+					
+					 <!-- Shop Widget -->
+                    <div class="shop-widget price mb-50">
+                        <h4 class="widget-title">Prices</h4>
+                        <div class="widget-desc">
+                        	<input type="range" multiple value="0,100" />
+                        </div>
+                    </div>	
+					
 
 					<div class="shop-widget catagory mb-50">
 						<h4 class="widget-title">Categories</h4>
