@@ -29,6 +29,7 @@ public interface BoardService {
 	// 답변등록 처리
 	public void knowledgeCommentPro(HttpServletRequest req,Model model);
 	// 답변수정 처리
+	public void kCommentModifyUpdate(HttpServletRequest req,Model model);
 	// 답변삭제 처리
 	public void kCommentdelete(HttpServletRequest req,Model model);
 	// 답변 목록 리스트 출력
@@ -94,4 +95,13 @@ public interface BoardService {
 	
 	
 	//진호 끝-----------------------------------------------------------
+	
+	
+	// 대호 시작 =================================================================
+	public void memberConfirmidForm(HttpServletRequest req, Model model);
+	
+	public void memberInputPro(HttpServletRequest req, Model model);
+	
+	public void memberEmailConfirmed(HttpServletRequest req, Model model);
+	// 대호 끝 ==================================================================
 }
