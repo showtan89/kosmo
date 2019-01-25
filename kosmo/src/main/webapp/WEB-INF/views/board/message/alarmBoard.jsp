@@ -36,7 +36,7 @@
 	<div
 		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 		style="background-image: url(resources/img/min/JumBomessage.jpg);">
-		<h2>CHATTING</h2>
+		<h2>ALARM</h2>
 	</div>
 
 	<div class="container">
@@ -57,8 +57,7 @@
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px;">
 
-	<!-- 동욱 시작 -->
-	<style type="text/css">
+<style type="text/css">
 .tab-box {
 	margin: 50px auto 0 auto;
 	width: 520px;
@@ -133,7 +132,6 @@
 
 </style>
 	<form action="">
-
 		<table class="tbl-ex"
 			style="width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100px;">
 			<tr>
@@ -144,26 +142,47 @@
 				<th>Delete</th>
 			</tr>
 			<c:forEach var="cos" items="${cos}">
-				<td align="center">comment alarm</td>
-				<td><a href="#">${cos.commentsubject}</a></td>
-				<td align="center">${cos.commentregdate}</td>
-				<td align="center">checked</td>
-				<td align="center"><input type="button" value="쪽지삭제"></td>
+				<tr>
+					<td align="center">comment alarm</td>
+					<c:set var="code" value="${cos.boardcode}"/>
+					<c:choose>
+						<c:when test="${code==10}">
+						<%-- <c:set var="url" value="${}"/> --%>
+						<!-- http://localhost/project/knowledgeDetailForm?knowledgeNumber=109 -->
+						<td><a href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentnumber}">${cos.commentsubject}</a></td>
+						</c:when>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${code==31}">
+						<td><a href="onedayclassDetailForm?onedayclassNumber=${cos.commentoriginalnumber}#${cos.commentnumber}">${cos.commentsubject}</a></td>
+						</c:when>
+					</c:choose>
+					
+					<%-- <c:choose>
+						<c:when test="${code==10}">
+						<td><a href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentnumber}">${cos.commentsubject}</a></td>
+						</c:when>
+					</c:choose> --%>
+					
+					<td align="center">${cos.commentregdate}</td>
+					<td align="center">checked</td>
+					<td align="center"><input type="button" value="쪽지삭제" onclick="window.location='commentAlarmDelete?commentnumber=${cos.commentnumber}&pageNum=${pageNum}';"></td>
+				</tr>
 			</c:forEach>
 
 			<c:forEach var="mos" items="${mos}">
 				<tr>
 					<td align="center">chatting alarm</td>
-					<td>${mos.messagesubject}</td>
-					<td align="center">${mos.messageregdate}</td>
+					<td>${mos.chattingsubject}</td>
+					<td align="center">${mos.chattingregdate}</td>
 					<td align="center">checked</td>
-					<td align="center"><input type="button" value="쪽지삭제"></td>
+					<td align="center"><input type="button" value="쪽지삭제" onclick="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';"></td>
 				</tr>
 			</c:forEach>
 		</table>
 
 	</form>
-	<!-- 동욱 끝 -->
 </div>
 
 <div id="page" align="center">
@@ -173,8 +192,8 @@
 				<!-- 게시글이 있으면 --> <c:if test="${cnt > 0}">
 					<!-- 처음[◀◀]/ 이전블록 --[◀ ]-->
 					<c:if test="${startPage > pageBlock}">
-						<a href="message">[ ◀◀ ]</a>
-						<a href="message?pageNum=${startPage - pageBlock}">[ ◀ ]</a>
+						<a href="alarmBoard">[ ◀◀ ]</a>
+						<a href="alarmBoard?pageNum=${startPage - pageBlock}">[ ◀ ]</a>
 					</c:if>
 
 					<!-- 블록내의 페이지 번호 -->
@@ -183,15 +202,15 @@
 							<span><b>[${i}]</b></span>
 						</c:if>
 						<c:if test="${i != currentPage}">
-							<a href="message?pageNum=${i}">[${i}]</a>
+							<a href="alarmBoard?pageNum=${i}">[${i}]</a>
 						</c:if>
 
 					</c:forEach>
 
 					<!--  다음[▶]/첫페이지[▶▶] -->
 					<c:if test="${pageCount > endPage}">
-						<a href="message?pageNum=${startPage + pageBlock}">[ ▶ ]</a>
-						<a href="message?pageNum=${pageCount}">[▶ ▶ ]</a>
+						<a href="alarmBoard?pageNum=${startPage + pageBlock}">[ ▶ ]</a>
+						<a href="alarmBoard?pageNum=${pageCount}">[▶ ▶ ]</a>
 					</c:if>
 				</c:if>
 			</th>

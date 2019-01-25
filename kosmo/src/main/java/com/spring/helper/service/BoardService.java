@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 
 public interface BoardService {
@@ -46,62 +47,71 @@ public interface BoardService {
 	public Integer realestateInsertArticle(HttpServletRequest req, Model model);
 
 	public void realestateGetArticleList(HttpServletRequest req, Model model);
-	
+
 	public Integer realestateCommentPro(RealestateCommentsVO cVO, HttpServletRequest req);
-	
+
 	public Integer realestateCommentsDelete(int rCommentNumber);
-	
+
 	public List<RealestateCommentsVO> realestateGetCommentsList(HttpServletRequest req, Model model);
-	
+
 	public void realestateDummyMaker(HttpServletRequest req, Model model);
 
 	public void realestateGetArticle(HttpServletRequest req, Model model);
 	//재영 boardService 끝
 
-	
+
 	//민석이 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	public void messageForm(HttpServletRequest req, Model model);
-//	public List<> alarm(HttpServletRequest req, Model model);
-	
+	//알람 게시판 
+	public void alarmBoard(HttpServletRequest req, Model model);
+	// 댓글 알람 
+	public List<CommentAlarmVO> commentAlarm(HttpServletRequest req, Model model);
+	// 댓글 알람 지우기
+	public void commentAlarmDelete(HttpServletRequest req, Model model);
+
+	// 채팅알람 지우기
+	public void chattingAlarmDelete(HttpServletRequest req, Model model);
+	//ajax 댓글 알람
 	/*messagePro
-	messageAlarmForm
-	messageAlarmPro*/
-	
+			messageAlarmForm
+			messageAlarmPro*/
+
 	//민석이 종료+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	
+
 	//진호 시작----------------------------------------------------------
 	// 글 목록
 	public void onedayclassBoardList(HttpServletRequest req, Model model);
 
 	// 상세페이지
 	public void onedayclassDetailForm(HttpServletRequest req, Model model);
-	
+
 	// 수정 상세 페이지
 	public void onedayclassModifyForm(HttpServletRequest req, Model model);
-	
+
 	// 수정 처리
 	public void onedayclassModifyPro(HttpServletRequest req, Model model);
-	
+
 	// 글쓰기 페이지
 	public void onedayclassWriteForm(HttpServletRequest req, Model model);
-	
+
 	// 글 처리 페이지
 	public void onedayclassWritePro(HttpServletRequest req, Model model);
-	
+
 	// 글 삭제 처리
 	public void onedayclassDeletePro(HttpServletRequest req, Model model);
-	
 
-	
-	
+	// 클래스개설 권한 신청 처리페이지
+	/*public void onedayclassAuthorityPro(HttpServletRequest req, Model model);*/
+
+
+
 	//진호 끝-----------------------------------------------------------
-	
-	
+
+
 	// 대호 시작 =================================================================
 	public void memberConfirmidForm(HttpServletRequest req, Model model);
-	
+
 	public void memberInputPro(HttpServletRequest req, Model model);
-	
+
 	public void memberEmailConfirmed(HttpServletRequest req, Model model);
 	// 대호 끝 ==================================================================
 }

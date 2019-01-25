@@ -152,8 +152,10 @@
                             </div>
                         </div>
 						<div class="shop-widget sort-by mb-50">
-							<h6 class="widget-title">클래스개설 권한신청</h6>						
-							<h6 class="widget-title"><a href="onedayclassWriteForm?onedayclassNumber=${dtos.get(0).onedayclassNumber}&pageNum=${pageNum}">클래스개설 새글쓰기</a></h6>						
+							<h6 class="widget-title"><a href="onedayclassAuthorityForm?memberId=${userVO.memberId}&onedayclassNumber=${dtos.get(0).onedayclassNumber}">클래스개설 권한신청</a></h6>
+							<%-- <c:if test="${userVO.authority} == ROLE_OdcWriteAuthority"> --%>						
+								<h6 class="widget-title"><a href="onedayclassWriteForm?onedayclassNumber=${dtos.get(0).onedayclassNumber}&pageNum=${pageNum}">클래스개설 새글쓰기</a></h6>						
+							<%-- </c:if> --%>
 						</div>
                     </div>
                 </div>

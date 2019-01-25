@@ -59,25 +59,10 @@
 </div>
 
 
-	<table align="center">
-		<tr>
-			<th colspan="2">
-				정말삭제 하시겠습니까?
-			</th>
-		</tr>
-			<th colspan="2">
-				<input class="inputButton" type="button" value="확인" 
-						onclick="button_delete();">
-							<script type="text/javascript">
-								function button_delete() {
-									alert("글이 삭제되었습니다!!");
-									window.location="onedayclassBoardList?";
-							}
-							</script>
-				<input class="inputButton" type="reset" value="취소"
-						onclick="window.history.back();">				
-			</th>
-	</table>
+관리자페이지 작성이후에 승인된 결과값 출력해야함
+onedayclassAccountNumber 업뎃해야함
+
+
 
 
 

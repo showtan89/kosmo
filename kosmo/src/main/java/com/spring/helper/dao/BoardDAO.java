@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
@@ -70,15 +71,21 @@ public interface BoardDAO {
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++
 
-	public int messageReadCnt1();
+		public int commentReadCnt();
 
-	public int messageReadCnt2();
+		public int chattingReadCnt();
 
-	public List<CommentAlarmVO> messageReadList(Map<String, Object> map);
+		public List<CommentAlarmVO> chattingReadList(Map<String, Object> map);
 
-	public List<MessageAlarmVO> commentReadList(Map<String, Object> map);
+		public List<ChattingAlarmVO> commentReadList(Map<String, Object> map);
 
-	//민석이 메소드 종료+++++++++++++++++++++++++++++++
+		public List<CommentAlarmVO> commentAlarm(Map<String, Object> map);
+		
+		public int commentDelete (int commentnumber);
+		
+		public int chattingDelete (int chattingnumber);
+
+		//민석이 메소드 종료+++++++++++++++++++++++++++++++
 	
 	
 	
@@ -104,6 +111,9 @@ public interface BoardDAO {
 	
 	// 글 삭제 처리
 	public int onedayclassDeleteBoard(int onedayclassNumber);
+	
+	// 계좌번호 업데이트
+	/*public int onedayclassAccountUpdate(int onedayclassNumber);*/
 
 	
 	// 진호 메소드 종료--------------------------------------
