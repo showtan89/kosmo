@@ -177,13 +177,13 @@ public class BoardDAOImpl implements BoardDAO {
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++++++++++++++++++++
 
 		@Override
-		public int commentReadCnt() {
-			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentReadCnt");
+		public int commentReadCnt(String memId) {
+			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentReadCnt", memId);
 		}
 
 		@Override
-		public int chattingReadCnt() {
-			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingReadCnt");
+		public int chattingReadCnt(String memId) {
+			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingReadCnt", memId);
 		}
 
 
@@ -345,6 +345,21 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberEmailConfirmed", emailKey);
 	}
 	
+	// 회원 정보 수정
+	@Override
+	public int memberModifyPro(Map<String, Object> map) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberModifyPro", map);
+	}
+	
+	// 회원 탈퇴 확인
+	@Override
+	public int memberDeleteForm(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.memberDeleteForm", map);
+	}
+	@Override
+	public int memberDeletePro(Map<String, Object> map) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberDeletePro", map);
+	}
 	
 	// 대호 메소드 종료 ======================================================
 
