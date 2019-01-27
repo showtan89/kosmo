@@ -156,14 +156,38 @@ input:focus {
 										</div>
 									</div>
 								</sec:authorize>
-								
-								<!-- Cart -->
+<!-- ajax 알람  -->
+<!-- 
+function alarm(){
+	if(loopSendKeyword == false) return false;
+	var alarmCnt = document.header01.alarmCnt.value;
+	var parms = "alarmCnt=" + alarmCnt;
+	
+	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
+	setTimeout("alarm()", 1000); //실시간 제일 중요한 개념
+}
 
+function result_callback() {
+	var alarmCnt = document.getElementById("alarmCnt");
+	if(httpRequest.readyState == 4){}
+		if(httpRequest.status == 200){
+			....
+			if(data != null){
+				aCnt = data;
+				checkFirst = true;
+			 alarmCnt.innerHtml = aCnt;
+			}
+			....
+		}
+}
+ -->								
 								<!-- Alarm -->
-								<div class="cart">
-									<a href="#"><i class="fa fa-envelope"
-										aria-hidden="true"></i> <span>Alarm </span> 
-									<span><class="messege-quantity">(0)</span></a>
+								<div class="cart" onbody="alarm">
+									<a href="alarmBoard"><i class="fa fa-envelope"
+										aria-hidden="true"></i> <span>Alarm</span>
+										<span><class="messege-quantity">
+										(<div class="alarm" onbody="alarmCnt"></div>)
+										</span></a>
 								</div>
 
 							</div>

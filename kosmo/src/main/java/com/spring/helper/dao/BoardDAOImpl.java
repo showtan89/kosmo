@@ -221,7 +221,16 @@ public class BoardDAOImpl implements BoardDAO {
 	public int chattingDelete(int chattingnumber) {
 		return sqlSession.delete("com.spring.helper.dao.BoardDAO.chattingDelete", chattingnumber);
 	}
+	//채팅 및 댓글 알람 갯수
+	@Override
+	public int commentAlarmCnt(String memId) {
+		return 0;
+	}
 
+	@Override
+	public int chattingAlarmCnt(String memId) {
+		return 0;
+	}
 
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -366,6 +375,8 @@ public class BoardDAOImpl implements BoardDAO {
 	public int memberDeletePro(Map<String, Object> map) {
 		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberDeletePro", map);
 	}
+
+	
 
 	// 대호 메소드 종료 ======================================================
 
