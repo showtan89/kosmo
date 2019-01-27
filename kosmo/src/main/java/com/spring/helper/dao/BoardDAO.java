@@ -73,16 +73,22 @@ public interface BoardDAO {
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++
 
+	// 댓글 알람 갯수
 	public int commentReadCnt(String memId);
 
+	// 채팅 알람 갯수
 	public int chattingReadCnt(String memId);
 
+	// 댓글 알람 리스트
 	public List<CommentAlarmVO> chattingReadList(Map<String, Object> map);
 
+	// 채팅알람 리스트
 	public List<ChattingAlarmVO> commentReadList(Map<String, Object> map);
 
+	// 댓글 알람 지우기
 	public int commentDelete (int commentnumber);
 
+	// 채팅 알람 지우기
 	public int chattingDelete (int chattingnumber);
 
 	//민석이 메소드 종료+++++++++++++++++++++++++++++++
