@@ -67,7 +67,6 @@
 display:inline;
 }
 #knowledge_div{
-	width: 100%; 
 	margin-top: 30px;
 }
 .knowledge_div2{
@@ -89,7 +88,7 @@ margin:0;
 }
 #knowledge_div3{
 	width: 100%; 
-	margin-top:35px;
+	margin-top:20px;
 	display:inline-block;
 }
 .knowledge_h4{

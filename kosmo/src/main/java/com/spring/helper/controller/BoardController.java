@@ -89,6 +89,7 @@ public class BoardController {
 		logger.info("knowledgeDetailForm 로딩 중....");
 		service.knowledgeDetailForm(req, model);
 		service.knowledgeCommentList(req,model);
+		service.knowledgeAddReadCnt(req,model);
 		return "board/knowledge/knowledgeDetailForm";
 	}
 	@Secured({"ROLE_USER","ROLE_ADMIN"}) 

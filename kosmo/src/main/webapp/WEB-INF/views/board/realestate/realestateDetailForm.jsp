@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <!-- '+this.rcommentRegdate+'
@@ -15,19 +16,19 @@
 <link rel="stylesheet" href="resources/style.css">
 <style>
 .dropdown-menu {
-    min-width: 65px !important;
-    margin-left: auto;
- 	margin-right: auto;
- }
+	min-width: 65px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .writerTag {
 	background-color: #70c745;
 	border-radius: 2px;
 	display: inline-block;
 	padding: 0 10px;
 	color: #ffffff;
-	z-index: 10; 
+	z-index: 10;
 }
- 
 </style>
 </head>
 
@@ -42,7 +43,8 @@
 <jsp:include page="../../setting/header01.jsp" flush="false" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <c:set var="realimage" value="resources/img/board/realestate/" />
 
 <!-- 메뉴바 아래 이미지 -->
@@ -58,41 +60,40 @@
 <!-- 부동산 게시판 본문  -->
 <div class="container" style="margin-bottom: 50px;">
 	<hr>
-	<br>
-	<br>
-	
+	<br> <br>
+
 	<!-- 로그인 및 회원정보 관련 부분 -->
 	<%@page import="com.spring.helper.vo.BoardVO.UserVO"%>
 	<c:if test="${sessionScope.userVO!=null }">
-		<c:set var ="loginId" value="${sessionScope.userVO.memberId}"/>
+		<c:set var="loginId" value="${sessionScope.userVO.memberId}" />
 	</c:if>
 	<c:if test="${sessionScope.userVO==null }">
-		<c:set var ="loginId" value="null"/>
+		<c:set var="loginId" value="null" />
 	</c:if>
-	<input type="hidden" name="realestateNumber" id="realestateNumber" value="${param.realestateNumber}">
-	<input type="hidden" name="memberId" id="memberId" value="${rVO.memberId}">
-	<input type="hidden" name="loginId" id="loginId" value="${loginId}">
+	<input type="hidden" name="realestateNumber" id="realestateNumber"
+		value="${param.realestateNumber}"> <input type="hidden"
+		name="memberId" id="memberId" value="${rVO.memberId}"> <input
+		type="hidden" name="loginId" id="loginId" value="${loginId}">
 	<!-- 로그인 및 회원정보 관련 부분 끝 -->
-	
+
 	<section class="single_product_details_area mb-50">
 		<div class="produts-details--content mb-50">
 			<div class="container">
 				<div class="row justify-content-between">
 					<div class="col-12 col-md-6 col-lg-5">
 						<div class="single_product_thumb">
-							<div id="product_details_slider" class="carousel slide" data-ride="carousel">
+							<div id="product_details_slider" class="carousel slide"
+								data-ride="carousel">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
 										<%-- <a class="product-img" href="${realimage}${rVO.realestateImg1}" title="Product Image">  --%>
-										<img class="d-block w-100"
-											src="${realimage}${rVO.realestateImg1}" alt="1">
+										<img class="d-block w-100" src="${realimage}${rVO.realestateImg1}" alt="1">
 										<!-- </a> -->
 									</div>
 									<c:if test="${!rVO.realestateImg2.equals('empty')}">
 										<div class="carousel-item">
 											<%-- <a class="product-img" href="${realimage}${rVO.realestateImg2}" title="Product Image">  --%>
-											<img class="d-block w-100"
-												src="${realimage}${rVO.realestateImg2}" alt="1">
+											<img class="d-block w-100" src="${realimage}${rVO.realestateImg2}" alt="1">
 											<!-- </a> -->
 										</div>
 									</c:if>
@@ -147,75 +148,60 @@
 									<span>Location detail : </span> <span>${rVO.realestateLocation}</span>
 								</p>
 								<p>
-									<span>Management fees per Week : </span> 
-									<span> 
-									<fmt:setLocale value="ko_KR" /> 
-									<fmt:formatNumber value="${rVO.realestateManagement}" type="currency" /></span>
+									<span>Management fees per Week : </span> <span> <fmt:setLocale
+											value="ko_KR" /> <fmt:formatNumber
+											value="${rVO.realestateManagement}" type="currency" /></span>
 								</p>
 
 								<p>
-									<span>Security Deposit : </span> <span> 
-									<c:if test="${rVO.realestateDepositCheck.equals('off')}">
+									<span>Security Deposit : </span> <span> <c:if
+											test="${rVO.realestateDepositCheck.equals('off')}">
 										none
-									</c:if> 
-									<c:if test="${rVO.realestateDepositCheck.equals('on')}">
-										<fmt:setLocale value="ko_KR" />
-										<fmt:formatNumber value="${rVO.realestateDeposit}" type="currency" />
-									</c:if></span>
+									</c:if> <c:if test="${rVO.realestateDepositCheck.equals('on')}">
+											<fmt:setLocale value="ko_KR" />
+											<fmt:formatNumber value="${rVO.realestateDeposit}"
+												type="currency" />
+										</c:if></span>
 								</p>
 								<p>
-									<span>Number of Rooms : </span> 
-									<span> 
-										<c:if test="${rVO.realestateRoom.equals('over3')}">
+									<span>Number of Rooms : </span> <span> <c:if
+											test="${rVO.realestateRoom.equals('over3')}">
 									 			more than 3
-									 	</c:if> 
-									 	<c:if test="${!rVO.realestateRoom.equals('over3')}">
+									 	</c:if> <c:if test="${!rVO.realestateRoom.equals('over3')}">
 								 			${rVO.realestateRoom }
 								 		</c:if>
 									</span>
 								</p>
 								<p>
-									<span>Number of Bathrooms : </span> 
-									<span> 
-										<c:if test="${rVO.realestateToilet.equals('over3')}">
+									<span>Number of Bathrooms : </span> <span> <c:if
+											test="${rVO.realestateToilet.equals('over3')}">
 								 			more than 3
-								 		</c:if> 
-								 		<c:if test="${!rVO.realestateToilet.equals('over3')}">
+								 		</c:if> <c:if test="${!rVO.realestateToilet.equals('over3')}">
 								 			${rVO.realestateToilet }
 								 		</c:if>
 									</span>
 								</p>
 								<p>
-									<span>Floor / Level : </span> 
-									<span> 
-										<c:if test="${rVO.realestateState.equals('1')}">
+									<span>Floor / Level : </span> <span> <c:if
+											test="${rVO.realestateState.equals('1')}">
 								 			1
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('2')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('2')}">
 								 			2
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('3')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('3')}">
 								 			3
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('4')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('4')}">
 								 			4
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('5')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('5')}">
 								 			5
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('6to10')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('6to10')}">
 								 			Between 6 and 10
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('11to15')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('11to15')}">
 								 			Between 11 and 15
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('16to20')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('16to20')}">
 								 			Between 16 and 20
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('over20')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('over20')}">
 								 			Higher than 20
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('under')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('under')}">
 								 			Underground
 								 		</c:if>
 									</span>
@@ -228,8 +214,8 @@
 							<div class="single-widget-area products--meta">
 								<ol class="popular-tags d-flex flex-wrap">
 
-									<c:if test="${rVO.realestateCategory1.equals('seoul')}">,
-								 		<li><a>Seoul (서울)</a></li>
+									<c:if test="${rVO.realestateCategory1.equals('seoul')}">
+										<li><a>Seoul (서울)</a></li>
 									</c:if>
 									<c:if test="${rVO.realestateCategory1.equals('busan')}">
 										<li><a>Busan (부산)</a></li>
@@ -375,36 +361,39 @@
 					<div class="product_details_tab clearfix">
 						<!-- Tabs -->
 						<ul class="nav nav-tabs" role="tablist" id="product-details-tab">
-							<li class="nav-item"><a href="#reviews" class="nav-link active" data-toggle="tab" role="tab"> 
-								Comments</a></li>
-							<li class="nav-item"><a href="#description"	class="nav-link" data-toggle="tab" role="tab">
-								Additional Information</a></li>
+							<li class="nav-item"><a href="#reviews"
+								class="nav-link active" data-toggle="tab" role="tab">
+									Comments</a></li>
+							<li class="nav-item"><a href="#description" class="nav-link"
+								data-toggle="tab" role="tab"> Additional Information</a></li>
 						</ul>
 						<!-- Tab Content -->
 						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane fade show active" id="reviews">
+							<div role="tabpanel" class="tab-pane fade show active"
+								id="reviews">
 								<c:if test="${sessionScope.userVO!=null }">
 									<div class="submit_a_review_area mt-50">
 										<h4>Submit Comment</h4>
 										<!-- <form action="realestateCommentPro" method="post"> -->
-											<div class="row">
-												<div class="col-12">
-													<div class="form-group">
-														<input type="hidden" name="realestateNumber" id="realestateNumber" value="${param.realestateNumber}">
-														<textarea class="form-control" id="rCommentContent" name='rCommentContent' rows="5" data-max-length="150"></textarea>
-													</div>
-												</div>
-												<div class="col-12">
-													<button type="button" id="submitComment" class="btn alazea-btn">Submit Your Comment</button>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<input type="hidden" name="realestateNumber"
+														id="realestateNumber" value="${param.realestateNumber}">
+													<textarea class="form-control" id="rCommentContent"
+														name='rCommentContent' rows="5" data-max-length="150"></textarea>
 												</div>
 											</div>
+											<div class="col-12">
+												<button type="button" id="submitComment"
+													class="btn alazea-btn">Submit Your Comment</button>
+											</div>
+										</div>
 										<!-- </form> -->
 									</div>
 								</c:if>
 								<!-- JSON -->
-								<div id="realestateCommentJson">
-									
-								</div>
+								<div id="realestateCommentJson"></div>
 							</div>
 							<div role="tabpanel" class="tab-pane fade" id="description">
 								<div class="description_area">
@@ -425,7 +414,9 @@
 <script src="resources/js/realestate.js"></script>
 <script>
 	/*$(document).ready(getJsonData());*/
-	$(function(){getJsonData();});
+	$(function(){
+		getJsonData();
+	});
 </script>
 </body>
 </html>
