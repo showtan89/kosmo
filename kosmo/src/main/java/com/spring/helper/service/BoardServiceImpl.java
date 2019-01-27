@@ -287,12 +287,12 @@ public class BoardServiceImpl implements BoardService {
 			ArrayList<kCommentVO> kCommentVO = boardDao.knowledgeCommentList(knowledgeNumber);
 			req.setAttribute("kCommentVO", kCommentVO);
 			if(req.getSession().getAttribute("userVO") != null) {
-			UserVO user = (UserVO)req.getSession().getAttribute("userVO");
-			for(kCommentVO cc : kCommentVO) {
-				if(cc.getMemberEmail().equals(user.getMemberEmail())){
-					emailcheck = 1;
+				UserVO user = (UserVO)req.getSession().getAttribute("userVO");
+				for(kCommentVO cc : kCommentVO) {
+					if(cc.getMemberEmail().equals(user.getMemberEmail())){
+						emailcheck = 1;
+					}
 				}
-			}
 			}
 		}
 		req.setAttribute("emailcheck", emailcheck);
@@ -466,8 +466,8 @@ public class BoardServiceImpl implements BoardService {
 		int endPage = 0;		// 마지막 페이지
 
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
-				String memId = userVO.getMemberId();
-				System.out.println("memberId : " + memId);
+		String memId = userVO.getMemberId();
+		System.out.println("memberId : " + memId);
 		//5단계 글갯수 구하기
 		cnt = boardDao.commentReadCnt(memId)+ boardDao.chattingReadCnt(memId);
 		System.out.println("글 갯수cnt ===============: "+cnt);
@@ -593,15 +593,21 @@ public class BoardServiceImpl implements BoardService {
 
 	//ajax 댓글 알림
 	@Override
-	public List<CommentAlarmVO> scheduleRun(HttpServletRequest req, Model model) {
+	public void alarmServiceCnt(HttpServletRequest req, Model model) {
+
+		int alarmCnt=0;
+
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
+		String memId = userVO.getMemberId();
+		System.out.println("memberId : " + memId);
+		//5단계 글갯수 구하기
+		alarmCnt = boardDao.commentAlarmCnt(memId)+ boardDao.chattingAlarmCnt(memId);
+		System.out.println("alarmCnt : " + alarmCnt);
 		
-		CommentAlarmVO vo = new CommentAlarmVO();
-		
-		// 부동산 댓글 달기 realestateCommentPro
-		// 지식인 댓글 달기 knowledgeCommentPro
-		
-		return null;
+		model.addAttribute("alarmCnt"+alarmCnt);
+	
 	}
+
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------
@@ -889,46 +895,46 @@ public class BoardServiceImpl implements BoardService {
 
 		model.addAttribute("updateCnt", updateCnt);
 	}
-	
+
 	// 회원정보 수정
 	@Override
 	public void memberModifyPro(HttpServletRequest req, Model model) {
-		
+
 		String password = req.getParameter("password");
 		String memberCountry = req.getParameter("memberCountry");
-		
+
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("password", password);
 		map.put("memberCountry", memberCountry);
 		map.put("memberEmail", userVO.getMemberEmail());
-		
+
 		int updateCnt = boardDao.memberModifyPro(map);
-		
+
 		if (updateCnt == 1) {
 			userVO.setPassword(password);
 			userVO.setMemberCountry(memberCountry);
 		}
-		
+
 		model.addAttribute("updateCnt", updateCnt);
 		model.addAttribute("memberId", userVO.getMemberId());
 	}
-	
+
 	// 회원 탈퇴
 	@Override
 	public void memberDeletePro(HttpServletRequest req, Model model) {
-		
+
 		String password = req.getParameter("password");
-		
+
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("password", password);
 		map.put("memberEmail", userVO.getMemberEmail());
-		
+
 		int selectCnt = boardDao.memberDeleteForm(map);
-		
+
 		if (selectCnt == 1) {
 			int updateCnt = boardDao.memberDeletePro(map);
 			model.addAttribute("updateCnt", updateCnt);
@@ -936,8 +942,9 @@ public class BoardServiceImpl implements BoardService {
 			model.addAttribute("selectCnt", selectCnt);
 		}
 	}
-	
-	
+
+
+
 	// 대호 메소드 종료 ===================================================
 
 

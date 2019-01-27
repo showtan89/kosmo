@@ -142,8 +142,10 @@
 				<th>Delete</th>
 			</tr>
 			<c:forEach var="cos" items="${cos}">
+			<c:if test="${!sessionScope.userVO.memberId.equals(cos.memberid)}">
 				<tr>
-					<td align="center">comment alarm</td>
+					<td align="center">${cos.memberid}</td>
+					
 					<c:set var="code" value="${cos.boardcode}"/>
 					<c:choose>
 						<c:when test="${code==10}">
@@ -159,19 +161,21 @@
 						</c:when>
 					</c:choose>
 					
-					<%-- <c:choose>
-						<c:when test="${code==10}">
-						<td><a href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentnumber}">${cos.commentsubject}</a></td>
+				    <c:choose>
+						<c:when test="${code==20}">
+						<td><a href="realestateDetailForm?realestateNumber=${cos.commentoriginalnumber}#${cos.commentnumber}">${cos.commentsubject}</a></td>
 						</c:when>
-					</c:choose> --%>
+					</c:choose> 
 					
 					<td align="center">${cos.commentregdate}</td>
 					<td align="center">checked</td>
 					<td align="center"><input type="button" value="쪽지삭제" onclick="window.location='commentAlarmDelete?commentnumber=${cos.commentnumber}&pageNum=${pageNum}';"></td>
 				</tr>
+				</c:if>
 			</c:forEach>
 
 			<c:forEach var="mos" items="${mos}">
+			<c:if test="${!sessionScope.userVO.memberId.equals(mos.memberid)}">
 				<tr>
 					<td align="center">chatting alarm</td>
 					<td>${mos.chattingsubject}</td>
@@ -179,6 +183,7 @@
 					<td align="center">checked</td>
 					<td align="center"><input type="button" value="쪽지삭제" onclick="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';"></td>
 				</tr>
+				</c:if>
 			</c:forEach>
 		</table>
 
