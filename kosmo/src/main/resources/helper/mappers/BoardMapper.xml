@@ -385,10 +385,12 @@
 		<!-- SELECT * FROM commentalarm where memberid='park' AND commentalarm=1 -->
 	</select>
 	
+	<!-- 댓글 알람 삭제 -->
 	<delete id="commentDelete" parameterType="int">
 		 delete from commentalarm where commentnumber = #{commentnumber}
 	</delete>
 	
+	<!-- 채팅 알람 삭제 -->
 	<delete id="chattingDelete" parameterType="int">
 		 delete from chattingalarm where chattingnumber = #{chattingnumber}
 	</delete>

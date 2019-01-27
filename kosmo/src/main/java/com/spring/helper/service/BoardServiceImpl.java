@@ -433,10 +433,11 @@ public class BoardServiceImpl implements BoardService {
 
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// 알람 게시판 페이징
 	@Override
 	public void alarmBoard(HttpServletRequest req, Model model) {
 		// 페이징
-		int pageSize = 10; 		// 한페이지당 출력할 글 갯수
+		int pageSize = 20; 		// 한페이지당 출력할 글 갯수
 		int pageBlock = 5; 		// 한 블럭당 페이지 갯수
 
 		int cnt = 0; 			// 글갯수
@@ -578,21 +579,14 @@ public class BoardServiceImpl implements BoardService {
 
 	//ajax 댓글 알림
 	@Override
-	public List<CommentAlarmVO> commentAlarm(HttpServletRequest req, Model model) {
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<CommentAlarmVO> list = boardDao.commentAlarm(map);
-		/*int commentalarm=Integer.parseInt(req.getParameter("commentalarm"));
-		System.out.println("commentalarm : " + commentalarm);
-		String strId = (String)req.getSession().getAttribute("memId");
-
+	public List<CommentAlarmVO> scheduleRun(HttpServletRequest req, Model model) {
 		
-		map.put("strId", strId);
-		map.put("commentalarm", commentalarm);
-
+		CommentAlarmVO vo = new CommentAlarmVO();
 		
-		model.addAttribute("list", list);*/		
-		return list;
+		// 부동산 댓글 달기 realestateCommentPro
+		// 지식인 댓글 달기 knowledgeCommentPro
+		
+		return null;
 	}
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -881,6 +875,7 @@ public class BoardServiceImpl implements BoardService {
 
 		model.addAttribute("updateCnt", updateCnt);
 	}
+	
 
 	// 대호 메소드 종료 ===================================================
 

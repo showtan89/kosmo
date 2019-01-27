@@ -64,13 +64,15 @@ public interface BoardService {
 	//알람 게시판 
 	public void alarmBoard(HttpServletRequest req, Model model);
 	// 댓글 알람 
-	public List<CommentAlarmVO> commentAlarm(HttpServletRequest req, Model model);
+	//public List<CommentAlarmVO> commentAlarm(HttpServletRequest req, Model model);
 	// 댓글 알람 지우기
 	public void commentAlarmDelete(HttpServletRequest req, Model model);
 
 	// 채팅알람 지우기
 	public void chattingAlarmDelete(HttpServletRequest req, Model model);
 	//ajax 댓글 알람
+	
+	public List<CommentAlarmVO> scheduleRun(HttpServletRequest req, Model model);
 	/*messagePro
 			messageAlarmForm
 			messageAlarmPro*/

@@ -161,23 +161,24 @@ public class BoardDAOImpl implements BoardDAO {
 
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++++++++++++++++++++
-
+		
+		// 코멘트 알람 갯수 구하기
 		@Override
 		public int commentReadCnt(String memId) {
 			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentReadCnt", memId);
 		}
-
+		// 채팅 알람 갯수 구하기
 		@Override
 		public int chattingReadCnt(String memId) {
 			return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingReadCnt", memId);
 		}
 
-
+		//채팅 알람 리스트
 		@Override
 		public List<CommentAlarmVO> chattingReadList(Map<String, Object> map) {
 			return sqlSession.selectList("com.spring.helper.dao.BoardDAO.chattingReadList", map);
 		}
-
+		// 댓글 알람 리스트
 		@Override
 		public List<ChattingAlarmVO> commentReadList(Map<String, Object> map) {
 
@@ -185,10 +186,6 @@ public class BoardDAOImpl implements BoardDAO {
 		}
 
 		//ajax 댓글 알람
-		@Override
-		public List<CommentAlarmVO> commentAlarm(Map<String, Object> map) {
-			return sqlSession.selectList("com.spring.helper.dao.BoardDAO.commentAlarm", map);
-		}
 
 		//댓글 알람 삭제
 		@Override
