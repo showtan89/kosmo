@@ -12,26 +12,49 @@
 
 	<!-- 동욱이 시작 -->
 	<!-- 지식인 게시판 갯수 구하기 -->
-	<select id="knowledgeGetArticleCnt" resultType="int">
-		select count(*) from knowledge
+	<sql id="knowledgeGetArticleCount">
+		select count(*) from knowledge 
+	</sql>
+	<select id="knowledgeGetArticleCnt" parameterType="java.util.Map" resultType="Integer">
+	<include refid="knowledgeGetArticleCount"/>
+		<where>
+			<if test="!knowledgeCategory.equals('No')"> <!--지역 -->
+				knowledgeCategory = #{knowledgeCategory}
+			</if>
+			<if test="!search.equals('No')"> <!-- 금액 범위  -->
+				AND knowledgeSubject LIKE '%'||#{search}||'%'
+				AND knowledgeContent LIKE '%'||#{search}||'%'
+			</if>
+		</where>
 	</select>
 	<!-- 지식인 게시판 리스트 출력 -->
-	<select id="knowledgeGetArticleList"
-		parameterType="java.util.Map"
-		resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
-	<![CDATA[
-		SELECT *  
-		FROM(SELECT knowledgeNumber, memberNumber, boardCode, memberEmail, memberId, knowledgeSubject, 
-			 		knowledgeContent, knowledgeOpenCheck, knowledgeReward, knowledgeCategory, knowledgeLookup,
-			 		knowledgeRegdate,knowledgeReply,knowledgeTemp1,knowledgeTemp2,knowledgeTemp3, rownum rNum  
-			 FROM ( 
-				 	SELECT * 
-				 	FROM knowledge
-				 	ORDER BY knowledgeRegdate DESC
-				  )
-			 )  
-		WHERE rNum >= #{start} AND rNum <= #{end}
-		]]>
+	<sql id="getknowledgeGetArticleList">
+		SELECT * FROM (SELECT knowledgeNumber, memberNumber, boardCode, memberEmail, memberId, knowledgeSubject  
+			 		,knowledgeContent, knowledgeOpenCheck, knowledgeReward, knowledgeCategory, knowledgeLookup  
+			 		,knowledgeRegdate,knowledgeReply,knowledgeTemp1,knowledgeTemp2,knowledgeTemp3, rownum rNum
+			 		    
+			    FROM (
+	</sql>
+	<select id="knowledgeGetArticleList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
+	<include refid="getknowledgeGetArticleList"/>
+	
+		select * from knowledge
+		<where>
+			boardCode = 10
+			<if test="!knowledgeCategory.equals('No')"> <!--지역 -->
+				AND knowledgeCategory = #{knowledgeCategory}
+			</if>
+			<if test="!search.equals('No')"> <!-- 금액 범위  -->
+				AND knowledgeSubject LIKE '%'||#{search}||'%'
+				AND knowledgeContent LIKE '%'||#{search}||'%'
+			</if>
+		</where>
+		ORDER BY knowledgeRegdate DESC))
+		<where>
+			<![CDATA[
+				rNum >= #{start} and rNum <= #{end}
+			]]>  
+		</where>
 	</select>
 	<!-- 질문등록 처리 -->
 	<insert id="knowledgeInsertArticle"
@@ -93,6 +116,24 @@
 	<select id="knowledgeCommentList" resultType="com.spring.helper.vo.BoardVO.kCommentVO">
 		SELECT * FROM kComment WHERE knowledgeNumber=#{knowledgeNumber} 
 	</select>
+	<!-- 채택처리 시작 -->
+	<!-- 질문자 포인트 차감-->
+	<update id="knowledgeSelectComent" parameterType="java.util.Map">
+		UPDATE users SET memberPoint=(memberPoint-#{knowledgeReward}) WHERE memberEmail=#{memberEmail}
+	</update>
+	<!-- 답변자 포인트 추가 -->
+	<update id="knowledgeSelectComent2" parameterType="java.util.Map">
+		UPDATE users SET memberPoint=(memberPoint+#{knowledgeReward}) WHERE memberId=#{kCommentmemberId}
+	</update>
+	<!-- 글 채택완료 처리 -->
+	<update id="knowledgeSelectComent3" parameterType="java.util.Map">
+		UPDATE knowledge SET knowledgeReply='Y' WHERE knowledgeNumber=#{knowledgeNumber}
+	</update>
+	<!-- 채택처리 종료 -->
+	<!-- 조회수 증가 -->
+	<update id="knowledgeAddReadCnt" parameterType="int">
+		UPDATE knowledge SET knowledgeLookup=(knowledgeLookup+1) WHERE knowledgeNumber=#{knowledgeNumber}
+	</update>
 	<!-- 동욱이 종료 -->
 
 
@@ -360,13 +401,23 @@
 
 	<!-- 민석이 시작 -->
 	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
-	<select id="commentReadCnt" resultType="int">
-		select count(*) cnt from  commentalarm where memberid = 'park'
+	<select id="commentReadCnt" resultType="int" parameterType="String">
+		select count(*) cnt from  commentalarm where memberid = #{memId}
 	</select>		
 	
-	<select id="chattingReadCnt" resultType="int">
-		select count(*) cnt from  chattingalarm where memberid = 'park'
+	<select id="chattingReadCnt" resultType="int" parameterType="String">
+		select count(*) cnt from  chattingalarm where memberid = #{memId}
 	</select>
+	
+	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
+	<update id="chattingReadList2" parameterType="String">
+		UPDATE chattingalarm SET chattingalarm = 2 WHERE chattingalarm = 1 AND memberid = #{memId}
+	</update >
+	
+	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
+	<update id="commentReadList2" parameterType="String">
+		UPDATE commentalarm SET commentalarm = 2 WHERE commentalarm = 1 AND memberid = #{memId}
+	</update >
 	
 	<!-- 채팅 알람의 리스트 -->
 	<select id="chattingReadList" resultType="com.spring.helper.vo.BoardVO.ChattingAlarmVO" parameterType="java.util.Map">
@@ -391,14 +442,16 @@
 		<!-- SELECT * FROM commentalarm where memberid='park' AND commentalarm=1 -->
 	</select>
 	
+	<!-- 댓글 알람 삭제 -->
 	<delete id="commentDelete" parameterType="int">
 		 delete from commentalarm where commentnumber = #{commentnumber}
 	</delete>
 	
+	<!-- 채팅 알람 삭제 -->
 	<delete id="chattingDelete" parameterType="int">
 		 delete from chattingalarm where chattingnumber = #{chattingnumber}
 	</delete>
-
+	
 	<!-- 민석이 종료 -->
 
 	<!-- 진호 시작ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
@@ -484,6 +537,26 @@
 		UPDATE users
 		   SET emailConfirm = 1, authority = 'ROLE_USER'
 		 WHERE emailKey = #{emailKey}
+	</update>
+	
+	<update id="memberModifyPro" parameterType="java.util.Map">
+		UPDATE users
+		   SET password = #{password},
+		       memberCountry = #{memberCountry}
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	
+	<select id="memberDeleteForm" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM users
+		 WHERE memberEmail = #{memberEmail}
+		   AND password = #{password}
+	</select>
+	
+	<update id="memberDeletePro" parameterType="java.util.Map">
+		UPDATE users
+		   SET enabled = 0, AUTHORITY = 'ROLE_GUEST'
+		 WHERE memberEmail = #{memberEmail}
 	</update>
 	
 	<!-- 대호 끝 ========================================================================= -->

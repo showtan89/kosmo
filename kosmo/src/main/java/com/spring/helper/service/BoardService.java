@@ -35,6 +35,10 @@ public interface BoardService {
 	public void kCommentdelete(HttpServletRequest req,Model model);
 	// 답변 목록 리스트 출력
 	public void knowledgeCommentList(HttpServletRequest req,Model model);
+	// 채택 처리
+	public void knowledgeSelectComent(HttpServletRequest req,Model model);
+	// 조회수 증가
+	public void knowledgeAddReadCnt(HttpServletRequest req,Model model);
 	// 동욱이 메소드 종료
 
 
@@ -64,13 +68,15 @@ public interface BoardService {
 	//알람 게시판 
 	public void alarmBoard(HttpServletRequest req, Model model);
 	// 댓글 알람 
-	public List<CommentAlarmVO> commentAlarm(HttpServletRequest req, Model model);
+	//public List<CommentAlarmVO> commentAlarm(HttpServletRequest req, Model model);
 	// 댓글 알람 지우기
 	public void commentAlarmDelete(HttpServletRequest req, Model model);
 
 	// 채팅알람 지우기
 	public void chattingAlarmDelete(HttpServletRequest req, Model model);
 	//ajax 댓글 알람
+	
+	public List<CommentAlarmVO> scheduleRun(HttpServletRequest req, Model model);
 	/*messagePro
 			messageAlarmForm
 			messageAlarmPro*/
@@ -113,5 +119,9 @@ public interface BoardService {
 	public void memberInputPro(HttpServletRequest req, Model model);
 
 	public void memberEmailConfirmed(HttpServletRequest req, Model model);
+	
+	public void memberModifyPro(HttpServletRequest req, Model model);
+	
+	public void memberDeletePro(HttpServletRequest req, Model model);
 	// 대호 끝 ==================================================================
 }

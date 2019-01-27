@@ -24,7 +24,6 @@ import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
-import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.PageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
@@ -72,7 +71,25 @@ public class BoardServiceImpl implements BoardService {
 	// 지식인게시판 리스트 출력
 	@Override
 	public void knowledgeBoardList(HttpServletRequest req, Model model) {
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		String knowledgeCategory = "No";
+		String search = "No";
+		if(req.getParameter("knowledgeCategory") != null ) {
+			System.out.println("전체일경우1"+req.getParameter("knowledgeCategory"));
+			model.addAttribute("knowledgeCategory","All");
+			if(!req.getParameter("knowledgeCategory").equals("All")) {
+				System.out.println("전체일경우2"+req.getParameter("knowledgeCategory"));
+				knowledgeCategory= req.getParameter("knowledgeCategory");
+				model.addAttribute("knowledgeCategory",knowledgeCategory);
+			}
+		} else {
+			model.addAttribute("knowledgeCategory","All");
+		}
+		if(req.getParameter("search") != null || req.getParameter("search")=="") {
+			search= req.getParameter("search");
+		}
+		map.put("knowledgeCategory", knowledgeCategory);
+		map.put("search", search);
 		int pageSize = 10; 		// 한 페이지당 출력할 글 갯수
 		if(req.getParameter("btn_select")!=null) {
 			pageSize = Integer.parseInt(req.getParameter("btn_select"));
@@ -87,7 +104,7 @@ public class BoardServiceImpl implements BoardService {
 		int pageCount = 0;      // 페이지 갯수
 		int startPage = 0;		// 시작 페이지
 		int endPage = 0;		// 마지막 페이지
-		cnt = boardDao.knowledgeGetArticleCnt();
+		cnt = boardDao.knowledgeGetArticleCnt(map);
 		pageNum = req.getParameter("pageNum");
 
 		if(pageNum== null) {
@@ -110,7 +127,7 @@ public class BoardServiceImpl implements BoardService {
 		if(end > cnt) end = cnt;	
 		// 출력용 글번호
 		number = cnt - (currentPage -1)* pageSize;
-		Map<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("start", start);
 		map.put("end", end);
 		if(cnt>0) {
@@ -298,7 +315,29 @@ public class BoardServiceImpl implements BoardService {
 		}
 		req.setAttribute("emailcheck", emailcheck);
 	}
-
+	// 채택 처리
+	@Override
+	public void knowledgeSelectComent(HttpServletRequest req, Model model) {
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		String memberEmail = userVO.getMemberEmail();
+		String kCommentmemberId = req.getParameter("kCommentmemberId");
+		int knowledgeReward = Integer.parseInt(req.getParameter("knowledgeReward"));
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("kCommentmemberId", kCommentmemberId);
+		map.put("knowledgeReward", knowledgeReward);
+		map.put("memberEmail", memberEmail);
+		map.put("knowledgeNumber", knowledgeNumber);
+		int knowledgeSelectComent = boardDao.knowledgeSelectComent(map);
+		model.addAttribute("knowledgeSelectComent",knowledgeSelectComent);
+	}
+	// 조회수 증가
+	@Override
+	public void knowledgeAddReadCnt(HttpServletRequest req, Model model) {
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		boardDao.knowledgeAddReadCnt(knowledgeNumber);
+		
+	}
 	// 동욱이 메소드 종료
 
 
@@ -437,10 +476,11 @@ public class BoardServiceImpl implements BoardService {
 
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// 알람 게시판 페이징
 	@Override
 	public void alarmBoard(HttpServletRequest req, Model model) {
 		// 페이징
-		int pageSize = 10; 		// 한페이지당 출력할 글 갯수
+		int pageSize = 20; 		// 한페이지당 출력할 글 갯수
 		int pageBlock = 5; 		// 한 블럭당 페이지 갯수
 
 		int cnt = 0; 			// 글갯수
@@ -454,11 +494,11 @@ public class BoardServiceImpl implements BoardService {
 		int startPage = 0;		// 시작 페이지
 		int endPage = 0;		// 마지막 페이지
 
-		/*UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
-				String memberId = userVO.getMemberId();
-				System.out.println("memberId : " + memberId);*/
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
+				String memId = userVO.getMemberId();
+				System.out.println("memberId : " + memId);
 		//5단계 글갯수 구하기
-		cnt = boardDao.commentReadCnt()+ boardDao.chattingReadCnt();
+		cnt = boardDao.commentReadCnt(memId)+ boardDao.chattingReadCnt(memId);
 		System.out.println("글 갯수cnt ===============: "+cnt);
 
 		pageNum = req.getParameter("pageNum");
@@ -499,7 +539,7 @@ public class BoardServiceImpl implements BoardService {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("start", start);
 			map.put("end", end);
-			/*map.put("userVO", userVO);*/
+			map.put("userVO", userVO);
 
 			//5-2. 게시글 목록 조회
 			List<CommentAlarmVO> mos =boardDao.chattingReadList(map);
@@ -582,21 +622,14 @@ public class BoardServiceImpl implements BoardService {
 
 	//ajax 댓글 알림
 	@Override
-	public List<CommentAlarmVO> commentAlarm(HttpServletRequest req, Model model) {
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<CommentAlarmVO> list = boardDao.commentAlarm(map);
-		/*int commentalarm=Integer.parseInt(req.getParameter("commentalarm"));
-		System.out.println("commentalarm : " + commentalarm);
-		String strId = (String)req.getSession().getAttribute("memId");
-
+	public List<CommentAlarmVO> scheduleRun(HttpServletRequest req, Model model) {
 		
-		map.put("strId", strId);
-		map.put("commentalarm", commentalarm);
-
+		CommentAlarmVO vo = new CommentAlarmVO();
 		
-		model.addAttribute("list", list);*/		
-		return list;
+		// 부동산 댓글 달기 realestateCommentPro
+		// 지식인 댓글 달기 knowledgeCommentPro
+		
+		return null;
 	}
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -703,7 +736,6 @@ public class BoardServiceImpl implements BoardService {
 	// 글 목록 상세페이지
 	@Override
 	public void onedayclassDetailForm(HttpServletRequest req, Model model) {
-
 
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
@@ -886,7 +918,56 @@ public class BoardServiceImpl implements BoardService {
 
 		model.addAttribute("updateCnt", updateCnt);
 	}
-
+	
+	// 회원정보 수정
+	@Override
+	public void memberModifyPro(HttpServletRequest req, Model model) {
+		
+		String password = req.getParameter("password");
+		String memberCountry = req.getParameter("memberCountry");
+		
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("password", password);
+		map.put("memberCountry", memberCountry);
+		map.put("memberEmail", userVO.getMemberEmail());
+		
+		int updateCnt = boardDao.memberModifyPro(map);
+		
+		if (updateCnt == 1) {
+			userVO.setPassword(password);
+			userVO.setMemberCountry(memberCountry);
+		}
+		
+		model.addAttribute("updateCnt", updateCnt);
+		model.addAttribute("memberId", userVO.getMemberId());
+	}
+	
+	// 회원 탈퇴
+	@Override
+	public void memberDeletePro(HttpServletRequest req, Model model) {
+		
+		String password = req.getParameter("password");
+		
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("password", password);
+		map.put("memberEmail", userVO.getMemberEmail());
+		
+		int selectCnt = boardDao.memberDeleteForm(map);
+		
+		if (selectCnt == 1) {
+			int updateCnt = boardDao.memberDeletePro(map);
+			model.addAttribute("updateCnt", updateCnt);
+		} else {
+			model.addAttribute("selectCnt", selectCnt);
+		}
+	}
+	
+	
+	
 	// 대호 메소드 종료 ===================================================
 
 
