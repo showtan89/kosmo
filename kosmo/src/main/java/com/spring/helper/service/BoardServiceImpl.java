@@ -325,8 +325,12 @@ public class BoardServiceImpl implements BoardService {
 		pVO.setPageNum(String.valueOf(pageNum));
 		rVO.setRealestateStart(pVO.getStartNumber());
 		rVO.setRealestateEnd(pVO.getEndNumber());
+		//검색 조건에 따른 리스트 구해오기
 		list = boardDao.realestateGetArticleList(rVO);
 		logger.info(pVO.toString());
+		//페이지 이동시 사용할 URL 주소 만들기
+		String url = boardMethod.makeURLbyParameter(req);
+		model.addAttribute("linkUrl",url);
 		model.addAttribute("list", list);
 		model.addAttribute("pVO", pVO);
 	}

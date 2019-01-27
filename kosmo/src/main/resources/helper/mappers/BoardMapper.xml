@@ -174,6 +174,9 @@
 			<if test="realestateGender != null"> <!-- 성별 -->
 				and realestateGender in #{realestateGender}
 			</if>
+			<if test="realestateHeatingtype != null"> <!-- 난방타입 -->
+				and realestateHeatingtype in #{realestateHeatingtype}
+			</if>
 			<if test="realestateSize != null"> <!-- 방크기 -->
 				and realestateSize in #{realestateSize}
 			</if>
@@ -246,6 +249,9 @@
 			</if>
 			<if test="realestateSize != null"> <!-- 방크기 -->
 				and realestateSize in #{realestateSize}
+			</if>
+			<if test="realestateHeatingtype != null"> <!-- 난방타입 -->
+				and realestateHeatingtype in #{realestateHeatingtype}
 			</if>
 			<if test="realestateOptionCheck != null"> <!-- 풀옵션 -->
 				and realestateOptionCheck in #{realestateOptionCheck}
