@@ -45,6 +45,8 @@ public interface BoardDAO {
 	// 답변 리스트 출력
 	public ArrayList<kCommentVO> knowledgeCommentList(int knowledgeNumber);
 
+	// 채택 처리
+	public int knowledgeSelectComent(Map<String, Object> map);
 	// 동욱이 메소드 종료
 
 
@@ -125,5 +127,12 @@ public interface BoardDAO {
 	public void sendEmailKey(Map<String, Object> map);
 
 	public int memberEmailConfirmed(String emailKey);
+	
+	public int memberModifyPro(Map<String, Object> map);
+	
+	public int memberDeleteForm(Map<String, Object> map);
+	
+	public int memberDeletePro(Map<String, Object> map);
+	
 	// 대호 메소드 종료 ============================================================
 }

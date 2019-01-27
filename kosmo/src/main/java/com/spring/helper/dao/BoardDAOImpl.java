@@ -114,6 +114,20 @@ public class BoardDAOImpl implements BoardDAO {
 		dtos = dao.knowledgeCommentList(knowledgeNumber);
 		return dtos;
 	}
+	// 채택 처리
+	@Override
+	public int knowledgeSelectComent(Map<String, Object> map) {
+		// 질문자 포인트 차감
+		int cnt = 0;
+		cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent",map);
+		// 답변자 포인트 추가
+		if(cnt == 1)
+		cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent2",map);
+		// 글 채택완료 처리
+		if(cnt == 1)
+		cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent3",map);
+		return cnt;
+	}
 	// 동욱이 메소드 종료
 
 
@@ -326,6 +340,22 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int memberEmailConfirmed(String emailKey) {
 		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberEmailConfirmed", emailKey);
+	}
+	
+	// 회원 정보 수정
+	@Override
+	public int memberModifyPro(Map<String, Object> map) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberModifyPro", map);
+	}
+	
+	// 회원 탈퇴 확인
+	@Override
+	public int memberDeleteForm(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.memberDeleteForm", map);
+	}
+	@Override
+	public int memberDeletePro(Map<String, Object> map) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberDeletePro", map);
 	}
 	
 	// 대호 메소드 종료 ======================================================

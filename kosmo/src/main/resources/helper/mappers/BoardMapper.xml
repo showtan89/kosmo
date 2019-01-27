@@ -93,6 +93,20 @@
 	<select id="knowledgeCommentList" resultType="com.spring.helper.vo.BoardVO.kCommentVO">
 		SELECT * FROM kComment WHERE knowledgeNumber=#{knowledgeNumber} 
 	</select>
+	<!-- 채택처리 시작 -->
+	<!-- 질문자 포인트 차감-->
+	<update id="knowledgeSelectComent" parameterType="java.util.Map">
+		UPDATE users SET memberPoint=(memberPoint-#{knowledgeReward}) WHERE memberEmail=#{memberEmail}
+	</update>
+	<!-- 답변자 포인트 추가 -->
+	<update id="knowledgeSelectComent2" parameterType="java.util.Map">
+		UPDATE users SET memberPoint=(memberPoint+#{knowledgeReward}) WHERE memberId=#{kCommentmemberId}
+	</update>
+	<!-- 글 채택완료 처리 -->
+	<update id="knowledgeSelectComent3" parameterType="java.util.Map">
+		UPDATE knowledge SET knowledgeReply='Y' WHERE knowledgeNumber=#{knowledgeNumber}
+	</update>
+	<!-- 채택처리 종료 -->
 	<!-- 동욱이 종료 -->
 
 
@@ -480,6 +494,26 @@
 		UPDATE users
 		   SET emailConfirm = 1, authority = 'ROLE_USER'
 		 WHERE emailKey = #{emailKey}
+	</update>
+	
+	<update id="memberModifyPro" parameterType="java.util.Map">
+		UPDATE users
+		   SET password = #{password},
+		       memberCountry = #{memberCountry}
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	
+	<select id="memberDeleteForm" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM users
+		 WHERE memberEmail = #{memberEmail}
+		   AND password = #{password}
+	</select>
+	
+	<update id="memberDeletePro" parameterType="java.util.Map">
+		UPDATE users
+		   SET enabled = 0, AUTHORITY = 'ROLE_GUEST'
+		 WHERE memberEmail = #{memberEmail}
 	</update>
 	
 	<!-- 대호 끝 ========================================================================= -->

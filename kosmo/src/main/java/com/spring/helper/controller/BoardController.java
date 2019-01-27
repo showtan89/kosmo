@@ -40,42 +40,42 @@ public class BoardController {
 	}
 	
 	// 동욱이 메소드 시작
-	// 지식인게시판 리스트 출력
+	// 지식인 게시판 지식인게시판 리스트 출력
 	@RequestMapping("knowledgeBoardList")
 	public String knowledgeBoardList(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeBoardList 로딩 중....");
 		service.knowledgeBoardList(req, model);
-		return "board/knowledge/knowledge";
+		return "board/knowledge/knowledgeBoardList";
 	}
-	// 질문등록 폼 이동
+	// 지식인 게시판 질문등록 폼 이동
 	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping("knowledgeWriteForm")
 	public String knowledgeWriteForm() throws Exception {
 		logger.info("knowledgeWriteForm 로딩 중....");
 		return "board/knowledge/knowledgeWriteForm";
 	}
-	// 질문등록 처리
+	// 지식인 게시판 질문등록 처리
 	@RequestMapping("knowledgeWritePro")
 	public String knowledgeWritePro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeWritePro 로딩 중....");
 		service.knowledgeInsertArticle(req, model);
 		return "board/knowledge/knowledgePro";
 	}
-	// 질문수정 폼 이동
+	// 지식인 게시판 질문수정 폼 이동
 	@RequestMapping("knowledgeModifyForm")
 	public String knowledgeModifyForm(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeModifyForm 로딩 중....");
 		service.knowledgeModifyForm(req, model);
 		return "board/knowledge/knowledgeModifyForm";
 	}
-	// 질문수정 처리
+	// 지식인 게시판 질문수정 처리
 	@RequestMapping("knowledgeModifyPro")
 	public String knowledgeModifyPro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeModifyPro 로딩 중....");
 		service.knowledgeModifyPro(req, model);
 		return "board/knowledge/knowledgePro";
 	}
-	// 질문삭제 처리
+	// 지식인 게시판 질문삭제 처리
 	@RequestMapping("knowledgeDeleteForm")
 	public String knowledgeDeleteForm(HttpServletRequest req, Model model) throws Exception{
 		logger.info("knowledgeDeleteForm 로딩 중....");
@@ -83,7 +83,7 @@ public class BoardController {
 		System.out.println("실행");
 		return "board/knowledge/knowledgePro";
 	}
-	// 게시글 클릭시 글 상세페이지 출력
+	// 지식인 게시판 게시글 클릭시 글 상세페이지 출력
 	@RequestMapping("knowledgeDetailForm")
 	public String knowledgeDetailForm(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeDetailForm 로딩 중....");
@@ -92,25 +92,32 @@ public class BoardController {
 		return "board/knowledge/knowledgeDetailForm";
 	}
 	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
-	// 답변등록 처리
+	// 지식인 게시판 답변등록 처리
 	@RequestMapping("knowledgeCommentPro")
 	public String knowledgeCommentPro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeCommentPro 로딩 중....");
 		service.knowledgeCommentPro(req, model);
 		return "board/knowledge/knowledgePro";
 	}
-	// 답변수정 처리
+	// 지식인 게시판 답변수정 처리
 	@RequestMapping("kCommentModifyUpdate")
 	public String kCommentModifyUpdate(HttpServletRequest req, Model model) throws Exception {
 		logger.info("kCommentModifyUpdate 로딩 중....");
 		service.kCommentModifyUpdate(req, model);
 		return "board/knowledge/knowledgePro";
 	}
-	// 답변삭제 처리
+	// 지식인 게시판 답변삭제 처리
 	@RequestMapping("kCommentdelete")
 	public String kCommentdelete(HttpServletRequest req, Model model) throws Exception {
 		logger.info("kCommentdelete 로딩 중....");
 		service.kCommentdelete(req, model);
+		return "board/knowledge/knowledgePro";
+	}
+	// 지식인 게시판 채택 처리
+	@RequestMapping("knowledgeSelectComent")
+	public String knowledgeSelectComent(HttpServletRequest req, Model model) throws Exception {
+		logger.info("knowledgeSelectComent 로딩 중....");
+		service.knowledgeSelectComent(req, model);
 		return "board/knowledge/knowledgePro";
 	}
 	// 동욱이 메소드 종료

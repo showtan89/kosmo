@@ -64,7 +64,7 @@
 		} else if (document.memberInputForm.memberCountry.value == "null") {
 			alert("Please select your country");
 			return false;
-		} else if (document.memberInputForm.password.value != document.memberInputForm. Repeat_Password.value) {
+		} else if (document.memberInputForm.password.value != document.memberInputForm.Repeat_Password.value) {
 			alert("Password is incorrenct. Please check it.");
 			return false;
 		} else if (document.memberInputForm.memberId.value.length < 3) {
@@ -145,8 +145,8 @@
 						</div>
 					
 						<div class="input-container">
-							<input type="text" id="memberEmail" name="memberEmail" required="required" /> <label
-								for="memberEmail">Email</label>
+							<input type="text" id="memberEmail" name="memberEmail" required="required" />
+							<label for="memberEmail">Email</label>
 							<div class="bar"></div>
 						</div>
 						
@@ -173,8 +173,18 @@
 						
 						<div class="input-container">
 							<input type="text" id="memberId" name="memberId" required="required" />
-							<label for="Repeat Password">Full Name</label>
+							<label for="Repeat Password">Name</label>
 							<div class="bar"></div>
+						</div>
+						
+						<div class="button-container">
+							<a href="memberInputPro" onclick="return memberInputSubmit();">
+								<button type="submit">
+									<span>Confirm Name</span>
+								</button>
+							</a>
+							<br>
+							<br>
 						</div>
 						
 						<div class="button-container">

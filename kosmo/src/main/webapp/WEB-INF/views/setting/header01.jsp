@@ -129,6 +129,7 @@ input:focus {
 										</div>
 									</div>
 								</div>
+								
 								<!-- Login -->
 								<div class="login">
 									<sec:authorize access="isAnonymous()">
@@ -139,8 +140,25 @@ input:focus {
 										<a href="<c:url value='/j_spring_security_logout'/>"><i
 											class="fa fa-user" aria-hidden="true">Logout</i> </a>
 									</sec:authorize>
-
 								</div>
+								
+								<!-- Mypage Button -->
+								<sec:authorize access="isAuthenticated()">
+									<div class="language-dropdown">
+										<div class="dropdown">
+											<a href="myPage">
+												<button class="btn btn-secondary mr-30"
+													type="button" id="dropdownMenuButton"
+													aria-haspopup="true" aria-expanded="false">
+													MyPage
+												</button>
+											</a>
+										</div>
+									</div>
+								</sec:authorize>
+								
+								<!-- Cart -->
+
 								<!-- Alarm -->
 								<div class="cart">
 									<a href="#"><i class="fa fa-envelope"
