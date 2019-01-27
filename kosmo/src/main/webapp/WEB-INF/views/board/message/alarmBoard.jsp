@@ -151,21 +151,21 @@
 						<c:when test="${code==10}">
 						<%-- <c:set var="url" value="${}"/> --%>
 						<!-- http://localhost/project/knowledgeDetailForm?knowledgeNumber=109 -->
-						<td><a href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentnumber}">${cos.commentsubject}</a></td>
+						<td><a href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
 						</c:when>
 					</c:choose>
 					
 					<c:choose>
-						<c:when test="${code==31}">
-						<td><a href="onedayclassDetailForm?onedayclassNumber=${cos.commentoriginalnumber}#${cos.commentnumber}">${cos.commentsubject}</a></td>
-						</c:when>
-					</c:choose>
-					
-				    <c:choose>
 						<c:when test="${code==20}">
-						<td><a href="realestateDetailForm?realestateNumber=${cos.commentoriginalnumber}#${cos.commentnumber}">${cos.commentsubject}</a></td>
+						<td><a href="realestateDetailForm?realestateNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
 						</c:when>
 					</c:choose> 
+					
+					<c:choose>
+						<c:when test="${code==31}">
+						<td><a href="onedayclassDetailForm?onedayclassNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
+						</c:when>
+					</c:choose>
 					
 					<td align="center">${cos.commentregdate}</td>
 					<td align="center">checked</td>

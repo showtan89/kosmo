@@ -10,7 +10,7 @@ public class CommentAlarmVO {
 	private String memberemail;
 	private String memberid;
 	private int commentoriginalnumber;
-	private int commentcommentnummber;
+	private int commentcommentnumber;
 	private String commentsubject;
 	private String messagecountry;
 	private int commentalarm;
@@ -54,11 +54,11 @@ public class CommentAlarmVO {
 	public void setCommentoriginalnumber(int commentoriginalnumber) {
 		this.commentoriginalnumber = commentoriginalnumber;
 	}
-	public int getCommentcommentnummber() {
-		return commentcommentnummber;
+	public int getCommentcommentnumber() {
+		return commentcommentnumber;
 	}
-	public void setCommentcommentnummber(int commentcommentnummber) {
-		this.commentcommentnummber = commentcommentnummber;
+	public void setCommentcommentnumber(int commentcommentnumber) {
+		this.commentcommentnumber = commentcommentnumber;
 	}
 	public String getCommentsubject() {
 		return commentsubject;
