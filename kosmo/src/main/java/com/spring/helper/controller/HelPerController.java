@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -90,74 +91,76 @@ public class HelPerController{
 	// 진호 끝---------------------------------
 
 	//민석이 시작+++++++++++++++++++++++++++++++
+
+	//알람 게시판으로 이동
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
+	@RequestMapping("alarmBoard")
+	public String alarmBoard(HttpServletRequest req,Model model) {
+		logger.info("alarmBoard 로딩 중....");
+
+		if(req.getParameter("loginPage")!=null);
+		model.addAttribute("loginPage",req.getParameter("loginPage"));
+
+		service.alarmBoard(req, model);
+		return "board/message/alarmBoard";
+	}
+	// 댓글 알람 삭제
+	@RequestMapping("commentAlarmDelete")
+	public String commentAlarmDelete(HttpServletRequest req,Model model) {
+		logger.info("commentAlarmDelete 로딩 중....");
+
+		service.commentAlarmDelete(req, model);
+
+		return "board/message/commentAlarmDelete";
+	}
+	@RequestMapping("chattingAlarmDelete")
+	public String chattingAlarmDelete(HttpServletRequest req,Model model) {
+		logger.info("chattingAlarmDelete 로딩 중.....");
+		
+		service.chattingAlarmDelete(req, model);
+		
+		return "board/message/chattingAlarmDelete";
+	}
+	// ajax 댓글 알람 진행중
+	@Scheduled(cron = "0 * * * * *" )
+	public void scheduleRun(HttpServletRequest req,Model model) {
+		logger.info("스케쥴러러러러러러러러러러");
+
+		service.scheduleRun(req, model);
+
+	}
+	/*@RequestMapping("commentAlarm")
+	public String commentAlarm(HttpServletRequest req,Model model) {
+		logger.info("commentAlarmDelete 로딩 중....");
+
+		return "";*/
 	
-		//알람 게시판으로 이동
-		/*@Secured({"ROLE_USER","ROLE_ADMIN"}) */
-		@RequestMapping("alarmBoard")
-		public String alarmBoard(HttpServletRequest req,Model model) {
-			logger.info("alarmBoard 로딩 중....");
-			
-			/*if(req.getParameter("loginPage")!=null);
-			model.addAttribute("loginPage",req.getParameter("loginPage"));*/
-			
-			service.alarmBoard(req, model);
-			return "board/message/alarmBoard";
-		}
-		// 댓글 알람 삭제
-		@RequestMapping("commentAlarmDelete")
-		public String commentAlarmDelete(HttpServletRequest req,Model model) {
-			logger.info("commentAlarmDelete 로딩 중....");
-			
-			service.commentAlarmDelete(req, model);
-			
-			return "board/message/commentAlarmDelete";
-		}
-		/* ajax 댓글 알람 진행중
-		 * @Scheduled(cron = "0 * * * * *" )
-			public void scheduleRun() {
-			logger.info("스케쥴러러러러러러러러러러");
-			
-			service.scheduleRun(); //서비스 메소드 명
-			
-		}
-		@RequestMapping("commentAlarm")
-		public String commentAlarm(HttpServletRequest req,Model model) {
-			logger.info("commentAlarmDelete 로딩 중....");
-			
-			return "";
-		}*/
-		//민석이 끝++++++++++++++++++++++++++++++++
+	//민석이 끝++++++++++++++++++++++++++++++++
 
 
-	/*@Secured({"ROLE_ADMIN","ROLE_MASTER"})
-	@RequestMapping("onedayclassWritePro")
-	public String chatting() {
-		logger.info("chatting 로딩 중....");
-		return "board/chatting";
-	}*/
-	
+
 	// 대호 시작
 	@RequestMapping("memberConfirmidForm")
 	public String memberConfirmidForm(HttpServletRequest req, Model model) throws Exception {
 		logger.info("memberConfirmidForm 로딩 중..");
 		service.memberConfirmidForm(req, model);
-		
+
 		return "board/memberInput/memberConfirmidForm";
 	}
-	
+
 	@RequestMapping("memberInputPro")
 	public String memberInputPro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("memberInputPro 로딩 중.."); 
 		service.memberInputPro(req, model);
-		
+
 		return "board/memberInput/memberInputPro";
 	}
-	
+
 	@RequestMapping("memberEmailConfirmed")
 	public String memberEmailConfirmed(HttpServletRequest req, Model model) throws Exception {
 		logger.info("memberEmailConfirmed 로딩 중..");
 		service.memberEmailConfirmed(req, model);
-		
+
 		return "board/memberInput/memberEmailConfirmed";
 	}
 	

@@ -104,7 +104,7 @@
 }
 
 .tbl-ex th {
-	background-color: #FF0040;
+	background-color: #70c745;
 	font-size: 1.1em;
 	color: #fff;
 	border-width: 2px 0;
@@ -117,7 +117,7 @@
 }
 
 .tbl-ex tr {
-	background-color: #F5A9F2;
+	background-color: #C8FE2E;
 	cursor: pointer;
 }
 

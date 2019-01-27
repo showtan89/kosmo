@@ -403,6 +403,16 @@
 		select count(*) cnt from  chattingalarm where memberid = #{memId}
 	</select>
 	
+	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
+	<update id="chattingReadList2" parameterType="String">
+		UPDATE chattingalarm SET chattingalarm = 2 WHERE chattingalarm = 1 AND memberid = #{memId}
+	</update >
+	
+	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
+	<update id="commentReadList2" parameterType="String">
+		UPDATE commentalarm SET commentalarm = 2 WHERE commentalarm = 1 AND memberid = #{memId}
+	</update >
+	
 	<!-- 채팅 알람의 리스트 -->
 	<select id="chattingReadList" resultType="com.spring.helper.vo.BoardVO.ChattingAlarmVO" parameterType="java.util.Map">
 		<![CDATA[
@@ -426,14 +436,16 @@
 		<!-- SELECT * FROM commentalarm where memberid='park' AND commentalarm=1 -->
 	</select>
 	
+	<!-- 댓글 알람 삭제 -->
 	<delete id="commentDelete" parameterType="int">
 		 delete from commentalarm where commentnumber = #{commentnumber}
 	</delete>
 	
+	<!-- 채팅 알람 삭제 -->
 	<delete id="chattingDelete" parameterType="int">
 		 delete from chattingalarm where chattingnumber = #{chattingnumber}
 	</delete>
-
+	
 	<!-- 민석이 종료 -->
 
 	<!-- 진호 시작ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->

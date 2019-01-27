@@ -44,6 +44,7 @@ public interface BoardDAO {
 	public int knowledgeCommentListCnt(int knowledgeNumber);
 	// 답변 리스트 출력
 	public ArrayList<kCommentVO> knowledgeCommentList(int knowledgeNumber);
+
 	// 채택 처리
 	public int knowledgeSelectComent(Map<String, Object> map);
 	// 조회수 증가
@@ -58,13 +59,13 @@ public interface BoardDAO {
 	public List<RealestateVO> realestateGetArticleList(RealestateVO rVO);
 
 	public RealestateVO realestateGetArticle(int realestateNumber);
-	
+
 	public List<RealestateCommentsVO> realestateGetCommentsList(int realestateNumber);
-	
+
 	public Integer realestateCommentPro(RealestateCommentsVO cVO);
-	
+
 	public Integer realestateCommentsDelete(int rCommentNumber);
-	
+
 	public Integer realestateGetArticleCnt(RealestateVO rVO);
 
 	public Integer realestateInsertArticle(RealestateVO rVO);
@@ -74,26 +75,30 @@ public interface BoardDAO {
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++
 
-		public int commentReadCnt(String memId);
+	// 댓글 알람 갯수
+	public int commentReadCnt(String memId);
 
-		public int chattingReadCnt(String memId);
+	// 채팅 알람 갯수
+	public int chattingReadCnt(String memId);
 
-		public List<CommentAlarmVO> chattingReadList(Map<String, Object> map);
+	// 댓글 알람 리스트
+	public List<CommentAlarmVO> chattingReadList(Map<String, Object> map);
 
-		public List<ChattingAlarmVO> commentReadList(Map<String, Object> map);
+	// 채팅알람 리스트
+	public List<ChattingAlarmVO> commentReadList(Map<String, Object> map);
 
-		public List<CommentAlarmVO> commentAlarm(Map<String, Object> map);
-		
-		public int commentDelete (int commentnumber);
-		
-		public int chattingDelete (int chattingnumber);
+	// 댓글 알람 지우기
+	public int commentDelete (int commentnumber);
 
-		//민석이 메소드 종료+++++++++++++++++++++++++++++++
-	
-	
-	
+	// 채팅 알람 지우기
+	public int chattingDelete (int chattingnumber);
+
+	//민석이 메소드 종료+++++++++++++++++++++++++++++++
+
+
+
 	// 진호 메소드 시작----------------------------------
-	
+
 	// 게시글 갯수 구하기
 	public int onedayclassGetArticleCnt();
 
@@ -105,30 +110,30 @@ public interface BoardDAO {
 
 	// 게시글 상세 페이지, 수정을 위한 상세페이지
 	public onedayclassVO onedayclassGetArticle(int onedayclassNumber);
-	
+
 	// 게시글 수정 처리
 	public int onedayclassModifyUpdate(onedayclassVO vo);
-	
+
 	// 글 쓰기 처리
 	public int onedayclassInsertBoard(onedayclassVO vo);
-	
+
 	// 글 삭제 처리
 	public int onedayclassDeleteBoard(int onedayclassNumber);
-	
+
 	// 계좌번호 업데이트
 	/*public int onedayclassAccountUpdate(int onedayclassNumber);*/
 
-	
+
 	// 진호 메소드 종료--------------------------------------
-	
+
 	// 대호 메소드 시작 ============================================================
-	
+
 	public int memberConfirmidForm(String email);
-	
+
 	public int memberInputPro(Map<String, Object> map);
-	
+
 	public void sendEmailKey(Map<String, Object> map);
-	
+
 	public int memberEmailConfirmed(String emailKey);
 	
 	public int memberModifyPro(Map<String, Object> map);
