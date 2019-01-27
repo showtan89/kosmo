@@ -71,7 +71,25 @@ public class BoardServiceImpl implements BoardService {
 	// 지식인게시판 리스트 출력
 	@Override
 	public void knowledgeBoardList(HttpServletRequest req, Model model) {
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		String knowledgeCategory = "No";
+		String search = "No";
+		if(req.getParameter("knowledgeCategory") != null ) {
+			System.out.println("전체일경우1"+req.getParameter("knowledgeCategory"));
+			model.addAttribute("knowledgeCategory","All");
+			if(!req.getParameter("knowledgeCategory").equals("All")) {
+				System.out.println("전체일경우2"+req.getParameter("knowledgeCategory"));
+				knowledgeCategory= req.getParameter("knowledgeCategory");
+				model.addAttribute("knowledgeCategory",knowledgeCategory);
+			}
+		} else {
+			model.addAttribute("knowledgeCategory","All");
+		}
+		if(req.getParameter("search") != null || req.getParameter("search")=="") {
+			search= req.getParameter("search");
+		}
+		map.put("knowledgeCategory", knowledgeCategory);
+		map.put("search", search);
 		int pageSize = 10; 		// 한 페이지당 출력할 글 갯수
 		if(req.getParameter("btn_select")!=null) {
 			pageSize = Integer.parseInt(req.getParameter("btn_select"));
@@ -86,7 +104,7 @@ public class BoardServiceImpl implements BoardService {
 		int pageCount = 0;      // 페이지 갯수
 		int startPage = 0;		// 시작 페이지
 		int endPage = 0;		// 마지막 페이지
-		cnt = boardDao.knowledgeGetArticleCnt();
+		cnt = boardDao.knowledgeGetArticleCnt(map);
 		pageNum = req.getParameter("pageNum");
 
 		if(pageNum== null) {
@@ -109,7 +127,7 @@ public class BoardServiceImpl implements BoardService {
 		if(end > cnt) end = cnt;	
 		// 출력용 글번호
 		number = cnt - (currentPage -1)* pageSize;
-		Map<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("start", start);
 		map.put("end", end);
 		if(cnt>0) {
@@ -312,6 +330,13 @@ public class BoardServiceImpl implements BoardService {
 		map.put("knowledgeNumber", knowledgeNumber);
 		int knowledgeSelectComent = boardDao.knowledgeSelectComent(map);
 		model.addAttribute("knowledgeSelectComent",knowledgeSelectComent);
+	}
+	// 조회수 증가
+	@Override
+	public void knowledgeAddReadCnt(HttpServletRequest req, Model model) {
+		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
+		boardDao.knowledgeAddReadCnt(knowledgeNumber);
+		
 	}
 	// 동욱이 메소드 종료
 
@@ -943,6 +968,7 @@ public class BoardServiceImpl implements BoardService {
 			model.addAttribute("selectCnt", selectCnt);
 		}
 	}
+	
 	
 	
 	// 대호 메소드 종료 ===================================================

@@ -37,6 +37,8 @@ public interface BoardService {
 	public void knowledgeCommentList(HttpServletRequest req,Model model);
 	// 채택 처리
 	public void knowledgeSelectComent(HttpServletRequest req,Model model);
+	// 조회수 증가
+	public void knowledgeAddReadCnt(HttpServletRequest req,Model model);
 	// 동욱이 메소드 종료
 
 

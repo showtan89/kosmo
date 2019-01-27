@@ -141,7 +141,6 @@ input:focus {
 											class="fa fa-user" aria-hidden="true">Logout</i> </a>
 									</sec:authorize>
 								</div>
-<<<<<<< HEAD
 								
 								<!-- Mypage Button -->
 								<sec:authorize access="isAuthenticated()">

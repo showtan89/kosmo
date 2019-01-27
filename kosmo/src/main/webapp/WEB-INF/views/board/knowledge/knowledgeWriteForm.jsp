@@ -186,18 +186,17 @@
 				<p>
 					<input class="knowledgeWriteForm_button3" type="button" value="카테고리">&nbsp;
 					<select class="btn_select" name="knowledgeCategory" id="btn_select">
-						<option value="교육, 학문">교육, 학문</option>
-						<option value="컴퓨터통신">컴퓨터통신</option>
-						<option value="게임">게임</option>
-						<option value="엔터테이먼트, 예술">엔터테이먼트, 예술</option>
-						<option value="생활">생활</option>
-						<option value="건강">건강</option>
-						<option value="사회, 정치">사회, 정치</option>
-						<option value=경제>경제</option>
-						<option value="여행">여행</option>
-						<option value="스포츠,레저">스포츠,레저</option>
-						<option value="쇼핑">쇼핑</option>
-						<option value="고민Q&A">고민Q&A</option>
+						<option value="Education">Education</option>
+						<option value="Computer">Computer</option>
+						<option value="Game">Game</option>
+						<option value="entertainment">Entertainment</option>
+						<option value="life">Life</option>
+						<option value="Health">Health</option>
+						<option value="society">Society</option>
+						<option value="travel">Travel</option>
+						<option value="sports">Sports</option>
+						<option value="Shopping">Shopping</option>
+						<option value="Question">Question</option>
 					</select>
 					<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID 공개여부">
 					<input type="radio" name="knowledgeOpenCheck" value="Y" checked="checked">공개

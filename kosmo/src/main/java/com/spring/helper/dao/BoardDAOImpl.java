@@ -42,8 +42,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	// 지식인 게시판 게시글 갯수 구하기
 	@Override
-	public int knowledgeGetArticleCnt() {
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.knowledgeGetArticleCnt");
+	public int knowledgeGetArticleCnt(Map<String, Object> map) {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.knowledgeGetArticleCnt",map);
 	}
 	// 지식인 게시판 리스트 출력
 	@Override
@@ -127,6 +127,11 @@ public class BoardDAOImpl implements BoardDAO {
 		if(cnt == 1)
 		cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent3",map);
 		return cnt;
+	}
+	// 조회수 증가
+	@Override
+	public int knowledgeAddReadCnt(int knowledgeNumber) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeAddReadCnt",knowledgeNumber);
 	}
 	// 동욱이 메소드 종료
 

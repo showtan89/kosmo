@@ -12,26 +12,49 @@
 
 	<!-- 동욱이 시작 -->
 	<!-- 지식인 게시판 갯수 구하기 -->
-	<select id="knowledgeGetArticleCnt" resultType="int">
-		select count(*) from knowledge
+	<sql id="knowledgeGetArticleCount">
+		select count(*) from knowledge 
+	</sql>
+	<select id="knowledgeGetArticleCnt" parameterType="java.util.Map" resultType="Integer">
+	<include refid="knowledgeGetArticleCount"/>
+		<where>
+			<if test="!knowledgeCategory.equals('No')"> <!--지역 -->
+				knowledgeCategory = #{knowledgeCategory}
+			</if>
+			<if test="!search.equals('No')"> <!-- 금액 범위  -->
+				AND knowledgeSubject LIKE '%'||#{search}||'%'
+				AND knowledgeContent LIKE '%'||#{search}||'%'
+			</if>
+		</where>
 	</select>
 	<!-- 지식인 게시판 리스트 출력 -->
-	<select id="knowledgeGetArticleList"
-		parameterType="java.util.Map"
-		resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
-	<![CDATA[
-		SELECT *  
-		FROM(SELECT knowledgeNumber, memberNumber, boardCode, memberEmail, memberId, knowledgeSubject, 
-			 		knowledgeContent, knowledgeOpenCheck, knowledgeReward, knowledgeCategory, knowledgeLookup,
-			 		knowledgeRegdate,knowledgeReply,knowledgeTemp1,knowledgeTemp2,knowledgeTemp3, rownum rNum  
-			 FROM ( 
-				 	SELECT * 
-				 	FROM knowledge
-				 	ORDER BY knowledgeRegdate DESC
-				  )
-			 )  
-		WHERE rNum >= #{start} AND rNum <= #{end}
-		]]>
+	<sql id="getknowledgeGetArticleList">
+		SELECT * FROM (SELECT knowledgeNumber, memberNumber, boardCode, memberEmail, memberId, knowledgeSubject  
+			 		,knowledgeContent, knowledgeOpenCheck, knowledgeReward, knowledgeCategory, knowledgeLookup  
+			 		,knowledgeRegdate,knowledgeReply,knowledgeTemp1,knowledgeTemp2,knowledgeTemp3, rownum rNum
+			 		    
+			    FROM (
+	</sql>
+	<select id="knowledgeGetArticleList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
+	<include refid="getknowledgeGetArticleList"/>
+	
+		select * from knowledge
+		<where>
+			boardCode = 10
+			<if test="!knowledgeCategory.equals('No')"> <!--지역 -->
+				AND knowledgeCategory = #{knowledgeCategory}
+			</if>
+			<if test="!search.equals('No')"> <!-- 금액 범위  -->
+				AND knowledgeSubject LIKE '%'||#{search}||'%'
+				AND knowledgeContent LIKE '%'||#{search}||'%'
+			</if>
+		</where>
+		ORDER BY knowledgeRegdate DESC))
+		<where>
+			<![CDATA[
+				rNum >= #{start} and rNum <= #{end}
+			]]>  
+		</where>
 	</select>
 	<!-- 질문등록 처리 -->
 	<insert id="knowledgeInsertArticle"
@@ -107,6 +130,10 @@
 		UPDATE knowledge SET knowledgeReply='Y' WHERE knowledgeNumber=#{knowledgeNumber}
 	</update>
 	<!-- 채택처리 종료 -->
+	<!-- 조회수 증가 -->
+	<update id="knowledgeAddReadCnt" parameterType="int">
+		UPDATE knowledge SET knowledgeLookup=(knowledgeLookup+1) WHERE knowledgeNumber=#{knowledgeNumber}
+	</update>
 	<!-- 동욱이 종료 -->
 
 
