@@ -48,6 +48,7 @@ function emptyComment() {
 $("#submitComment").on("click", function(){
 	var realestateNumber = $('#realestateNumber').val();
 	var rCommentContent = $('#rCommentContent').val();
+	var memberEmail = $('#memberEmail').val();
 	$.ajax({
 		type:'post',
 		url:'realestateCommentsJson',
@@ -56,7 +57,7 @@ $("#submitComment").on("click", function(){
 			"X-HTTP-Method-Override":"POST"
 		},
 		dataType:"text",
-		data:JSON.stringify({realestateNumber:realestateNumber,rCommentContent:rCommentContent}), 
+		data:JSON.stringify({realestateNumber:realestateNumber,rCommentContent:rCommentContent,rCommentTemp1:memberEmail}), 
 		success:function(result){
 			if(result == 'SUCCESS'){
 				getJsonData();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신

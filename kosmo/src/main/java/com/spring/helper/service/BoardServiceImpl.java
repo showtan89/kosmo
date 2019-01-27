@@ -445,6 +445,8 @@ public class BoardServiceImpl implements BoardService {
 			logger.info(uVO.toString());
 			cVO.setMemberId(uVO.getMemberId());
 			cVO.setMemberEmail(uVO.getMemberEmail());
+			cVO.setMemberNumber(uVO.getMemberNumber());
+			cVO.setMemberCountry(uVO.getMemberCountry());
 			return boardDao.realestateCommentPro(cVO);
 		}
 	}

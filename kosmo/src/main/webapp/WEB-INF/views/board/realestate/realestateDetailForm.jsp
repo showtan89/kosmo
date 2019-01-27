@@ -70,10 +70,10 @@
 	<c:if test="${sessionScope.userVO==null }">
 		<c:set var="loginId" value="null" />
 	</c:if>
-	<input type="hidden" name="realestateNumber" id="realestateNumber"
-		value="${param.realestateNumber}"> <input type="hidden"
-		name="memberId" id="memberId" value="${rVO.memberId}"> <input
-		type="hidden" name="loginId" id="loginId" value="${loginId}">
+	<input type="hidden" name="realestateNumber" id="realestateNumber" value="${param.realestateNumber}"> 
+	<input type="hidden" name="memberId" id="memberId" value="${rVO.memberId}"> 
+	<input type="hidden" name="memberEmail" id="memberEmail" value="${rVO.memberEmail}"> 
+	<input type="hidden" name="loginId" id="loginId" value="${loginId}">
 	<!-- 로그인 및 회원정보 관련 부분 끝 -->
 
 	<section class="single_product_details_area mb-50">

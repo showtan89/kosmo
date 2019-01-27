@@ -158,7 +158,12 @@ public class BoardDAOImpl implements BoardDAO {
 
 	//부동산 게시판 댓글 달기
 	public Integer realestateCommentPro(RealestateCommentsVO cVO) {
-		return sqlSession.getMapper(BoardDAO.class).realestateCommentPro(cVO);
+		Integer insertResult = sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateCommentPro",cVO);
+		if(insertResult==1) {
+			System.out.println("여기에요");
+			sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateCommentPro2",cVO);
+		}
+		return insertResult;
 	}
 
 	//부동산 게시판 댓글 삭제
