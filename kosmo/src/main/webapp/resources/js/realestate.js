@@ -18,14 +18,14 @@ function getJsonData(){
 				//반복 작업될 부분 작성 ex) <tr><td> 등
 				function(){			
 					if(memberId==this.memberId){ //글 작성자 == 댓글 작성자 - 글쓴이 태그
-						str +='<hr><ol><li><div class="d-flex"><div class="comment-content" style="width: 100% !important"><div class="d-flex align-items-center justify-content-between"><span><span class="writerTag">WRITER</span><b>&nbsp;'+this.memberId+'</b></span><span class="comment-date">'+this.rcommentRegdate+'&nbsp&nbsp&nbsp&nbsp'; 
+						str +='<hr><ol><li><div class="d-flex"><div class="comment-content" id="'+this.rCommentNumber+'" style="width: 100% !important"><div class="d-flex align-items-center justify-content-between"><span><span class="writerTag">WRITER</span><b>&nbsp;'+this.memberId+'</b></span><span class="comment-date">'+this.rcommentRegdate+'&nbsp&nbsp&nbsp&nbsp'; 
 						if(loginId==this.memberId){ // 댓글 작성자 == 로그인ID - 삭제 기능
 							str +='<div class="btn-group"><button type="button" class="btn btn-default btn-sm dropdown-toggle id="toggle'+this.rCommentNumber+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Delete<span class="caret"></span></button><ul class="dropdown-menu"><li onclick=deleteAccept('+this.rCommentNumber+')>&nbsp;Accept</li><li>&nbsp;Cancel</li></ul></div></span></div>'+this.rCommentContent+'</div></div></li></ol>';
 						}else{
 							str +='<div class="btn-group"><button type="button" class="btn btn-default btn-sm dropdown-toggle disabled id="toggle'+this.rCommentNumber+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Delete<span class="caret"></span></button><ul class="dropdown-menu"><li onclick=deleteAccept('+this.rCommentNumber+')>&nbsp;Accept</li><li>&nbsp;Cancel</li></ul></div></span></div>'+this.rCommentContent+'</div></div></li></ol>';
 						}
 					}else{//글 작성자 != 댓글 작성자 
-						str +='<hr><ol><li><div class="d-flex"><div class="comment-content" style="width: 100% !important"><div class="d-flex align-items-center justify-content-between"><span><b>'+this.memberId+'</b></span><span class="comment-date">'+this.rcommentRegdate+'&nbsp&nbsp&nbsp&nbsp'; 
+						str +='<hr><ol><li><div class="d-flex"><div class="comment-content" id="'+this.rCommentNumber+'" style="width: 100% !important"><div class="d-flex align-items-center justify-content-between"><span><b>'+this.memberId+'</b></span><span class="comment-date">'+this.rcommentRegdate+'&nbsp&nbsp&nbsp&nbsp'; 
 						if(loginId==this.memberId){ // 댓글 작성자 == 로그인ID - 삭제 기능
 							str +='<div class="btn-group"><button type="button" class="btn btn-default btn-sm dropdown-toggle id="toggle'+this.rCommentNumber+'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Delete<span class="caret"></span></button><ul class="dropdown-menu"><li onclick=deleteAccept('+this.rCommentNumber+')>&nbsp;Accept</li><li>&nbsp;Cancel</li></ul></div></span></div>'+this.rCommentContent+'</div></div></li></ol>';
 						}else{
