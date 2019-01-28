@@ -137,38 +137,12 @@ public class BoardDAOImpl implements BoardDAO {
 
 
 
-	//재영 boardDAOImpl 시작
+	//재영 boardDAOImpl 시작 ===============================================================================================
 
 	//부동산 게시판 글 목록 보기
 	@Override
 	public List<RealestateVO> realestateGetArticleList(RealestateVO rVO) {
 		return sqlSession.getMapper(BoardDAO.class).realestateGetArticleList(rVO);
-	}
-
-	//부동산 게시판 글 상세 페이지
-	@Override
-	public RealestateVO realestateGetArticle(int realestateNumber) {
-		return sqlSession.getMapper(BoardDAO.class).realestateGetArticle(realestateNumber);
-	}
-
-	// 부동산 게시판 댓글 가져오기
-	public List<RealestateCommentsVO> realestateGetCommentsList(int realestateNumber){
-		return sqlSession.getMapper(BoardDAO.class).realestateGetCommentsList(realestateNumber);
-	}
-
-	//부동산 게시판 댓글 달기
-	public Integer realestateCommentPro(RealestateCommentsVO cVO) {
-		Integer insertResult = sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateCommentPro",cVO);
-		if(insertResult==1) {
-			System.out.println("여기에요");
-			sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateCommentPro2",cVO);
-		}
-		return insertResult;
-	}
-
-	//부동산 게시판 댓글 삭제
-	public Integer realestateCommentsDelete(int rCommentNumber) {
-		return sqlSession.getMapper(BoardDAO.class).realestateCommentsDelete(rCommentNumber);
 	}
 
 	//부동산 게시판 글 목록 갯수 카운트
@@ -181,6 +155,45 @@ public class BoardDAOImpl implements BoardDAO {
 	public Integer realestateInsertArticle(RealestateVO rVO) {
 		return sqlSession.getMapper(BoardDAO.class).realestateInsertArticle(rVO);
 	}
+
+	//부동산 게시판 글 상세 페이지
+	@Override
+	public RealestateVO realestateGetArticle(int realestateNumber) {
+		return sqlSession.getMapper(BoardDAO.class).realestateGetArticle(realestateNumber);
+	}
+	
+	//부동산 게시판 글 수정
+	public Integer realestateModifyUpdate(RealestateVO rVO) {
+		return sqlSession.getMapper(BoardDAO.class).realestateModifyUpdate(rVO);
+	}
+	
+	//부동산 게시판 글 삭제
+	public Integer realestateDeleteArticle(int realestateNumber) {
+		sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateDeleteComments",realestateNumber);
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateDeleteArticle",realestateNumber);
+	}
+	
+	// 부동산 게시판 댓글 가져오기
+	public List<RealestateCommentsVO> realestateGetCommentsList(int realestateNumber){
+		return sqlSession.getMapper(BoardDAO.class).realestateGetCommentsList(realestateNumber);
+	}
+
+	//부동산 게시판 댓글 달기
+	public Integer realestateCommentPro(RealestateCommentsVO cVO) {
+		Integer insertResult = sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateCommentPro",cVO);
+		if(insertResult==1) {
+			sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateCommentPro2",cVO);
+		}
+		return insertResult;
+	}
+	
+	//부동산 게시판 댓글 삭제
+	public Integer realestateCommentsDelete(int rCommentNumber) {
+		return sqlSession.getMapper(BoardDAO.class).realestateCommentsDelete(rCommentNumber);
+	}
+	
+	// 재영 boardDAOImpl 끝 ===============================================================================================
+
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++++++++++++++++++++
 

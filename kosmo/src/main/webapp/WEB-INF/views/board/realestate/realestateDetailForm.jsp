@@ -29,6 +29,46 @@
 	color: #ffffff;
 	z-index: 10;
 }
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 200px; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 </style>
 </head>
 
@@ -354,7 +394,39 @@
 				</div>
 			</div>
 		</div>
+		<c:if test="${rVO.memberId.equals(loginId)}">
+			<a href="realestateModifyForm?realestateNumber=${param.realestateNumber}"><button type="button" class='btn alazea-btn'>Modify</button></a>
+			<button id="myBtn" class='btn alazea-btn'>Delete</button>
+		</c:if>
 
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<h5 align='center'>Are you sure?</h5><br>
+				<a href="realestateDeletePro?realestateNumber=${param.realestateNumber}"><button type="button" class='btn alazea-btn'>Delete</button></a><br>
+				<a><button type="button" id="closeModal" class='btn alazea-btn'>CLOSE</button></a>
+			</div>
+		</div>
+		
+		<script>
+		// Get the modal
+		var modal = document.getElementById('myModal');
+		var btn = document.getElementById("myBtn");
+		var span = document.getElementById("closeModal");
+		btn.onclick = function() {
+			modal.style.display = "block";
+		}
+		span.onclick = function() {
+			modal.style.display = "none";
+		}
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+		</script>
+		
 		<div class="container">
 			<div class="row">
 				<div class="col-12">

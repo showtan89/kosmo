@@ -39,29 +39,31 @@ public interface BoardService {
 	public void knowledgeSelectComent(HttpServletRequest req,Model model);
 	// 조회수 증가
 	public void knowledgeAddReadCnt(HttpServletRequest req,Model model);
-	// 동욱이 메소드 종료
+	// 동욱이 메소드 종료 
 
 
-	//재영 boardService 시작
-
-	/*public RealestateVO realestateGetVO(HttpServletRequest req);
-	public PageVO realestateListPage(HttpServletRequest req, RealestateVO rVO);
-	public List<RealestateVO> realestateListJson(RealestateVO rVO, int startNumber, int endNumber);*/
-
-	public Integer realestateInsertArticle(HttpServletRequest req, Model model);
-
+	//재영 boardService 시작 ===============================================================================================
+	
+	//부동산 게시판 글 목록 보기
 	public void realestateGetArticleList(HttpServletRequest req, Model model);
-
-	public Integer realestateCommentPro(RealestateCommentsVO cVO, HttpServletRequest req);
-
-	public Integer realestateCommentsDelete(int rCommentNumber);
-
-	public List<RealestateCommentsVO> realestateGetCommentsList(HttpServletRequest req, Model model);
-
-	public void realestateDummyMaker(HttpServletRequest req, Model model);
-
+	//부동산 게시판 글 쓰기
+	public Integer realestateInsertArticle(HttpServletRequest req, Model model);
+	//부동산 게시판 글 상세 페이지
 	public void realestateGetArticle(HttpServletRequest req, Model model);
-	//재영 boardService 끝
+	//부동산 게시판 글 수정
+	public Integer realestateModifyUpdate(HttpServletRequest req, Model model);
+	//부동산 게시판 글 삭제
+	public Integer realestateDeleteArticle(HttpServletRequest req);
+	// 부동산 게시판 댓글 가져오기
+	public List<RealestateCommentsVO> realestateGetCommentsList(HttpServletRequest req, Model model);
+	//부동산 게시판 댓글 달기
+	public Integer realestateCommentPro(RealestateCommentsVO cVO, HttpServletRequest req);
+	//부동산 게시판 댓글 삭제
+	public Integer realestateCommentsDelete(int rCommentNumber);
+	//부동산 게시판 더미 데이터생성기 - 현재 버튼 주석 처리
+	public void realestateDummyMaker(HttpServletRequest req, Model model);
+	
+	//재영 boardService 끝 ===============================================================================================
 
 
 	//민석이 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++++

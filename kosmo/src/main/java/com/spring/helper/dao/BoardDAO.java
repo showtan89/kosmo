@@ -54,24 +54,28 @@ public interface BoardDAO {
 
 
 
-	//재영 boardDAO 시작
+	//재영 boardDAO 시작 ===============================================================================================
 
+	//부동산 게시판 글 목록 보기
 	public List<RealestateVO> realestateGetArticleList(RealestateVO rVO);
-
+	//부동산 게시판 글 목록 갯수 카운트
+	public Integer realestateGetArticleCnt(RealestateVO rVO);
+	//부동산 게시판 글 쓰기
+	public Integer realestateInsertArticle(RealestateVO rVO);
+	//부동산 게시판 글 상세 페이지
 	public RealestateVO realestateGetArticle(int realestateNumber);
-
+	//부동산 게시판 글 수정
+	public Integer realestateModifyUpdate(RealestateVO rVO);
+	//부동산 게시판 글 삭제
+	public Integer realestateDeleteArticle(int realestateNumber);
+	// 부동산 게시판 댓글 가져오기
 	public List<RealestateCommentsVO> realestateGetCommentsList(int realestateNumber);
-
+	//부동산 게시판 댓글 달기
 	public Integer realestateCommentPro(RealestateCommentsVO cVO);
-
+	//부동산 게시판 댓글 삭제
 	public Integer realestateCommentsDelete(int rCommentNumber);
 
-	public Integer realestateGetArticleCnt(RealestateVO rVO);
-
-	public Integer realestateInsertArticle(RealestateVO rVO);
-
-
-	//재영 boardDAO 끝
+	//재영 boardDAO 끝===============================================================================================
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++
 

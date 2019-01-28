@@ -302,12 +302,12 @@
 										<c:when test="${loca.equals('jeollanam')}">
 											Jeollanam-do (전라남도)
 										</c:when>
-										<c:when test="${loca.equals('jeju')}">
+										<c:when test="${loca.	equals('jeju')}">
 											Jeju-do (제주도)
 										</c:when>
 									</c:choose>
 									</strong>
-									<strong class="d-inline-block mb-2 text-success">${dto.realestateSubject}</strong>
+									<a href=realestateDetailForm?realestateNumber=${dto.realestateNumber}><strong class="d-inline-block mb-2 text-success">${dto.realestateSubject}</strong></a>
 									<%-- <span class="card-text mb-auto">${dto.realestateContent}</span> --%>
 									<div class='iconsArea'>
 										<!-- 풀옵션 --><!-- 아이콘 못찾겠다 꾀꼬리  -->

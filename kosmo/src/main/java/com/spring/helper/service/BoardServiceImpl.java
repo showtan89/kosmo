@@ -373,44 +373,15 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("list", list);
 		model.addAttribute("pVO", pVO);
 	}
-
-	// Json 시도하다가 검색 조건 들어가서 시작 
-	/*@Override
-	public RealestateVO realestateGetVO(HttpServletRequest req) {
-		//파라미터(검색조건) VO에 담기
-		RealestateVO rVO = boardMethod.getParameterRealestateVO(req); 
-		return rVO;
-	}*/
-
-	//부동산 게시판 페이지 만들기
-	/*@Override
-	public PageVO realestateListPage(HttpServletRequest req, RealestateVO rVO) {
-		//검색 조건에 대한 게시글 갯수 구하기
-		Integer cnt = boardDao.getRealestateCount(rVO);
-
-		//검색 조건에 대한 게시글 갯수로 페이지 구하기
-		int pageNum = 1;
-		if(req.getParameter("pageNum")!=null) {
-			int temp = Integer.parseInt(req.getParameter("pageNum"));
-			if(temp>1) pageNum = temp;
-		}
-		PageVO pVO = boardMethod.getRealestatePageVO(pageNum,cnt);
-		logger.info(pVO.toString());
-		pVO.setPageNum(String.valueOf(pageNum));
-		return pVO;
-	}
-
-	//부동산 게시판 글 목록 보기
+	
+	//부동산 게시판 글 쓰기
 	@Override
-	public List<RealestateVO> realestateListJson(RealestateVO rVO, int startNumber, int endNumber) {
-		List<RealestateVO> list = new ArrayList<RealestateVO>();
-		rVO.setRealestateStart(startNumber);
-		rVO.setRealestateEnd(endNumber);
-		list = boardDao.realestateList(rVO);
-		return list;
-	}*/
-	// Json 시도하다가 검색 조건 들어가서 보류 끝
-
+	public Integer realestateInsertArticle(HttpServletRequest req, Model model) {
+		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
+		logger.info(rVO.toString());
+		return boardDao.realestateInsertArticle(rVO);
+	}
+	
 	//부동산 게시판 글 상세 페이지 
 	@Override
 	public void realestateGetArticle(HttpServletRequest req, Model model) {
@@ -426,6 +397,21 @@ public class BoardServiceImpl implements BoardService {
 		}else {
 			logger.info("에러이니 페이지 되돌리기 기능넣기!!!");
 		}
+	}
+	
+	// 부동산 게시판 글 수정
+	public Integer realestateModifyUpdate(HttpServletRequest req, Model model) {
+		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
+		return boardDao.realestateModifyUpdate(rVO);
+	}
+	
+	//부동산 게시판 글 삭제
+	public Integer realestateDeleteArticle(HttpServletRequest req) {
+		Integer deleteResult = 0;
+		if(req.getParameter("realestateNumber") != null) {
+			int realestateNumber = Integer.parseInt(req.getParameter("realestateNumber"));
+			deleteResult = boardDao.realestateDeleteArticle(realestateNumber);
+		}return deleteResult;
 	}
 
 	// 부동산 게시판 댓글 가져오기
@@ -455,14 +441,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Integer realestateCommentsDelete(int rCommentNumber) { //전달 받은 댓글 번호 삭제
 		return boardDao.realestateCommentsDelete(rCommentNumber);
-	}
-
-	//부동산 게시판 글 쓰기
-	@Override
-	public Integer realestateInsertArticle(HttpServletRequest req, Model model) {
-		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
-		logger.info(rVO.toString());
-		return boardDao.realestateInsertArticle(rVO);
 	}
 
 	//부동산 게시판 더미 데이터생성기 - 현재 버튼 주석 처리

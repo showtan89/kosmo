@@ -139,7 +139,7 @@
 
 
 
-	<!-- 재영 시작 -->
+	<!-- 재영 시작 ===============================================================================================-->
 	<!-- 부동산 글 등록 -->
 	<insert id='realestateInsertArticle' parameterType="com.spring.helper.vo.BoardVO.RealestateVO">
 		insert into realestate(realestateNumber,memberNumber,boardCode,memberEmail,memberId,realestateSubject,
@@ -155,6 +155,94 @@
 		#{realestateSize},#{realestateType},#{realestateLocation},'empty',0,0,sysdate,
 		'empty',#{realestateImg1},#{realestateImg2,jdbcType=VARCHAR},#{realestateImg3,jdbcType=VARCHAR},#{realestateTemp1})
 	</insert>
+	
+	<sql id="realModifySql">
+		update realestate set 
+	</sql>
+	<update id='realestateModifyUpdate'  parameterType="com.spring.helper.vo.BoardVO.RealestateVO">
+	<include refid="realModifySql"/>
+		<if test="realestateSubject != null">
+			realestateSubject = #{realestateSubject},
+		</if>
+		<if test="realestatePrice != null">
+			realestatePrice = #{realestatePrice},
+		</if>
+		<if test="realestateManagement != null">
+			realestateManagement = #{realestateManagement},
+		</if>
+		<if test="realestateDeposit != null"> 
+			realestateDeposit = #{realestateDeposit},
+			<if test="realestateDeposit == 0"> 
+				realestateDepositCheck = 'off',
+			</if>
+			<if test="realestateDeposit != 0"> 
+				realestateDepositCheck = 'on',
+			</if>
+		</if>
+		<if test="realestateRoom != null">
+			realestateRoom = #{realestateRoom},
+		</if>
+		<if test="realestateToilet != null"> 
+			realestateToilet = #{realestateToilet},
+		</if>
+		<if test="realestateState != null">
+			realestateState = #{realestateState},
+		</if>
+		<if test="realestateCategory1 != null">
+			realestateCategory1 = #{realestateCategory1},
+		</if>
+		<if test="realestateType != null">
+			realestateType = #{realestateType},
+		</if>
+		<if test="realestateTerm != null">
+			realestateTerm = #{realestateTerm},
+		</if>
+		<if test="realestateMoveindate != null">
+			realestateMoveindate = #{realestateMoveindate},
+		</if>
+			<if test="realestateGender != null">
+			realestateGender = #{realestateGender},
+		</if>
+			<if test="realestateHeatingtype != null">
+			realestateHeatingtype = #{realestateHeatingtype},
+		</if>
+			<if test="realestateSize != null">
+			realestateSize = #{realestateSize},
+		</if>
+		<if test="realestateContent != null">
+			realestateContent = #{realestateContent},
+		</if>
+		<if test="realestateOptionCheck != null">
+			realestateOptionCheck = #{realestateOptionCheck},
+		</if>
+		<if test="realestateTobaccoCheck != null">
+			realestateTobaccoCheck = #{realestateTobaccoCheck},
+		</if>
+		<if test="realestatePetCheck != null">
+			realestatePetCheck = #{realestatePetCheck},
+		</if>
+		<if test="realestateBalcony != null">
+			realestateBalcony = #{realestateBalcony},
+		</if>
+		<if test="realestateCar != null">
+			realestateCar = #{realestateCar},
+		</if>
+		<if test="realestateTemp1 != null">
+			realestateTemp1 = #{realestateTemp1}
+		</if>
+		<where>
+			realestateNumber = #{realestateNumber}
+		</where>
+	</update>
+	
+	<!-- 부동산 게시판 글 삭제 -->
+	<delete id="realestateDeleteArticle" parameterType="Integer">
+		delete realestate where realestateNumber = #{realestateNumber} 
+	</delete>
+	<!-- 부동산 게시판 댓글 삭제 -->	
+	<delete id="realestateDeleteComments" parameterType="Integer">
+		delete rComment where realestateNumber = #{realestateNumber} 
+	</delete>
 	
 	<!-- 부동산 게시글 상세보기 -->
 	<select id="realestateGetArticle" parameterType="Integer" resultType="com.spring.helper.vo.BoardVO.RealestateVO">
@@ -326,82 +414,8 @@
 		order by rNum
 	</select>
 	
-	<!-- 부동산 검색조건에 따른 게시글 LIST 구하기 by start ~ end --> <!-- 백업 용 적용 됬으니 삭제 해도 됨 !-->
-	<!-- <sql id="getRealestateList">
-		SELECT *  FROM ( 
-	</sql>
-	<select id="realestateGetArticleList" parameterType="com.spring.helper.vo.BoardVO.RealestateVO" resultType="com.spring.helper.vo.BoardVO.RealestateVO">
-	<include refid="getRealestateList"/>
-		SELECT realestateNumber,memberNumber,boardCode,memberEmail,memberId,realestateSubject,
-		    realestateContent,realestatePrice,realestateCategory1,realestateCategory2,realestateDeposit,realestateDepositCheck,
-		    realestateManagement,realestateOptionCheck,realestateTobaccoCheck,realestateState,realestateHeatingtype,realestateBalcony,
-		    realestatePetCheck,realestateTerm,realestateMoveindate,realestateGender,realestateRoom,realestateToilet,realestateCar,
-		    realestateSize,realestateType,realestateLocation,realestateFavorite,realestateRecommend,realestateLookup,realestateRegdate,
-		    realestateCheckday,realestateImg1,realestateImg2,realestateImg3,realestateTemp1, rownum rNum 
-		FROM realestate
-		<where>
-			boardcode = 20
-			<if test="realestateCategory1 != null"> 지역
-				and realestateCategory1 in #{realestateCategory1}
-			</if>
-			<if test="realestatePrice != 0"> 금액 범위 
-			<![CDATA[
-				and realestatePrice >= #{realestatePrice}
-			]]>
-			</if>
-			<if test="realestatePriceEnd != 0"> 금액 끝 범위 
-			<![CDATA[
-				and realestatePrice <= #{realestatePriceEnd}
-			]]>
-			</if>
-			<if test="realestateDepositCheck != null"> 보증금
-				and realestateDepositCheck in #{realestateDepositCheck}
-			</if>
-			<if test="realestateRoom != null"> 방갯수
-				and realestateRoom in #{realestateRoom}
-			</if>
-			<if test="realestateToilet != null"> 화장실 갯수
-				and realestateToilet in #{realestateToilet}
-			</if>
-			<if test="realestateType != null"> 방형태
-				and realestateType in #{realestateType}
-			</if>
-			<if test="realestateTerm != null"> 계약기간
-				and realestateTerm in #{realestateTerm}
-			</if>
-			<if test="realestateGender != null"> 성별
-				and realestateGender in #{realestateGender}
-			</if>
-			<if test="realestateSize != null"> 방크기
-				and realestateSize in #{realestateSize}
-			</if>
-			<if test="realestateOptionCheck != null"> 풀옵션
-				and realestateOptionCheck in #{realestateOptionCheck}
-			</if>
-			<if test="realestateTobaccoCheck != null"> 담배
-				and realestateTobaccoCheck in #{realestateTobaccoCheck}
-			</if>
-			<if test="realestatePetCheck != null"> 펫
-				and realestatePetCheck in #{realestatePetCheck}
-			</if>
-			<if test="realestateBalcony != null"> 성별
-				and realestateBalcony in #{realestateBalcony}
-			</if>
-			<if test="realestateCar != null"> 주차장
-				and realestateCar in #{realestateCar}
-			</if>
-			<if test="realestateTemp1 != null"> 엘리베이터
-				and realestateTemp1 in #{realestateTemp1}
-			</if>
-				ORDER BY realestatenumber DESC)
-		</where>
-		<where>
-			<![CDATA[
-				rNum >= #{realestateStart} and rNum <= #{realestateEnd}
-			]]>  
-		</where>
-	</select> -->
-	<!-- 재영 끝 -->
+	<!-- 재영 끝 ===============================================================================================-->
+
 
 	<!-- 민석이 시작 -->
 	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
