@@ -98,19 +98,21 @@ input:focus {
 
 function alarmChk() {
 	if(${sessionScope.userVO!=null}){
+		
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
 		$.getJSON("alarmCnt", function(cnt){
 			$('#alarmCnt').html(cnt); 
+			var alarmCnt=0;
+			alarmCnt = setInterval("alarmCnt", 3000)
 		});
 	}else{
 		alert("No Login Session!");
 	}
 };
 
-	
 </script>
-<script type="text/javascript"> 
-/* 
+ <script type="text/javascript"> 
+ /*
 function alarm(){
 	if(loopSendKeyword == false) return false;
 
@@ -134,7 +136,7 @@ function result_callback() {
 			}
 		}
 }  */
-</script>
+</script> 
 <body onload="alarm();">
 	<div style="position: relative;">
 		<div
