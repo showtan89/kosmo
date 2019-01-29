@@ -1,6 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<script src="resources/js/jquery/jquery-3.3.1.min.js"></script>
+<script src="resources/js/request.js"></script>
+<script src="resources/js/request2.js"></script>
+
+
 <style type="text/css">
 .card {
 	border: 1px solid #28a745;
@@ -86,29 +91,21 @@ input:focus {
 	border-radius: 0;
 }
 </style>
-
+<link rel="stylesheet" href="resources/css/googleTranslate.css">
 <!-- ajax 알람  -->
 <script>
 
-/* $(function() {
-	if(${sessionScope.userVO!=null}){
-		setTimeout(alarmChk(), 1000);
-	}	
-}); */
-
-function alarmChk() {
-	if(${sessionScope.userVO!=null}){
-		
+function alarm() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
+		if(${sessionScope.userVO != null}){
 		$.getJSON("alarmCnt", function(cnt){
 			$('#alarmCnt').html(cnt); 
-			var alarmCnt=0;
-			alarmCnt = setInterval("alarmCnt", 3000)
-		});
-	}else{
-		alert("No Login Session!");
+			
+		}); }
 	}
-};
+alarm();
+
+setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 
 </script>
  <script type="text/javascript"> 
@@ -142,6 +139,7 @@ function result_callback() {
 		<div
 			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
 	</div>
+<body onload="alarm();">
 	<header class="header-area">
 		<!-- ***** Top Header Area ***** -->
 		<div class="top-header-area">
@@ -164,7 +162,19 @@ function result_callback() {
 							<!-- Top Header Content -->
 							<div class="top-header-meta d-flex">
 								<!-- Language Dropdown -->
-								<div class="language-dropdown">
+								<div id="google_translate_element"></div>
+								<script type="text/javascript">
+								function googleTranslateElementInit() {
+								  new google.translate.TranslateElement({pageLanguage: 'en', 
+									  includedLanguages: 'ar,en,es,jv,ko,pa,pt,ru,zh-CN', 
+									  layout: google.translate.TranslateElement.InlineLayout.SIMPLE, 
+									  autoDisplay: true}, 'google_translate_element');
+								}
+								</script>
+								<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+								<div class="cart">
+								</div>
+								<!-- <div class="language-dropdown">
 									<div class="dropdown">
 										<button class="btn btn-secondary dropdown-toggle mr-30"
 											type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -179,7 +189,8 @@ function result_callback() {
 												class="dropdown-item" href="#">Latin</a>
 										</div>
 									</div>
-								</div>
+								</div> -->
+								
 								
 								<!-- Login -->
 								<div class="login">
@@ -213,10 +224,8 @@ function result_callback() {
 									<a href="alarmBoard">
 										<i class="fa fa-envelope" aria-hidden="true"></i> 
 										<span>Alarm</span>
-										<span><class="messege-quantity">
-										<div class="alarm" id="alarmCnt"></div>
+										<span id="alarmCnt"><class="messege-quantity">
 										</span></a>
-										<button onclick="alarmChk();">Chk</button>
 								</div>
 
 							</div>
@@ -319,3 +328,4 @@ function result_callback() {
 
 </body>
 <script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="resources/js/googleTranslate.js"></script>

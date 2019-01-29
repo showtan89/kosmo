@@ -197,15 +197,15 @@ public class BoardDAOImpl implements BoardDAO {
 
 	// 코멘트 알람 갯수 구하기
 	@Override
-	public int commentReadCnt(String memId) {
-		sqlSession.update("com.spring.helper.dao.BoardDAO.commentReadList2", memId);
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentReadCnt", memId);
+	public int commentReadCnt(String memEmail) {
+		sqlSession.update("com.spring.helper.dao.BoardDAO.commentReadList2", memEmail);
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentReadCnt", memEmail);
 	}
 	// 채팅 알람 갯수 구하기
 	@Override
-	public int chattingReadCnt(String memId) {
-		sqlSession.update("com.spring.helper.dao.BoardDAO.chattingReadList2", memId);
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingReadCnt", memId);
+	public int chattingReadCnt(String memEmail) {
+		sqlSession.update("com.spring.helper.dao.BoardDAO.chattingReadList2", memEmail);
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingReadCnt", memEmail);
 	}
 
 	//채팅 알람 리스트
