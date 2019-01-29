@@ -420,21 +420,21 @@
 	<!-- 민석이 시작 -->
 	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
 	<select id="commentReadCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  commentalarm where memberid = #{memId}
+		select count(*) cnt from  commentalarm where memberEmail = #{memEmail}
 	</select>		
 	
 	<select id="chattingReadCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  chattingalarm where memberid = #{memId}
+		select count(*) cnt from  chattingalarm where memberEmail = #{memEmail}
 	</select>
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
 	<update id="chattingReadList2" parameterType="String">
-		UPDATE chattingalarm SET chattingalarm = 2 WHERE chattingalarm = 1 AND memberid = #{memId}
+		UPDATE chattingalarm SET chattingalarm = 2 WHERE chattingalarm = 1 AND memberEmail = #{memEmail}
 	</update >
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
 	<update id="commentReadList2" parameterType="String">
-		UPDATE commentalarm SET commentalarm = 2 WHERE commentalarm = 1 AND memberid = #{memId}
+		UPDATE commentalarm SET commentalarm = 2 WHERE commentalarm = 1 AND memberEmail = #{memEmail}
 	</update >
 	
 	<!-- 채팅 알람의 리스트 -->

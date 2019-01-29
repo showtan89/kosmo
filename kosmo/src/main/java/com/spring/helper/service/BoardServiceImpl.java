@@ -475,10 +475,10 @@ public class BoardServiceImpl implements BoardService {
 		int endPage = 0;		// 마지막 페이지
 
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
-		String memId = userVO.getMemberId();
-		System.out.println("memberId : " + memId);
+		String memEmail = userVO.getMemberEmail();
+		System.out.println("memEmail : " + memEmail);
 		//5단계 글갯수 구하기
-		cnt = boardDao.commentReadCnt(memId)+ boardDao.chattingReadCnt(memId);
+		cnt = boardDao.commentReadCnt(memEmail)+ boardDao.chattingReadCnt(memEmail);
 		System.out.println("글 갯수cnt ===============: "+cnt);
 
 		pageNum = req.getParameter("pageNum");
@@ -606,7 +606,7 @@ public class BoardServiceImpl implements BoardService {
 		Integer alarmCnt=0;
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
 		String memEmail = userVO.getMemberEmail();
-		logger.info("memberId : " + memEmail);
+		logger.info("memEmail : " + memEmail);
 		//5단계 글갯수 구하기
 		alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
 		logger.info("alarmCnt : " + alarmCnt);
