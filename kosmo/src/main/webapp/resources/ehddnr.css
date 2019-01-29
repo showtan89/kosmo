@@ -63,6 +63,9 @@
 /* 공통 끝 */
 
 /* knowledge 스타일 적용 시작 */
+.knowledgeBoardListCatagory{
+	font-size:20px;
+}
 .knowledge_ul li{
 display:inline;
 }
@@ -76,7 +79,11 @@ display:inline-block;
 padding-top:5px;
 padding:0;
 margin:0;
-	outline:0;
+outline:0;
+text-align:center;
+}
+#ehddnr_2{
+	text-align:center;
 }
 .knowledge_div2 button:hover,
 .knowledge_div2 button:focus {
@@ -88,7 +95,6 @@ margin:0;
 }
 #knowledge_div3{
 	width: 100%; 
-	margin-top:20px;
 	display:inline-block;
 }
 .knowledge_h4{
@@ -99,7 +105,7 @@ margin:0;
 .knowledge_select {
 	float:right;
 	height: 45px;
-	width: 250px;
+	width: 350px;
 	border: 2px solid #70c745;
 	border-radius: 4px;
 	background: #ffffff;
@@ -107,7 +113,7 @@ margin:0;
 
 .knowledge_select2 {
 	font-size: 13px;
-	width: 195px;
+	width: 265px;
 	height:38px;
 	padding: 10px;
 	border: 0px;
@@ -116,7 +122,7 @@ margin:0;
 }
 
 .knowledge_select3 {
-	width: 50px;
+	width: 80px;
 	height: 100%;
 	border: 0px;
 	background: #70c745;
@@ -126,10 +132,11 @@ margin:0;
 }
 
 #knowledge_button{
-	width:90px;
-	height:30px;
+	width:130px;
+	height:40px;
 	background-color:#70c745; 
 	border:none;
+	color:#fff;
 }
 /* knowledge 스타일 적용 종료 */
 

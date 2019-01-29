@@ -35,7 +35,7 @@
 	<!-- Top Breadcrumb Area -->
 	<div
 		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
-		style="background-image: url(img/bg-img/24.jpg);">
+		style="background-image: url(resources/img/ehddnr2.jpg);">
 		<h2>CONTENT</h2>
 	</div>
 </div>
@@ -133,7 +133,7 @@
 			
 			</li>
 			<li style="position: relative; display:inline;">
-					<input class="knowledgeWriteForm_button3" type="button" value="포인트 설정"
+					<input class="knowledgeWriteForm_button3" type="button" value="POINT OPTION"
 						onclick="knowledgeWriteForm_Reward_block();" style="display:inline-block;">
 						&nbsp;<p class="class_addReward" style="display:inline-block;">채택한
 					답변자에게 포인트를 드립니다.
@@ -141,7 +141,7 @@
 				<div class="knowledgeWriteForm_Reward">
 					<table>
 						<tr style="height: 10%">
-							<th colspan="5">포인트 설정</th>
+							<th colspan="5">POINT OPTION</th>
 						</tr>
 						<tr style="height: 20%">
 							<th class="knowledgeWriteForm_Reward_th" id="Reward_th1"><span
@@ -170,21 +170,21 @@
 						<tr style="height: 30%; width: 100%;">
 							<td colspan="5" style="padding-top: 10px; text-align: left;">
 								<p>
-									<span style="font-size: 10px; float: right;">보유포인트 : ${userVO.memberPoint} </span><br>
+									<span style="font-size: 10px; float: right;">MyPoint : ${userVO.memberPoint} </span><br>
 									<input style="width: 100%;" type="text" id="addReward" name="addReward" value="0">
 								</p>
 							</td>
 						</tr>
 						<tr center="center" style="height: 20%">
 							<td colspan="5">
-								<input class="knowledgeWriteForm_button3" type="button"	value="확인" onclick="return knowledgeWriteForm_addReward();">
-								<input class="knowledgeWriteForm_button3" type="button" value="취소" onclick="knowledgeWriteForm_Reward_none();">
+								<input class="knowledgeWriteForm_button3" type="button"	value="SELECT" onclick="return knowledgeWriteForm_addReward();">
+								<input class="knowledgeWriteForm_button3" type="button" value="CANCLE" onclick="knowledgeWriteForm_Reward_none();">
 							</td>
 						</tr>
 					</table>
 				</div>
 				<p>
-					<input class="knowledgeWriteForm_button3" type="button" value="카테고리">&nbsp;
+					<input class="knowledgeWriteForm_button3" type="button" value="CATEGORY">&nbsp;
 					<select class="btn_select" name="knowledgeCategory" id="btn_select">
 						<option value="Education">Education</option>
 						<option value="Computer">Computer</option>
@@ -198,15 +198,15 @@
 						<option value="Shopping">Shopping</option>
 						<option value="Question">Question</option>
 					</select>
-					<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID 공개여부">
-					<input type="radio" name="knowledgeOpenCheck" value="Y" checked="checked">공개
-					<input type="radio" name="knowledgeOpenCheck" value="N" >비공개
+					<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID">
+					<input type="radio" name="knowledgeOpenCheck" value="Y" checked="checked">OPEN
+					<input type="radio" name="knowledgeOpenCheck" value="N" >CLOSE
 				</p>
 			</li>
 			<li align="center">
 				<br>
-				<input class="knowledgeWriteForm_button3" type="submit" value="질문등록">
-				<input class="knowledgeWriteForm_button3" type="button"	value="목록보기" onclick="knowledge();">
+				<input class="knowledgeWriteForm_button3" type="submit" value="WRITE">
+				<input class="knowledgeWriteForm_button3" type="button"	value="BACK" onclick="knowledge();">
 			</li>
 		</ul>
 	</form>
