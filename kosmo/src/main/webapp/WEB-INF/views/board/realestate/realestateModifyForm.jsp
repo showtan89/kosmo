@@ -9,6 +9,8 @@
 <title>Helper - Realestate</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2113e8e90cb14482a6dafae2a87eac5d&libraries=services"></script>
 </head>
 
 <!-- 프리로더 이미지 -->
@@ -41,6 +43,11 @@
 			<div class="col-12 mb-4">
 				<label for="realestateSubject">Title</label> 
 				<input type="text" class="form-control" id="realestateSubject" name="realestateSubject" value="${rVO.realestateSubject}">
+			</div>
+			<!-- 내용 -->
+			<div class="col-md-12 mb-4">
+				<label for="realestateContent">Contents</label>
+				<textarea class="form-control" id="realestateContent" name="realestateContent" cols="30" rows="10">${rVO.realestateContent}</textarea>
 			</div>
 			<!-- 가격 -->
 			<div class="col-md-4 mb-4">
@@ -98,35 +105,7 @@
 					<option value="under">Underground</option>
 				</select>
 			</div>
-			<!-- 지역권 -->
-			<div class="col-md-4 mb-4">
-				<label for="realestateCategory1">Province</label> 
-				<select	class="custom-select d-block w-100" id="realestateCategory1" name='realestateCategory1'>
-					<option style="display:none;" selected>Select</option>
-					<option value="seoul">Seoul (서울)</option>
-					<option value="busan">Busan (부산)</option>
-					<option value="incheon">Incheon (인천)</option>
-					<option value="gwangju">Gwangju (광주)</option>
-					<option value="daejeon">Daejeon (대전)</option>
-					<option value="sejong">Sejong (세종)</option>
-					<option value="daegu">Daegu (대구)</option>
-					<option value="ulsan">Ulsan (울산)</option>
-					<option value="gyeonggi">Gyeonggi-do (경기도)</option>
-					<option value="gangwon">Gangwon-do (강원도)</option>
-					<option value="chungcheongbuk">Chungcheongbuk-do (충청북도)</option>
-					<option value="chungcheongnam">Chungcheongnam-do (충청남도)</option>
-					<option value="gyeongsangbuk">Gyeongsangbuk-do (경상북도)</option>
-					<option value="gyeongsangnam">Gyeongsangnam-do (경상남도)</option>
-					<option value="jeollabuk">Jeollabuk-do (전라북도)</option>
-					<option value="jeollanam">Jeollanam-do (전라남도)</option>
-					<option value="jeju">Jeju-do (제주도)</option>
-				</select>
-			</div>
-			<!-- 상세 주소 -->
-			<div class="col-md-8 mb-8">
-				<label for="realestateLocation">카테고리(상세 주소)</label> 
-				<input type="text" class="form-control" id="realestateLocation" name="realestateLocation" placeholder="상세주소 보류">
-			</div>
+			
 			<!-- 부동산 형태 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateType">Type of Place</label> 
@@ -194,11 +173,7 @@
 					<option value="more231">231㎡~</option>
 				</select>
 			</div>
-			<!-- 내용 -->
-			<div class="col-md-12 mb-4">
-				<label for="realestateContent">Contents</label>
-				<textarea class="form-control" id="realestateContent" name="realestateContent" cols="30" rows="10">${rVO.realestateContent}</textarea>
-			</div>
+			<hr>
 			<div class="col-md-6 mb-6">
 				<div class="d-flex align-items-center">
 					<!-- 풀옵션 여부 -->
@@ -238,6 +213,45 @@
 					</div>
 				</div>
 			</div>
+			<hr>
+			<!-- 지역권 -->
+			<div class="col-md-4 mb-4">
+				<label for="realestateCategory1">Province</label> 
+				<select	class="custom-select d-block w-100" id="realestateCategory1" name='realestateCategory1'>
+					<option style="display:none;" selected>Select</option>
+					<option value="seoul">Seoul (서울)</option>
+					<option value="busan">Busan (부산)</option>
+					<option value="incheon">Incheon (인천)</option>
+					<option value="gwangju">Gwangju (광주)</option>
+					<option value="daejeon">Daejeon (대전)</option>
+					<option value="sejong">Sejong (세종)</option>
+					<option value="daegu">Daegu (대구)</option>
+					<option value="ulsan">Ulsan (울산)</option>
+					<option value="gyeonggi">Gyeonggi-do (경기도)</option>
+					<option value="gangwon">Gangwon-do (강원도)</option>
+					<option value="chungcheongbuk">Chungcheongbuk-do (충청북도)</option>
+					<option value="chungcheongnam">Chungcheongnam-do (충청남도)</option>
+					<option value="gyeongsangbuk">Gyeongsangbuk-do (경상북도)</option>
+					<option value="gyeongsangnam">Gyeongsangnam-do (경상남도)</option>
+					<option value="jeollabuk">Jeollabuk-do (전라북도)</option>
+					<option value="jeollanam">Jeollanam-do (전라남도)</option>
+					<option value="jeju">Jeju-do (제주도)</option>
+				</select>
+			</div>
+			<!-- 상세 주소 -->
+			<div class="col-md-4 mb-4">
+				<label for="realestateLocation">Detail Address</label> 
+		 		<input type="text" class="form-control" id="realestateLocation" name="realestateLocation" disabled placeholder="Search with the search button on the right.">
+			</div>
+
+			<div class="col-md-4 mb-4">
+				<label for="detailAddressButton">&nbsp;</label> 
+				<button type="button" class="btn alazea-btn form-control btn-custom" id="detailAddressButton" onclick="execDaumPostcode();">Detail Address Search</button>
+			</div>
+			<!-- 지도 위치 -->
+			<div class="col-md-12 mb-4" id="map" style="display:none">
+			</div>
+			
 			<c:if test="${rVO.realestateRoom!=null}">
 				<script>$("#realestateRoom").val('${rVO.realestateRoom}').prop("selected", true);</script>
 			</c:if>

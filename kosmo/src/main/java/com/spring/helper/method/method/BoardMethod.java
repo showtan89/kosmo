@@ -31,6 +31,7 @@ public class BoardMethod {
 		return pVO;
 	}
 	
+	//페이지 변경시 사용 할 URL 주소 만들기
 	public String makeURLbyParameter(HttpServletRequest req) {
 		String temp = "";
 		if(req.getParameter("realestatePrice")!=null && req.getParameter("realestatePrice").length()!=0) {
@@ -84,9 +85,8 @@ public class BoardMethod {
 		//System.out.println(url);
 		return temp;
 	}
-	
 
-	// 재영 부동산 VO 가져오기 메소드 - 글쓰기
+	// 재영 부동산 VO 가져오기 메소드 - 글쓰기 & 수정용
 	public RealestateVO getFullRealestateVO(HttpServletRequest req) {
 		RealestateVO rVO = new RealestateVO();
 		UserVO uVO = (UserVO)req.getSession().getAttribute("userVO");
@@ -114,9 +114,9 @@ public class BoardMethod {
 		if(req.getParameter("realestateDeposit") != null) {
 			int deposit = Integer.parseInt(req.getParameter("realestateDeposit").toString()); 
 			if(deposit == 0) {
-				rVO.setRealestateDepositCheck("No");
+				rVO.setRealestateDepositCheck("off");
 			}else {
-				rVO.setRealestateDepositCheck("Yes");
+				rVO.setRealestateDepositCheck("on");
 			}
 		}
 		//	NUMBER(12,0)	No		관리비
@@ -201,7 +201,6 @@ public class BoardMethod {
 		}else {
 			rVO.setRealestateImg3("empty");
 		}
-
 		//	VARCHAR2(120 BYTE)	Yes	부동산임시컬럼1 - 엘리베이터 여부로 사용
 		if(req.getParameter("realestateTemp1") != null) {
 			rVO.setRealestateTemp1(req.getParameter("realestateTemp1").toString());
@@ -215,7 +214,7 @@ public class BoardMethod {
 		return rVO;
 	}
 
-	// 재영 부동산 VO 가져오기 메소드 - 검색
+	// 재영 부동산 VO 가져오기 메소드 - 검색용
 	public RealestateVO getParameterRealestateVO(HttpServletRequest req) {
 		RealestateVO rVO = new RealestateVO();
 		//	NUMBER(12,0)	No 		부동산번호
