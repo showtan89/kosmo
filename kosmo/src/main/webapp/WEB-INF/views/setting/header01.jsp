@@ -1,6 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<script src="resources/js/jquery/jquery-3.3.1.min.js"></script>
+<script src="resources/js/request.js"></script>
+<script src="resources/js/request2.js"></script>
+
+
 <style type="text/css">
 .card {
 	border: 1px solid #28a745;
@@ -90,52 +95,18 @@ input:focus {
 <!-- ajax 알람  -->
 <script>
 
-/* $(function() {
-	if(${sessionScope.userVO!=null}){
-		setTimeout(alarmChk(), 1000);
-	}	
-}); */
-
-function alarmChk() {
-	if(${sessionScope.userVO!=null}){
+function alarm() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
-		$.getJSON("alarmCnt", function(cnt){
+		 $.getJSON("alarmCnt", function(cnt){
 			$('#alarmCnt').html(cnt); 
 		});
-	}else{
-		//alert("No Login Session!");
 	}
-};
+alarm();
 
+setInterval("alarm();", 2000);
 	
 </script>
-<script type="text/javascript"> 
-/* 
-function alarm(){
-	if(loopSendKeyword == false) return false;
-
-	//var alarmCnt = document.header01.alarmCnt.value;
-	var parms = "alarmCnt=" + alarmCnt;
-	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
-	setTimeout("alarm()", 1000); //실시간 제일 중요한 개념
-}
-
-function result_callback() {
-	var alarmCnt = document.getElementById("alarmCnt");
-	if(httpRequest.readyState == 4){}
-		if(httpRequest.status == 200){
-			loopSendKeyword = true; // 0.5초마다 반복해라
-			setTimeout(sendKeyword(), 100);
-			
-			if(data != null){
-				aCnt = data;
-				checkFirst = true;
-			 alarmCnt.innerHtml = aCnt;
-			}
-		}
-}  */
-</script>
-<body onload="alarmChk();">
+<body onload="alarm();">
 	<div style="position: relative;">
 		<div
 			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
@@ -224,10 +195,8 @@ function result_callback() {
 									<a href="alarmBoard">
 										<i class="fa fa-envelope" aria-hidden="true"></i> 
 										<span>Alarm</span>
-										<span><class="messege-quantity">
-										<div class="alarm" id="alarmCnt"></div>
+										<span id="alarmCnt"><class="messege-quantity">
 										</span></a>
-										<button onclick="alarmChk();">Chk</button>
 								</div>
 
 							</div>
