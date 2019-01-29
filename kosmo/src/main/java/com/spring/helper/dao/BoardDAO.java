@@ -134,21 +134,5 @@ public interface BoardDAO {
 
 	// 진호 메소드 종료--------------------------------------
 
-	// 대호 메소드 시작 ============================================================
 
-	public int memberConfirmidForm(String email);
-
-	public int memberInputPro(Map<String, Object> map);
-
-	public void sendEmailKey(Map<String, Object> map);
-
-	public int memberEmailConfirmed(String emailKey);
-	
-	public int memberModifyPro(Map<String, Object> map);
-	
-	public int memberDeleteForm(Map<String, Object> map);
-	
-	public int memberDeletePro(Map<String, Object> map);
-	
-	// 대호 메소드 종료 ============================================================
 }

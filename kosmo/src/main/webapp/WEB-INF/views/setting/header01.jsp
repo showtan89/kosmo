@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style type="text/css">
 .card {
 	border: 1px solid #28a745;
@@ -191,20 +192,34 @@ function result_callback() {
 									</sec:authorize>
 								</div>
 								
+								
 								<!-- Mypage Button -->
 								<sec:authorize access="isAuthenticated()">
 									<div class="language-dropdown">
 										<div class="dropdown">
-											<a href="myPage">
-												<button class="btn btn-secondary mr-30"
-													type="button" id="dropdownMenuButton"
-													aria-haspopup="true" aria-expanded="false">
-													MyPage
-												</button>
-											</a>
+											<c:if test="${userVO.authority ne 'ROLE_ADMIN'}">
+												<a href="myPage">
+													<button class="btn btn-secondary mr-30"
+														type="button" id="dropdownMenuButton"
+														aria-haspopup="true" aria-expanded="false">
+														MyPage
+													</button>
+												</a>
+											</c:if>
+											
+											<c:if test="${userVO.authority eq 'ROLE_ADMIN'}">
+												<a href="adminPage">
+													<button class="btn btn-secondary mr-30"
+														type="button" id="dropdownMenuButton"
+														aria-haspopup="true" aria-expanded="false">
+														AdminPage
+													</button>
+												</a>
+											</c:if>
 										</div>
 									</div>
 								</sec:authorize>
+								
 							
 								<!-- Alarm -->
 								<div class="cart">
