@@ -455,10 +455,7 @@
 		]]>
 	</select>
 	
-	<!-- ajax댓글 알람 -->
-	<select id="commentAlarm" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.CommentAlarmVO">
-		<!-- SELECT * FROM commentalarm where memberid='park' AND commentalarm=1 -->
-	</select>
+	
 	
 	<!-- 댓글 알람 삭제 -->
 	<delete id="commentDelete" parameterType="int">
@@ -470,13 +467,13 @@
 		 delete from chattingalarm where chattingnumber = #{chattingnumber}
 	</delete>
 	
-	<!-- 댓글 알람 갯수 -->
+	<!-- ajax 댓글 알람 갯수 -->
 	<select id="commentAlarmCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  commentalarm where memberEmail = #{memEmail}
+		SELECT COUNT(*) cnt FROM  commentalarm WHERE memberEmail = #{memEmail} AND commentalarm = 1
 	</select>
-	<!-- 채팅 알람 갯수 -->
+	<!-- ajax 채팅 알람 갯수 -->
 	<select id="chattingAlarmCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  chattingalarm where memberEmail = #{memEmail}
+		SELECT COUNT(*) cnt FROM  chattingalarm WHERE memberEmail = #{memEmail} AND chattingalarm = 1
 	</select>
 	
 	<!-- 민석이 종료 -->
