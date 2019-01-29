@@ -95,12 +95,6 @@ input:focus {
 <!-- ajax 알람  -->
 <script>
 
-/* $(function() {
-	if(${sessionScope.userVO!=null}){
-		setTimeout(alarmChk(), 1000);
-	}	
-}); */
-
 function alarm() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
 		 $.getJSON("alarmCnt", function(cnt){
@@ -189,7 +183,6 @@ setInterval("alarm();", 2000);
 										<i class="fa fa-envelope" aria-hidden="true"></i> 
 										<span>Alarm</span>
 										<span id="alarmCnt"><class="messege-quantity">
-										<!-- <div class="alarm" ></div> -->
 										</span></a>
 								</div>
 
