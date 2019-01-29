@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.helper.service.BoardService;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
+import com.spring.helper.vo.BoardVO.UserVO;
 
 @RestController
 public class BoardRestController {
@@ -78,4 +79,5 @@ public class BoardRestController {
 		}
 		return entity;
 	}*/
+	
 }

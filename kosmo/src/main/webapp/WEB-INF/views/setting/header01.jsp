@@ -93,7 +93,9 @@ input:focus {
 
 function alarm(){
 	if(loopSendKeyword == false) return false;
-	var alarmCnt = document.header01.alarmCnt.value;
+	${if(sessionScop.equals != null){
+		alarmCnt
+	}}
 	var parms = "alarmCnt=" + alarmCnt;
 	
 	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
@@ -191,7 +193,7 @@ function result_callback() {
 									<a href="alarmBoard"><i class="fa fa-envelope"
 										aria-hidden="true"></i> <span>Alarm</span>
 										<span><class="messege-quantity">
-										<div class="alarm" load="alarmCnt();"></div>
+										<div class="alarm"></div>
 										</span></a>
 								</div>
 

@@ -237,12 +237,12 @@ public class BoardDAOImpl implements BoardDAO {
 	//채팅 및 댓글 알람 갯수
 	@Override
 	public int commentAlarmCnt(String memId) {
-		return 0;
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentAlarmCnt", memId);
 	}
 
 	@Override
 	public int chattingAlarmCnt(String memId) {
-		return 0;
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingAlarmCnt", memId);
 	}
 
 
