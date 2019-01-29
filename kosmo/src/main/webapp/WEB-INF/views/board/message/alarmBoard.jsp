@@ -169,7 +169,7 @@
 					
 					<td align="center">${cos.commentregdate}</td>
 					<td align="center">checked</td>
-					<td align="center"><input type="button" value="쪽지삭제" onclick="window.location='commentAlarmDelete?commentnumber=${cos.commentnumber}&pageNum=${pageNum}';"></td>
+					<td align="center"><input type="button" value="delete" onclick="window.location='commentAlarmDelete?commentnumber=${cos.commentnumber}&pageNum=${pageNum}';"></td>
 				</tr>
 				</c:if>
 			</c:forEach>

@@ -86,7 +86,36 @@ input:focus {
 	border-radius: 0;
 }
 </style>
-<body>
+
+<!-- ajax 알람  -->
+
+<script type="text/javascript"> 
+
+function alarm(){
+	if(loopSendKeyword == false) return false;
+	var alarmCnt = document.header01.alarmCnt.value;
+	var parms = "alarmCnt=" + alarmCnt;
+	
+	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
+	setTimeout("alarm()", 1000); //실시간 제일 중요한 개념
+}
+
+function result_callback() {
+	var alarmCnt = document.getElementById("alarmCnt");
+	if(httpRequest.readyState == 4){}
+		if(httpRequest.status == 200){
+			loopSendKeyword = true; // 0.5초마다 반복해라
+			setTimeout(sendKeyword(), 100);
+			
+			if(data != null){
+				aCnt = data;
+				checkFirst = true;
+			 alarmCnt.innerHtml = aCnt;
+			}
+		}
+} 
+</script>
+<body onload="alarm();">
 	<div style="position: relative;">
 		<div
 			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
@@ -156,37 +185,13 @@ input:focus {
 										</div>
 									</div>
 								</sec:authorize>
-<!-- ajax 알람  -->
-<!-- 
-function alarm(){
-	if(loopSendKeyword == false) return false;
-	var alarmCnt = document.header01.alarmCnt.value;
-	var parms = "alarmCnt=" + alarmCnt;
-	
-	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
-	setTimeout("alarm()", 1000); //실시간 제일 중요한 개념
-}
-
-function result_callback() {
-	var alarmCnt = document.getElementById("alarmCnt");
-	if(httpRequest.readyState == 4){}
-		if(httpRequest.status == 200){
-			....
-			if(data != null){
-				aCnt = data;
-				checkFirst = true;
-			 alarmCnt.innerHtml = aCnt;
-			}
-			....
-		}
-}
- -->								
+							
 								<!-- Alarm -->
-								<div class="cart" onbody="alarm">
+								<div class="cart">
 									<a href="alarmBoard"><i class="fa fa-envelope"
 										aria-hidden="true"></i> <span>Alarm</span>
 										<span><class="messege-quantity">
-										(<div class="alarm" onbody="alarmCnt"></div>)
+										<div class="alarm" load="alarmCnt();"></div>
 										</span></a>
 								</div>
 
