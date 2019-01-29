@@ -2,9 +2,6 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<!-- '+this.rcommentRegdate+'
- -->
-
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="">
@@ -14,6 +11,8 @@
 <title>Helper - Realestate</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2113e8e90cb14482a6dafae2a87eac5d&libraries=services"></script>
 <style>
 .dropdown-menu {
 	min-width: 65px !important;
@@ -29,7 +28,6 @@
 	color: #ffffff;
 	z-index: 10;
 }
-
 
 /* The Modal (background) */
 .modal {
@@ -222,8 +220,8 @@
 									</span>
 								</p>
 								<p>
-									<span>Floor / Level : </span> <span> <c:if
-											test="${rVO.realestateState.equals('1')}">
+									<span>Floor / Level : </span> <span> 
+										<c:if test="${rVO.realestateState.equals('1')}">
 								 			1
 								 		</c:if> <c:if test="${rVO.realestateState.equals('2')}">
 								 			2
@@ -397,35 +395,34 @@
 		<c:if test="${rVO.memberId.equals(loginId)}">
 			<a href="realestateModifyForm?realestateNumber=${param.realestateNumber}"><button type="button" class='btn alazea-btn'>Modify</button></a>
 			<button id="myBtn" class='btn alazea-btn'>Delete</button>
-		</c:if>
-
-		<!-- The Modal -->
-		<div id="myModal" class="modal">
-			<!-- Modal content -->
-			<div class="modal-content">
-				<h5 align='center'>Are you sure?</h5><br>
-				<a href="realestateDeletePro?realestateNumber=${param.realestateNumber}"><button type="button" class='btn alazea-btn'>Delete</button></a><br>
-				<a><button type="button" id="closeModal" class='btn alazea-btn'>CLOSE</button></a>
+			
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<h5 align='center'>Are you sure?</h5><br>
+					<a href="realestateDeletePro?realestateNumber=${param.realestateNumber}"><button type="button" class='btn alazea-btn'>Delete</button></a><br>
+					<a><button type="button" id="closeModal" class='btn alazea-btn'>CLOSE</button></a>
+				</div>
 			</div>
-		</div>
-		
-		<script>
-		// Get the modal
-		var modal = document.getElementById('myModal');
-		var btn = document.getElementById("myBtn");
-		var span = document.getElementById("closeModal");
-		btn.onclick = function() {
-			modal.style.display = "block";
-		}
-		span.onclick = function() {
-			modal.style.display = "none";
-		}
-		window.onclick = function(event) {
-			if (event.target == modal) {
+			<script>
+			// Get the modal
+			var modal = document.getElementById('myModal');
+			var btn = document.getElementById("myBtn");
+			var span = document.getElementById("closeModal");
+			btn.onclick = function() {
+				modal.style.display = "block";
+			}
+			span.onclick = function() {
 				modal.style.display = "none";
 			}
-		}
-		</script>
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+			</script>
+		</c:if>
 		
 		<div class="container">
 			<div class="row">
@@ -433,11 +430,8 @@
 					<div class="product_details_tab clearfix">
 						<!-- Tabs -->
 						<ul class="nav nav-tabs" role="tablist" id="product-details-tab">
-							<li class="nav-item"><a href="#reviews"
-								class="nav-link active" data-toggle="tab" role="tab">
-									Comments</a></li>
-							<li class="nav-item"><a href="#description" class="nav-link"
-								data-toggle="tab" role="tab"> Additional Information</a></li>
+							<li class="nav-item"><a href="#reviews" class="nav-link active" data-toggle="tab" role="tab">Comments</a></li>
+							<li class="nav-item"><a href="#description" class="nav-link" data-toggle="tab" role="tab"> Additional Information</a></li>
 						</ul>
 						<!-- Tab Content -->
 						<div class="tab-content">
@@ -465,11 +459,15 @@
 									</div>
 								</c:if>
 								<!-- JSON -->
-								<div id="realestateCommentJson"></div>
+								<div id="realestateCommentJson">
+								
+								</div>
 							</div>
 							<div role="tabpanel" class="tab-pane fade" id="description">
 								<div class="description_area">
-									<p>지도 들어갈 위치</p>
+									<div class="col-md-12 mb-4" id="map" style="display:none">
+									&nbsp;
+									</div>
 								</div>
 							</div>
 						</div>
@@ -480,14 +478,35 @@
 	</section>
 	<!-- ##### Single Product Details Area End ##### -->
 </div>
-
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
-
 <script src="resources/js/realestate.js"></script>
 <script>
 	/*$(document).ready(getJsonData());*/
 	$(function(){
 		getJsonData();
+		
+		var mapContainer = document.getElementById('map'), 
+		mapOption = {
+		    center: new daum.maps.LatLng(37.537187, 127.005476), 
+		    level: 4 
+		};
+		var map = new daum.maps.Map(mapContainer, mapOption);
+		var geocoder = new daum.maps.services.Geocoder();
+		var marker = new daum.maps.Marker({
+			position: new daum.maps.LatLng(37.537187, 127.005476),
+			map: map
+			});
+		var data = '${rVO.realestateLocation}';
+		geocoder.addressSearch(data, function(results, status) {
+	              if (status === daum.maps.services.Status.OK) {
+	                  var result = results[0]; 
+	                  var coords = new daum.maps.LatLng(result.y, result.x);
+	                  mapContainer.style.display = "block";
+	                  map.relayout();
+	                  map.setCenter(coords);
+	                  marker.setPosition(coords)
+	              }
+	          });
 	});
 </script>
 </body>

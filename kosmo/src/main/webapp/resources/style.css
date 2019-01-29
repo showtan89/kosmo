@@ -2643,9 +2643,10 @@ img {
 
 /*# sourceMappingURL=style.css.map */
 
-
-
-
 .child_no_padding > div {
 	padding: 0;
+}
+.btn-custom{
+	max-height:38px !important;
+	line-height:0 !important;
 }
