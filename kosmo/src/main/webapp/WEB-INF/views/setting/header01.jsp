@@ -86,7 +86,7 @@ input:focus {
 	border-radius: 0;
 }
 </style>
-
+<link rel="stylesheet" href="resources/css/googleTranslate.css">
 <!-- ajax 알람  -->
 <script>
 
@@ -98,21 +98,19 @@ input:focus {
 
 function alarmChk() {
 	if(${sessionScope.userVO!=null}){
-		
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
 		$.getJSON("alarmCnt", function(cnt){
 			$('#alarmCnt').html(cnt); 
-			var alarmCnt=0;
-			alarmCnt = setInterval("alarmCnt", 3000)
 		});
 	}else{
-		alert("No Login Session!");
+		//alert("No Login Session!");
 	}
 };
 
+	
 </script>
- <script type="text/javascript"> 
- /*
+<script type="text/javascript"> 
+/* 
 function alarm(){
 	if(loopSendKeyword == false) return false;
 
@@ -136,8 +134,8 @@ function result_callback() {
 			}
 		}
 }  */
-</script> 
-<body onload="alarm();">
+</script>
+<body onload="alarmChk();">
 	<div style="position: relative;">
 		<div
 			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
@@ -164,7 +162,19 @@ function result_callback() {
 							<!-- Top Header Content -->
 							<div class="top-header-meta d-flex">
 								<!-- Language Dropdown -->
-								<div class="language-dropdown">
+								<div id="google_translate_element"></div>
+								<script type="text/javascript">
+								function googleTranslateElementInit() {
+								  new google.translate.TranslateElement({pageLanguage: 'en', 
+									  includedLanguages: 'ar,en,es,jv,ko,pa,pt,ru,zh-CN', 
+									  layout: google.translate.TranslateElement.InlineLayout.SIMPLE, 
+									  autoDisplay: true}, 'google_translate_element');
+								}
+								</script>
+								<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+								<div class="cart">
+								</div>
+								<!-- <div class="language-dropdown">
 									<div class="dropdown">
 										<button class="btn btn-secondary dropdown-toggle mr-30"
 											type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -179,7 +189,8 @@ function result_callback() {
 												class="dropdown-item" href="#">Latin</a>
 										</div>
 									</div>
-								</div>
+								</div> -->
+								
 								
 								<!-- Login -->
 								<div class="login">
@@ -319,3 +330,4 @@ function result_callback() {
 
 </body>
 <script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="resources/js/googleTranslate.js"></script>
