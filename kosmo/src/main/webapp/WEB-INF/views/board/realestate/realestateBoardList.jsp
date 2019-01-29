@@ -9,12 +9,12 @@
 <title>Helper - Realestate</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
-	<style>
-	.realImage {
-		max-width: 200px;
-		min-height: 150px;
-	}
-	</style>
+<style>
+.realImage {
+	max-width: 200px;
+	min-height: 150px;
+}
+</style>
 </head>
 
 <!-- 프리로더 이미지 -->
@@ -65,14 +65,19 @@
 			<div
 				class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between">
 				<div class="shop-page-count">
-					<!-- 이부분 바꿔야함  -->
-					<p>Showing ${pVO.startNumber}–${pVO.endNumber} of ${pVO.totalCount} results</p>
+					<c:if test="${pVO.totalCount>0}">
+						<p>Showing ${pVO.startNumber}–${pVO.endNumber} of ${pVO.totalCount} results</p>
+					</c:if>
+					<c:if test="${pVO.totalCount==0}">
+						<p>0 results</p>
+					</c:if>
 				</div>
 				<!-- Search by Terms -->
 				<div class="search_by_terms">
 					<!-- 데이터 생성용 버튼 - 주석 처리 -->
 					<!-- <a href="realestateDummyMaker"><button type="button" class='btn alazea-btn'>DUMMY</button></a> -->
 					<a href="realestateWriteForm"><button type="button" class='btn alazea-btn'>Write</button></a>
+				
 					<!-- 필터 기능 일단 주석 -->
 					<!-- <form action="#" method="post" class="form-inline">
                                <select class="custom-select widget-title">
@@ -97,116 +102,130 @@
 		<!-- 사이드바 -->
 		<div class="col-12 col-md-4 col-lg-3">
 			<div class="shop-sidebar-area">
-				<form>
+				<form action="realestateBoardList" method="get" onsubmit="return realestateListSearch()">
+					
+					<!-- Shop Widget -->
 					<div class="shop-widget price mb-50">
 						<h4 class="widget-title">Prices</h4>
-						<div class="widget-desc">
-							<div class="slider-range">
-								<div data-min="8" data-max="30" data-unit="$"
-									class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"
-									data-value-min="8" data-value-max="30"
-									data-label-result="Price:">
-									<div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-									<span
-										class="ui-slider-handle ui-state-default ui-corner-all first-handle"
-										tabindex="0"></span> <span
-										class="ui-slider-handle ui-state-default ui-corner-all"
-										tabindex="0"></span>
-								</div>
-								<div class="range-price">Price: $8 - $30</div>
-							</div>
+						<div class="input-group">
+							<input class="form-control" name="realestatePrice" id="realestatePrice" placeholder="Minimum Price">&nbsp;~&nbsp;
+							<input class="form-control" name="realestatePriceEnd" id="realestatePriceEnd" placeholder="Maximum Price">
 						</div>
 					</div>
-
+					
 					<div class="shop-widget catagory mb-50">
-						<h4 class="widget-title">Categories</h4>
+						<h4 class="widget-title">CheckList</h4>
 						<div class="widget-desc">
-							<!-- Single Checkbox -->
 							<div class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"	id="customCheck1"> 
-								<label class="custom-control-label" for="customCheck1">All plants <span class="text-muted">(72)</span></label>
+								<input type="checkbox" class="custom-control-input"	id="realestateOptionCheck" name="realestateOptionCheck"> 
+								<label class="custom-control-label" for="realestateOptionCheck">Fully Furnished</label>
 							</div>
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck2"> <label class="custom-control-label"
-									for="customCheck2">Outdoor plants <span
-									class="text-muted">(20)</span></label>
+							<div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+								<input type="checkbox" class="custom-control-input"	id="realestateTobaccoCheck" name="realestateTobaccoCheck"> 
+								<label class="custom-control-label" for="realestateTobaccoCheck">Smoking Allowed</label>
 							</div>
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck3"> <label class="custom-control-label"
-									for="customCheck3">Indoor plants <span
-									class="text-muted">(15)</span></label>
+							<div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+								<input type="checkbox" class="custom-control-input"	id="realestatePetCheck" name="realestatePetCheck"> 
+								<label class="custom-control-label" for="realestatePetCheck">Pets Allowed</label>
 							</div>
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck4"> <label class="custom-control-label"
-									for="customCheck4">Office Plants <span
-									class="text-muted">(20)</span></label>
+								
+							<div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+								<input type="checkbox" class="custom-control-input"	id="realestateBalcony" name="realestateBalcony"> 
+								<label class="custom-control-label" for="realestateBalcony">Has Balcony</label>
 							</div>
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck5"> <label class="custom-control-label"
-									for="customCheck5">Potted <span class="text-muted">(15)</span></label>
+							<div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+								<input type="checkbox" class="custom-control-input"	id="realestateCar" name="realestateCar"> 
+								<label class="custom-control-label" for="realestateCar">Has Parking lot</label>
 							</div>
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck6"> <label class="custom-control-label"
-									for="customCheck6">Others <span class="text-muted">(2)</span></label>
+							<div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+								<input type="checkbox" class="custom-control-input"	id="realestateTemp1" name="realestateTemp1"> 
+								<label class="custom-control-label" for="realestateTemp1">Has Elevator</label>
 							</div>
 						</div>
 					</div>
 
 					<!-- Shop Widget -->
 					<div class="shop-widget sort-by mb-50">
-						<h4 class="widget-title">Sort by</h4>
-						<div class="widget-desc">
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck7"> <label class="custom-control-label"
-									for="customCheck7">New arrivals</label>
+						<h4 class="widget-title">SELECTLIST</h4>
+						<div class="widget-desc child_no_padding">
+							<div class="custom-control custom-checkbox d-flex align-items-center mb-2">
+								<select	class="custom-select d-block w-100" id="realestateCategory1" name='realestateCategory1'>
+									<option style="display:none;" selected>Province</option>
+									<option value="seoul">Seoul (서울)</option>
+									<option value="busan">Busan (부산)</option>
+									<option value="incheon">Incheon (인천)</option>
+									<option value="gwangju">Gwangju (광주)</option>
+									<option value="daejeon">Daejeon (대전)</option>
+									<option value="sejong">Sejong (세종)</option>
+									<option value="daegu">Daegu (대구)</option>
+									<option value="ulsan">Ulsan (울산)</option>
+									<option value="gyeonggi">Gyeonggi-do (경기도)</option>
+									<option value="gangwon">Gangwon-do (강원도)</option>
+									<option value="chungcheongbuk">Chungcheongbuk-do (충청북도)</option>
+									<option value="chungcheongnam">Chungcheongnam-do (충청남도)</option>
+									<option value="gyeongsangbuk">Gyeongsangbuk-do (경상북도)</option>
+									<option value="gyeongsangnam">Gyeongsangnam-do (경상남도)</option>
+									<option value="jeollabuk">Jeollabuk-do (전라북도)</option>
+									<option value="jeollanam">Jeollanam-do (전라남도)</option>
+									<option value="jeju">Jeju-do (제주도)</option>
+								</select>
 							</div>
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck8"> <label class="custom-control-label"
-									for="customCheck8">Alphabetically, A-Z</label>
+							
+							<div class="custom-control d-flex align-items-center mb-2">
+								<select	class="custom-select d-block w-100" id="realestateGender" name='realestateGender'>
+									<option style="display:none;" selected>Gender</option>
+									<option value="both">Both Gender</option>
+									<option value="male">Male Only</option>
+									<option value="female">Female Only</option>
+								</select>
 							</div>
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck9"> <label class="custom-control-label"
-									for="customCheck9">Alphabetically, Z-A</label>
+							
+							<div class="custom-control d-flex align-items-center mb-2">
+								<select	class="custom-select d-block w-100" id="realestateType" name='realestateType'>
+									<option style="display:none;" selected>Type of Place</option>
+									<option value="apart">Apartment</option>
+									<option value="villa">Villa</option>
+									<option value="house">House</option>
+									<option value="studio">Studio</option>
+									<option value="office">Office</option>
+								</select>
 							</div>
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center mb-2">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck10"> <label
-									class="custom-control-label" for="customCheck10">Price:
-									low to high</label>
+
+							<div class="custom-control d-flex align-items-center mb-2">
+								<select	class="custom-select d-block w-100" id="realestateTerm" name='realestateTerm'>
+									<option style="display:none;" selected>Minimum Rental Period</option>
+									<option value="none">None</option>
+									<option value="2w">2 weeks</option>
+									<option value="1m">1 month</option>
+									<option value="3m">3 months</option>
+									<option value="6m">6 months</option>
+									<option value="12m">1 year</option>
+									<option value="over12m">More than 1 year</option>
+									<option value="undetemined">Undetermined</option>
+								</select>
 							</div>
-							<!-- Single Checkbox -->
-							<div
-								class="custom-control custom-checkbox d-flex align-items-center">
-								<input type="checkbox" class="custom-control-input"
-									id="customCheck11"> <label
-									class="custom-control-label" for="customCheck11">Price:
-									high to low</label>
+
+							<div class="custom-control d-flex align-items-center mb-2">
+								<select	class="custom-select d-block w-100" id="realestateHeatingtype" name='realestateHeatingtype'>
+									<option style="display:none;" selected>Heating Type</option>
+									<option value="individual">Individual heating</option>
+									<option value="central">Central heating</option>
+									<option value="district">District heating</option>
+								</select>
+							</div>
+
+							<div class="custom-control d-flex align-items-center mb-2">
+								<select	class="custom-select d-block w-100" id="realestateSize" name='realestateSize'>
+									<option style="display:none;" selected>Size of Place</option>
+									<option value="under33">~33㎡</option>
+									<option value="33to66">33~66㎡</option>
+									<option value="66to99">66~99㎡</option>
+									<option value="99to132">99~132㎡</option>
+									<option value="132to165">132~165㎡</option>
+									<option value="165to198">165~198㎡</option>
+									<option value="198to231">198~231㎡</option>
+									<option value="more231">231㎡~</option>
+								</select>
 							</div>
 						</div>
 						<hr>
@@ -216,11 +235,17 @@
 				</form>
 			</div>
 		</div>
-
+		
 		<!-- 목록 부분 -->
 		<div class="col-12 col-md-8 col-lg-9">
 			<div class="shop-products-area">
 				<div class="row">
+					<c:if test="${pVO.totalCount==0}">
+						<div class="col-12">
+							<h3>No results found.</h3>
+						</div>
+					</c:if>
+					<c:if test="${pVO.totalCount>0}">
 					<c:forEach var="dto" items="${list}">
 						<div class="col-12">
 							<div class="card flex-md-row mb-4 shadow-sm h-md-250">
@@ -277,12 +302,12 @@
 										<c:when test="${loca.equals('jeollanam')}">
 											Jeollanam-do (전라남도)
 										</c:when>
-										<c:when test="${loca.equals('jeju')}">
+										<c:when test="${loca.	equals('jeju')}">
 											Jeju-do (제주도)
 										</c:when>
 									</c:choose>
 									</strong>
-									<strong class="d-inline-block mb-2 text-success">${dto.realestateSubject}</strong>
+									<a href=realestateDetailForm?realestateNumber=${dto.realestateNumber}><strong class="d-inline-block mb-2 text-success">${dto.realestateSubject}</strong></a>
 									<%-- <span class="card-text mb-auto">${dto.realestateContent}</span> --%>
 									<div class='iconsArea'>
 										<!-- 풀옵션 --><!-- 아이콘 못찾겠다 꾀꼬리  -->
@@ -354,19 +379,62 @@
 							</div>
 						</div>
 					</c:forEach>
+					</c:if>
 				</div>
-
+				
+				<!-- 넘어온 검색 조건을 다시 적용  -->
+				<c:if test="${param.realestatePrice!=null}">
+					<script>$("#realestatePrice").val('${param.realestatePrice}');</script>
+				</c:if>
+				<c:if test="${param.realestatePriceEnd!=null}">
+					<script>$("#realestatePriceEnd").val('${param.realestatePriceEnd}');</script>
+				</c:if>
+				<c:if test="${param.realestateOptionCheck!=null}">
+					<script>$("#realestateOptionCheck").val('${param.realestateOptionCheck}').prop("checked", true);</script>
+				</c:if>
+				<c:if test="${param.realestateTobaccoCheck!=null}">
+					<script>$("#realestateTobaccoCheck").val('${param.realestateTobaccoCheck}').prop("checked", true);</script>
+				</c:if>
+				<c:if test="${param.realestatePetCheck!=null}">
+					<script>$("#realestatePetCheck").val('${param.realestatePetCheck}').prop("checked", true);</script>
+				</c:if>
+				<c:if test="${param.realestateBalcony!=null}">
+					<script>$("#realestateBalcony").val('${param.realestateBalcony}').prop("checked", true);</script>
+				</c:if>
+				<c:if test="${param.realestateCar!=null}">
+					<script>$("#realestateCar").val('${param.realestateCar}').prop("checked", true);</script>
+				</c:if>
+				<c:if test="${param.realestateTemp1!=null}">
+					<script>$("#realestateTemp1").val('${param.realestateTemp1}').prop("checked", true);</script>
+				</c:if>
+				<c:if test="${param.realestateCategory1!=null}">
+					<script>$("#realestateCategory1").val('${param.realestateCategory1}').prop("selected", true);</script>
+				</c:if>
+				<c:if test="${param.realestateGender!=null}">
+					<script>$("#realestateGender").val('${param.realestateGender}').prop("selected", true);</script>
+				</c:if>
+				<c:if test="${param.realestateType!=null}">
+					<script>$("#realestateType").val('${param.realestateType}').prop("selected", true);</script>
+				</c:if>
+				<c:if test="${param.realestateTerm!=null}">
+					<script>$("#realestateTerm").val('${param.realestateTerm}').prop("selected", true);</script>
+				</c:if>
+				<c:if test="${param.realestateHeatingtype!=null}">
+					<script>$("#realestateHeatingtype").val('${param.realestateHeatingtype}').prop("selected", true);</script>
+				</c:if>
+				<c:if test="${param.realestateSize!=null}">
+					<script>$("#realestateSize").val('${param.realestateSize}').prop("selected", true);</script>
+				</c:if>
+				
 				<!-- 페이지 -->
-				<%-- <c:set var="linkURL" value="${requestScope['javax.servlet.forward.servlet_path']}"/> --%>
-				<%-- <c:set var="URL1" value="${pageContext.request.requestURL}" />
-				<c:set var="URL2" value="${pageContext.request.requestURI}" /> --%>
-				<c:set var="linkURL" value="realestateBoardList"/>
+				<c:set var="basicURL" value="realestateBoardList"/>
+				<c:set var="linkURL" value="${linkUrl}"/>
 				<nav aria-label="Page navigation">
 					<ul class="pagination">
 					<c:if test="${pVO.totalCount>0}">
 						<c:if test="${pVO.startPage>pVO.pageBlock}">
-							<li class="page-item"><a class="page-link" href="${linkURL}"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a></li>
-							<li class="page-item"><a class="page-link" href="${linkURL}?pageNum=${(pVO.startPage-pVO.pageBlock)+(pVO.pageBlock-1)}"><i class="fa fa-angle-left"></i></a></li>
+							<li class="page-item"><a class="page-link" href="${basicURL}"><i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a></li>
+							<li class="page-item"><a class="page-link" href="${basicURL}?pageNum=${(pVO.startPage-pVO.pageBlock)+(pVO.pageBlock-1)}${linkURL}"><i class="fa fa-angle-left"></i></a></li>
 						</c:if>
 	
 						<c:forEach var="i" begin="${pVO.startPage}" end="${pVO.endPage}">
@@ -374,13 +442,13 @@
 								<li class="page-item"><a class="page-link" style="background-color: #28a745 !important; color:white !important">${i}</a></li>
 							</c:if>
 							<c:if test="${i!=pVO.currentPage}">
-								<li class="page-item"><a class="page-link" href="${linkURL}?pageNum=${i}">${i}</a></li>
+								<li class="page-item"><a class="page-link" href="${basicURL}?pageNum=${i}${linkURL}">${i}</a></li>
 							</c:if>
 						</c:forEach>
 	
 						<c:if test="${pVO.pageCount > pVO.endPage }">
-							<li class="page-item"><a class="page-link" href="${linkURL}?pageNum=${(pVO.startPage + pVO.pageBlock)}"><i class="fa fa-angle-right"></i></a></li>
-							<li class="page-item"><a class="page-link" href="${linkURL}?pageNum=${pVO.pageCount}"><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+							<li class="page-item"><a class="page-link" href="${basicURL}?pageNum=${(pVO.startPage + pVO.pageBlock)}${linkURL}"><i class="fa fa-angle-right"></i></a></li>
+							<li class="page-item"><a class="page-link" href="${basicURL}?pageNum=${pVO.pageCount}${linkURL}"><i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
 						</c:if>
 					</c:if>
 					</ul>
@@ -390,7 +458,9 @@
 	</div>
 </div>
 
+	
+				
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
-
+<script src="resources/js/realestate.js"></script>
 </body>
 </html>

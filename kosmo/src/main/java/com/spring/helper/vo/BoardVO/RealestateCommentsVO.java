@@ -9,7 +9,9 @@ public class RealestateCommentsVO {
 	private String boardCode;		//	VARCHAR2(120 BYTE)
 	private String memberId;		//	VARCHAR2(120 BYTE)
 	private String memberEmail;		//	VARCHAR2(120 BYTE)
+	private int memberNumber;
 	private int rCommentNumber;		//	NUMBER(12,0)
+	private String memberCountry;
 	private String  rCommentContent; //	VARCHAR2(120 BYTE)
 	private String rcommentRegdate;	//DATE
 	private String rCommentTemp1;	 //	VARCHAR2(120 BYTE)
@@ -20,6 +22,26 @@ public class RealestateCommentsVO {
 		
 	}
 	
+	public String getMemberCountry() {
+		return memberCountry;
+	}
+
+	public void setMemberCountry(String memberCountry) {
+		this.memberCountry = memberCountry;
+	}
+
+	public int getMemberNumber() {
+		return memberNumber;
+	}
+
+	public void setMemberNumber(int memberNumber) {
+		this.memberNumber = memberNumber;
+	}
+
+	public void setRcommentRegdate(String rcommentRegdate) {
+		this.rcommentRegdate = rcommentRegdate;
+	}
+
 	public int getRealestateNumber() {
 		return realestateNumber;
 	}
@@ -80,13 +102,14 @@ public class RealestateCommentsVO {
 	public void setrCommentTemp3(int rCommentTemp3) {
 		this.rCommentTemp3 = rCommentTemp3;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "RealestateCommentsVO [realestateNumber=" + realestateNumber + ", boardCode=" + boardCode + ", memberId="
-				+ memberId + ", memberEmail=" + memberEmail + ", rCommentNumber=" + rCommentNumber
-				+ ", rCommentContent=" + rCommentContent + ", rcommentRegdate=" + rcommentRegdate + ", rCommentTemp1="
-				+ rCommentTemp1 + ", rCommentTemp2=" + rCommentTemp2 + ", rCommentTemp3=" + rCommentTemp3 + "]";
+				+ memberId + ", memberEmail=" + memberEmail + ", memberNumber=" + memberNumber + ", rCommentNumber="
+				+ rCommentNumber + ", memberCountry=" + memberCountry + ", rCommentContent=" + rCommentContent
+				+ ", rcommentRegdate=" + rcommentRegdate + ", rCommentTemp1=" + rCommentTemp1 + ", rCommentTemp2="
+				+ rCommentTemp2 + ", rCommentTemp3=" + rCommentTemp3 + "]";
 	}
-	
+
 }

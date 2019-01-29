@@ -35,36 +35,34 @@
 
 <!-- 부동산 게시판 본문  -->
 <div class="container" style="margin-bottom: 50px;">
-	<h5>Create Post</h5>
+	<h5>Modify Post</h5>
 	<hr>
-	<form action="realestateWritePro" method="post" onsubmit="return realestatePostCheck()">
+	<form action="realestateModifyPro?realestateNumber=${param.realestateNumber}" method="post" >
 		<div class="row ">
 			<!-- 글제목 -->
 			<div class="col-12 mb-4">
 				<label for="realestateSubject">Title</label> 
-				<input type="text" class="form-control" id="realestateSubject" name="realestateSubject"  
-				placeholder="Please write a brief introduction to the place.">
+				<input type="text" class="form-control" id="realestateSubject" name="realestateSubject" value="${rVO.realestateSubject}">
 			</div>
 			<!-- 내용 -->
 			<div class="col-md-12 mb-4">
 				<label for="realestateContent">Contents</label>
-				<textarea class="form-control" id="realestateContent" name="realestateContent" cols="30" rows="10"
-					placeholder="Briefly describe the advantages and disadvantages of place."></textarea>
+				<textarea class="form-control" id="realestateContent" name="realestateContent" cols="30" rows="10">${rVO.realestateContent}</textarea>
 			</div>
 			<!-- 가격 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestatePrice">Price per Week</label> 
-				<input type="text" class="form-control" id="realestatePrice" name="realestatePrice">
+				<input type="text" class="form-control" id="realestatePrice" name="realestatePrice" value="${rVO.realestatePrice}">
 			</div>
 			<!-- 관리비 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateManagement">Management fees per Week</label>
-				<input type="text" class="form-control" id="realestateManagement" name="realestateManagement">
+				<input type="text" class="form-control" id="realestateManagement" name="realestateManagement" value="${rVO.realestateManagement}">
 			</div>
 			<!-- 보증금 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateDeposit">Security Deposit</label> 
-				<input type="text" class="form-control" id="realestateDeposit" name="realestateDeposit">
+				<input type="text" class="form-control" id="realestateDeposit" name="realestateDeposit" value="${rVO.realestateDeposit}">
 			</div>
 			<!-- 방 갯수 -->
 			<div class="col-md-4 mb-4">
@@ -77,6 +75,7 @@
 					<option value="over3">more than 3</option>
 				</select>
 			</div>
+			
 			<!-- 화장실 갯수 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateToilet">Number of Bathrooms</label> 
@@ -106,6 +105,7 @@
 					<option value="under">Underground</option>
 				</select>
 			</div>
+			
 			<!-- 부동산 형태 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateType">Type of Place</label> 
@@ -136,7 +136,7 @@
 			<!-- 입주가능일 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateMoveindate">Date of Availability</label> 
-				<input type="date" class="form-control" id="realestateMoveindate" name="realestateMoveindate">
+				<input type="date" class="form-control" id="realestateMoveindate" name="realestateMoveindate" value="${rVO.realestateMoveindate}">
 			</div>
 			<!-- 성별 -->
 			<div class="col-md-4 mb-4"><!-- Female Only -->
@@ -251,6 +251,52 @@
 			<!-- 지도 위치 -->
 			<div class="col-md-12 mb-4" id="map" style="display:none">
 			</div>
+			
+			<c:if test="${rVO.realestateRoom!=null}">
+				<script>$("#realestateRoom").val('${rVO.realestateRoom}').prop("selected", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateToilet!=null}">
+				<script>$("#realestateToilet").val('${rVO.realestateToilet}').prop("selected", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateState!=null}">
+				<script>$("#realestateState").val('${rVO.realestateState}').prop("selected", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateCategory1!=null}">
+				<script>$("#realestateCategory1").val('${rVO.realestateCategory1}').prop("selected", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateType!=null}">
+				<script>$("#realestateType").val('${rVO.realestateType}').prop("selected", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateTerm!=null}">
+				<script>$("#realestateTerm").val('${rVO.realestateTerm}').prop("selected", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateGender!=null}">
+				<script>$("#realestateGender").val('${rVO.realestateGender}').prop("selected", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateHeatingtype!=null}">
+				<script>$("#realestateHeatingtype").val('${rVO.realestateHeatingtype}').prop("selected", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateSize!=null}">
+				<script>$("#realestateSize").val('${rVO.realestateSize}').prop("selected", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateOptionCheck.equals('on')}">
+				<script>$("#realestateOptionCheck").val('${rVO.realestateOptionCheck}').prop("checked", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateTobaccoCheck.equals('on')}">
+				<script>$("#realestateTobaccoCheck").val('${rVO.realestateTobaccoCheck}').prop("checked", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestatePetCheck.equals('on')}">
+				<script>$("#realestatePetCheck").val('${rVO.realestatePetCheck}').prop("checked", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateBalcony.equals('on')}">
+				<script>$("#realestateBalcony").val('${rVO.realestateBalcony}').prop("checked", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateCar.equals('on')}">
+				<script>$("#realestateCar").val('${rVO.realestateCar}').prop("checked", true);</script>
+			</c:if>
+			<c:if test="${rVO.realestateTemp1.equals('on')}">
+				<script>$("#realestateTemp1").val('${rVO.realestateTemp1}').prop("checked", true);</script>
+			</c:if>
 			<hr>
 			<!-- 첨부파일 -->
 			<h1>첨부이미지 보류</h1>
@@ -268,52 +314,20 @@
 			</div> -->
 		</div>
 		<hr>
-		<a href="realestate"><button type="button" class='btn alazea-btn'>Back</button></a>
-		<button type="submit" class='btn alazea-btn'>Write</button>
+		<c:if test="${sessionScope.userVO!=null }">
+			<c:set var="loginId" value="${sessionScope.userVO.memberId}" />
+		</c:if>
+		<c:if test="${sessionScope.userVO==null }">
+			<c:set var="loginId" value="null" />
+		</c:if>
+		<c:if test="${rVO.memberId.equals(loginId)}">
+			<button type="button" class='btn alazea-btn' onclick='window.history.back();'>Back</button>
+			<button type="submit" class='btn alazea-btn'>Modify</button>
+		</c:if>
 	</form>
 </div>
+
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
-<script>
-	//다음 지도 & 주소 검색 API
-	var mapContainer = document.getElementById('map'), 
-	mapOption = {
-	    center: new daum.maps.LatLng(37.537187, 127.005476), 
-	    level: 4 
-	};
-	var map = new daum.maps.Map(mapContainer, mapOption);
-	var geocoder = new daum.maps.services.Geocoder();
-	var marker = new daum.maps.Marker({
-	position: new daum.maps.LatLng(37.537187, 127.005476),
-	map: map
-	});
-	function execDaumPostcode() {
-	    new daum.Postcode({
-	        oncomplete: function(data) {
-	            var addr = data.addressEnglish; 
-	            document.getElementById("realestateLocation").value = addr;
-	            geocoder.addressSearch(data.address, function(results, status) {
-	                if (status === daum.maps.services.Status.OK) {
-	                    var result = results[0]; 
-	                    var coords = new daum.maps.LatLng(result.y, result.x);
-	                    mapContainer.style.display = "block";
-	                    map.relayout();
-	                    map.setCenter(coords);
-	                    marker.setPosition(coords)
-	                }
-	            });
-	            
-	        },
-		    theme: {
-		    	searchBgColor: "#70c745",
-		    	queryTextColor: "#FFFFFF"
-		    },
-		    alwaysShowEngAddr : true,
-		    animation: true,
-		    width:700,
-		    hideMapBtn:true
-	    }).open();
-	}
-</script>
-<script src="resources/js/realestate.js"></script>
+<script src="resources/js/realestate.js"></script><!-- 입력폼 확인 -->
 </body>
 </html>

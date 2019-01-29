@@ -121,14 +121,14 @@ public class HelPerController{
 		
 		return "board/message/chattingAlarmDelete";
 	}
-	// ajax 댓글 알람 진행중
+	
 	@Scheduled(cron = "0 * * * * *" )
 	public void scheduleRun(HttpServletRequest req,Model model) {
 		logger.info("스케쥴러러러러러러러러러러");
 
-		service.scheduleRun(req, model);
-
+		//service.alarmServiceCnt(req, model);
 	}
+	
 	/*@RequestMapping("commentAlarm")
 	public String commentAlarm(HttpServletRequest req,Model model) {
 		logger.info("commentAlarmDelete 로딩 중....");

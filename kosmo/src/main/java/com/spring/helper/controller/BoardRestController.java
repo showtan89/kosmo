@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.helper.service.BoardService;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
+import com.spring.helper.vo.BoardVO.UserVO;
 
 @RestController
 public class BoardRestController {
@@ -78,4 +79,12 @@ public class BoardRestController {
 		}
 		return entity;
 	}*/
+	
+	@RequestMapping(value="alarmCnt", method = RequestMethod.GET)
+	ResponseEntity<Integer> alarmCnt(HttpServletRequest req ){
+		logger.info("alarmCnt 호출");
+		Integer alarmServiceCnt = service.alarmServiceCnt(req); 
+		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
+	}
+	
 }

@@ -86,7 +86,58 @@ input:focus {
 	border-radius: 0;
 }
 </style>
-<body>
+
+<!-- ajax 알람  -->
+<script>
+
+/* $(function() {
+	if(${sessionScope.userVO!=null}){
+		setTimeout(alarmChk(), 1000);
+	}	
+}); */
+
+function alarmChk() {
+	if(${sessionScope.userVO!=null}){
+		
+		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
+		$.getJSON("alarmCnt", function(cnt){
+			$('#alarmCnt').html(cnt); 
+			var alarmCnt=0;
+			alarmCnt = setInterval("alarmCnt", 3000)
+		});
+	}else{
+		alert("No Login Session!");
+	}
+};
+
+</script>
+ <script type="text/javascript"> 
+ /*
+function alarm(){
+	if(loopSendKeyword == false) return false;
+
+	//var alarmCnt = document.header01.alarmCnt.value;
+	var parms = "alarmCnt=" + alarmCnt;
+	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
+	setTimeout("alarm()", 1000); //실시간 제일 중요한 개념
+}
+
+function result_callback() {
+	var alarmCnt = document.getElementById("alarmCnt");
+	if(httpRequest.readyState == 4){}
+		if(httpRequest.status == 200){
+			loopSendKeyword = true; // 0.5초마다 반복해라
+			setTimeout(sendKeyword(), 100);
+			
+			if(data != null){
+				aCnt = data;
+				checkFirst = true;
+			 alarmCnt.innerHtml = aCnt;
+			}
+		}
+}  */
+</script> 
+<body onload="alarm();">
 	<div style="position: relative;">
 		<div
 			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
@@ -156,14 +207,16 @@ input:focus {
 										</div>
 									</div>
 								</sec:authorize>
-								
-								<!-- Cart -->
-
+							
 								<!-- Alarm -->
 								<div class="cart">
-									<a href="#"><i class="fa fa-envelope"
-										aria-hidden="true"></i> <span>Alarm </span> 
-									<span><class="messege-quantity">(0)</span></a>
+									<a href="alarmBoard">
+										<i class="fa fa-envelope" aria-hidden="true"></i> 
+										<span>Alarm</span>
+										<span><class="messege-quantity">
+										<div class="alarm" id="alarmCnt"></div>
+										</span></a>
+										<button onclick="alarmChk();">Chk</button>
 								</div>
 
 							</div>

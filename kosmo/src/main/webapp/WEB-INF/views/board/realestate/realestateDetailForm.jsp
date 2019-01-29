@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<!-- '+this.rcommentRegdate+'
- -->
-
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="">
@@ -13,21 +11,62 @@
 <title>Helper - Realestate</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2113e8e90cb14482a6dafae2a87eac5d&libraries=services"></script>
 <style>
 .dropdown-menu {
-    min-width: 65px !important;
-    margin-left: auto;
- 	margin-right: auto;
- }
+	min-width: 65px !important;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .writerTag {
 	background-color: #70c745;
 	border-radius: 2px;
 	display: inline-block;
 	padding: 0 10px;
 	color: #ffffff;
-	z-index: 10; 
+	z-index: 10;
 }
- 
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 200px; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 </style>
 </head>
 
@@ -42,7 +81,8 @@
 <jsp:include page="../../setting/header01.jsp" flush="false" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <c:set var="realimage" value="resources/img/board/realestate/" />
 
 <!-- 메뉴바 아래 이미지 -->
@@ -58,41 +98,40 @@
 <!-- 부동산 게시판 본문  -->
 <div class="container" style="margin-bottom: 50px;">
 	<hr>
-	<br>
-	<br>
-	
+	<br> <br>
+
 	<!-- 로그인 및 회원정보 관련 부분 -->
 	<%@page import="com.spring.helper.vo.BoardVO.UserVO"%>
 	<c:if test="${sessionScope.userVO!=null }">
-		<c:set var ="loginId" value="${sessionScope.userVO.memberId}"/>
+		<c:set var="loginId" value="${sessionScope.userVO.memberId}" />
 	</c:if>
 	<c:if test="${sessionScope.userVO==null }">
-		<c:set var ="loginId" value="null"/>
+		<c:set var="loginId" value="null" />
 	</c:if>
-	<input type="hidden" name="realestateNumber" id="realestateNumber" value="${param.realestateNumber}">
-	<input type="hidden" name="memberId" id="memberId" value="${rVO.memberId}">
+	<input type="hidden" name="realestateNumber" id="realestateNumber" value="${param.realestateNumber}"> 
+	<input type="hidden" name="memberId" id="memberId" value="${rVO.memberId}"> 
+	<input type="hidden" name="memberEmail" id="memberEmail" value="${rVO.memberEmail}"> 
 	<input type="hidden" name="loginId" id="loginId" value="${loginId}">
 	<!-- 로그인 및 회원정보 관련 부분 끝 -->
-	
+
 	<section class="single_product_details_area mb-50">
 		<div class="produts-details--content mb-50">
 			<div class="container">
 				<div class="row justify-content-between">
 					<div class="col-12 col-md-6 col-lg-5">
 						<div class="single_product_thumb">
-							<div id="product_details_slider" class="carousel slide" data-ride="carousel">
+							<div id="product_details_slider" class="carousel slide"
+								data-ride="carousel">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
 										<%-- <a class="product-img" href="${realimage}${rVO.realestateImg1}" title="Product Image">  --%>
-										<img class="d-block w-100"
-											src="${realimage}${rVO.realestateImg1}" alt="1">
+										<img class="d-block w-100" src="${realimage}${rVO.realestateImg1}" alt="1">
 										<!-- </a> -->
 									</div>
 									<c:if test="${!rVO.realestateImg2.equals('empty')}">
 										<div class="carousel-item">
 											<%-- <a class="product-img" href="${realimage}${rVO.realestateImg2}" title="Product Image">  --%>
-											<img class="d-block w-100"
-												src="${realimage}${rVO.realestateImg2}" alt="1">
+											<img class="d-block w-100" src="${realimage}${rVO.realestateImg2}" alt="1">
 											<!-- </a> -->
 										</div>
 									</c:if>
@@ -147,75 +186,60 @@
 									<span>Location detail : </span> <span>${rVO.realestateLocation}</span>
 								</p>
 								<p>
-									<span>Management fees per Week : </span> 
-									<span> 
-									<fmt:setLocale value="ko_KR" /> 
-									<fmt:formatNumber value="${rVO.realestateManagement}" type="currency" /></span>
+									<span>Management fees per Week : </span> <span> <fmt:setLocale
+											value="ko_KR" /> <fmt:formatNumber
+											value="${rVO.realestateManagement}" type="currency" /></span>
 								</p>
 
 								<p>
-									<span>Security Deposit : </span> <span> 
-									<c:if test="${rVO.realestateDepositCheck.equals('off')}">
+									<span>Security Deposit : </span> <span> <c:if
+											test="${rVO.realestateDepositCheck.equals('off')}">
 										none
-									</c:if> 
-									<c:if test="${rVO.realestateDepositCheck.equals('on')}">
-										<fmt:setLocale value="ko_KR" />
-										<fmt:formatNumber value="${rVO.realestateDeposit}" type="currency" />
-									</c:if></span>
+									</c:if> <c:if test="${rVO.realestateDepositCheck.equals('on')}">
+											<fmt:setLocale value="ko_KR" />
+											<fmt:formatNumber value="${rVO.realestateDeposit}"
+												type="currency" />
+										</c:if></span>
 								</p>
 								<p>
-									<span>Number of Rooms : </span> 
-									<span> 
-										<c:if test="${rVO.realestateRoom.equals('over3')}">
+									<span>Number of Rooms : </span> <span> <c:if
+											test="${rVO.realestateRoom.equals('over3')}">
 									 			more than 3
-									 	</c:if> 
-									 	<c:if test="${!rVO.realestateRoom.equals('over3')}">
+									 	</c:if> <c:if test="${!rVO.realestateRoom.equals('over3')}">
 								 			${rVO.realestateRoom }
 								 		</c:if>
 									</span>
 								</p>
 								<p>
-									<span>Number of Bathrooms : </span> 
-									<span> 
-										<c:if test="${rVO.realestateToilet.equals('over3')}">
+									<span>Number of Bathrooms : </span> <span> <c:if
+											test="${rVO.realestateToilet.equals('over3')}">
 								 			more than 3
-								 		</c:if> 
-								 		<c:if test="${!rVO.realestateToilet.equals('over3')}">
+								 		</c:if> <c:if test="${!rVO.realestateToilet.equals('over3')}">
 								 			${rVO.realestateToilet }
 								 		</c:if>
 									</span>
 								</p>
 								<p>
-									<span>Floor / Level : </span> 
-									<span> 
+									<span>Floor / Level : </span> <span> 
 										<c:if test="${rVO.realestateState.equals('1')}">
 								 			1
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('2')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('2')}">
 								 			2
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('3')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('3')}">
 								 			3
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('4')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('4')}">
 								 			4
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('5')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('5')}">
 								 			5
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('6to10')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('6to10')}">
 								 			Between 6 and 10
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('11to15')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('11to15')}">
 								 			Between 11 and 15
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('16to20')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('16to20')}">
 								 			Between 16 and 20
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('over20')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('over20')}">
 								 			Higher than 20
-								 		</c:if> 
-								 		<c:if test="${rVO.realestateState.equals('under')}">
+								 		</c:if> <c:if test="${rVO.realestateState.equals('under')}">
 								 			Underground
 								 		</c:if>
 									</span>
@@ -228,8 +252,8 @@
 							<div class="single-widget-area products--meta">
 								<ol class="popular-tags d-flex flex-wrap">
 
-									<c:if test="${rVO.realestateCategory1.equals('seoul')}">,
-								 		<li><a>Seoul (서울)</a></li>
+									<c:if test="${rVO.realestateCategory1.equals('seoul')}">
+										<li><a>Seoul (서울)</a></li>
 									</c:if>
 									<c:if test="${rVO.realestateCategory1.equals('busan')}">
 										<li><a>Busan (부산)</a></li>
@@ -368,47 +392,82 @@
 				</div>
 			</div>
 		</div>
-
+		<c:if test="${rVO.memberId.equals(loginId)}">
+			<a href="realestateModifyForm?realestateNumber=${param.realestateNumber}"><button type="button" class='btn alazea-btn'>Modify</button></a>
+			<button id="myBtn" class='btn alazea-btn'>Delete</button>
+			
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+				<!-- Modal content -->
+				<div class="modal-content">
+					<h5 align='center'>Are you sure?</h5><br>
+					<a href="realestateDeletePro?realestateNumber=${param.realestateNumber}"><button type="button" class='btn alazea-btn'>Delete</button></a><br>
+					<a><button type="button" id="closeModal" class='btn alazea-btn'>CLOSE</button></a>
+				</div>
+			</div>
+			<script>
+			// Get the modal
+			var modal = document.getElementById('myModal');
+			var btn = document.getElementById("myBtn");
+			var span = document.getElementById("closeModal");
+			btn.onclick = function() {
+				modal.style.display = "block";
+			}
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+			</script>
+		</c:if>
+		
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 					<div class="product_details_tab clearfix">
 						<!-- Tabs -->
 						<ul class="nav nav-tabs" role="tablist" id="product-details-tab">
-							<li class="nav-item"><a href="#reviews" class="nav-link active" data-toggle="tab" role="tab"> 
-								Comments</a></li>
-							<li class="nav-item"><a href="#description"	class="nav-link" data-toggle="tab" role="tab">
-								Additional Information</a></li>
+							<li class="nav-item"><a href="#reviews" class="nav-link active" data-toggle="tab" role="tab">Comments</a></li>
+							<li class="nav-item"><a href="#description" class="nav-link" data-toggle="tab" role="tab"> Additional Information</a></li>
 						</ul>
 						<!-- Tab Content -->
 						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane fade show active" id="reviews">
+							<div role="tabpanel" class="tab-pane fade show active"
+								id="reviews">
 								<c:if test="${sessionScope.userVO!=null }">
 									<div class="submit_a_review_area mt-50">
 										<h4>Submit Comment</h4>
 										<!-- <form action="realestateCommentPro" method="post"> -->
-											<div class="row">
-												<div class="col-12">
-													<div class="form-group">
-														<input type="hidden" name="realestateNumber" id="realestateNumber" value="${param.realestateNumber}">
-														<textarea class="form-control" id="rCommentContent" name='rCommentContent' rows="5" data-max-length="150"></textarea>
-													</div>
-												</div>
-												<div class="col-12">
-													<button type="button" id="submitComment" class="btn alazea-btn">Submit Your Comment</button>
+										<div class="row">
+											<div class="col-12">
+												<div class="form-group">
+													<input type="hidden" name="realestateNumber"
+														id="realestateNumber" value="${param.realestateNumber}">
+													<textarea class="form-control" id="rCommentContent"
+														name='rCommentContent' rows="5" data-max-length="150"></textarea>
 												</div>
 											</div>
+											<div class="col-12">
+												<button type="button" id="submitComment"
+													class="btn alazea-btn">Submit Your Comment</button>
+											</div>
+										</div>
 										<!-- </form> -->
 									</div>
 								</c:if>
 								<!-- JSON -->
 								<div id="realestateCommentJson">
-									
+								
 								</div>
 							</div>
 							<div role="tabpanel" class="tab-pane fade" id="description">
 								<div class="description_area">
-									<p>지도 들어갈 위치</p>
+									<div class="col-md-12 mb-4" id="map" style="display:none">
+									&nbsp;
+									</div>
 								</div>
 							</div>
 						</div>
@@ -419,13 +478,36 @@
 	</section>
 	<!-- ##### Single Product Details Area End ##### -->
 </div>
-
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
-
 <script src="resources/js/realestate.js"></script>
 <script>
 	/*$(document).ready(getJsonData());*/
-	$(function(){getJsonData();});
+	$(function(){
+		getJsonData();
+		
+		var mapContainer = document.getElementById('map'), 
+		mapOption = {
+		    center: new daum.maps.LatLng(37.537187, 127.005476), 
+		    level: 4 
+		};
+		var map = new daum.maps.Map(mapContainer, mapOption);
+		var geocoder = new daum.maps.services.Geocoder();
+		var marker = new daum.maps.Marker({
+			position: new daum.maps.LatLng(37.537187, 127.005476),
+			map: map
+			});
+		var data = '${rVO.realestateLocation}';
+		geocoder.addressSearch(data, function(results, status) {
+	              if (status === daum.maps.services.Status.OK) {
+	                  var result = results[0]; 
+	                  var coords = new daum.maps.LatLng(result.y, result.x);
+	                  mapContainer.style.display = "block";
+	                  map.relayout();
+	                  map.setCenter(coords);
+	                  marker.setPosition(coords)
+	              }
+	          });
+	});
 </script>
 </body>
 </html>

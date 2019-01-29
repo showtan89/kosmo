@@ -124,7 +124,7 @@ public class BoardController {
 	// 동욱이 메소드 종료
 
 
-	//재영 BoardController 시작
+	//재영 BoardController 시작 ====================================================================================
 
 	//부동산 게시판 글 목록 페이지로 이동
 	@RequestMapping("realestateBoardList")
@@ -142,15 +142,6 @@ public class BoardController {
 		return "board/realestate/realestateDetailForm";
 	}
 
-	//부동산 게시판 글쓰기 실행
-	@RequestMapping("realestateWritePro")
-	public void realestateWritePro(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
-		logger.info("realestateWritePro 로딩 중....");
-		Integer realestateInsertArticle = service.realestateInsertArticle(req, model);
-		res.sendRedirect("knowledgeBoardList?insertResult="+realestateInsertArticle);
-		//return "board/realestate/realestateBoardList";
-	}
-	
 	//부동산 게시판 글쓰기 페이지로 이동
 	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	@RequestMapping("realestateWriteForm")
@@ -162,6 +153,39 @@ public class BoardController {
 		return "board/realestate/realestateWriteForm";
 	}
 	
+	//부동산 게시판 글쓰기 실행
+	@RequestMapping("realestateDeletePro")
+	public void realestateDeletePro(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
+		logger.info("realestateDeletePro 로딩 중....");
+		Integer deleteResult = service.realestateDeleteArticle(req);
+		res.sendRedirect("realestateBoardList?deleteResult="+deleteResult);
+	}
+	
+	//부동산 게시판 글쓰기 실행
+	@RequestMapping("realestateWritePro")
+	public void realestateWritePro(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
+		logger.info("realestateWritePro 로딩 중....");
+		Integer realestateInsertArticle = service.realestateInsertArticle(req, model);
+		res.sendRedirect("realestateBoardList?insertResult="+realestateInsertArticle);
+	}
+	
+	//부동산 게시판 글 수정 페이지로 이동
+	@RequestMapping("realestateModifyForm")
+	public String realestateModifyForm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("realestateModifyForm 로딩 중....");
+		service.realestateGetArticle(req, model);
+		return "board/realestate/realestateModifyForm";
+	}
+	
+	//부동산 게시판 글 수정 실행
+	@RequestMapping("realestateModifyPro")
+	public void realestateModifyPro(HttpServletRequest req, Model model,HttpServletResponse res) throws Exception {
+		logger.info("realestateModifyPro 로딩 중....");
+		Integer modifyResult = service.realestateModifyUpdate(req, model);
+		String realestateNumber = req.getParameter("realestateNumber");
+		res.sendRedirect("realestateDetailForm?modifyResult="+modifyResult+"&realestateNumber="+realestateNumber);
+	}
+	
 	//부동산 게시판 게시글 생성기
 	@RequestMapping("realestateDummyMaker")
 	public String realestateDummyMaker(HttpServletRequest req, Model model) throws Exception {
@@ -170,7 +194,7 @@ public class BoardController {
 		return "board/realestate/realestate";
 	}
 	
-	//재영 BoardController 끝
+	//재영 BoardController 끝 ====================================================================================
 
 	//진호 BoardController 시작----------------------------------------------------
 	// 원데이 리스트 출력
