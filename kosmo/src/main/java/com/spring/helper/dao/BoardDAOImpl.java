@@ -56,6 +56,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 질문등록 처리
 	@Override
 	public int knowledgeInsertArticle(KnowledgeVO Knowledge) {
+		sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent",Knowledge);
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeInsertArticle",Knowledge);
 	}
 	// 질문수정 폼 이동
@@ -119,9 +120,6 @@ public class BoardDAOImpl implements BoardDAO {
 	public int knowledgeSelectComent(Map<String, Object> map) {
 		// 질문자 포인트 차감
 		int cnt = 0;
-		cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent",map);
-		// 답변자 포인트 추가
-		if(cnt == 1)
 			cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent2",map);
 		// 글 채택완료 처리
 		if(cnt == 1)

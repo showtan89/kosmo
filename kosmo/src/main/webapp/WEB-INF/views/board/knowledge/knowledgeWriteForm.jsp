@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ page import="com.spring.helper.vo.BoardVO.UserVO"%>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -46,7 +47,7 @@
 
 <!-- 동욱이 css -->
 <link rel="stylesheet" href="resources/ehddnr.css">
-<script type="text/javascript" src="resources/jquery-3.3.1.min.js"></script>
+
 <script type="text/javascript">
 	function onsubmitcheck(){
 		if(!$('#knowledgeSubject').val()){
@@ -103,11 +104,18 @@
 		}
 		function knowledgeWriteForm_addReward(){
 			var addReward = $('#addReward').val();
+			var point = $('#memberPoint').val();
+			
 			if(!$.isNumeric(addReward)){
 				$('#addReward').focus();
 				$('#addReward').val(null);
 				$('#addReward').attr('placeholder',"숫자를 입력하세요.");
 				$('#addReward').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
+				return false;
+			} else if(addReward>point){
+				alert("보유한 포인트보다 많습니다.");
+				$('#addReward').focus();
+				$('#addReward').val(null);
 				return false;
 			} else if(addReward != '0'){
 				$('p.class_addReward').text('포인트 '+addReward+'을 채택자에게 드립니다.');
@@ -128,7 +136,7 @@
 			</li>
 			<li>
 			<p style="display: inline" class="bytes">0</p>/5000</li>
-			<li style="width: 100%; height: 500px; margin: 0 0 20px 0;padding:5px 5px;">
+			<li style="width: 100%; height: 500px; margin: 0 0 20px 0;">
 			<textarea class="content" maxlength="5000"style="width: 100%; height: 100%;padding:5px 5px;" name="knowledgeContent" id="knowledgeContent"></textarea>
 			
 			</li>
@@ -171,6 +179,7 @@
 							<td colspan="5" style="padding-top: 10px; text-align: left;">
 								<p>
 									<span style="font-size: 10px; float: right;">MyPoint : ${userVO.memberPoint} </span><br>
+									<input type="hidden" id="memberPoint" value="${userVO.memberPoint}">
 									<input style="width: 100%;" type="text" id="addReward" name="addReward" value="0">
 								</p>
 							</td>
@@ -196,17 +205,17 @@
 						<option value="travel">Travel</option>
 						<option value="sports">Sports</option>
 						<option value="Shopping">Shopping</option>
-						<option value="Question">Question</option>
+						<option value="Worry">Worry</option>
 					</select>
-					<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID">
-					<input type="radio" name="knowledgeOpenCheck" value="Y" checked="checked">OPEN
-					<input type="radio" name="knowledgeOpenCheck" value="N" >CLOSE
+					<input style="margin:0 10px 0 30px;"class="knowledgeWriteForm_button3" type="button" value="ID">
+					<input type="radio" style="margin-right:5px;"name="knowledgeOpenCheck" value="Y" checked="checked">OPEN
+					<input type="radio" style="margin-left:5px;"name="knowledgeOpenCheck" value="N" >CLOSE
 				</p>
 			</li>
 			<li align="center">
 				<br>
 				<input class="knowledgeWriteForm_button3" type="submit" value="WRITE">
-				<input class="knowledgeWriteForm_button3" type="button"	value="BACK" onclick="knowledge();">
+				<input class="knowledgeWriteForm_button3" style="margin-left:10px;" type="button"	value="BACK" onclick="knowledge();">
 			</li>
 		</ul>
 	</form>
