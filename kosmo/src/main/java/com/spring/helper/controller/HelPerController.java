@@ -126,7 +126,7 @@ public class HelPerController{
 	public void scheduleRun(HttpServletRequest req,Model model) {
 		logger.info("스케쥴러러러러러러러러러러");
 
-		service.alarmServiceCnt(req, model);
+		//service.alarmServiceCnt(req, model);
 	}
 	
 	/*@RequestMapping("commentAlarm")

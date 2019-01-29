@@ -78,7 +78,7 @@ public interface BoardService {
 	public void chattingAlarmDelete(HttpServletRequest req, Model model);
 	//ajax 댓글 알람
 	
-	public void alarmServiceCnt(HttpServletRequest req, Model model);
+	public Integer alarmServiceCnt(HttpServletRequest req);
 	/*messagePro
 			messageAlarmForm
 			messageAlarmPro*/

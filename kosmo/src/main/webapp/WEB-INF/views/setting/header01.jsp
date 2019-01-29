@@ -88,16 +88,34 @@ input:focus {
 </style>
 
 <!-- ajax 알람  -->
+<script>
 
+/* $(function() {
+	if(${sessionScope.userVO!=null}){
+		setTimeout(alarmChk(), 1000);
+	}	
+}); */
+
+function alarmChk() {
+	if(${sessionScope.userVO!=null}){
+		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
+		$.getJSON("alarmCnt", function(cnt){
+			$('#alarmCnt').html(cnt); 
+		});
+	}else{
+		alert("No Login Session!");
+	}
+};
+
+	
+</script>
 <script type="text/javascript"> 
-
+/* 
 function alarm(){
 	if(loopSendKeyword == false) return false;
-	${if(sessionScop.equals != null){
-		alarmCnt
-	}}
+
+	//var alarmCnt = document.header01.alarmCnt.value;
 	var parms = "alarmCnt=" + alarmCnt;
-	
 	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
 	setTimeout("alarm()", 1000); //실시간 제일 중요한 개념
 }
@@ -115,7 +133,7 @@ function result_callback() {
 			 alarmCnt.innerHtml = aCnt;
 			}
 		}
-} 
+}  */
 </script>
 <body onload="alarm();">
 	<div style="position: relative;">
@@ -190,11 +208,13 @@ function result_callback() {
 							
 								<!-- Alarm -->
 								<div class="cart">
-									<a href="alarmBoard"><i class="fa fa-envelope"
-										aria-hidden="true"></i> <span>Alarm</span>
+									<a href="alarmBoard">
+										<i class="fa fa-envelope" aria-hidden="true"></i> 
+										<span>Alarm</span>
 										<span><class="messege-quantity">
-										<div class="alarm"></div>
+										<div class="alarm" id="alarmCnt"></div>
 										</span></a>
+										<button onclick="alarmChk();">Chk</button>
 								</div>
 
 							</div>
