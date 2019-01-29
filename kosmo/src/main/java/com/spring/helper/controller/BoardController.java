@@ -282,6 +282,17 @@ public class BoardController {
 	
 	// 진호  BoardController 끝----------------------------------------------------
 	
+	
+	// 민석이시작++++++++++++++++++++++++++++++
+	// 글쓰기 처리페이지
+		@RequestMapping("employment")
+		public String employment(HttpServletRequest req, Model model) throws Exception {
+			logger.info("다문화 고용 페이지....");
+			
+			return "board/multicultural/employment";
+		}
+	
+	// 민석이 끝++++++++++++++++++++++++++++++++
 
 
 }

@@ -80,6 +80,7 @@ public class BoardRestController {
 		return entity;
 	}*/
 	
+	//헤더 알람 갯수 카운트
 	@RequestMapping(value="alarmCnt", method = RequestMethod.GET)
 	ResponseEntity<Integer> alarmCnt(HttpServletRequest req ){
 		logger.info("alarmCnt 호출");

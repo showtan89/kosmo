@@ -259,7 +259,7 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 										</ul></li>
 									<li><a href="#">Foreign policy</a>
 										<ul class="dropdown">
-											<li><a href="employment.jsp">Employment</a></li>
+											<li><a href="employment">Employment</a></li>
 											<li><a href="multicultural.jsp">Multicultural</a></li>
 											<li><a href="legalinfo.jsp">Legal Information</a></li>
 										</ul></li>
