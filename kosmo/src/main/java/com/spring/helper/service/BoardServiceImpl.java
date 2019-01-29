@@ -602,18 +602,15 @@ public class BoardServiceImpl implements BoardService {
 
 	//ajax 댓글 알림
 	@Override
-	public void alarmServiceCnt(HttpServletRequest req, Model model) {
-
-		int alarmCnt=0;
-
+	public Integer alarmServiceCnt(HttpServletRequest req) {
+		Integer alarmCnt=0;
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
-		String memId = userVO.getMemberId();
-		System.out.println("memberId : " + memId);
+		String memEmail = userVO.getMemberEmail();
+		logger.info("memberId : " + memEmail);
 		//5단계 글갯수 구하기
-		alarmCnt = boardDao.commentAlarmCnt(memId)+ boardDao.chattingAlarmCnt(memId);
-		System.out.println("alarmCnt : " + alarmCnt);
-		
-		model.addAttribute("alarmCnt"+alarmCnt);
+		alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
+		logger.info("alarmCnt : " + alarmCnt);
+		return alarmCnt;
 	
 	}
 

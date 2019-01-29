@@ -472,11 +472,11 @@
 	
 	<!-- 댓글 알람 갯수 -->
 	<select id="commentAlarmCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  commentalarm where memberid = #{memId}
+		select count(*) cnt from  commentalarm where memberEmail = #{memEmail}
 	</select>
 	<!-- 채팅 알람 갯수 -->
 	<select id="chattingAlarmCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  chattingalarm where memberid = #{memId}
+		select count(*) cnt from  chattingalarm where memberEmail = #{memEmail}
 	</select>
 	
 	<!-- 민석이 종료 -->

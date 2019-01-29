@@ -97,9 +97,9 @@ public interface BoardDAO {
 	// 채팅 알람 지우기
 	public int chattingDelete (int chattingnumber);
 	
-	public int commentAlarmCnt(String memId);
+	public int commentAlarmCnt(String memEmail);
 	
-	public int chattingAlarmCnt(String memId);
+	public int chattingAlarmCnt(String memEmail);
 
 	//민석이 메소드 종료+++++++++++++++++++++++++++++++
 

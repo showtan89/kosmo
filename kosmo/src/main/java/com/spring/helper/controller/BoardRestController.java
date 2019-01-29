@@ -78,4 +78,12 @@ public class BoardRestController {
 		}
 		return entity;
 	}*/
+	
+	@RequestMapping(value="alarmCnt", method = RequestMethod.GET)
+	ResponseEntity<Integer> alarmCnt(HttpServletRequest req ){
+		logger.info("alarmCnt 호출");
+		Integer alarmServiceCnt = service.alarmServiceCnt(req); 
+		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
+	}
+	
 }
