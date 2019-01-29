@@ -190,11 +190,13 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 							
 								<!-- Alarm -->
 								<div class="cart">
+								<c:if test="${sessionScope.userVO != null}">
 									<a href="alarmBoard">
 										<i class="fa fa-envelope" aria-hidden="true"></i> 
 										<span>Alarm</span>
 										<span id="alarmCnt"><class="messege-quantity">
 										</span></a>
+								</c:if>
 								</div>
 
 							</div>
