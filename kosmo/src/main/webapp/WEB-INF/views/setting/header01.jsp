@@ -107,10 +107,6 @@ setInterval("alarm();", 2000);
 	
 </script>
 <body onload="alarm();">
-	<div style="position: relative;">
-		<div
-			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
-	</div>
 	<header class="header-area">
 		<!-- ***** Top Header Area ***** -->
 		<div class="top-header-area">
