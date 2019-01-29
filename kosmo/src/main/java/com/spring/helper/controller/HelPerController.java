@@ -80,6 +80,13 @@ public class HelPerController{
 		logger.info("realestate 로딩 중....");
 		res.sendRedirect("realestateBoardList");
 	}
+	
+	@RequestMapping("news")
+	public void news(HttpServletResponse res) throws Exception {
+		logger.info("news 로딩 중....");
+		res.sendRedirect("newsBoard");
+	}
+	
 	// 재영 끝
 
 	// 진호 시작-------------------------------------------

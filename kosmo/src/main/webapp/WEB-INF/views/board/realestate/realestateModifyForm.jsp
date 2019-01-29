@@ -193,7 +193,6 @@
 					</div>
 				</div>
 			</div>
-			<hr>
 			<div class="col-md-6 mb-6">
 				<div class="d-flex align-items-center">
 					<!-- 발코니 여부 -->
@@ -241,7 +240,7 @@
 			<!-- 상세 주소 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateLocation">Detail Address</label> 
-		 		<input type="text" class="form-control" id="realestateLocation" name="realestateLocation" disabled placeholder="Search with the search button on the right.">
+		 		<input type="text" class="form-control" id="realestateLocation" name="realestateLocation" disabled value="${rVO.realestateLocation}">
 			</div>
 
 			<div class="col-md-4 mb-4">
@@ -250,6 +249,7 @@
 			</div>
 			<!-- 지도 위치 -->
 			<div class="col-md-12 mb-4" id="map" style="display:none">
+			
 			</div>
 			
 			<c:if test="${rVO.realestateRoom!=null}">
@@ -328,6 +328,48 @@
 </div>
 
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
-<script src="resources/js/realestate.js"></script><!-- 입력폼 확인 -->
+<script>
+	//다음 지도 & 주소 검색 API
+	var mapContainer = document.getElementById('map'), 
+	mapOption = {
+	    center: new daum.maps.LatLng(37.537187, 127.005476), 
+	    level: 4 
+	};
+	var map = new daum.maps.Map(mapContainer, mapOption);
+	var geocoder = new daum.maps.services.Geocoder();
+	var marker = new daum.maps.Marker({
+		position: new daum.maps.LatLng(37.537187, 127.005476),
+		map: map
+	});
+	function execDaumPostcode() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            var addr = data.addressEnglish; 
+	            document.getElementById("realestateLocation").value = addr;
+	            geocoder.addressSearch(data.address, function(results, status) {
+	                if (status === daum.maps.services.Status.OK) {
+	                    var result = results[0]; 
+	                    var coords = new daum.maps.LatLng(result.y, result.x);
+	                    mapContainer.style.display = "block";
+	                    mapContainer.style.height = '300px'; 
+	                    map.relayout();
+	                    map.setCenter(coords);
+	                    marker.setPosition(coords)
+	                }
+	            });
+	            
+	        },
+		    theme: {
+		    	searchBgColor: "#70c745",
+		    	queryTextColor: "#FFFFFF"
+		    },
+		    alwaysShowEngAddr : true,
+		    animation: true,
+		    width:700,
+		    hideMapBtn:true
+	    }).open();
+	}
+</script>
+<script src="resources/js/realestate.js"></script>
 </body>
 </html>

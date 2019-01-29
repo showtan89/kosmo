@@ -2650,3 +2650,6 @@ img {
 	max-height:38px !important;
 	line-height:0 !important;
 }
+.bg-img-custom {
+	background-image: url("./img/bg-img/3.jpg");
+	background-repeat: repeat !important;}

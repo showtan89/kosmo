@@ -283,8 +283,8 @@
 	var map = new daum.maps.Map(mapContainer, mapOption);
 	var geocoder = new daum.maps.services.Geocoder();
 	var marker = new daum.maps.Marker({
-	position: new daum.maps.LatLng(37.537187, 127.005476),
-	map: map
+		position: new daum.maps.LatLng(37.537187, 127.005476),
+		map: map
 	});
 	function execDaumPostcode() {
 	    new daum.Postcode({
@@ -296,6 +296,7 @@
 	                    var result = results[0]; 
 	                    var coords = new daum.maps.LatLng(result.y, result.x);
 	                    mapContainer.style.display = "block";
+	                    mapContainer.style.height = '300px'; 
 	                    map.relayout();
 	                    map.setCenter(coords);
 	                    marker.setPosition(coords)
