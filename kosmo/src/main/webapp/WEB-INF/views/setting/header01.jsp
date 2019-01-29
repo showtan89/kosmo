@@ -91,7 +91,7 @@ input:focus {
 	border-radius: 0;
 }
 </style>
-
+<link rel="stylesheet" href="resources/css/googleTranslate.css">
 <!-- ajax 알람  -->
 <script>
 
@@ -109,10 +109,6 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 
 </script>
 <body onload="alarm();">
-	<div style="position: relative;">
-		<div
-			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
-	</div>
 	<header class="header-area">
 		<!-- ***** Top Header Area ***** -->
 		<div class="top-header-area">
@@ -135,7 +131,19 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 							<!-- Top Header Content -->
 							<div class="top-header-meta d-flex">
 								<!-- Language Dropdown -->
-								<div class="language-dropdown">
+								<div id="google_translate_element"></div>
+								<script type="text/javascript">
+								function googleTranslateElementInit() {
+								  new google.translate.TranslateElement({pageLanguage: 'en', 
+									  includedLanguages: 'ar,en,es,jv,ko,pa,pt,ru,zh-CN', 
+									  layout: google.translate.TranslateElement.InlineLayout.SIMPLE, 
+									  autoDisplay: true}, 'google_translate_element');
+								}
+								</script>
+								<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+								<div class="cart">
+								</div>
+								<!-- <div class="language-dropdown">
 									<div class="dropdown">
 										<button class="btn btn-secondary dropdown-toggle mr-30"
 											type="button" id="dropdownMenuButton" data-toggle="dropdown"
@@ -150,7 +158,8 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 												class="dropdown-item" href="#">Latin</a>
 										</div>
 									</div>
-								</div>
+								</div> -->
+								
 								
 								<!-- Login -->
 								<div class="login">
@@ -288,3 +297,4 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 
 </body>
 <script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="resources/js/googleTranslate.js"></script>
