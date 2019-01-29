@@ -97,14 +97,16 @@ input:focus {
 
 function alarm() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
-		 $.getJSON("alarmCnt", function(cnt){
+		if(${sessionScope.userVO != null}){
+		$.getJSON("alarmCnt", function(cnt){
 			$('#alarmCnt').html(cnt); 
-		});
+			
+		}); }
 	}
 alarm();
 
-setInterval("alarm();", 2000);
-	
+setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
+
 </script>
 <body onload="alarm();">
 	<header class="header-area">
