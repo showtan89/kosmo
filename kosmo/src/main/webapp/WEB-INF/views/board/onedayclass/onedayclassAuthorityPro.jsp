@@ -58,10 +58,19 @@
 	</div>
 </div>
 
-
-관리자페이지 작성이후에 승인된 결과값 출력해야함
-onedayclassAccountNumber 업뎃해야함
-
+	<c:if test="${updateCnt == 0 || updateCnt == null}">
+		<script type="text/javascript">
+			alert("신청 실패");
+			window.history.back();
+		</script>
+	</c:if>
+	
+	<c:if test="${updateCnt > 0}">
+		<script type="text/javascript">
+			alert("Successfully apply");
+			window.location.href="onedayclassBoardList";
+		</script>
+	</c:if>
 
 
 

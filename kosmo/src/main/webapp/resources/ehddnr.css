@@ -63,8 +63,13 @@
 /* 공통 끝 */
 
 /* knowledge 스타일 적용 시작 */
-.knowledgeBoardListCatagory{
-	font-size:20px;
+.knowledgeup{
+	text-transform: uppercase;
+}
+
+.knowledgeCategoryAteg:hover{
+	font-weight: bold;
+	font-size:16px;
 }
 .knowledge_ul li{
 display:inline;
@@ -130,12 +135,16 @@ text-align:center;
 	float: right;
 	color: #fff;
 }
-
+#SearchButton:hover{
+	background:#fff;
+	color:#70c745;
+	border-left:1.5px solid #70c745;
+}
 #knowledge_button{
 	width:130px;
 	height:40px;
-	background-color:#70c745; 
 	border:none;
+	background:none;
 	color:#fff;
 }
 /* knowledge 스타일 적용 종료 */

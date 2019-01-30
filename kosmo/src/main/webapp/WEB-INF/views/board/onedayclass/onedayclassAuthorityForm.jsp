@@ -25,6 +25,44 @@
 <link rel="stylesheet" href="resources/style.css">
 
 </head>
+
+<script type="text/javascript">
+
+	function onlyNumber(event){
+		
+		event = event || window.event;
+		
+		var keyID = (event.which) ? event.which : event.keyCode;
+		
+		if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+			return;
+		else
+			return false;
+	}
+	
+	function removeChar(event) {
+		
+		event = event || window.event;
+		
+		var keyID = (event.which) ? event.which : event.keyCode;
+		
+		if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+			return;
+		else
+			event.target.value = event.target.value.replace(/[^0-9]/g, "");
+	}
+
+	function writeChk() {
+		
+		if (!document.authForm.i.value) {
+			alert("Must be write your account number");
+			document.authForm.i.focus();
+			return false;
+		}
+	}
+</script>
+
+
 <div class="preloader d-flex align-items-center justify-content-center">
 	<div class="preloader-circle"></div>
 	<div class="preloader-img">
@@ -66,6 +104,8 @@
 .tg .tg-h6ay{background-color:#f9f9f9;border-color:inherit;text-align:left}
 .tg .tg-xldj{border-color:inherit;text-align:left}
 </style>
+
+<form action="onedayclassAuthorityPro" method="post" name="authForm" onsubmit="return writeChk();">
 <table class="tg" style="margin-left: auto; margin-right: auto;">
   <tr>
     <th class="tg-xldj" colspan="4">
@@ -130,13 +170,14 @@
     	사용할 계좌번호
     </td>
     <td class="tg-h6ay" colspan="3">
-    	<input class="input"  style="width : 500px" type="text" name="onedayclassAccountNumber" maxlength="100" placeholder="계좌번호를 입력하세요">
+    	<input class="text"  style="width : 500px" type="text" name="i" maxlength="100" placeholder="숫자만 입력해주세요"
+    		onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'>
     </td>
   </tr>
   <tr>
     <td class="tg-xldj"></td>
     <td class="tg-h6ay">
-    	<input class="inputButton" type="button" value="신청하기" onclick="window.location='onedayclassAuthorityPro?memberId=${userVO.memberId}'">
+    	<input class="inputButton" type="submit" value="Apply">
     </td>
     <td class="tg-xldj">
     	<input class="inputButton" type="reset" value="취소" onclick="window.history.back();">
@@ -144,7 +185,7 @@
     <td class="tg-h6ay"></td>
   </tr>
 </table>
-
+</form>
 
 
 <!-- ##### Contact Area End ##### -->

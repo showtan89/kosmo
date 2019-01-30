@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script src="resources/js/jquery/jquery-3.3.1.min.js"></script>
 <script src="resources/js/request.js"></script>
 <script src="resources/js/request2.js"></script>
@@ -97,7 +100,7 @@ input:focus {
 
 function alarm() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
-		if(${sessionScope.userVO != null}){
+	if(${sessionScope.userVO != null}){
 		$.getJSON("alarmCnt", function(cnt){
 			$('#alarmCnt').html(cnt); 
 			
@@ -108,6 +111,37 @@ alarm();
 setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 
 </script>
+ <script type="text/javascript"> 
+ /*
+function alarm(){
+	if(loopSendKeyword == false) return false;
+
+	//var alarmCnt = document.header01.alarmCnt.value;
+	var parms = "alarmCnt=" + alarmCnt;
+	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
+	setTimeout("alarm()", 1000); //실시간 제일 중요한 개념
+}
+
+function result_callback() {
+	var alarmCnt = document.getElementById("alarmCnt");
+	if(httpRequest.readyState == 4){}
+		if(httpRequest.status == 200){
+			loopSendKeyword = true; // 0.5초마다 반복해라
+			setTimeout(sendKeyword(), 100);
+			
+			if(data != null){
+				aCnt = data;
+				checkFirst = true;
+			 alarmCnt.innerHtml = aCnt;
+			}
+		}
+}  */
+</script> 
+<body onload="alarmChk();">
+	<div style="position: relative;">
+		<div
+			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
+	</div>
 <body onload="alarm();">
 	<header class="header-area">
 		<!-- ***** Top Header Area ***** -->
@@ -173,20 +207,34 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 									</sec:authorize>
 								</div>
 								
+								
 								<!-- Mypage Button -->
 								<sec:authorize access="isAuthenticated()">
 									<div class="language-dropdown">
 										<div class="dropdown">
-											<a href="myPage">
-												<button class="btn btn-secondary mr-30"
-													type="button" id="dropdownMenuButton"
-													aria-haspopup="true" aria-expanded="false">
-													MyPage
-												</button>
-											</a>
+											<c:if test="${userVO.authority ne 'ROLE_ADMIN'}">
+												<a href="myPage">
+													<button class="btn btn-secondary mr-30"
+														type="button" id="dropdownMenuButton"
+														aria-haspopup="true" aria-expanded="false">
+														MyPage
+													</button>
+												</a>
+											</c:if>
+											
+											<c:if test="${userVO.authority eq 'ROLE_ADMIN'}">
+												<a href="adminPage">
+													<button class="btn btn-secondary mr-30"
+														type="button" id="dropdownMenuButton"
+														aria-haspopup="true" aria-expanded="false">
+														AdminPage
+													</button>
+												</a>
+											</c:if>
 										</div>
 									</div>
 								</sec:authorize>
+								
 							
 								<!-- Alarm -->
 								<div class="cart">

@@ -56,6 +56,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 질문등록 처리
 	@Override
 	public int knowledgeInsertArticle(KnowledgeVO Knowledge) {
+		sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent",Knowledge);
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.knowledgeInsertArticle",Knowledge);
 	}
 	// 질문수정 폼 이동
@@ -119,9 +120,6 @@ public class BoardDAOImpl implements BoardDAO {
 	public int knowledgeSelectComent(Map<String, Object> map) {
 		// 질문자 포인트 차감
 		int cnt = 0;
-		cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent",map);
-		// 답변자 포인트 추가
-		if(cnt == 1)
 			cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent2",map);
 		// 글 채택완료 처리
 		if(cnt == 1)
@@ -316,81 +314,16 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// 계좌번호 업데이트
-	/*	@Override
-	public int onedayclassAccountUpdate(int onedayclassNumber) {
-
-		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
-		int onedayclassAccountUpdateCnt = boardDao.onedayclassAccountUpdate(onedayclassNumber);
-		return onedayclassAccountUpdateCnt;
-	}*/
-
+	@Override
+	public int onedayclassAccountUpdate(Map<String, Object> map) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.onedayclassAccountUpdate", map);
+	}
+	
 
 
 
 	// 진호 메소드 종료------------------------------------------------
 
 
-	// 대호 메소드 시작 ======================================================
-	// 이메일 중복 확인
-	@Override
-	public int memberConfirmidForm(String email) {
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.memberConfirmidForm", email);
-	}
-
-	// 회원 가입 완료
-	@Override
-	public int memberInputPro(Map<String, Object> map) {
-		return sqlSession.insert("com.spring.helper.dao.BoardDAO.memberInputPro", map);
-	}
-
-	// 이메일 키 메일로 전송
-	@Override
-	public void sendEmailKey(Map<String, Object> map) {
-
-		try {
-
-			MimeMessage message = sender.createMimeMessage();
-
-			message.setSubject("[Helper]Thanks to join us");
-
-			String txt = "If you click this link to emailConfirm" + "<br>"
-					+ "<a href='http://localhost/project/memberEmailConfirmed?emailKey=" + (String)map.get("emailKey") + "'> Click this Link </a>";
-
-			message.setText(txt, "UTF-8", "html");
-
-			message.setFrom(new InternetAddress("admin@helper.shop"));
-			message.addRecipient(RecipientType.TO, new InternetAddress((String) map.get("memberEmail")));
-			sender.send(message);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	// 이메일 인증 완료
-	@Override
-	public int memberEmailConfirmed(String emailKey) {
-		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberEmailConfirmed", emailKey);
-	}
-
-	// 회원 정보 수정
-	@Override
-	public int memberModifyPro(Map<String, Object> map) {
-		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberModifyPro", map);
-	}
-
-	// 회원 탈퇴 확인
-	@Override
-	public int memberDeleteForm(Map<String, Object> map) {
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.memberDeleteForm", map);
-	}
-	@Override
-	public int memberDeletePro(Map<String, Object> map) {
-		return sqlSession.update("com.spring.helper.dao.BoardDAO.memberDeletePro", map);
-	}
-
-	
-
-	// 대호 메소드 종료 ======================================================
 
 }

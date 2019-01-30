@@ -100,7 +100,10 @@ public class authenticationhandler implements AuthenticationSuccessHandler {
 				userVO.setMemberCountry(rs.getString("memberCountry"));
 				userVO.setMemberRegdate(rs.getTimestamp("memberRegdate"));
 				userVO.setMemberPoint(rs.getInt("memberPoint"));
+				userVO.setAuthority(rs.getString("authority"));
+				userVO.setMemberTemp1(rs.getString("memberTemp1"));
 			}
+			request.getSession().setMaxInactiveInterval(6000);
 			request.getSession().setAttribute("userVO", userVO);
 			//${userVO.memberNumber}
 			System.out.println("세션에 담긴 유져 정보 : "+userVO.toString());

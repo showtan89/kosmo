@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.helper.dao.MemberDAO">
+
+	<!-- 대호 시작 ======================================================================== -->
+	<select id="memberConfirmidForm" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		  FROM USERS
+		 WHERE MEMBEREMAIL = #{email}
+	</select>
+	
+	<insert id="memberInputPro" parameterType="java.util.Map">
+		INSERT INTO USERS (MEMBERNUMBER, MEMBEREMAIL, MEMBERID, 
+						PASSWORD, MEMBERCOUNTRY, MEMBERREGDATE, 
+						MEMBERPOINT, MEMBERRECOMMEND, AUTHORITY, 
+						ENABLED, EmailConfirm, EmailKey)
+		VALUES (USERSSEQ.nextVal, #{memberEmail}, #{memberId}, #{password}, 
+				#{memberCountry}, sysdate, 0, 0, 'ROLE_GUEST', 
+				1, 0, #{emailKey})
+	</insert>
+	
+	<update id="memberEmailConfirmed" parameterType="String">
+		UPDATE users
+		   SET emailConfirm = 1, authority = 'ROLE_USER'
+		 WHERE emailKey = #{emailKey}
+	</update>
+	
+	<update id="memberModifyPro" parameterType="java.util.Map">
+		UPDATE users
+		   SET password = #{password},
+		       memberCountry = #{memberCountry}
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	
+	<select id="memberDeleteForm" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM users
+		 WHERE memberEmail = #{memberEmail}
+		   AND password = #{password}
+	</select>
+	
+	<update id="memberDeletePro" parameterType="java.util.Map">
+		UPDATE users
+		   SET enabled = 0, AUTHORITY = 'ROLE_GUEST'
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	
+	<select id="hostMemberList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.UserVO">
+	<![CDATA[
+		SELECT *
+		  FROM (SELECT memberEmail, memberId, memberCountry, memberRegdate, memberPoint, authority, rownum rNum
+		          FROM (SELECT *
+		                 FROM users
+		                 ORDER BY memberNumber DESC
+		                 ))
+		 WHERE rNum >= #{start} and rNum <= #{end}
+	]]>  
+	</select>
+	
+	<select id="getCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM users
+	</select>
+	
+	<select id="getApplyCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM users
+		 WHERE MEMBERTEMP1 IN ('1', '2')
+	</select>
+	
+	<select id="addAuthority" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.UserVO">
+	<![CDATA[
+		SELECT *
+		  FROM (SELECT memberEmail, memberId, accountNumber, memberTemp1, rownum rNum
+		          FROM (SELECT *
+		                 FROM users
+		                 WHERE MEMBERTEMP1 IN ('1', '2')
+		                 ORDER BY memberNumber DESC
+		                 ))
+		 WHERE rNum >= #{start} and rNum <= #{end}
+	]]>  
+	</select>
+	
+	<update id="applyAuthority" parameterType="String">
+		UPDATE users
+		   SET membertemp1 = '2'
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	
+	<!-- 대호 끝 ========================================================================= -->
+
+</mapper>

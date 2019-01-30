@@ -44,7 +44,6 @@ public class BoardController {
 	@RequestMapping("knowledgeBoardList")
 	public String knowledgeBoardList(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeBoardList 로딩 중....");
-		service.knowledgeBoardList(req, model);
 		return "board/knowledge/knowledgeBoardList";
 	}
 	// 지식인 게시판 질문등록 폼 이동
@@ -271,13 +270,14 @@ public class BoardController {
 	}
 	
 	// 클래스개설 권한 신청 처리페이지
-/*	@RequestMapping("onedayclassAuthorityPro")
+	@RequestMapping("onedayclassAuthorityPro")
 	public String onedayclassAuthorityPro(HttpServletRequest req, Model model) throws Exception {
 		logger.info("원데이 클래스 권한신청처리페이지 호출중 ....");
 		
 		service.onedayclassAuthorityPro(req, model);
+		
 		return "board/onedayclass/onedayclassAuthorityPro";
-	}*/
+	}
 	
 	
 	// 진호  BoardController 끝----------------------------------------------------

@@ -56,12 +56,17 @@
 			]]>  
 		</where>
 	</select>
-	<!-- 질문등록 처리 -->
+	<!-- 질문등록 처리 시작-->
 	<insert id="knowledgeInsertArticle"
 		parameterType="com.spring.helper.vo.BoardVO.KnowledgeVO">
 		INSERT INTO knowledge
 		VALUES(knowledgeseq.nextval,'10005','10',#{memberEmail},#{memberId},#{knowledgeSubject},#{knowledgeContent},#{knowledgeOpenCheck},#{knowledgeReward},#{knowledgeCategory},0,sysdate,'N','0','0',0)
 	</insert>
+	<!-- 질문자 포인트 차감-->
+	<update id="knowledgeSelectComent" parameterType="java.util.Map">
+		UPDATE users SET memberPoint=(memberPoint-#{knowledgeReward}) WHERE memberEmail=#{memberEmail}
+	</update>
+	<!-- 질문등록 처리 종료-->
 	<!-- 질문수정 폼 자료 -->
 	<select id="knowledgeModifyForm" resultType="com.spring.helper.vo.BoardVO.KnowledgeVO">
 		SELECT * FROM knowledge WHERE knowledgeNumber=#{knowledgeNumber}
@@ -117,10 +122,6 @@
 		SELECT * FROM kComment WHERE knowledgeNumber=#{knowledgeNumber} 
 	</select>
 	<!-- 채택처리 시작 -->
-	<!-- 질문자 포인트 차감-->
-	<update id="knowledgeSelectComent" parameterType="java.util.Map">
-		UPDATE users SET memberPoint=(memberPoint-#{knowledgeReward}) WHERE memberEmail=#{memberEmail}
-	</update>
 	<!-- 답변자 포인트 추가 -->
 	<update id="knowledgeSelectComent2" parameterType="java.util.Map">
 		UPDATE users SET memberPoint=(memberPoint+#{knowledgeReward}) WHERE memberId=#{kCommentmemberId}
@@ -537,51 +538,15 @@
 		DELETE onedayclass WHERE onedayclassNumber=#{onedayclassNumber}
 	</delete>
 	
+	<!-- 대호 시작 ㅋㅋㅋㅋㅋ -->
+	<update id="onedayclassAccountUpdate" parameterType="java.util.Map">
+		UPDATE users
+		   SET accountNumber = #{onedayclassAccountNumber},
+		       memberTemp1 = 1 <!-- 0: 미신청 / 1: 신청 / 2: 승인 -->
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	<!-- 대호 끝 ㅋㅋㅋ -->
 	
 	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
-	
-	<!-- 대호 시작 ======================================================================== -->
-	<select id="memberConfirmidForm" resultType="int" parameterType="String">
-		SELECT COUNT(*)
-		  FROM USERS
-		 WHERE MEMBEREMAIL = #{email}
-	</select>
-	
-	<insert id="memberInputPro" parameterType="java.util.Map">
-		INSERT INTO USERS (MEMBERNUMBER, MEMBEREMAIL, MEMBERID, 
-						PASSWORD, MEMBERCOUNTRY, MEMBERREGDATE, 
-						MEMBERPOINT, MEMBERRECOMMEND, AUTHORITY, 
-						ENABLED, EmailConfirm, EmailKey)
-		VALUES (USERSSEQ.nextVal, #{memberEmail}, #{memberId}, #{password}, 
-				#{memberCountry}, sysdate, 0, 0, 'ROLE_GUEST', 
-				1, 0, #{emailKey})
-	</insert>
-	
-	<update id="memberEmailConfirmed" parameterType="String">
-		UPDATE users
-		   SET emailConfirm = 1, authority = 'ROLE_USER'
-		 WHERE emailKey = #{emailKey}
-	</update>
-	
-	<update id="memberModifyPro" parameterType="java.util.Map">
-		UPDATE users
-		   SET password = #{password},
-		       memberCountry = #{memberCountry}
-		 WHERE memberEmail = #{memberEmail}
-	</update>
-	
-	<select id="memberDeleteForm" parameterType="java.util.Map" resultType="int">
-		SELECT COUNT(*)
-		  FROM users
-		 WHERE memberEmail = #{memberEmail}
-		   AND password = #{password}
-	</select>
-	
-	<update id="memberDeletePro" parameterType="java.util.Map">
-		UPDATE users
-		   SET enabled = 0, AUTHORITY = 'ROLE_GUEST'
-		 WHERE memberEmail = #{memberEmail}
-	</update>
-	
-	<!-- 대호 끝 ========================================================================= -->
+
 </mapper>

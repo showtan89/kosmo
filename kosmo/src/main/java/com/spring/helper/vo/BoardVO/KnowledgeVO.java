@@ -1,6 +1,7 @@
 package com.spring.helper.vo.BoardVO;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class KnowledgeVO {
 	private int knowledgeNumber; 		// PK지식인게시판번호 NOT NULL
@@ -14,7 +15,7 @@ public class KnowledgeVO {
 	private int knowledgeReward;            // 게시판 보상포인트 NULL
 	private String knowledgeCategory;       // 지식인 게시판 카테고리 NOT NULL
 	private int knowledgeLookup;            // 조회수  NULL
-	private Timestamp knowledgeRegdate;     // 작성일 NOT NULL
+	private String knowledgeRegdate;     // 작성일 NOT NULL
 	private String knowledgeReply;          // 답글  NULL
 	private String knowledgeTemp1;          // 예비컬럼 1 NULL
 	private String knowledgeTemp2;          // 예비컬럼 2 NULL
@@ -85,11 +86,11 @@ public class KnowledgeVO {
 	public void setKnowledgeLookup(int knowledgeLookup) {
 		this.knowledgeLookup = knowledgeLookup;
 	}
-	public Timestamp getKnowledgeRegdate() {
+	public String getKnowledgeRegdate() {
 		return knowledgeRegdate;
 	}
 	public void setKnowledgeRegdate(Timestamp knowledgeRegdate) {
-		this.knowledgeRegdate = knowledgeRegdate;
+		this.knowledgeRegdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(knowledgeRegdate);
 	}
 	public String getKnowledgeReply() {
 		return knowledgeReply;
