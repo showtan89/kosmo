@@ -18,6 +18,8 @@ public interface MemberService {
 	public void memberDeletePro(HttpServletRequest req, Model model);
 	
 	public void hostMemberList(HttpServletRequest req, Model model);
+	
+	public void addAuthority(HttpServletRequest req, Model model);
 	// 대호 끝 ==================================================================
 
 }

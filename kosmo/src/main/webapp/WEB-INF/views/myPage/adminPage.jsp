@@ -38,7 +38,7 @@
 			</a>
 		</th>
 		<th>
-			<a href="#">
+			<a href="addAuthority">
 				<img src="resources/img/member/unlock_retex.png">
 			</a>
 		</th>

@@ -49,10 +49,16 @@
 		 WHERE memberEmail = #{memberEmail}
 	</update>
 	
-	<select id="hostMemberList" resultType="com.spring.helper.vo.BoardVO.UserVO">
-		SELECT memberNumber, memberEmail, memberId, memberCountry, memberRegdate, memberPoint, authority
-		  FROM users
-		 ORDER BY memberNumber DESC
+	<select id="hostMemberList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.UserVO">
+	<![CDATA[
+		SELECT *
+		  FROM (SELECT memberEmail, memberId, memberCountry, memberRegdate, memberPoint, authority, rownum rNum
+		          FROM (SELECT *
+		                 FROM users
+		                 ORDER BY memberNumber DESC
+		                 ))
+		 WHERE rNum >= #{start} and rNum <= #{end}
+	]]>  
 	</select>
 	
 	<select id="getCnt" resultType="int">
@@ -60,6 +66,24 @@
 		  FROM users
 	</select>
 	
+	<select id="getApplyCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM users
+		 WHERE MEMBERTEMP1 = 1
+	</select>
+	
+	<select id="addAuthority" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.UserVO">
+	<![CDATA[
+		SELECT *
+		  FROM (SELECT memberEmail, memberId, memberCountry, memberRegdate, memberPoint, authority, rownum rNum
+		          FROM (SELECT *
+		                 FROM users
+		                 ORDER BY memberNumber DESC
+		                 ))
+		 WHERE rNum >= #{start} and rNum <= #{end}
+		   AND MEMBERTEMP1 = 1;
+	]]>  
+	</select>
 	<!-- 대호 끝 ========================================================================= -->
 
 </mapper>

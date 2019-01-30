@@ -98,6 +98,14 @@ public class MemberController {
 		return "myPage/hostMemberList";
 	}
 	
+	@RequestMapping("addAuthority")
+	public String addAuthority(HttpServletRequest req, Model model) throws Exception {
+		logger.info("addAuthority 로딩 중..");
+		
+		service.addAuthority(req, model);
+		
+		return "myPage/addAuthority";
+	}
 	// 대호 끝
 	
 }

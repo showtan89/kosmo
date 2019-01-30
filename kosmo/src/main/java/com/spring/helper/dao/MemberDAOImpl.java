@@ -86,8 +86,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 	// 회원 목록
 	@Override
-	public List<UserVO> hostMemberList() {
-		return sqlSession.selectList("com.spring.helper.dao.MemberDAO.hostMemberList");
+	public List<UserVO> hostMemberList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.helper.dao.MemberDAO.hostMemberList", map);
 	}
 
 	@Override
@@ -95,7 +95,16 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("com.spring.helper.dao.MemberDAO.getCnt");
 	}
 
-	
+	@Override
+	public int getApplyCnt() {
+		return sqlSession.selectOne("com.spring.helper.dao.MemberDAO.getApplyCnt");
+	}
+
+	@Override
+	public List<UserVO> addAuthority(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.helper.dao.MemberDAO.addAuthority", map);
+	}
+
 
 	// 대호 메소드 종료 ======================================================
 

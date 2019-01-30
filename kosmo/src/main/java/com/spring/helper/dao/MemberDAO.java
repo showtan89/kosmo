@@ -23,9 +23,13 @@ public interface MemberDAO {
 
 	public int memberDeletePro(Map<String, Object> map);
 	
-	public List<UserVO> hostMemberList();
+	public List<UserVO> hostMemberList(Map<String, Object> map);
 	
 	public int getCnt();
+
+	public int getApplyCnt();
+	
+	public List<UserVO> addAuthority(Map<String, Object> map);
 	// 대호 메소드 종료 ============================================================
 
 }

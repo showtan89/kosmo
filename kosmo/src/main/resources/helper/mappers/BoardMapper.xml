@@ -420,21 +420,21 @@
 	<!-- 민석이 시작 -->
 	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
 	<select id="commentReadCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  commentalarm where memberid = #{memId}
+		select count(*) cnt from  commentalarm where memberEmail = #{memEmail}
 	</select>		
 	
 	<select id="chattingReadCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  chattingalarm where memberid = #{memId}
+		select count(*) cnt from  chattingalarm where memberEmail = #{memEmail}
 	</select>
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
 	<update id="chattingReadList2" parameterType="String">
-		UPDATE chattingalarm SET chattingalarm = 2 WHERE chattingalarm = 1 AND memberid = #{memId}
+		UPDATE chattingalarm SET chattingalarm = 2 WHERE chattingalarm = 1 AND memberEmail = #{memEmail}
 	</update >
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
 	<update id="commentReadList2" parameterType="String">
-		UPDATE commentalarm SET commentalarm = 2 WHERE commentalarm = 1 AND memberid = #{memId}
+		UPDATE commentalarm SET commentalarm = 2 WHERE commentalarm = 1 AND memberEmail = #{memEmail}
 	</update >
 	
 	<!-- 채팅 알람의 리스트 -->
@@ -455,10 +455,7 @@
 		]]>
 	</select>
 	
-	<!-- ajax댓글 알람 -->
-	<select id="commentAlarm" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.CommentAlarmVO">
-		<!-- SELECT * FROM commentalarm where memberid='park' AND commentalarm=1 -->
-	</select>
+	
 	
 	<!-- 댓글 알람 삭제 -->
 	<delete id="commentDelete" parameterType="int">
@@ -470,13 +467,13 @@
 		 delete from chattingalarm where chattingnumber = #{chattingnumber}
 	</delete>
 	
-	<!-- 댓글 알람 갯수 -->
+	<!-- ajax 댓글 알람 갯수 -->
 	<select id="commentAlarmCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  commentalarm where memberEmail = #{memEmail}
+		SELECT COUNT(*) cnt FROM  commentalarm WHERE memberEmail = #{memEmail} AND commentalarm = 1
 	</select>
-	<!-- 채팅 알람 갯수 -->
+	<!-- ajax 채팅 알람 갯수 -->
 	<select id="chattingAlarmCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  chattingalarm where memberEmail = #{memEmail}
+		SELECT COUNT(*) cnt FROM  chattingalarm WHERE memberEmail = #{memEmail} AND chattingalarm = 1
 	</select>
 	
 	<!-- 민석이 종료 -->

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MEMBER LIST</title>
+<title>Add Authority</title>
 <link rel="stylesheet" href="resources/style.css">
 
 </head>
@@ -26,7 +26,7 @@
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 			style="background-image: url(resources/img/ehddnr2.jpg);">
-			<h2>MEMBER LIST</h2>
+			<h2>Add  Authority LIST</h2>
 		</div>
 	</div>
 	<!-- ##### Breadcrumb Area End ##### -->
@@ -41,30 +41,27 @@
 				<tr>
 					<th scope="col" style="text-align:center;">Email</th>
 					<th scope="col" style="text-align:center;">ID</th>
-					<th scope="col" style="text-align:center;">Country</th>
-					<th scope="col" style="text-align:center;">Points</th>
-					<th scope="col" style="text-align:center;">Regist</th>
+					<th scope="col" style="text-align:center;">Controll</th>
 				</tr>
 			</thead>
 
 			<tbody>
 				<c:forEach var="uvo" items="${uvos}">
 					<tr id="lists" style="text-align: center; ">
-						<td scope="row">
-							<a onclick="viewDetail('${uvo.memberEmail}')">
-								${uvo.memberEmail}
-							</a>
-						</td>
+						<td scope="row">${uvo.memberEmail}</td>
 						<td scope="row">${uvo.memberId}</td>
-						<td scope="row">${uvo.memberCountry}</td>
-						<td scope="row">${uvo.memberPoint}</td>
+						<td scope="row">
+							<div class="search_by_terms" align="center">
+								<button type="button" class="btn alazea-btn" onclick="apply('${uvo.memberEmail}');">APPLY</button>
+							</div>
+							<div class="search_by_terms" align="center">
+								<button type="button" class="btn alazea-btn" onclick="decline('${uvo.memberEmail}');">DECLINE</button>
+							</div>
+						</td>
 						<td scope="row">
 							<fmt:formatDate pattern="yyyy-MM-dd" value="${uvo.memberRegdate}"/>
 						</td>
 					</tr>
-					<div id="result">
-					
-					</div>
 				</c:forEach>
 			</tbody>
 		</table>
