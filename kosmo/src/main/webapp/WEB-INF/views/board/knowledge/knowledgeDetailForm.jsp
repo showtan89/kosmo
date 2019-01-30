@@ -44,11 +44,10 @@
 <!-- ##### Breadcrumb Area End ##### -->
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px; margin-top: 30px;">
-	<div style="width: 800px; margin: auto;">
+	<div style="width: 800px; margin: auto;" class="col-12 col-md-9 col-lg-10">
 
 		<!-- 동욱이 css -->
 		<link rel="stylesheet" href="resources/ehddnr.css">
-
 		<ul>
 			<li>
 				<p>
@@ -58,13 +57,13 @@
 						class="knowledgeWriteForm_button3" value="신고하기" onclick=""></span>
 				</p>
 			</li>
-			<li style="width: 100%; margin: 0 0 20px 0;">
+			<li style="max-width: 100%; word-break: break-all; margin: 0 0 20px 0;">
 				${dtos.knowledgeContent}</li>
 			<li><c:if test="${dtos.knowledgeOpenCheck=='Y'}">
-					<span >${dtos.memberId}</span>
+					<span style="margin-right: 50px;">${dtos.memberId}</span>
 				</c:if> <c:if test="${dto.sknowledgeOpenCheck=='N'}">
-					<span>비공개</span>
-				</c:if> <span style="margin-left: 50px;">${dtos.knowledgeCategory}</span> <span
+					<span style="margin-right: 50px;">비공개</span>
+				</c:if> <span >${dtos.knowledgeCategory}</span> <span
 				style="margin-left: 50px;">${dtos.knowledgeRegdate}</span></li>
 		</ul>
 	</div>
@@ -76,16 +75,17 @@
 			<form action="knowledgeCommentPro" method="post"
 				name="knowledgeCommentForm"
 				onsubmit="return knowledgeCommentFormchk()">
-				<ul>
+				<ul class="col-12 col-md-9 col-lg-10">
 					<li style="border-bottom: 1px solid black;">
 						<p align="left" style="padding: 10px 50px 0 50px;">
 							<span style="font-size: 18px;">${userVO.memberId}님,
 								답변해주세요!</span><br> <span>답변하시면 포인트 10점을 드립니다.</span>
 						</p>
 					</li>
-					<li style="width: 100%; height: 300px; margin: 0 0 0 0;"><textarea
-							style="border: none; width: 100%; height: 100%; padding: 3px 10px; margin: 0; border-top: 1px solid black;"
-							name="kCommentContent" id="kCommentContent"></textarea></li>
+					<li style="max-width: 100%; word-break: break-all; height: 300px; margin: 0 0 0 0;">
+					<textarea style="max-width: 100%; word-break: break-all;border: none; width: 100%; height: 100%; padding: 3px 10px; margin: 0; border-top: 1px solid black;"
+							name="kCommentContent" id="kCommentContent"></textarea>
+					</li>
 					<li align="center"
 						style="padding: 30px 0; border-top: 1.5px solid black;">
 						<p align="left">
