@@ -63,6 +63,10 @@
 /* 공통 끝 */
 
 /* knowledge 스타일 적용 시작 */
+.knowledgeup{
+	text-transform: uppercase;
+}
+
 .knowledgeCategoryAteg:hover{
 	font-weight: bold;
 	font-size:16px;

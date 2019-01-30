@@ -43,11 +43,9 @@
 <!-- ##### Breadcrumb Area End ##### -->
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px;margin-top: 30px;">
-	<div style="width:800px; margin:auto;">
 
 <!-- 동욱이 css -->
 <link rel="stylesheet" href="resources/ehddnr.css">
-
 <script type="text/javascript">
 	function onsubmitcheck(){
 		if(!$('#knowledgeSubject').val()){
@@ -126,6 +124,7 @@
 			}
 		}
 	</script>
+	<div style="width:800px; margin:auto;" class="col-12 col-md-9 col-lg-10">
 	<form action="knowledgeWritePro" method="post" name="knowledgeForm" onsubmit="return onsubmitcheck();">
 		<ul>
 			<li>
@@ -207,10 +206,13 @@
 						<option value="Shopping">Shopping</option>
 						<option value="Worry">Worry</option>
 					</select>
-					<input style="margin:0 10px 0 30px;"class="knowledgeWriteForm_button3" type="button" value="ID">
-					<input type="radio" style="margin-right:5px;"name="knowledgeOpenCheck" value="Y" checked="checked">OPEN
-					<input type="radio" style="margin-left:5px;"name="knowledgeOpenCheck" value="N" >CLOSE
+					
 				</p>
+			</li>
+			<li >
+				<input style="margin:0 5px 0 0;"class="knowledgeWriteForm_button3" type="button" value="ID">
+				<input type="radio" style="margin-right:5px;"name="knowledgeOpenCheck" value="Y" checked="checked">OPEN
+				<input type="radio" style="margin-left:5px;"name="knowledgeOpenCheck" value="N" >CLOSE
 			</li>
 			<li align="center">
 				<br>

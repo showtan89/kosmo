@@ -43,7 +43,7 @@
 <!-- ##### Breadcrumb Area End ##### -->
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px;margin-top: 30px;">
-	<div style="width:800px; margin:auto;">
+	<div style="width:800px; margin:auto;"class="col-12 col-md-9 col-lg-10">
 	
 	<% KnowledgeVO Knowledge = (KnowledgeVO)request.getAttribute("Knowledge"); %>
 	
@@ -169,7 +169,7 @@
 			<textarea class="content" maxlength="5000"style="width: 100%; height: 100%;padding:5px 5px;" name="knowledgeContent" id="knowledgeContent">${Knowledge.knowledgeContent}</textarea>
 			</li>
 			<li style="position: relative; display:inline;">
-					<input class="knowledgeWriteForm_button3" type="button" value="포인트 설정"
+					<input class="knowledgeWriteForm_button3" type="button" value="POINT OPTION"
 						onclick="knowledgeWriteForm_Reward_block();" style="display:inline-block;">
 						&nbsp;<p class="class_addReward" style="display:inline-block;">채택한
 					답변자에게 포인트를 드리며, 질문자에게도 포인트의 50%(최대100점)을 돌려드립니다.
@@ -177,7 +177,7 @@
 				<div class="knowledgeWriteForm_Reward">
 					<table>
 						<tr style="height: 10%">
-							<th colspan="5">포인트 설정</th>
+							<th colspan="5">POINT</th>
 						</tr>
 						<tr style="height: 20%">
 							<th class="knowledgeWriteForm_Reward_th" id="Reward_th1"><span
@@ -206,47 +206,48 @@
 						<tr style="height: 30%; width: 100%;">
 							<td colspan="5" style="padding-top: 10px; text-align: left;">
 								<p>
-									<span style="font-size: 10px; float: right;">보유포인트 : ${userVO.memberPoint} </span><br>
+									<span style="font-size: 10px; float: right;">My Point : ${userVO.memberPoint} </span><br>
 									<input style="width: 100%;" type="text" id="addReward" name="addReward" value="${Knowledge.knowledgeReward}">
 								</p>
 							</td>
 						</tr>
 						<tr center="center" style="height: 20%">
 							<td colspan="5">
-								<input class="knowledgeWriteForm_button3" type="button"	value="확인" onclick="return knowledgeWriteForm_addReward();">
-								<input class="knowledgeWriteForm_button3" type="button" value="취소" onclick="knowledgeWriteForm_Reward_none();">
+								<input class="knowledgeWriteForm_button3" type="button"	value="SELECT" onclick="return knowledgeWriteForm_addReward();">
+								<input class="knowledgeWriteForm_button3" type="button" value="CANCLE" onclick="knowledgeWriteForm_Reward_none();">
 							</td>
 						</tr>
 					</table>
 				</div>
 				<p>
-					<input class="knowledgeWriteForm_button3" type="button" value="카테고리">&nbsp;
+					<input class="knowledgeWriteForm_button3" type="button" value="CATEGORY">&nbsp;
 					<select class="btn_select" name="knowledgeCategory" id="btn_select">
-						<option value="교육, 학문">교육, 학문</option>
-						<option value="컴퓨터통신">컴퓨터통신</option>
-						<option value="게임">게임</option>
-						<option value="엔터테이먼트, 예술">엔터테이먼트, 예술</option>
-						<option value="생활">생활</option>
-						<option value="건강">건강</option>
-						<option value="사회, 정치">사회, 정치</option>
-						<option value=경제>경제</option>
-						<option value="여행">여행</option>
-						<option value="스포츠,레저">스포츠,레저</option>
-						<option value="쇼핑">쇼핑</option>
-						<option value="고민Q&A">고민Q&A</option>
+						<option value="Education">Education</option>
+						<option value="Computer">Computer</option>
+						<option value="Game">Game</option>
+						<option value="entertainment">Entertainment</option>
+						<option value="life">Life</option>
+						<option value="Health">Health</option>
+						<option value="society">Society</option>
+						<option value="travel">Travel</option>
+						<option value="sports">Sports</option>
+						<option value="Shopping">Shopping</option>
+						<option value="Worry">Worry</option>
 					</select>
 					<input type="hidden" name="knowledgeNumber" value="${Knowledge.knowledgeNumber}">
 					<input type="hidden" name="pageNum" value="${pageNum}">
 					<input type="hidden" name="btn_select" value="${btn_select}">
-					<input style="margin-left:30px;"class="knowledgeWriteForm_button3" type="button" value="ID 공개여부">
-					<input type="radio" name="knowledgeOpenCheck" id="knowledgeOpenCheck1"value="Y" >공개
-					<input type="radio" name="knowledgeOpenCheck" id="knowledgeOpenCheck2"value="N" >비공개
 				</p>
+			</li>
+			<li >
+				<input style="margin:0 5px 0 0;"class="knowledgeWriteForm_button3" type="button" value="ID">
+				<input type="radio" name="knowledgeOpenCheck" id="knowledgeOpenCheck1" value="Y" checked="checked">OPEN
+				<input type="radio" name="knowledgeOpenCheck" id="knowledgeOpenCheck2" value="N" >CLOSE
 			</li>
 			<li align="center">
 				<br>
-				<input class="knowledgeWriteForm_button3" type="submit" value="수정하기">
-				<input class="knowledgeWriteForm_button3" type="button"	value="수정취소" onclick="window.history.back();">
+				<input class="knowledgeWriteForm_button3" type="submit" value="WRITE">
+				<input class="knowledgeWriteForm_button3" type="button"	value="BACK" onclick="window.history.back();">
 			</li>
 		</ul>
 	</form>
