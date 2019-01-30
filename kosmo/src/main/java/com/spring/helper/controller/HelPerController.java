@@ -43,7 +43,12 @@ public class HelPerController{
 		}  
 		return "index";
 	}
-
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest req) {
+		logger.info("logout 중....");
+		req.getSession().invalidate();
+		return "index";
+	}
 	//로그인 버튼
 	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping("loginCheck")

@@ -13,7 +13,7 @@ public class onedayclassVO {
 	private String onedayclassContent;			// 원데이클래스 내용
 	private int	onedayclassLookup;				// 조회수
 	private Timestamp onedayclassRegdate;		// 작성일
-	private String onedayclassAuthority;		// 원데이클래스 권한
+	private String onedayclassAccountNumber;    // 원데이클래스 계좌번호
 	private String onedayclassCategory;			// 원데이클래스 종류
 	private Timestamp onedayclassOpendate;		// 원데이클래스 행사일
 	private String onedayclassLocation;			// 원데이클래스 위치
@@ -40,7 +40,7 @@ public class onedayclassVO {
 				+ ", boardCode=" + boardCode + ", memberEmail=" + memberEmail + ", memberId=" + memberId
 				+ ", onedayclassSubject=" + onedayclassSubject + ", onedayclassContent=" + onedayclassContent
 				+ ", onedayclassLookup=" + onedayclassLookup + ", onedayclassRegdate=" + onedayclassRegdate
-				+ ", onedayclassAuthority=" + onedayclassAuthority + ", onedayclassCategory=" + onedayclassCategory
+				+ ", onedayclassAccountNumber=" + onedayclassAccountNumber + ", onedayclassCategory=" + onedayclassCategory
 				+ ", onedayclassOpendate=" + onedayclassOpendate + ", onedayclassLocation=" + onedayclassLocation
 				+ ", onedayclassRecruitment=" + onedayclassRecruitment + ", onedayclassPrice=" + onedayclassPrice
 				+ ", onedayclassReservation=" + onedayclassReservation + ", onedayclassPay=" + onedayclassPay
@@ -104,11 +104,11 @@ public class onedayclassVO {
 	public void setOnedayclassRegdate(Timestamp onedayclassRegdate) {
 		this.onedayclassRegdate = onedayclassRegdate;
 	}
-	public String getOnedayclassAuthority() {
-		return onedayclassAuthority;
+	public String getonedayclassAccountNumber() {
+		return onedayclassAccountNumber;
 	}
-	public void setOnedayclassAuthority(String onedayclassAuthority) {
-		this.onedayclassAuthority = onedayclassAuthority;
+	public void setonedayclassAccountNumber(String onedayclassAccountNumber) {
+		this.onedayclassAccountNumber = onedayclassAccountNumber;
 	}
 	public String getOnedayclassCategory() {
 		return onedayclassCategory;

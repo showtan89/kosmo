@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,7 @@
 <!-- Title -->
 <title>Helper - Foriener &amp; Help HTML Template</title>
 
+<link rel="stylesheet" href="resources/style.css">
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 
@@ -57,7 +59,7 @@
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px;">
 
-<style type="text/css">
+	<style type="text/css">
 .tab-box {
 	margin: 50px auto 0 auto;
 	width: 520px;
@@ -130,65 +132,72 @@
 .even {
 	background-color: highlight;
 }
-
 </style>
 	<form action="">
-	<!-- tbl-ex -->
-		<table class="table table-striped"
-			style="width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100px;">
-			<tr>
-				<th>Sender</th>
-				<th>Contents</th>
-				<th>Sending time</th>
-				<th>Checked message</th>
-				<th>Delete</th>
-			</tr>
-			<c:forEach var="cos" items="${cos}">
-			<c:if test="${!sessionScope.userVO.memberId.equals(cos.memberid)}">
+		<!-- tbl-ex -->
+		<div align="center">
+			<table class="table table-striped"
+				style="width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100px;">
 				<tr>
-					<td align="center">${cos.memberid}</td>
-					
-					<c:set var="code" value="${cos.boardcode}"/>
-					<c:choose>
-						<c:when test="${code==10}">
-						<%-- <c:set var="url" value="${}"/> --%>
-						<!-- http://localhost/project/knowledgeDetailForm?knowledgeNumber=109 -->
-						<td><a href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
-						</c:when>
-					</c:choose>
-					
-					<c:choose>
-						<c:when test="${code==20}">
-						<td><a href="realestateDetailForm?realestateNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
-						</c:when>
-					</c:choose> 
-					
-					<c:choose>
-						<c:when test="${code==31}">
-						<td><a href="onedayclassDetailForm?onedayclassNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
-						</c:when>
-					</c:choose>
-					
-					<td align="center">${cos.commentregdate}</td>
-					<td align="center">checked</td>
-					<td align="center"><input type="button" value="delete" onclick="window.location='commentAlarmDelete?commentnumber=${cos.commentnumber}&pageNum=${pageNum}';"></td>
+					<th>Sender</th>
+					<th>Contents</th>
+					<th>Sending time</th>
+					<th>Checked message</th>
+					<th>Delete</th>
 				</tr>
-				</c:if>
-			</c:forEach>
+				<c:forEach var="cos" items="${cos}">
+					<c:if test="${!sessionScope.userVO.memberId.equals(cos.memberid)}">
+						<tr>
+							<td align="center">${cos.memberid}</td>
 
-			<c:forEach var="mos" items="${mos}">
-			<c:if test="${!sessionScope.userVO.memberId.equals(mos.memberid)}">
-				<tr>
-					<td align="center">chatting alarm</td>
-					<td>${mos.chattingsubject}</td>
-					<td align="center">${mos.chattingregdate}</td>
-					<td align="center">checked</td>
-					<td align="center"><input type="button" value="쪽지삭제" onclick="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';"></td>
-				</tr>
-				</c:if>
-			</c:forEach>
-		</table>
+							<c:set var="code" value="${cos.boardcode}" />
+							<c:choose>
+								<c:when test="${code==10}">
+									<%-- <c:set var="url" value="${}"/> --%>
+									<!-- http://localhost/project/knowledgeDetailForm?knowledgeNumber=109 -->
+									<td><a
+										href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
+								</c:when>
+							</c:choose>
 
+							<c:choose>
+								<c:when test="${code==20}">
+									<td><a
+										href="realestateDetailForm?realestateNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
+								</c:when>
+							</c:choose>
+
+							<c:choose>
+								<c:when test="${code==31}">
+									<td><a
+										href="onedayclassDetailForm?onedayclassNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
+								</c:when>
+							</c:choose>
+
+							<td align="center">${cos.commentregdate}</td>
+							<td align="center">checked</td>
+							<td align="center"><input type="button" value="delete"
+								onclick="window.location='commentAlarmDelete?commentnumber=${cos.commentnumber}&pageNum=${pageNum}';"></td>
+						</tr>
+					</c:if>
+				</c:forEach>
+
+				<c:forEach var="mos" items="${mos}">
+					<c:if test="${!sessionScope.userVO.memberId.equals(mos.memberid)}">
+						<tr>
+							<td align="center">chatting alarm</td>
+							<td>${mos.chattingsubject}</td>
+							<td align="center">${mos.chattingregdate}</td>
+							<td align="center">checked</td>
+							<td align="center">
+							<a class="btn alazea-btn mr-30" href="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';">Delete</a> 
+							<%-- <input type="button" value="Delete"
+								onclick="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';"> --%></td>
+						</tr>
+					</c:if>
+				</c:forEach>
+			</table>
+		</div>
 	</form>
 </div>
 

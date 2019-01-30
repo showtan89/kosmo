@@ -97,7 +97,7 @@ public class InfoController {
 	public String employment(HttpServletRequest req, Model model) throws Exception {
 		logger.info("다문화 고용 페이지....");
 
-		return "board/multicultural/employment";
+		return "info/multicultural/employment";
 	}
 
 	// 민석이 끝++++++++++++++++++++++++++++++++

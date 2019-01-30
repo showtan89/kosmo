@@ -34,7 +34,7 @@
           authentication-success-handler-ref="customAuthenticationSuccessHandler"
        />
      
-      <security:logout logout-success-url="/index" />
+      <security:logout logout-success-url="/logout" />
    </security:http>
  
    
