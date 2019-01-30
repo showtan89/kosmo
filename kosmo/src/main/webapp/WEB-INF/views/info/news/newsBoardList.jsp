@@ -80,12 +80,6 @@
 							<option value="CTR0017">헝가리</option>
 							<option value="CTR0021">호주</option>
                         </select>
-                       <select class="custom-select widget-title">
-                          <option selected>Show: 9</option>
-                          <option value="1">12</option>
-                          <option value="2">18</option>
-                          <option value="3">24</option>
-                        </select>
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
 						<button type="submit" class='btn alazea-btn'>Search</button>
                     </form>
@@ -99,6 +93,7 @@
 			<div class="col-12">
 				<div class="card flex-md-row mb-4 shadow-sm h-md-250">
 				뉴스가 위치할 공간
+				d
 				
 				
 				
