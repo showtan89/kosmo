@@ -80,6 +80,13 @@ public class HelPerController{
 		logger.info("realestate 로딩 중....");
 		res.sendRedirect("realestateBoardList");
 	}
+	
+	@RequestMapping("news")
+	public void news(HttpServletResponse res) throws Exception {
+		logger.info("news 로딩 중....");
+		res.sendRedirect("newsBoard");
+	}
+	
 	// 재영 끝
 
 	// 진호 시작-------------------------------------------
@@ -121,19 +128,6 @@ public class HelPerController{
 		
 		return "board/message/chattingAlarmDelete";
 	}
-	
-	@Scheduled(cron = "0 * * * * *" )
-	public void scheduleRun(HttpServletRequest req,Model model) {
-		logger.info("스케쥴러러러러러러러러러러");
-
-		//service.alarmServiceCnt(req, model);
-	}
-	
-	/*@RequestMapping("commentAlarm")
-	public String commentAlarm(HttpServletRequest req,Model model) {
-		logger.info("commentAlarmDelete 로딩 중....");
-
-		return "";*/
 	
 	//민석이 끝++++++++++++++++++++++++++++++++
 

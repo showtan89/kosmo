@@ -221,11 +221,13 @@ function result_callback() {
 							
 								<!-- Alarm -->
 								<div class="cart">
+								<c:if test="${sessionScope.userVO != null}">
 									<a href="alarmBoard">
 										<i class="fa fa-envelope" aria-hidden="true"></i> 
 										<span>Alarm</span>
 										<span id="alarmCnt"><class="messege-quantity">
 										</span></a>
+								</c:if>
 								</div>
 
 							</div>
@@ -286,9 +288,10 @@ function result_callback() {
 													Heritage</a></li>
 											<li><a href="exchangerate.jsp">Exchange Rate</a></li>
 										</ul></li>
-									<li><a href="#">Foreign policy</a>
+									<li><a href="#">Information</a>
 										<ul class="dropdown">
-											<li><a href="employment.jsp">Employment</a></li>
+											<li><a href="employment">Employment</a></li>
+											<li><a href="news">News</a></li> <!-- 재영 추가  -->
 											<li><a href="multicultural.jsp">Multicultural</a></li>
 											<li><a href="legalinfo.jsp">Legal Information</a></li>
 										</ul></li>
@@ -300,9 +303,9 @@ function result_callback() {
 								</ul>
 
 								<!-- Search Icon -->
-								<div id="searchIcon">
+								<!-- <div id="searchIcon">
 									<i class="fa fa-search" aria-hidden="true"></i>
-								</div>
+								</div> -->
 
 							</div>
 							<!-- Navbar End -->
@@ -310,17 +313,18 @@ function result_callback() {
 					</nav>
 
 					<!-- Search Form -->
-					<div class="search-form">
+					<!-- <div class="search-form">
 						<form action="#" method="get">
 							<input type="search" name="search" id="search"
 								placeholder="Type keywords &amp; press enter...">
 							<button type="submit" class="d-none"></button>
-						</form>
+						</form>-->
 						<!-- Close Icon -->
-						<div class="closeIcon">
+						<!--<div class="closeIcon">
 							<i class="fa fa-times" aria-hidden="true"></i>
 						</div>
-					</div>
+					</div>-->
+					
 				</div>
 			</div>
 		</div>

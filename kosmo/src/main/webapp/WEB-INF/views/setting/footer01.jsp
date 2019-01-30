@@ -15,8 +15,7 @@
 <link rel="stylesheet" href="resources/style.css">
 </head>
 <body>
-<footer class="footer-area bg-img"
-		style="background-image: url(resources/img/bg-img/3.jpg);">
+<footer class="footer-area bg-img bg-img-custom">
 		<!-- Main Footer Area -->
 		<div class="main-footer-area">
 			<div class="container">

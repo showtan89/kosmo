@@ -491,7 +491,7 @@
 		<![CDATA[
 		SELECT * 
 		  FROM(SELECT onedayclassNumber, memberNumber, memberEmail, memberId, onedayclassSubject, onedayclassContent, onedayclassLookup,
-		  onedayclassRegdate, onedayclassAuthority, onedayclassCategory, onedayclassOpendate, onedayclassLocation, onedayclassRecruitment,
+		  onedayclassRegdate, onedayclassAccountNumber, onedayclassCategory, onedayclassOpendate, onedayclassLocation, onedayclassRecruitment,
 		  onedayclassPrice, onedayclassEndCheck, onedayclassDeadlineCheck, onedayclassGrade, onedayclassTotalpeople,
 		  onedayclassImg1, onedayclassImg2, onedayclassImg3, rownum rNum  
 			     FROM ( 
@@ -524,7 +524,7 @@
 	<!-- 원데이 글 작성 처리 -->
 	<insert id="onedayclassInsertBoard" parameterType="com.spring.helper.vo.BoardVO.onedayclassVO">
 		INSERT INTO onedayclass(onedayclassNumber, memberNumber, boardCode, memberEmail, memberId, onedayclassSubject, onedayclassContent
-		, onedayclassRegdate, onedayclassAuthority, onedayclassCategory, onedayclassOpendate, onedayclassLocation, onedayclassRecruitment
+		, onedayclassRegdate, onedayclassAccountNumber, onedayclassCategory, onedayclassOpendate, onedayclassLocation, onedayclassRecruitment
 		, onedayclassPrice, onedayclassReservation, onedayclassPay, onedayclassEndCheck, onedayclassDeadlineCheck
 		, onedayclassImg1, onedayclassImg2, onedayclassImg3)
 		VALUES(onedayclassSeq.nextval, 10007, '30', 'chae@gmail.com','chae', #{onedayclassSubject}, #{onedayclassContent}
