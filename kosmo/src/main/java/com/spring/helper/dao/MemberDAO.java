@@ -30,6 +30,8 @@ public interface MemberDAO {
 	public int getApplyCnt();
 	
 	public List<UserVO> addAuthority(Map<String, Object> map);
+	
+	public int applyAuthority(String memberEmail);
 	// 대호 메소드 종료 ============================================================
 
 }

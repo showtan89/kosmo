@@ -20,6 +20,8 @@ public interface MemberService {
 	public void hostMemberList(HttpServletRequest req, Model model);
 	
 	public void addAuthority(HttpServletRequest req, Model model);
+	
+	public void applyAuthority(HttpServletRequest req, Model model);
 	// 대호 끝 ==================================================================
 
 }

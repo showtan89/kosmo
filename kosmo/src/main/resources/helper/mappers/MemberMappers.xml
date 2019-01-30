@@ -69,21 +69,28 @@
 	<select id="getApplyCnt" resultType="int">
 		SELECT COUNT(*)
 		  FROM users
-		 WHERE MEMBERTEMP1 = 1
+		 WHERE MEMBERTEMP1 IN ('1', '2')
 	</select>
 	
 	<select id="addAuthority" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.UserVO">
 	<![CDATA[
 		SELECT *
-		  FROM (SELECT memberEmail, memberId, memberCountry, memberRegdate, memberPoint, authority, rownum rNum
+		  FROM (SELECT memberEmail, memberId, accountNumber, memberTemp1, rownum rNum
 		          FROM (SELECT *
 		                 FROM users
+		                 WHERE MEMBERTEMP1 IN ('1', '2')
 		                 ORDER BY memberNumber DESC
 		                 ))
 		 WHERE rNum >= #{start} and rNum <= #{end}
-		   AND MEMBERTEMP1 = 1;
 	]]>  
 	</select>
+	
+	<update id="applyAuthority" parameterType="String">
+		UPDATE users
+		   SET membertemp1 = '2'
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	
 	<!-- 대호 끝 ========================================================================= -->
 
 </mapper>

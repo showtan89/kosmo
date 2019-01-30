@@ -129,7 +129,7 @@ public interface BoardDAO {
 	public int onedayclassDeleteBoard(int onedayclassNumber);
 
 	// 계좌번호 업데이트
-	/*public int onedayclassAccountUpdate(int onedayclassNumber);*/
+	public int onedayclassAccountUpdate(Map<String, Object> map);
 
 
 	// 진호 메소드 종료--------------------------------------

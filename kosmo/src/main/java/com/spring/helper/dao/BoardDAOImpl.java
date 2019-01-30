@@ -314,14 +314,11 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// 계좌번호 업데이트
-	/*	@Override
-	public int onedayclassAccountUpdate(int onedayclassNumber) {
-
-		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
-		int onedayclassAccountUpdateCnt = boardDao.onedayclassAccountUpdate(onedayclassNumber);
-		return onedayclassAccountUpdateCnt;
-	}*/
-
+	@Override
+	public int onedayclassAccountUpdate(Map<String, Object> map) {
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.onedayclassAccountUpdate", map);
+	}
+	
 
 
 

@@ -267,6 +267,18 @@ public class MemberServiceImpl implements MemberService {
 		 
 	}
 
+	// 클래스 개설 승인
+	@Override
+	public void applyAuthority(HttpServletRequest req, Model model) {
+		
+		String memberEmail = req.getParameter("memberEmail");
+		
+		int updateCnt = memberdao.applyAuthority(memberEmail);
+		
+		model.addAttribute("updateCnt", updateCnt);
+		model.addAttribute("memberEmail", memberEmail);
+	}
+
 
 
 	// 대호 메소드 종료 ===================================================

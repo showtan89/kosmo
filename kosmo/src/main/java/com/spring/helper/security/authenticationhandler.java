@@ -101,6 +101,7 @@ public class authenticationhandler implements AuthenticationSuccessHandler {
 				userVO.setMemberRegdate(rs.getTimestamp("memberRegdate"));
 				userVO.setMemberPoint(rs.getInt("memberPoint"));
 				userVO.setAuthority(rs.getString("authority"));
+				userVO.setMemberTemp1(rs.getString("memberTemp1"));
 			}
 			request.getSession().setAttribute("userVO", userVO);
 			//${userVO.memberNumber}

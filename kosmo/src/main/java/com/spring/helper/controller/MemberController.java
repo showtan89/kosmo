@@ -106,6 +106,15 @@ public class MemberController {
 		
 		return "myPage/addAuthority";
 	}
+	
+	@RequestMapping("applyAuthority")
+	public String applyAuthority(HttpServletRequest req, Model model) throws Exception {
+		logger.info("applyAuthority 로딩 중..");
+		
+		service.applyAuthority(req, model);
+		
+		return "myPage/applyAuthority";
+	}
 	// 대호 끝
 	
 }

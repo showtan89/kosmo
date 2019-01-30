@@ -99,7 +99,7 @@
 					<!-- 끝 ▶▶  / 다음블록▶ -->
 					<c:if test="${pageCount > endPage }">
 						<li class="page-item"><a class="page-link"
-							href="khostMemberList?pageNum=${startPage + pageBlock}"><i
+							href="hostMemberList?pageNum=${startPage + pageBlock}"><i
 								class="fa fa-angle-right"></i></a></li>
 						<li class="page-item"><a class="page-link"
 							href="hostMemberList?pageNum=${pageCount}"><i

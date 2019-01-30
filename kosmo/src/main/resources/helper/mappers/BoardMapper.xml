@@ -538,6 +538,14 @@
 		DELETE onedayclass WHERE onedayclassNumber=#{onedayclassNumber}
 	</delete>
 	
+	<!-- 대호 시작 ㅋㅋㅋㅋㅋ -->
+	<update id="onedayclassAccountUpdate" parameterType="java.util.Map">
+		UPDATE users
+		   SET accountNumber = #{onedayclassAccountNumber},
+		       memberTemp1 = 1 <!-- 0: 미신청 / 1: 신청 / 2: 승인 -->
+		 WHERE memberEmail = #{memberEmail}
+	</update>
+	<!-- 대호 끝 ㅋㅋㅋ -->
 	
 	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 

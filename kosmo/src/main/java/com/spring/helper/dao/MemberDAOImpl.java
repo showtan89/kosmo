@@ -105,6 +105,11 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectList("com.spring.helper.dao.MemberDAO.addAuthority", map);
 	}
 
+	@Override
+	public int applyAuthority(String memberEmail) {
+		return sqlSession.update("com.spring.helper.dao.MemberDAO.applyAuthority", memberEmail);
+	}
+
 
 	// 대호 메소드 종료 ======================================================
 

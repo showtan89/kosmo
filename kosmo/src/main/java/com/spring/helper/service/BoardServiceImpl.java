@@ -818,17 +818,22 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 클래스개설 권한 신청 처리페이지
-	/*	@Override
+	@Override
 	public void onedayclassAuthorityPro(HttpServletRequest req, Model model) {
-
-		int onedayclassAccountNumber = Integer.parseInt(req.getParameter("onedayclassAccountNumber"));
-		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
-
-		int onedayclassAccountUpdate =  boardDao.onedayclassAccountUpdate(onedayclassNumber);
-
-		model.addAttribute("onedayclassAccountNumber", onedayclassAccountNumber);
-		model.addAttribute("onedayclassAccountUpdate", onedayclassAccountUpdate);
-	}*/
+		
+		String onedayclassAccountNumber = req.getParameter("i");
+		Integer.parseInt(onedayclassAccountNumber);
+		
+		UserVO uvo = (UserVO)req.getSession().getAttribute("userVO");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("onedayclassAccountNumber", onedayclassAccountNumber);
+		map.put("memberEmail", uvo.getMemberEmail());
+		
+		int updateCnt =  boardDao.onedayclassAccountUpdate(map);
+		
+		model.addAttribute("updateCnt", updateCnt);
+	}
 
 
 	//진호 메소드 종료---------------------------------------------------
