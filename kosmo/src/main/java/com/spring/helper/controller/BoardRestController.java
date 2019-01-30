@@ -52,7 +52,7 @@ public class BoardRestController {
 		} else {
 			model.addAttribute("knowledgeCategory","All");
 		}
-		if(req.getParameter("search") != null || req.getParameter("search")=="") {
+		if(req.getParameter("search") != null && req.getParameter("search")!="") {
 			search= req.getParameter("search");
 		}
 		map.put("knowledgeCategory", knowledgeCategory);
@@ -99,7 +99,7 @@ public class BoardRestController {
 		map.put("end", end);
 		ArrayList<KnowledgeVO> dtos = null;
 		int[] dtos2;
-		dtos2 = new int[10];
+		dtos2 = new int[50];
 		if(cnt>0) {
 			// 게시글 목록 조회
 			Map<Integer, Integer> map2 = new HashMap<Integer, Integer>();

@@ -60,10 +60,10 @@
 			<li style="max-width: 100%; word-break: break-all; margin: 0 0 20px 0;">
 				${dtos.knowledgeContent}</li>
 			<li><c:if test="${dtos.knowledgeOpenCheck=='Y'}">
-					<span >${dtos.memberId}</span>
+					<span style="margin-right: 50px;">${dtos.memberId}</span>
 				</c:if> <c:if test="${dto.sknowledgeOpenCheck=='N'}">
-					<span>비공개</span>
-				</c:if> <span style="margin-left: 50px;">${dtos.knowledgeCategory}</span> <span
+					<span style="margin-right: 50px;">비공개</span>
+				</c:if> <span >${dtos.knowledgeCategory}</span> <span
 				style="margin-left: 50px;">${dtos.knowledgeRegdate}</span></li>
 		</ul>
 	</div>
