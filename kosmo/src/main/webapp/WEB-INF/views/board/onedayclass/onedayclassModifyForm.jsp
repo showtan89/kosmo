@@ -60,105 +60,186 @@
 	</div>
 </div>
 
-<style>
-
-.odf_table {
-	/* border-radius: 150px 300px; */   /* 위오른쪽 아래왼쪽을 곡선으로 만들기 */
-	box-sizing: border-box;
-	width: 1300px;
-	height: 3000px;
-	margin: 20px auto;
-	border: 3px solid orange;
-	/* overflow-x: auto; */			  /* 표에서만 가로스크롤 생성 */
-	text-align: center;
-	font-size: x-large;
-}
-th {
-	padding-top: 3%;
-	font-weight: bold;
-	width: 1000px;
-	verical-align: middle;
-	border-bottom: 1px solid #ccc;
-}
-td {
-	border: 3px solid orange;
-	height: 200px;
-}
-
-</style>
 
 <form action="onedayclassModifyPro" method="post" name="onedayclassModifyPro" onsubmit="return modifyCheck()">
 <input type="hidden" name="onedayclassNumber" value="${dto.onedayclassNumber}">
 <%-- <input type="hidden" name="pageNum" value="${pageNum}"> --%>
 
-<div class = "odf_table">
-<table>
-  <tr>
-    <%--<td colspan="6" style="width : 400px">
-    		<input class="input" type="file" name="onedayclassImg1" id="onedayclassImg1" maxlength="50"
-						value="${images}${dto.onedayclassImg1}" style="width:270px">
-    	</td> --%>
-    <td colspan="6" style="width : 400px"><img src="resources/img/board/onedayclass/odc9.jpg" style="width:100%"></td>
-  </tr>
-  <tr>
-    <th colspan="2" rowspan="4">${dto.memberId}</th>
-    <th colspan="4">
-    	<input class="input" type="text" name="onedayclassSubject" maxlength="50" value="${dto.onedayclassSubject}" style="width:100%">
-    </th>
-  </tr>
-  <tr>
-    <th colspan="4">${dto.onedayclassGrade}</th>
-  </tr>
-  <tr>
-    <th>
-    	<input class="input" type="text" name="onedayclassLocation" maxlength="50" value="${dto.onedayclassLocation}">
-    </th>
-    <th>
-    	${dto.onedayclassOpendate}
-    </th>
-    <th>
-    	<input class="input" type="text" name="onedayclassRecruitment" maxlength="50" value="${dto.onedayclassRecruitment}">
-    </th>   
-    <th>
-    	<input class="input" type="text" name="onedayclassPrice" maxlength="50" value="${dto.onedayclassPrice}">
-    </th>
-  </tr>
-  <tr>
-    <th>${dto.onedayclassLookup}</th>
-    <th>${dto.onedayclassTotalpeople}</th>
-    <th>
-    	<input class="input" type="text" name="onedayclassCategory" maxlength="50" value="${dto.onedayclassCategory}" style="width:100%">
-    </th>
-    <th>${dto.onedayclassRegdate}</th>
-  </tr>
-  <tr>
-    <td colspan="6">
-    	<textarea class="input" rows="10" cols="80" name="onedayclassContent" word-break:break-all>${dto.onedayclassContent}</textarea>
-    </td>
-  </tr>
-<%--   <tr>
-    <td colspan="6">
-    	<input class="input" type="file" name="onedayclassImg2" id="onedayclassImg2" maxlength="50"
-						value="${images}${dto.onedayclassImg2}" style="width:100%">
-    </td>
-  </tr>
-  <tr>
-    <td colspan="6">
-    	<input class="input" type="file" name="onedayclassImg3" id="onedayclassImg3" maxlength="50"
-						value="${images}${dto.onedayclassImg3}" style="width:100%">
-    </td>
-  </tr> --%>
-  <tr>
-    <td>${dto.onedayclassEndCheck}</td>
-    <td>
-    	<input class="input" type="text" name="onedayclassDeadlineCheck" maxlength="50" value="${dto.onedayclassDeadlineCheck}">
-    </td>
-    <td colspan="2">${dto.onedayclassReservation}</td>
-    <td colspan="2">${dto.onedayclassPay}</td>
-  </tr>
-</table>
-</div>
+<section class="about-us-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Section Heading -->
+                    <div class="section-heading text-center">
+                        <h2>글  제목<pre><input class="input" type="text" name="onedayclassSubject" maxlength="50" value="${dto.onedayclassSubject}" style="width:100%"></h2>
+                        <p>클래스 개설자: ${dto.memberId}<br> 카테고리:<input class="input" type="text" name="onedayclassCategory" maxlength="50" value="${dto.onedayclassCategory}" style="width:100%"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-12">
+                    <!-- Section Heading -->
+                    <p>글 내용 <pre><textarea class="input" rows="100" cols="130" name="onedayclassContent" word-break:break-all>${dto.onedayclassContent}</textarea></p>
+                    
+			    <!-- ##### Testimonial Area Start ##### -->
+	               
+	                    <div class="testimonials-slides owl-carousel">
+	                        <!-- Single Testimonial Slide -->
+	                        <div class="single-testimonial-slide">
+	                            <div class="row align-items-center">
+	                                <div class="col-12">
+	                                    <div class="testimonial-thumb"><%-- ${dto.onedayclassImg1} --%>
+	                                        <img src="resources/img/board/onedayclass/odc7.jpg" alt="">
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	
+	                        <!-- Single Testimonial Slide -->
+	                        <div class="single-testimonial-slide">
+	                            <div class="row align-items-center">
+	                                <div class="col-12">
+	                                    <div class="testimonial-thumb"><%-- ${dto.onedayclassImg2} --%>
+	                                        <img src="resources/img/board/onedayclass/odc8.jpg" alt="">
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	
+	                        <!-- Single Testimonial Slide -->
+	                        <div class="single-testimonial-slide">
+	                            <div class="row align-items-center">
+	                                <div class="col-12">
+	                                    <div class="testimonial-thumb"><%-- ${dto.onedayclassImg3} --%>
+	                                        <img src="resources/img/board/onedayclass/odc9.jpg" alt="">
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                
+	              </div>
+	           </div>  
+			    <!-- ##### Testimonial Area End ##### -->
 
+             <div class="col-12 col-lg-12">
+                 <div class="alazea-benefits-area">
+                     <div class="row">
+                         
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconLocation.jpeg" style="width:100px">
+                                 <h5>평점</h5>
+                                 <p>${dto.onedayclassGrade}</p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconRecruitment.jpeg" style="width:100px">
+                                 <h5>모집인원</h5>
+                                 <p><input class="input" type="text" name="onedayclassRecruitment" maxlength="50" value="${dto.onedayclassRecruitment}"></p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconLocation.jpeg" style="width:100px">
+                                 <h5>위치</h5>
+                                 <p><input class="input" type="text" name="onedayclassLocation" maxlength="50" value="${dto.onedayclassLocation}"></p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
+                                 <h5>날짜</h5>
+                                 <p>${dto.onedayclassOpendate}</p>
+                             </div>
+                         </div>
+                         
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconMoney.jpeg" style="width:110px">
+                                 <h5>가격</h5>
+                                 <p><input class="input" type="text" name="onedayclassPrice" maxlength="50" value="${dto.onedayclassPrice}"></p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconRecruitment.jpeg" style="width:100px">
+                                 <h5>누적인원</h5>
+                                 <p>${dto.onedayclassTotalpeople}</p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconLocation.jpeg" style="width:100px">
+                                 <h5>조회수</h5>
+                                 <p>${dto.onedayclassLookup}</p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
+                                 <h5>작성일</h5>
+                                 <p>${dto.onedayclassRegdate}</p>
+                             </div>
+                         </div>
+                                                     
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconMoney.jpeg" style="width:110px">
+                                 <h5>종료여부</h5>
+                                 <p>${dto.onedayclassEndCheck}</p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconRecruitment.jpeg" style="width:100px">
+                                 <h5>마감여부</h5>
+                                 <p><input class="input" type="text" name="onedayclassDeadlineCheck" maxlength="50" value="${dto.onedayclassDeadlineCheck}"></p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconLocation.jpeg" style="width:100px">
+                                 <h5>예약</h5>
+                                 <p>${dto.onedayclassReservation}</p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-2">
+                             <div class="single-benefits-area">
+                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
+                                 <h5>결제</h5>
+                                 <p>${dto.onedayclassPay}</p>
+                             </div>
+                         </div> 
+                     </div>
+                 </div>
+             </div>
+         </div>
+    </section>
+    
+    
 <%-- <c:if test="${userVO.memberId} == ${dto.memberId}"> --%>
 	<table style="margin-left: auto; margin-right: auto;">
 		<th colspan="2">
