@@ -604,14 +604,17 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Integer alarmServiceCnt(HttpServletRequest req) {
 		Integer alarmCnt=0;
+
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
 		
 		String memEmail = userVO.getMemberEmail();
 		logger.info("memEmail : " + memEmail);
 		
 		//5단계 글갯수 구하기
-		alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
-		logger.info("alarmCnt : " + alarmCnt);
+		if(memEmail != null) {
+			alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
+			logger.info("alarmCnt : " + alarmCnt);
+		}
 		return alarmCnt;
 	
 	}

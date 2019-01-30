@@ -75,12 +75,7 @@ function ehddnr_select2(){
 	var test1 = document.getElementById("ehddnr_1");
 	test1.style.removeProperty("font-weight");
 }	
-$(function (){ 
-	$('#btn_select').change(function(){
-		location.href='knowledgeBoardList?btn_select='+$('#btn_select').val()+"&knowledgeCategory=<%=knowledgeCategory%>";		
-	});
-	$("#btn_select").val(<%=btn_select%>).attr("selected", true);
-});
+
 function knowledgeWriteForm(knowledgeNumber){
 	window.location='knowledgeWriteForm';
 }	
@@ -88,17 +83,6 @@ function knowledgeDetailForm(knowledgeNumber){
 	window.location='knowledgeDetailForm?knowledgeNumber='+knowledgeNumber;
 }
 
-$(document).ready(function() {
-	$(function() {
-		$("#<%=knowledgeCategory%>").css("font-weight", "bold");
-	});
-});
-
-function knowledgeBoardListsearch(){
-	var search2 = document.ehddnrform.search.value;
-	var search = "knowledgeBoardList?knowledgeCategory="+"<%=knowledgeCategory%>"+"&search="+search2;
-	window.location=search+search2;
-}
 </script>
 	
 	<!-- 동욱 시작 -->
@@ -128,7 +112,7 @@ function knowledgeBoardListsearch(){
 							onclick="getknowledgelist('All');">All</a>
 					</h6>
 					<h6 class="widget-title">
-						<a id="Education"class="knowledgeCategoryAteg"
+						<a id="Education" class="knowledgeCategoryAteg"
 							onclick="getknowledgelist('Education');">Education</a>
 					</h6>
 					<h6 class="widget-title">
@@ -145,7 +129,7 @@ function knowledgeBoardListsearch(){
 					</h6>
 					<h6 class="widget-title">
 						<a id="life" class="knowledgeCategoryAteg"
-						onclick="getknowledgelist('Life');">Life</a>
+						onclick="getknowledgelist('life');">Life</a>
 					</h6>
 					<h6 class="widget-title">
 						<a id="Health" class="knowledgeCategoryAteg"
@@ -169,7 +153,7 @@ function knowledgeBoardListsearch(){
 					</h6>
 					<h6 class="widget-title">
 						<a id="Question"class="knowledgeCategoryAteg"
-							href="knowledgeBoardList?knowledgeCategory=Worry">Worry</a>
+							onclick="getknowledgelist('Worry');">Worry</a>
 					</h6>
 				</div>
 			</div>
@@ -177,7 +161,7 @@ function knowledgeBoardListsearch(){
 		<div class="col-12 col-md-9 col-lg-10">
 			<div class="shop-products-area">
 				<div class="row">
-					<form action="knowledgeBoardList" method="post" name="ehddnrform"
+					<div action="knowledgeBoardList" method="post" name="ehddnrform"
 						style="width: 100%; margin: 0 0 15px 0; padding: 0 5px;">
 						<div id="knowledge_div3">
 							<h4 style="float: left;"id="titlecatagory" class="knowledgeup">All</h4>
@@ -189,7 +173,7 @@ function knowledgeBoardListsearch(){
 						<div style="margin: 15px 0;"class="search_by_terms">
 							<span style="float: left"><select class="btn_select"
 								name="btn_select" id="btn_select">
-									<option value="10">10개 보기</option>
+									<option value="10" selected>10개 보기</option>
 									<option value="20">20개 보기</option>
 									<option value="30">30개 보기</option>
 									<option value="40">40개 보기</option>
@@ -199,7 +183,8 @@ function knowledgeBoardListsearch(){
 								<button type="button" class='btn alazea-btn' onclick="knowledgeWriteForm();">QUESTION WRITE</button>
 								</div>
 						</div>
-					</form>
+					</div>
+					
 					<div class="col-12" style="margin: 0; padding: 0;" id="KnowledgeAjaxStart">
 						
 					</div>
@@ -232,7 +217,18 @@ function getknowledgelist(catagory){
 		getknowledgelistJsonData();
 	});
 }
-
+$(function (){ 
+	$('#btn_select').change(function(){
+		$(function(){
+			getknowledgelistJsonData();
+		});
+	});
+	
+});
+function knowledgeBoardListsearch(){
+	getknowledgelistJsonData();
+	$('#search').val(null);
+}
 </script>
 </body>
 

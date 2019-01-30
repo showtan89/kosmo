@@ -8,6 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="X-Content-Type-Options" content="nosniff" />
 <title>Helper - News</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
@@ -31,25 +32,22 @@
 		style="background-image: url(${newsimage}newsmenu.jpg);">
 		<h2>NEWS</h2>
 	</div>
-	<br>
-	<br>
+	<br><br>
 </div>
 
 <!-- 뉴스 게시판 본문  -->
 <div class="container" style="margin-bottom: 50px;">
 	<div class="row">
 		<div class="col-12">
-			<div
-				class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between">
-				<div class="shop-page-count">
-				</div>
+			<div class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between">
+				<div class="shop-page-count"></div>
 				<!-- Search by Terms -->
 				<div class="search_by_terms">
 					<!-- 필터 기능 일단 주석 -->
-					<form action="#" method="post" class="form-inline">
-                        <select class="custom-select widget-title">
-		             		<option value="CTR0014">나이지리아 </option>
-							<option value="CTR0027">남아프리카공화국 </option>
+					<!-- <form action="getNewsBoard" method="GET"> -->
+						<select class="custom-select widget-title" id="ctrcodeSelect">
+							<option value="CTR0014">나이지리아</option>
+							<option value="CTR0027">남아프리카공화국</option>
 							<option value="CTR0009">독일</option>
 							<option value="CTR0001">러시아</option>
 							<option value="CTR0029">멕시코</option>
@@ -79,10 +77,9 @@
 							<option value="CTR0035">필리핀</option>
 							<option value="CTR0017">헝가리</option>
 							<option value="CTR0021">호주</option>
-                        </select>
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-						<button type="submit" class='btn alazea-btn'>Search</button>
-                    </form>
+						</select> <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+						<button type="button" class='btn alazea-btn' onclick="getNewsJson()">Search</button>
+					<!-- </form> -->
 				</div>
 			</div>
 		</div>
@@ -91,18 +88,81 @@
 	<div class="shop-products-area">
 		<div class="row">
 			<div class="col-12">
-				<div class="card flex-md-row mb-4 shadow-sm h-md-250">
-				뉴스가 위치할 공간
-				d
-				
-				
-				
-				</div>
+				<div class="card flex-md-row mb-4 shadow-sm h-md-250"
+					id="jsonResult">뉴스가 위치할 공간</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
+<script src="resources/js/jquery.ajax-cross-origin.min.js"></script>
+<script>
+/* $("#ctrcodeSelect").change(function() {
+	  alert($("#ctrcodeSelect").val());
+	}); */
+	
+function getNewsJson() {
+		var ctrcode = $('#ctrcodeSelect').val(); 
+		var url = "http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode=CTR0013";
+		alert("aaa");
+		$.ajax({
+				url: url,
+				crossOrigin: true,
+				jsonp: "$jsonp",
+				dataType: "jsonp",
+				contentType: "application/x-www-form-urlencoded",
+			}).done(function(data) {
+				alert("a");
+				alert(data);
+		});
+		
+		/* $.getJSON("http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode="+ctrcode, function(data){
+			alert(data);
+		});  */
+		
+		/* $.ajax({
+			url: "http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode="+ctrcode,
+			dataType: 'jsonp',
+			success: function(data) {
+				alert("성공");
+				console.log('success - ', data);
+			},
+			error: function(xhr) {
+				alert("실패");
+				console.log('failure - ', xhr);
+			}
+			}); */
+		
+		/* $.ajax({
+			headers: { "Accept": "application/json"},
+            type: 'GET',
+            crossDomain: true,
+		    url: "http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode="+ctrcode,
+		    // The name of the callback parameter, as specified by the YQL service
+		    jsonp: "callback",
+		    // Tell jQuery we're expecting JSONP
+		    dataType: "jsonp",
+		    // Tell YQL what we want and that we want JSON
+		    data: {
+		       // q: "select title,abstract,url from search.news where query=\"cat\"",
+		        format: "json"
+		    },
+		    // Work with the response
+		    success: function( response ) {
+		        console.log( response ); // server response
+		    }
+		}); */
+		
+		/* var xhr = new XMLHttpRequest();
+		xhr.open("GET", "http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode="+ctrcode, true);
+		xhr.onload = function () {
+		    console.log(xhr.responseText);
+		};
+		xhr.send(); */
+
+	}
+</script>
+
 </body>
 </html>
