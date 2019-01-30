@@ -104,11 +104,12 @@
 }
 
 .tbl-ex th {
-	background-color: #70c745;
+	background-color: #dddddd;
 	font-size: 1.1em;
-	color: #fff;
-	border-width: 2px 0;
-	border: 2px solid white;
+	color: #333333;
+	border-width: 1px 0;
+	border-top: 1px solid #111111;
+	border-bottom: 1px solid #111111;
 	text-align: center;
 }
 
@@ -132,7 +133,8 @@
 
 </style>
 	<form action="">
-		<table class="tbl-ex"
+	<!-- tbl-ex -->
+		<table class="table table-striped"
 			style="width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100px;">
 			<tr>
 				<th>Sender</th>

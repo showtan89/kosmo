@@ -282,6 +282,6 @@ public class BoardController {
 	
 	// 진호  BoardController 끝----------------------------------------------------
 	
-
+	
 
 }
