@@ -50,12 +50,6 @@
 	<!-- 동욱 시작 -->
 	<!-- 동욱 css -->
 	<link rel="stylesheet" href="resources/ehddnr.css">
-	<c:if test="${userVO.memberId != null}">
-	<input type="hidden" id="loginId" value="${userVO.memberId}">
-	</c:if>
-	<c:if test="${userVO.memberId == null}">
-	<input type="hidden" id="loginId" value="1">
-	</c:if>
 	<%
 		String btn_select = (String) request.getAttribute("btn_select");
 		if(btn_select == null){
@@ -125,47 +119,42 @@ function knowledgeBoardListsearch(){
 					<h4 class="widget-title">Categories</h4>
 					<h6 class="widget-title" >
 						<a id="All" class="knowledgeCategoryAteg"
-							onclick="getknowledgelist('All');">All</a>
+							href="knowledgeBoardList?knowledgeCategory=All">All</a>
 					</h6>
 					<h6 class="widget-title">
 						<a id="Education"class="knowledgeCategoryAteg"
-							onclick="getknowledgelist('Education');">Education</a>
+							href="knowledgeBoardList?knowledgeCategory=Education">Education</a>
 					</h6>
 					<h6 class="widget-title">
 						<a id="Computer"class="knowledgeCategoryAteg"
-							onclick="getknowledgelist('Computer');">Computer</a>
+							href="knowledgeBoardList?knowledgeCategory=Computer">Computer</a>
 					</h6>
 					<h6 class="widget-title">
-						<a id="Game" class="knowledgeCategoryAteg" 
-						onclick="getknowledgelist('Game');">Game</a>
+						<a id="Game" class="knowledgeCategoryAteg" href="knowledgeBoardList?knowledgeCategory=Game">Game</a>
 					</h6>
 					<h6 class="widget-title">
 						<a id="entertainment"class="knowledgeCategoryAteg"
-							onclick="getknowledgelist('Entertainment');">Entertainment</a>
+							href="knowledgeBoardList?knowledgeCategory=entertainment">Entertainment</a>
 					</h6>
 					<h6 class="widget-title">
-						<a id="life" class="knowledgeCategoryAteg"
-						onclick="getknowledgelist('Life');">Life</a>
+						<a id="life" class="knowledgeCategoryAteg"href="knowledgeBoardList?knowledgeCategory=life">Life</a>
 					</h6>
 					<h6 class="widget-title">
-						<a id="Health" class="knowledgeCategoryAteg"
-						onclick="getknowledgelist('Health');">Health</a>
+						<a id="Health" class="knowledgeCategoryAteg"href="knowledgeBoardList?knowledgeCategory=Health">Health</a>
 					</h6>
 					<h6 class="widget-title">
 						<a id="society"class="knowledgeCategoryAteg"
-							onclick="getknowledgelist('Society');">Society</a>
+							href="knowledgeBoardList?knowledgeCategory=society">Society</a>
 					</h6>
 					<h6 class="widget-title">
-						<a id="travel" class="knowledgeCategoryAteg"
-						onclick="getknowledgelist('Travel');">Travel</a>
+						<a id="travel" class="knowledgeCategoryAteg"href="knowledgeBoardList?knowledgeCategory=travel">Travel</a>
 					</h6>
 					<h6 class="widget-title">
-						<a id="sports" class="knowledgeCategoryAteg"
-						onclick="getknowledgelist('Sports');">Sports</a>
+						<a id="sports" class="knowledgeCategoryAteg"href="knowledgeBoardList?knowledgeCategory=sports">Sports</a>
 					</h6>
 					<h6 class="widget-title">
 						<a id="Shopping"class="knowledgeCategoryAteg"
-							onclick="getknowledgelist('Shopping');">Shopping</a>
+							href="knowledgeBoardList?knowledgeCategory=Shopping">Shopping</a>
 					</h6>
 					<h6 class="widget-title">
 						<a id="Question"class="knowledgeCategoryAteg"
@@ -180,7 +169,7 @@ function knowledgeBoardListsearch(){
 					<form action="knowledgeBoardList" method="post" name="ehddnrform"
 						style="width: 100%; margin: 0 0 15px 0; padding: 0 5px;">
 						<div id="knowledge_div3">
-							<h4 style="float: left;"id="titlecatagory" class="knowledgeup">All</h4>
+							<h4 style="float: left;">${knowledgeCategory}</h4>
 							<div class="knowledge_select ">
 								<input class=knowledge_select2 type="text" maxlength="30" name="search" id="search" placeholder=""> 
 								<input class="knowledge_select3" id="SearchButton" type="button" onclick="knowledgeBoardListsearch();" value="SEARCH">
@@ -199,17 +188,102 @@ function knowledgeBoardListsearch(){
 								<button type="button" class='btn alazea-btn' onclick="knowledgeWriteForm();">QUESTION WRITE</button>
 								</div>
 						</div>
+						<%
+							Map<Integer, Integer> arr = (Map<Integer, Integer>) request.getAttribute("kcommentCnt");
+							int i = 0;
+						%>
 					</form>
 					<div class="col-12" style="margin: 0; padding: 0;" id="KnowledgeAjaxStart">
-						
+						<c:forEach var="dto" items="${dtos}">
+							<div class="card flex-md-row mb-4 shadow-sm h-md-250"
+								style="margin: 0; padding: 0;">
+								<div class="card-body d-flex flex-column align-items-start"
+									style="margin: 0; padding: 3px 3px;">
+									<table class="tbl-ex" style="width: 100%;">
+										<tr id="${dto.knowledgeNumber}">
+											<td style="max-width: 100%; word-break: break-all;">
+												<p style="margin: 0;"
+													onclick="knowledgeDetailForm(${dto.knowledgeNumber});">
+													<span
+														style="background-color: #ffff00 !important; color: black !important">
+														${dto.knowledgeReward}</span> &nbsp; &nbsp; <span><a
+														href="#"><strong
+															class="d-inline-block mb-2 text-success"
+															style="font-size: 23px; margin: 0;">${dto.knowledgeSubject}</strong></a></span>
+													<c:if test="${userVO.memberId==dto.memberId}">
+														<span style="float: right; margin-right: 3px;"><a
+															href="knowledgeDeleteForm?knowledgeNumber=${dto.knowledgeNumber}&pageNum=${pageNum}&btn_select=${btn_select}">삭제</a></span>
+														<span style="float: right; margin-right: 20px;"><a
+															href="knowledgeModifyForm?knowledgeNumber=${dto.knowledgeNumber}&pageNum=${pageNum}&btn_select=${btn_select}">수정</a></span>
+													</c:if>
+
+												</p>
+
+												<p style="margin: 0 0 8px 0; line-height: 18px;"
+													onclick="knowledgeDetailForm(${dto.knowledgeNumber});">
+													<span>${dto.knowledgeContent} </span>
+												</p>
+
+												<p style="margin: 2px 0 0 0">
+													<span>답변</span> <span><%=arr.get(i)%> </span>
+													<%
+														i++;
+													%>
+													<span style="margin-left: 20px;">${dto.knowledgeCategory}</span>&nbsp;&nbsp;
+													<span style="margin-left: 20px;">${dto.knowledgeRegdate}</span>
+													<span style="float: right; margin-right: 3px;">조회수&nbsp;${dto.knowledgeLookup}</span>
+												</p>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
 
 			<!-- 페이지 -->
-			
-			<nav aria-label="Page navigation" style="margin-top: 30px;" align="center" id="pagestr">
-				
+			<c:if test="${cnt==0}">
+				<p align="center">질문을 등록해 주세요.</p>
+			</c:if>
+			<nav aria-label="Page navigation" style="margin-top: 30px;"
+				align="center">
+				<ul class="pagination" align="center" style="margin: auto auto;">
+					<c:if test="${cnt>0}">
+						<!-- 게시글이 있으면 -->
+						<!-- 처음 ◀◀  / 이전블록◀ -->
+						<c:if test="${startPage > pageBlock }">
+							<li class="page-item"><a class="page-link"
+								href="knowledgeBoardList?btn_select=${btn_select}&knowledgeCategory=${knowledgeCategory}"><i
+									class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a></li>
+							<li class="page-item"><a class="page-link"
+								href="knowledgeBoardList?pageNum=${startPage-pageBlock}&btn_select=${btn_select}&knowledgeCategory=${knowledgeCategory}"><i
+									class="fa fa-angle-left"></i></a></li>
+						</c:if>
+
+						<c:forEach var="i" begin="${startPage}" end="${endPage}">
+							<c:if test="${i == currentPage}">
+								<li class="page-item"><a class="page-link"
+									style="background-color: #28a745 !important; color: white !important">${i}</a></li>
+							</c:if>
+							<c:if test="${i!=currentPage}">
+								<li class="page-item"><a class="page-link"
+									href="knowledgeBoardList?pageNum=${i}&btn_select=${btn_select}&knowledgeCategory=${knowledgeCategory}">${i}</a></li>
+							</c:if>
+						</c:forEach>
+
+						<!-- 끝 ▶▶  / 다음블록▶ -->
+						<c:if test="${pageCount > endPage }">
+							<li class="page-item"><a class="page-link"
+								href="knowledgeBoardList?pageNum=${startPage + pageBlock}&btn_select=${btn_select}&knowledgeCategory=${knowledgeCategory}"><i
+									class="fa fa-angle-right"></i></a></li>
+							<li class="page-item"><a class="page-link"
+								href="knowledgeBoardList?pageNum=${pageCount}&btn_select=${btn_select}&knowledgeCategory=${knowledgeCategory}"><i
+									class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
+						</c:if>
+					</c:if>
+				</ul>
 			</nav>
 		</div>
 	</div>
@@ -220,20 +294,6 @@ function knowledgeBoardListsearch(){
 
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
 <!-- ##### Footer Area End ##### -->
-<script src="resources/js/knowledgestate.js"></script>
-<script>
-$(function(){
-	getknowledgelistJsonData();
-});
-function getknowledgelist(catagory){
-	var text1 = catagory;
-	$('#titlecatagory').text(text1);
-	$(function(){
-		getknowledgelistJsonData();
-	});
-}
 
-</script>
 </body>
-
 </html>

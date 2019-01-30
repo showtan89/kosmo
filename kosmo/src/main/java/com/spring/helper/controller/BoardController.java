@@ -44,7 +44,6 @@ public class BoardController {
 	@RequestMapping("knowledgeBoardList")
 	public String knowledgeBoardList(HttpServletRequest req, Model model) throws Exception {
 		logger.info("knowledgeBoardList 로딩 중....");
-		service.knowledgeBoardList(req, model);
 		return "board/knowledge/knowledgeBoardList";
 	}
 	// 지식인 게시판 질문등록 폼 이동
@@ -282,6 +281,6 @@ public class BoardController {
 	
 	// 진호  BoardController 끝----------------------------------------------------
 	
-
+	
 
 }

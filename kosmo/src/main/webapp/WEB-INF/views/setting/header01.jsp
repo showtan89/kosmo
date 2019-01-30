@@ -111,6 +111,37 @@ alarm();
 setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 
 </script>
+ <script type="text/javascript"> 
+ /*
+function alarm(){
+	if(loopSendKeyword == false) return false;
+
+	//var alarmCnt = document.header01.alarmCnt.value;
+	var parms = "alarmCnt=" + alarmCnt;
+	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
+	setTimeout("alarm()", 1000); //실시간 제일 중요한 개념
+}
+
+function result_callback() {
+	var alarmCnt = document.getElementById("alarmCnt");
+	if(httpRequest.readyState == 4){}
+		if(httpRequest.status == 200){
+			loopSendKeyword = true; // 0.5초마다 반복해라
+			setTimeout(sendKeyword(), 100);
+			
+			if(data != null){
+				aCnt = data;
+				checkFirst = true;
+			 alarmCnt.innerHtml = aCnt;
+			}
+		}
+}  */
+</script> 
+<body onload="alarmChk();">
+	<div style="position: relative;">
+		<div
+			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
+	</div>
 <body onload="alarm();">
 	<header class="header-area">
 		<!-- ***** Top Header Area ***** -->
@@ -274,9 +305,10 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 													Heritage</a></li>
 											<li><a href="exchangerate.jsp">Exchange Rate</a></li>
 										</ul></li>
-									<li><a href="#">Foreign policy</a>
+									<li><a href="#">Information</a>
 										<ul class="dropdown">
-											<li><a href="employment.jsp">Employment</a></li>
+											<li><a href="employment">Employment</a></li>
+											<li><a href="news">News</a></li> <!-- 재영 추가  -->
 											<li><a href="multicultural.jsp">Multicultural</a></li>
 											<li><a href="legalinfo.jsp">Legal Information</a></li>
 										</ul></li>
@@ -288,9 +320,9 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 								</ul>
 
 								<!-- Search Icon -->
-								<div id="searchIcon">
+								<!-- <div id="searchIcon">
 									<i class="fa fa-search" aria-hidden="true"></i>
-								</div>
+								</div> -->
 
 							</div>
 							<!-- Navbar End -->
@@ -298,17 +330,18 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 					</nav>
 
 					<!-- Search Form -->
-					<div class="search-form">
+					<!-- <div class="search-form">
 						<form action="#" method="get">
 							<input type="search" name="search" id="search"
 								placeholder="Type keywords &amp; press enter...">
 							<button type="submit" class="d-none"></button>
-						</form>
+						</form>-->
 						<!-- Close Icon -->
-						<div class="closeIcon">
+						<!--<div class="closeIcon">
 							<i class="fa fa-times" aria-hidden="true"></i>
 						</div>
-					</div>
+					</div>-->
+					
 				</div>
 			</div>
 		</div>

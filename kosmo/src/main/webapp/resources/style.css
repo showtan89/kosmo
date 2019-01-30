@@ -218,7 +218,7 @@ img {
 /* :: 3.6.0 Miscellaneous */
 .bg-img {
   background-position: center center;
-  background-size: cover;
+  background-size: cover; 
   background-repeat: no-repeat; }
 
 .bg-white {
@@ -1852,7 +1852,7 @@ img {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100%; 
     content: ""; }
   .footer-area .main-footer-area {
     position: relative;
@@ -2650,3 +2650,6 @@ img {
 	max-height:38px !important;
 	line-height:0 !important;
 }
+.bg-img-custom {
+	background-image: url("./img/bg-img/3.jpg");
+	background-repeat: repeat !important;}
