@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script src="resources/js/jquery/jquery-3.3.1.min.js"></script>
 <script src="resources/js/request.js"></script>
 <script src="resources/js/request2.js"></script>
@@ -97,7 +100,7 @@ input:focus {
 
 function alarm() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
-		if(${sessionScope.userVO != null}){
+	if(${sessionScope.userVO != null}){
 		$.getJSON("alarmCnt", function(cnt){
 			$('#alarmCnt').html(cnt); 
 			
@@ -204,20 +207,34 @@ function result_callback() {
 									</sec:authorize>
 								</div>
 								
+								
 								<!-- Mypage Button -->
 								<sec:authorize access="isAuthenticated()">
 									<div class="language-dropdown">
 										<div class="dropdown">
-											<a href="myPage">
-												<button class="btn btn-secondary mr-30"
-													type="button" id="dropdownMenuButton"
-													aria-haspopup="true" aria-expanded="false">
-													MyPage
-												</button>
-											</a>
+											<c:if test="${userVO.authority ne 'ROLE_ADMIN'}">
+												<a href="myPage">
+													<button class="btn btn-secondary mr-30"
+														type="button" id="dropdownMenuButton"
+														aria-haspopup="true" aria-expanded="false">
+														MyPage
+													</button>
+												</a>
+											</c:if>
+											
+											<c:if test="${userVO.authority eq 'ROLE_ADMIN'}">
+												<a href="adminPage">
+													<button class="btn btn-secondary mr-30"
+														type="button" id="dropdownMenuButton"
+														aria-haspopup="true" aria-expanded="false">
+														AdminPage
+													</button>
+												</a>
+											</c:if>
 										</div>
 									</div>
 								</sec:authorize>
+								
 							
 								<!-- Alarm -->
 								<div class="cart">
