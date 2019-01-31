@@ -8,6 +8,8 @@
 <title>Mypage</title>
 
 <link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
+<!-- Favicon -->
+<link rel="icon" href="resources/img/core-img/favicon.ico">
 <!-- jQuery-2.2.4 js -->
 <script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">
@@ -35,11 +37,11 @@ function modifyCheck() {
 function memberDeleteForm() {
 	window.location.href = "memberDeleteForm";
 }
+
 	
 </script>
 </head>
 <body>
-
 <div class="preloader d-flex align-items-center justify-content-center">
 	<div class="preloader-circle"></div>
 	<div class="preloader-img">

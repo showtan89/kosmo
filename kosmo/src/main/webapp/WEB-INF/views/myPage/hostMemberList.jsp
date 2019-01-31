@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>MEMBER LIST</title>
 <link rel="stylesheet" href="resources/style.css">
-
+<link rel="stylesheet" href="resources/ehddnr.css">
 </head>
 <body>
 	<div class="preloader d-flex align-items-center justify-content-center">
@@ -33,40 +33,56 @@
 	
 	<br>
 	<br>
+	
+	<script type="text/javascript">
+		function out() {
+			var confirm = confirm("Really Out this user?");
+			
+			if (!confirm) {
+				return false;
+			}
+		}
+	</script>
 
+	
 	<div class="container col-12 col-md-9 col-lg-10">
+		<form name=memberSearchForm action="memberSearch" method="post" style="min-width: 350px">
+			<div class="knowledge_select">
+				<input class=knowledge_select2 type="text" maxlength="30"
+						name="search" id="search" placeholder="input keyword">
+				<input class="knowledge_select3" id="SearchButton" type="submit" value="SEARCH">
+			</div>
+		</form>
 		<table class="table">
-
+			<c:forEach var="uvo" items="${uvos}">
 			<thead class="table-success">
 				<tr>
 					<th scope="col" style="text-align:center;">Email</th>
 					<th scope="col" style="text-align:center;">ID</th>
 					<th scope="col" style="text-align:center;">Country</th>
-					<th scope="col" style="text-align:center;">Points</th>
-					<th scope="col" style="text-align:center;">Regist</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				<c:forEach var="uvo" items="${uvos}">
 					<tr id="lists" style="text-align: center; ">
-						<td scope="row">
-							<a onclick="viewDetail('${uvo.memberEmail}')">
-								${uvo.memberEmail}
-							</a>
-						</td>
+						<td scope="row" rowspan="3" style="vertical-align: middle;">${uvo.memberEmail}</td>
 						<td scope="row">${uvo.memberId}</td>
 						<td scope="row">${uvo.memberCountry}</td>
-						<td scope="row">${uvo.memberPoint}</td>
-						<td scope="row">
+					</tr>
+					
+					<tr class="table-success">
+						<th scope="col" style="text-align:center;">Regist</th>
+						<th scope="col" style="text-align:center;">Points</th>
+					</tr>
+					
+					<tr>
+						<td scope="row" style="text-align:center;">
 							<fmt:formatDate pattern="yyyy-MM-dd" value="${uvo.memberRegdate}"/>
 						</td>
+						<td scope="row" style="text-align:center;">${uvo.memberPoint}</td>
 					</tr>
-					<div id="result">
-					
-					</div>
-				</c:forEach>
 			</tbody>
+			</c:forEach>
 		</table>
 
 
@@ -74,8 +90,7 @@
 			align="center">
 			<ul class="pagination" align="center" style="margin: auto auto;">
 				<c:if test="${cnt>0}">
-					<!-- 게시글이 있으면 -->
-					<!-- 처음 ◀◀  / 이전블록◀ -->
+				
 					<c:if test="${startPage > pageBlock }">
 						<li class="page-item"><a class="page-link"
 							href="hostMemberList"><i
@@ -96,7 +111,6 @@
 						</c:if>
 					</c:forEach>
 
-					<!-- 끝 ▶▶  / 다음블록▶ -->
 					<c:if test="${pageCount > endPage }">
 						<li class="page-item"><a class="page-link"
 							href="hostMemberList?pageNum=${startPage + pageBlock}"><i

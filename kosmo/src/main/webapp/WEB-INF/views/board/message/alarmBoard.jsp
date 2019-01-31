@@ -154,7 +154,6 @@
 							<c:choose>
 								<c:when test="${code==10}">
 									<%-- <c:set var="url" value="${}"/> --%>
-									<!-- http://localhost/project/knowledgeDetailForm?knowledgeNumber=109 -->
 									<td><a
 										href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
 								</c:when>

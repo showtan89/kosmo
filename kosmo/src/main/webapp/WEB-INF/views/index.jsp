@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
 <meta charset="UTF-8">
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -162,8 +164,8 @@
 
             <div class="col-12 col-lg-6">
                <div class="alazea-video-area bg-overlay mb-100">
-                  <img src="resources/img/bg-img/23.jpg" alt=""> <a
-                     href="http://www.youtube.com/watch?v=7HKoqNJtMTQ"
+                  <img src="resources/img/bg-img/sana.png" alt=""> <a
+                     href="https://www.youtube.com/watch?v=jNGuk59UWeI"
                      class="video-icon"> <i class="fa fa-play" aria-hidden="true"></i>
                   </a>
                </div>
@@ -174,11 +176,11 @@
    <!-- ##### Service Area End ##### -->
 
    <!-- ##### About Area Start ##### -->
-   <section class="about-us-area section-padding-100-0">
+   <!-- <section class="about-us-area section-padding-100-0">
       <div class="container">
          <div class="row justify-content-between">
             <div class="col-12 col-lg-5">
-               <!-- Section Heading -->
+               Section Heading
                <div class="section-heading">
                   <h2>ABOUT US</h2>
                   <p>We are leading in the plants service fields.</p>
@@ -187,9 +189,9 @@
                   ac ante. Duis in sceleri quesem. Nulla sit amet varius nunc.
                   Maecenas dui, tempeu ullam corper in.</p>
 
-               <!-- Progress Bar Content Area -->
+               Progress Bar Content Area
                <div class="alazea-progress-bar mb-50">
-                  <!-- Single Progress Bar -->
+                  Single Progress Bar
                   <div class="single_progress_bar">
                      <p>Office plants</p>
                      <div id="bar1" class="barfiller">
@@ -200,7 +202,7 @@
                      </div>
                   </div>
 
-                  <!-- Single Progress Bar -->
+                  Single Progress Bar
                   <div class="single_progress_bar">
                      <p>Field manager</p>
                      <div id="bar2" class="barfiller">
@@ -211,7 +213,7 @@
                      </div>
                   </div>
 
-                  <!-- Single Progress Bar -->
+                  Single Progress Bar
                   <div class="single_progress_bar">
                      <p>Landscape design</p>
                      <div id="bar3" class="barfiller">
@@ -222,7 +224,7 @@
                      </div>
                   </div>
 
-                  <!-- Single Progress Bar -->
+                  Single Progress Bar
                   <div class="single_progress_bar">
                      <p>Garden Care</p>
                      <div id="bar4" class="barfiller">
@@ -238,7 +240,7 @@
             <div class="col-12 col-lg-6">
                <div class="alazea-benefits-area">
                   <div class="row">
-                     <!-- Single Benefits Area -->
+                     Single Benefits Area
                      <div class="col-12 col-sm-6">
                         <div class="single-benefits-area">
                            <img src="resources/img/core-img/b1.png" alt="">
@@ -248,7 +250,7 @@
                         </div>
                      </div>
 
-                     <!-- Single Benefits Area -->
+                     Single Benefits Area
                      <div class="col-12 col-sm-6">
                         <div class="single-benefits-area">
                            <img src="resources/img/core-img/b2.png" alt="">
@@ -258,7 +260,7 @@
                         </div>
                      </div>
 
-                     <!-- Single Benefits Area -->
+                     Single Benefits Area
                      <div class="col-12 col-sm-6">
                         <div class="single-benefits-area">
                            <img src="resources/img/core-img/b3.png" alt="">
@@ -268,7 +270,7 @@
                         </div>
                      </div>
 
-                     <!-- Single Benefits Area -->
+                     Single Benefits Area
                      <div class="col-12 col-sm-6">
                         <div class="single-benefits-area">
                            <img src="resources/img/core-img/b4.png" alt="">
@@ -290,15 +292,15 @@
             </div>
          </div>
       </div>
-   </section>
+   </section> -->
    <!-- ##### About Area End ##### -->
 
    <!-- ##### Portfolio Area Start ##### -->
-   <section class="alazea-portfolio-area section-padding-100-0">
+   <!-- <section class="alazea-portfolio-area section-padding-100-0">
       <div class="container">
          <div class="row">
             <div class="col-12">
-               <!-- Section Heading -->
+               Section Heading
                <div class="section-heading text-center">
                   <h2>OUR PORTFOLIO</h2>
                   <p>We devote all of our experience and efforts for creation</p>
@@ -326,14 +328,14 @@
 
          <div class="row alazea-portfolio">
 
-            <!-- Single Portfolio Area -->
+            Single Portfolio Area
             <div
                class="col-12 col-sm-6 col-lg-3 single_portfolio_item design home-design wow fadeInUp"
                data-wow-delay="100ms">
-               <!-- Portfolio Thumbnail -->
+               Portfolio Thumbnail
                <div class="portfolio-thumbnail bg-img"
                   style="background-image: url(resources/img/bg-img/16.jpg);"></div>
-               <!-- Portfolio Hover Text -->
+               Portfolio Hover Text
                <div class="portfolio-hover-overlay">
                   <a href="resources/img/bg-img/16.jpg"
                      class="portfolio-img d-flex align-items-center justify-content-center"
@@ -346,14 +348,14 @@
                </div>
             </div>
 
-            <!-- Single Portfolio Area -->
+            Single Portfolio Area
             <div
                class="col-12 col-sm-6 col-lg-3 single_portfolio_item garden wow fadeInUp"
                data-wow-delay="200ms">
-               <!-- Portfolio Thumbnail -->
+               Portfolio Thumbnail
                <div class="portfolio-thumbnail bg-img"
                   style="background-image: url(resources/img/bg-img/17.jpg);"></div>
-               <!-- Portfolio Hover Text -->
+               Portfolio Hover Text
                <div class="portfolio-hover-overlay">
                   <a href="resources/img/bg-img/17.jpg"
                      class="portfolio-img d-flex align-items-center justify-content-center"
@@ -366,14 +368,14 @@
                </div>
             </div>
 
-            <!-- Single Portfolio Area -->
+            Single Portfolio Area
             <div
                class="col-12 col-sm-6 col-lg-3 single_portfolio_item garden design wow fadeInUp"
                data-wow-delay="300ms">
-               <!-- Portfolio Thumbnail -->
+               Portfolio Thumbnail
                <div class="portfolio-thumbnail bg-img"
                   style="background-image: url(resources/img/bg-img/18.jpg);"></div>
-               <!-- Portfolio Hover Text -->
+               Portfolio Hover Text
                <div class="portfolio-hover-overlay">
                   <a href="resources/img/bg-img/18.jpg"
                      class="portfolio-img d-flex align-items-center justify-content-center"
@@ -386,14 +388,14 @@
                </div>
             </div>
 
-            <!-- Single Portfolio Area -->
+            Single Portfolio Area
             <div
                class="col-12 col-sm-6 col-lg-3 single_portfolio_item garden office-design wow fadeInUp"
                data-wow-delay="400ms">
-               <!-- Portfolio Thumbnail -->
+               Portfolio Thumbnail
                <div class="portfolio-thumbnail bg-img"
                   style="background-image: url(resources/img/bg-img/19.jpg);"></div>
-               <!-- Portfolio Hover Text -->
+               Portfolio Hover Text
                <div class="portfolio-hover-overlay">
                   <a href="resources/img/bg-img/19.jpg"
                      class="portfolio-img d-flex align-items-center justify-content-center"
@@ -406,14 +408,14 @@
                </div>
             </div>
 
-            <!-- Single Portfolio Area -->
+            Single Portfolio Area
             <div
                class="col-12 col-sm-6 col-lg-3 single_portfolio_item design office-design wow fadeInUp"
                data-wow-delay="100ms">
-               <!-- Portfolio Thumbnail -->
+               Portfolio Thumbnail
                <div class="portfolio-thumbnail bg-img"
                   style="background-image: url(resources/img/bg-img/20.jpg);"></div>
-               <!-- Portfolio Hover Text -->
+               Portfolio Hover Text
                <div class="portfolio-hover-overlay">
                   <a href="resources/img/bg-img/20.jpg"
                      class="portfolio-img d-flex align-items-center justify-content-center"
@@ -426,14 +428,14 @@
                </div>
             </div>
 
-            <!-- Single Portfolio Area -->
+            Single Portfolio Area
             <div
                class="col-12 col-sm-6 col-lg-3 single_portfolio_item garden wow fadeInUp"
                data-wow-delay="200ms">
-               <!-- Portfolio Thumbnail -->
+               Portfolio Thumbnail
                <div class="portfolio-thumbnail bg-img"
                   style="background-image: url(resources/img/bg-img/21.jpg);"></div>
-               <!-- Portfolio Hover Text -->
+               Portfolio Hover Text
                <div class="portfolio-hover-overlay">
                   <a href="resources/img/bg-img/21.jpg"
                      class="portfolio-img d-flex align-items-center justify-content-center"
@@ -446,14 +448,14 @@
                </div>
             </div>
 
-            <!-- Single Portfolio Area -->
+            Single Portfolio Area
             <div
                class="col-12 col-lg-6 single_portfolio_item home-design wow fadeInUp"
                data-wow-delay="300ms">
-               <!-- Portfolio Thumbnail -->
+               Portfolio Thumbnail
                <div class="portfolio-thumbnail bg-img"
                   style="background-image: url(resources/img/bg-img/22.jpg);"></div>
-               <!-- Portfolio Hover Text -->
+               Portfolio Hover Text
                <div class="portfolio-hover-overlay">
                   <a href="resources/img/bg-img/22.jpg"
                      class="portfolio-img d-flex align-items-center justify-content-center"
@@ -468,17 +470,17 @@
 
          </div>
       </div>
-   </section>
+   </section> -->
    <!-- ##### Portfolio Area End ##### -->
 
    <!-- ##### Testimonial Area Start ##### -->
-   <section class="testimonial-area section-padding-100">
+   <!-- <section class="testimonial-area section-padding-100">
       <div class="container">
          <div class="row">
             <div class="col-12">
                <div class="testimonials-slides owl-carousel">
 
-                  <!-- Single Testimonial Slide -->
+                  Single Testimonial Slide
                   <div class="single-testimonial-slide">
                      <div class="row align-items-center">
                         <div class="col-12 col-md-6">
@@ -488,7 +490,7 @@
                         </div>
                         <div class="col-12 col-md-6">
                            <div class="testimonial-content">
-                              <!-- Section Heading -->
+                              Section Heading
                               <div class="section-heading">
                                  <h2>TESTIMONIAL</h2>
                                  <p>Some kind words from clients about Alazea</p>
@@ -507,7 +509,7 @@
                      </div>
                   </div>
 
-                  <!-- Single Testimonial Slide -->
+                  Single Testimonial Slide
                   <div class="single-testimonial-slide">
                      <div class="row align-items-center">
                         <div class="col-12 col-md-6">
@@ -517,7 +519,7 @@
                         </div>
                         <div class="col-12 col-md-6">
                            <div class="testimonial-content">
-                              <!-- Section Heading -->
+                              Section Heading
                               <div class="section-heading">
                                  <h2>TESTIMONIAL</h2>
                                  <p>Some kind words from clients about Alazea</p>
@@ -536,7 +538,7 @@
                      </div>
                   </div>
 
-                  <!-- Single Testimonial Slide -->
+                  Single Testimonial Slide
                   <div class="single-testimonial-slide">
                      <div class="row align-items-center">
                         <div class="col-12 col-md-6">
@@ -546,7 +548,7 @@
                         </div>
                         <div class="col-12 col-md-6">
                            <div class="testimonial-content">
-                              <!-- Section Heading -->
+                              Section Heading
                               <div class="section-heading">
                                  <h2>TESTIMONIAL</h2>
                                  <p>Some kind words from clients about Alazea</p>
@@ -569,15 +571,15 @@
             </div>
          </div>
       </div>
-   </section>
+   </section> -->
    <!-- ##### Testimonial Area End ##### -->
 
    <!-- ##### Product Area Start ##### -->
-   <section class="new-arrivals-products-area bg-gray section-padding-100">
+   <!-- <section class="new-arrivals-products-area bg-gray section-padding-100">
       <div class="container">
          <div class="row">
             <div class="col-12">
-               <!-- Section Heading -->
+               Section Heading
                <div class="section-heading text-center">
                   <h2>NEW ARRIVALS</h2>
                   <p>We have the latest products, it must be exciting for you</p>
@@ -587,15 +589,15 @@
 
          <div class="row">
 
-            <!-- Single Product Area -->
+            Single Product Area
             <div class="col-12 col-sm-6 col-lg-3">
                <div class="single-product-area mb-50 wow fadeInUp"
                   data-wow-delay="100ms">
-                  <!-- Product Image -->
+                  Product Image
                   <div class="product-img">
                      <a href="shop-details.jsp"><img src="resources/img/bg-img/9.jpg"
                         alt=""></a>
-                     <!-- Product Tag -->
+                     Product Tag
                      <div class="product-tag">
                         <a href="#">Hot</a>
                      </div>
@@ -606,7 +608,7 @@
                            class="arrow_left-right_alt"></i></a>
                      </div>
                   </div>
-                  <!-- Product Info -->
+                  Product Info
                   <div class="product-info mt-15 text-center">
                      <a href="shop-details.jsp">
                         <p>Cactus Flower</p>
@@ -616,11 +618,11 @@
                </div>
             </div>
 
-            <!-- Single Product Area -->
+            Single Product Area
             <div class="col-12 col-sm-6 col-lg-3">
                <div class="single-product-area mb-50 wow fadeInUp"
                   data-wow-delay="200ms">
-                  <!-- Product Image -->
+                  Product Image
                   <div class="product-img">
                      <a href="shop-details.jsp"><img src="resources/img/bg-img/10.jpg"
                         alt=""></a>
@@ -631,7 +633,7 @@
                            class="arrow_left-right_alt"></i></a>
                      </div>
                   </div>
-                  <!-- Product Info -->
+                  Product Info
                   <div class="product-info mt-15 text-center">
                      <a href="shop-details.jsp">
                         <p>Cactus Flower</p>
@@ -641,11 +643,11 @@
                </div>
             </div>
 
-            <!-- Single Product Area -->
+            Single Product Area
             <div class="col-12 col-sm-6 col-lg-3">
                <div class="single-product-area mb-50 wow fadeInUp"
                   data-wow-delay="300ms">
-                  <!-- Product Image -->
+                  Product Image
                   <div class="product-img">
                      <a href="shop-details.jsp"><img src="resources/img/bg-img/11.jpg"
                         alt=""></a>
@@ -656,7 +658,7 @@
                            class="arrow_left-right_alt"></i></a>
                      </div>
                   </div>
-                  <!-- Product Info -->
+                  Product Info
                   <div class="product-info mt-15 text-center">
                      <a href="shop-details.jsp">
                         <p>Cactus Flower</p>
@@ -666,15 +668,15 @@
                </div>
             </div>
 
-            <!-- Single Product Area -->
+            Single Product Area
             <div class="col-12 col-sm-6 col-lg-3">
                <div class="single-product-area mb-50 wow fadeInUp"
                   data-wow-delay="400ms">
-                  <!-- Product Image -->
+                  Product Image
                   <div class="product-img">
                      <a href="shop-details.jsp"><img src="resources/img/bg-img/12.jpg"
                         alt=""></a>
-                     <!-- Product Tag -->
+                     Product Tag
                      <div class="product-tag sale-tag">
                         <a href="#">Hot</a>
                      </div>
@@ -685,7 +687,7 @@
                            class="arrow_left-right_alt"></i></a>
                      </div>
                   </div>
-                  <!-- Product Info -->
+                  Product Info
                   <div class="product-info mt-15 text-center">
                      <a href="shop-details.jsp">
                         <p>Cactus Flower</p>
@@ -701,15 +703,15 @@
 
          </div>
       </div>
-   </section>
+   </section> -->
    <!-- ##### Product Area End ##### -->
 
    <!-- ##### Blog Area Start ##### -->
-   <section class="alazea-blog-area section-padding-100-0">
+   <!-- <section class="alazea-blog-area section-padding-100-0">
       <div class="container">
          <div class="row">
             <div class="col-12">
-               <!-- Section Heading -->
+               Section Heading
                <div class="section-heading text-center">
                   <h2>LATEST NEWS</h2>
                   <p>The breaking news about Gardening &amp; House plants</p>
@@ -719,7 +721,7 @@
 
          <div class="row justify-content-center">
 
-            <!-- Single Blog Post Area -->
+            Single Blog Post Area
             <div class="col-12 col-md-6 col-lg-4">
                <div class="single-blog-post mb-100">
                   <div class="post-thumbnail mb-30">
@@ -742,7 +744,7 @@
                </div>
             </div>
 
-            <!-- Single Blog Post Area -->
+            Single Blog Post Area
             <div class="col-12 col-md-6 col-lg-4">
                <div class="single-blog-post mb-100">
                   <div class="post-thumbnail mb-30">
@@ -765,7 +767,7 @@
                </div>
             </div>
 
-            <!-- Single Blog Post Area -->
+            Single Blog Post Area
             <div class="col-12 col-md-6 col-lg-4">
                <div class="single-blog-post mb-100">
                   <div class="post-thumbnail mb-30">
@@ -790,16 +792,16 @@
 
          </div>
       </div>
-   </section>
+   </section> -->
    <!-- ##### Blog Area End ##### -->
 
    <!-- ##### Subscribe Area Start ##### -->
-   <section class="subscribe-newsletter-area"
+   <!-- <section class="subscribe-newsletter-area"
       style="background-image: url(resources/img/bg-img/subscribe.png);">
       <div class="container">
          <div class="row align-items-center justify-content-between">
             <div class="col-12 col-lg-5">
-               <!-- Section Heading -->
+               Section Heading
                <div class="section-heading mb-0">
                   <h2>Join the Newsletter</h2>
                   <p>Subscribe to our newsletter and get 10% off your first
@@ -818,24 +820,24 @@
          </div>
       </div>
 
-      <!-- Subscribe Side Thumbnail -->
+      Subscribe Side Thumbnail
       <div class="subscribe-side-thumb wow fadeInUp" data-wow-delay="500ms">
          <img class="first-img" src="resources/img/core-img/leaf.png" alt="">
       </div>
-   </section>
+   </section> -->
    <!-- ##### Subscribe Area End ##### -->
 
    <!-- ##### Contact Area Start ##### -->
-   <section class="contact-area section-padding-100-0">
+   <!-- <section class="contact-area section-padding-100-0">
       <div class="container">
          <div class="row align-items-center justify-content-between">
             <div class="col-12 col-lg-5">
-               <!-- Section Heading -->
+               Section Heading
                <div class="section-heading">
                   <h2>GET IN TOUCH</h2>
                   <p>Send us a message, we will call back later</p>
                </div>
-               <!-- Contact Form Area -->
+               Contact Form Area
                <div class="contact-form-area mb-100">
                   <form action="#" method="post">
                      <div class="row">
@@ -873,14 +875,14 @@
             </div>
 
             <div class="col-12 col-lg-6">
-               <!-- Google Maps -->
+               Google Maps
                <div class="map-area mb-100">
                   <iframe   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22236.40558254599!2d-118.25292394686001!3d34.057682914027104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2z4Kay4Ka4IOCmj-CmnuCnjeCmnOCnh-CmsuCnh-CmuCwg4KaV4KeN4Kav4Ka-4Kay4Ka_4Kar4KeL4Kaw4KeN4Kao4Ka_4Kav4Ka84Ka-LCDgpq7gpr7gprDgp43gppXgpr_gpqgg4Kav4KeB4KaV4KeN4Kak4Kaw4Ka-4Ka34KeN4Kaf4KeN4Kaw!5e0!3m2!1sbn!2sbd!4v1532328708137"   allowfullscreen></iframe>
                </div>
             </div>
          </div>
       </div>
-   </section>
+   </section> -->
    <!-- ##### Contact Area End ##### -->
       
       <jsp:include page="setting/footer01.jsp" flush="false"/>

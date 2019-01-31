@@ -91,6 +91,17 @@ public class MemberServiceImpl implements MemberService {
 
 		model.addAttribute("updateCnt", updateCnt);
 	}
+	
+	@Override
+	public void memberIdConfirm(HttpServletRequest req, Model model) {
+		
+		String memberId = req.getParameter("memberId");
+		
+		int selectCnt = memberdao.memberIdConfirm(memberId);
+		
+		model.addAttribute("selectCnt", selectCnt);
+		model.addAttribute("memberId", memberId);
+	}
 
 	// 회원정보 수정
 	@Override
@@ -279,6 +290,73 @@ public class MemberServiceImpl implements MemberService {
 		model.addAttribute("memberEmail", memberEmail);
 	}
 
+	// 멤버 찾기
+	@Override
+	public void memberSearch(HttpServletRequest req, Model model) {
+		
+		String text = req.getParameter("search");
+		
+		int pageSize = 20;
+		int pageBlock = 10;
+		int cnt = 0;
+		int start = 0;	 
+		int end = 0;
+		String pageNum = ""; 
+		int currentPage = 0;
+		int pageCount = 0;
+		int startPage = 0;	
+		int endPage = 0;	
+		
+		cnt = memberdao.getSearchCnt(text);
+		
+		pageNum = req.getParameter("pageNum");
+
+		if(pageNum== null) {
+			pageNum = "1";
+		}
+		
+		currentPage = Integer.parseInt(pageNum);
+		
+		pageCount = (cnt / pageSize) +(cnt % pageSize > 0 ? 1 : 0);
+
+		start = (currentPage-1) * pageSize + 1;
+
+		end = start + pageSize -1;
+		
+		if(end > cnt) end = cnt;	
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("text", text);
+
+		if(cnt > 0) {
+			List<UserVO> uvos = memberdao.memberSearch(map);
+			model.addAttribute("uvos", uvos);
+		}
+
+		startPage = (currentPage / pageBlock) * pageBlock + 1;
+		
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+
+		
+		endPage = startPage + pageBlock-1;
+		
+		if(endPage > pageCount) endPage = pageCount;
+
+		
+		req.setAttribute("cnt", cnt);
+		req.setAttribute("pageNum", pageNum);
+
+		if(cnt >0) {
+			req.setAttribute("startPage", startPage);
+			req.setAttribute("endPage", endPage);
+			req.setAttribute("pageBlock", pageBlock);
+			req.setAttribute("pageCount", pageCount);
+			req.setAttribute("currentPage", currentPage);
+		}
+
+	}
 
 
 	// 대호 메소드 종료 ===================================================

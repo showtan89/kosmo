@@ -1,8 +1,11 @@
 package com.spring.helper.service;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -837,11 +840,37 @@ public class BoardServiceImpl implements BoardService {
 		
 		model.addAttribute("updateCnt", updateCnt);
 	}
+	
 
 
 	//진호 메소드 종료---------------------------------------------------
 
+	// 대호 시작 ================================
+	@Override
+	public void emergency(HttpServletRequest req, Model model) throws Exception {
+		
+		ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hospital.py");
+		Process p = pb.start(); // 프로세스 호출
 
+		// 프로세스의 실행결과를 스트림으로 리턴함
+		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+		String line ="";
+
+		// 방법2.
+		StringBuilder sb = new StringBuilder();
+		while((line = br.readLine()) != null) {
+			sb.append(line + "<br>"); //출력
+		}
+		
+		String originData = (sb.toString());
+		
+		String changeData = originData.substring(35);
+
+		model.addAttribute("originData", changeData);
+	}
+	
+	// 대호 끝 =================================
 
 
 }

@@ -118,4 +118,9 @@ public interface BoardService {
 
 	//진호 끝-----------------------------------------------------------
 
+	// 대호 시작 =================
+	
+	public void emergency(HttpServletRequest req, Model model) throws Exception;
+	
+	// 대호 끝 ==================
 }

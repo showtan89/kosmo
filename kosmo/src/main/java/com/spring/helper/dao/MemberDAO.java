@@ -13,6 +13,8 @@ public interface MemberDAO {
 
 	public int memberInputPro(Map<String, Object> map);
 
+	public int memberIdConfirm(String memberId);
+	
 	public void sendEmailKey(Map<String, Object> map);
 
 	public int memberEmailConfirmed(String emailKey);
@@ -32,6 +34,10 @@ public interface MemberDAO {
 	public List<UserVO> addAuthority(Map<String, Object> map);
 	
 	public int applyAuthority(String memberEmail);
+	
+	public int getSearchCnt(String text);
+	
+	public List<UserVO> memberSearch(Map<String, Object> map);
 	// 대호 메소드 종료 ============================================================
 
 }

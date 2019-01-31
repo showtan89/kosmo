@@ -44,6 +44,14 @@ public class MemberController {
 
 		return "board/memberInput/memberEmailConfirmed";
 	}
+	
+	@RequestMapping("memberIdConfirm")
+	public String memberIdConfirm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("memberIdConfirm 로딩 중..");
+		service.memberIdConfirm(req, model);
+
+		return "board/memberInput/memberIdConfirm";
+	}
 
 	@RequestMapping("myPage")
 	public String myPage(HttpServletRequest req, Model model) throws Exception {
@@ -114,6 +122,15 @@ public class MemberController {
 		service.applyAuthority(req, model);
 		
 		return "myPage/applyAuthority";
+	}
+	
+	@RequestMapping("memberSearch")
+	public String memberSearch(HttpServletRequest req, Model model) throws Exception {
+		logger.info("memberSearch 로딩 중..");
+		
+		service.memberSearch(req, model);
+		
+		return "myPage/memberSearch";
 	}
 	// 대호 끝
 	
