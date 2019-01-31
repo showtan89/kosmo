@@ -65,16 +65,7 @@
 	%>
 	<script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript">
-function ehddnr_select1(){
-	$('#ehddnr_1').css('font-weight','bold');
-	var test1 = document.getElementById("ehddnr_2");
-	test1.style.removeProperty("font-weight");
-}
-function ehddnr_select2(){
-	$('#ehddnr_2').css('font-weight','bold');
-	var test1 = document.getElementById("ehddnr_1");
-	test1.style.removeProperty("font-weight");
-}	
+
 
 function knowledgeWriteForm(knowledgeNumber){
 	window.location='knowledgeWriteForm';
@@ -84,7 +75,7 @@ function knowledgeDetailForm(knowledgeNumber){
 }
 
 </script>
-	
+	<input type="hidden" name="selectchk" value="left" id="selectchk">
 	<!-- 동욱 시작 -->
 	<div class="row">
 		<div class="col-12">
@@ -161,7 +152,7 @@ function knowledgeDetailForm(knowledgeNumber){
 		<div class="col-12 col-md-9 col-lg-10">
 			<div class="shop-products-area">
 				<div class="row">
-					<div action="knowledgeBoardList" method="post" name="ehddnrform"
+					<div name="ehddnrform"
 						style="width: 100%; margin: 0 0 15px 0; padding: 0 5px;">
 						<div id="knowledge_div3">
 							<h4 style="float: left;"id="titlecatagory" class="knowledgeup">All</h4>
@@ -229,6 +220,23 @@ function knowledgeBoardListsearch(){
 	getknowledgelistJsonData();
 	$('#search').val(null);
 }
+function ehddnr_select1(){
+	$('#ehddnr_1').css('font-weight','bold');
+	var test1 = document.getElementById("ehddnr_2");
+	test1.style.removeProperty("font-weight");
+	
+	$('#selectchk').val('left');
+	getknowledgelistJsonData();
+}
+function ehddnr_select2(){
+	$('#ehddnr_2').css('font-weight','bold');
+	var test1 = document.getElementById("ehddnr_1");
+	test1.style.removeProperty("font-weight");
+	 
+	$('#selectchk').val('right');
+	getknowledgelistJsonData();
+	
+}	
 </script>
 </body>
 

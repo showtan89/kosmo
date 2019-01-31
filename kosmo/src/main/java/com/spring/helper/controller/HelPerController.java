@@ -77,6 +77,12 @@ public class HelPerController{
 		logger.info("knowledge 로딩 중....");
 		res.sendRedirect("knowledgeBoardList");
 	}
+	@RequestMapping("legalinfo")
+	public String legalinfo(HttpServletResponse res) throws Exception {
+		logger.info("legalinfo 로딩 중....");
+		return "info/legalinfo/legalinfoList";
+	}
+	
 	// 동욱이 종료
 
 	// 재영 시작
@@ -136,5 +142,14 @@ public class HelPerController{
 	
 	//민석이 끝++++++++++++++++++++++++++++++++
 
+	// 대호 시작 ==================================================================
+	@RequestMapping("getDirections")
+	public String getDirections(HttpServletRequest req,Model model) {
+		logger.info("getDirections 로딩 중.....");
+		
+		return "traffic/getDirections";
+	}
+	
+	// 대호 종료 ==================================================================
 
 }

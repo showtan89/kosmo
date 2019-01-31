@@ -25,6 +25,12 @@
 				AND knowledgeSubject LIKE '%'||#{search}||'%'
 				AND knowledgeContent LIKE '%'||#{search}||'%'
 			</if>
+			<if test="selectchk.equals('left')"> <!-- 금액 범위  -->
+				AND knowledgeReply = 'N'
+			</if>
+			<if test="selectchk.equals('right')"> <!-- 금액 범위  -->
+				AND knowledgeReply = 'Y'
+			</if>
 		</where>
 	</select>
 	<!-- 지식인 게시판 리스트 출력 -->
@@ -47,6 +53,12 @@
 			<if test="!search.equals('No')"> <!-- 금액 범위  -->
 				AND knowledgeSubject LIKE '%'||#{search}||'%'
 				AND knowledgeContent LIKE '%'||#{search}||'%'
+			</if>
+			<if test="selectchk.equals('left')"> <!-- 금액 범위  -->
+				AND knowledgeReply = 'N'
+			</if>
+			<if test="selectchk.equals('right')"> <!-- 금액 범위  -->
+				AND knowledgeReply = 'Y'
 			</if>
 		</where>
 		ORDER BY knowledgeRegdate DESC))

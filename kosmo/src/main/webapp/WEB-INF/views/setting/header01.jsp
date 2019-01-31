@@ -287,7 +287,7 @@ function result_callback() {
 										</ul></li>
 									<li><a href="#">Traffic</a>
 										<ul class="dropdown">
-											<li><a href="getdirections.jsp">Get Directions</a></li>
+											<li><a href="getDirections">Get Directions</a></li>
 											<li><a href="restaurantlocation.jsp">Restaurant
 													Location</a></li>
 											<li><a href="emergencyfacility.jsp">Emergency
@@ -306,7 +306,7 @@ function result_callback() {
 											<li><a href="employment">Employment</a></li>
 											<li><a href="news">News</a></li> <!-- 재영 추가  -->
 											<li><a href="multicultural.jsp">Multicultural</a></li>
-											<li><a href="legalinfo.jsp">Legal Information</a></li>
+											<li><a href="legalinfo">Legal Information</a></li>
 										</ul></li>
 									<li><a href="#">Etc</a>
 										<ul class="dropdown">

@@ -110,6 +110,16 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.update("com.spring.helper.dao.MemberDAO.applyAuthority", memberEmail);
 	}
 
+	@Override
+	public int getSearchCnt(String text) {
+		return sqlSession.selectOne("com.spring.helper.dao.MemberDAO.getSearchCnt", text);
+	}
+
+	@Override
+	public List<UserVO> memberSearch(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.helper.dao.MemberDAO.memberSearch", map);
+	}
+
 
 	// 대호 메소드 종료 ======================================================
 

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Add Authority</title>
 <link rel="stylesheet" href="resources/style.css">
+<link rel="stylesheet" href="resources/ehddnr.css">
 </head>
 <body>
 	<div class="preloader d-flex align-items-center justify-content-center">
@@ -43,8 +44,8 @@
 		}
 	</script>
 
+	
 	<div class="container col-12 col-md-9 col-lg-10">
-		<form action="applyAuthority" method="post" onsubmit="return really();">
 		<table class="table">
 
 			<thead class="table-success">

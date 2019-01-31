@@ -22,6 +22,8 @@ public interface MemberService {
 	public void addAuthority(HttpServletRequest req, Model model);
 	
 	public void applyAuthority(HttpServletRequest req, Model model);
+	
+	public void memberSearch(HttpServletRequest req, Model model);
 	// 대호 끝 ==================================================================
 
 }

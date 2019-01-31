@@ -2,6 +2,7 @@ package com.spring.helper.vo.BoardVO;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class KnowledgeVO {
 	private int knowledgeNumber; 		// PK지식인게시판번호 NOT NULL
@@ -90,7 +91,45 @@ public class KnowledgeVO {
 		return knowledgeRegdate;
 	}
 	public void setKnowledgeRegdate(Timestamp knowledgeRegdate) {
-		this.knowledgeRegdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(knowledgeRegdate);
+		   Date today = new Date();
+		 String date = new SimpleDateFormat("yyyy-MM-dd").format(today);
+		 String time = new SimpleDateFormat("HH:mm:ss").format(today);
+		 String test = new SimpleDateFormat("yyyy-MM-dd").format(knowledgeRegdate);
+		 String test2 = new SimpleDateFormat("HH:mm:ss").format(knowledgeRegdate);
+			String to1 = time.substring(0,2);
+			String to2 = time.substring(3,5);
+			String to3 = time.substring(6);
+			
+			String te1 = test2.substring(0,2);
+			String te2 = test2.substring(3,5);
+			String te3 = test2.substring(6); 
+			System.out.println(to1+" "+to2+" "+to3);
+			System.out.println(te1+" "+te2+" "+te3);
+		if(test.equals(date)) {
+			if(to1.equals(te1)) {
+				System.out.println("2");
+				if(to2.equals(te2)) {
+					int c = Integer.parseInt(to3);
+					int d = Integer.parseInt(te3);
+					int sub = c-d;
+					test = "방금";
+				} else {
+					int c = Integer.parseInt(to2);
+					int d = Integer.parseInt(te2);
+					int sub = c-d;
+					test = String.valueOf(sub)+" 분 전";
+				}
+			} else {
+				int c = Integer.parseInt(to1);
+				int d = Integer.parseInt(te1);
+				int sub = c-d;
+				test = String.valueOf(sub)+" 시간 전";
+			}
+		} else {
+			test = new SimpleDateFormat("yyyy-MM-dd").format(knowledgeRegdate);
+		}
+		 
+		this.knowledgeRegdate = test;
 	}
 	public String getKnowledgeReply() {
 		return knowledgeReply;
@@ -116,9 +155,5 @@ public class KnowledgeVO {
 	public void setKnowledgeTemp3(int knowledgeTemp3) {
 		this.knowledgeTemp3 = knowledgeTemp3;
 	}
-	
-	
-	
-	
 	
 }

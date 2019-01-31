@@ -15,32 +15,31 @@
 <link rel="stylesheet" href="resources/style.css">
 </head>
 <body>
-<footer class="footer-area bg-img bg-img-custom">
+<footer class="footer-area bg-img bg-img-custom" >
 		<!-- Main Footer Area -->
-		<div class="main-footer-area">
+		<div class="main-footer-area" style="padding:30px 0 0 0;">
 			<div class="container">
 				<div class="row">
 
 					<!-- Single Footer Widget -->
-					<div class="col-12 col-sm-6 col-lg-3">
+					<div class="col-12 col-sm-6 col-lg-4">
 						<div class="single-footer-widget">
 							<div class="footer-logo mb-30">
 								<a href="#"><img src="resources/img/core-img/logo.png" alt=""></a>
 							</div>
-							<p>Lorem ipsum dolor sit samet, consectetur adipiscing elit.
-								India situs atione mantor</p>
+							<p style="color:black;">Nice to meet you. customer<br>Thank you for visiting our Helper homepage.</p>
 							<div class="social-info">
-								<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-								<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-								<a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-								<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-								<a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+								<a href="#"><i class="fa fa-facebook" style="color:black;"aria-hidden="true"></i></a>
+								<a href="#"><i class="fa fa-twitter" style="color:black;"aria-hidden="true"></i></a>
+								<a href="#"><i class="fa fa-google-plus" style="color:black;"aria-hidden="true"></i></a>
+								<a href="#"><i class="fa fa-instagram" style="color:black;"aria-hidden="true"></i></a>
+								<a href="#"><i class="fa fa-linkedin" style="color:black;"aria-hidden="true"></i></a>
 							</div>
 						</div>
 					</div>
 
 					<!-- Single Footer Widget -->
-					<div class="col-12 col-sm-6 col-lg-3">
+					<!-- <div class="col-12 col-sm-6 col-lg-3">
 						<div class="single-footer-widget">
 							<div class="widget-title">
 								<h5>QUICK LINK</h5>
@@ -60,16 +59,16 @@
 								</ul>
 							</nav>
 						</div>
-					</div>
+					</div> -->
 
 					<!-- Single Footer Widget -->
-					<div class="col-12 col-sm-6 col-lg-3">
+					<!-- <div class="col-12 col-sm-6 col-lg-3">
 						<div class="single-footer-widget">
 							<div class="widget-title">
-								<h5>BEST SELLER</h5>
+								<h5 style="color:black;">BEST SELLER</h5>
 							</div>
 
-							<!-- Single Best Seller Products -->
+							Single Best Seller Products
 							<div class="single-best-seller-product d-flex align-items-center">
 								<div class="product-thumbnail">
 									<a href="shop-details.jsp"><img src="resources/img/bg-img/4.jpg"
@@ -81,7 +80,7 @@
 								</div>
 							</div>
 
-							<!-- Single Best Seller Products -->
+							Single Best Seller Products
 							<div class="single-best-seller-product d-flex align-items-center">
 								<div class="product-thumbnail">
 									<a href="shop-details.jsp"><img src="resources/img/bg-img/5.jpg"
@@ -93,30 +92,60 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 					<!-- Single Footer Widget -->
-					<div class="col-12 col-sm-6 col-lg-3">
+					<style>
+						#footer1 p{
+							color:black;
+						}
+						#footer1 span{
+						color:black;
+						font-size:17px;
+						font-weight: bold;
+						}
+						</style>
+					<div class="col-12 col-sm-6 col-lg-4">
 						<div class="single-footer-widget">
 							<div class="widget-title">
-								<h5>CONTACT</h5>
+								<h5 style="color:black;">HelPer</h5>
 							</div>
-
-							<div class="contact-information">
+							<div class="contact-information" id="footer1">
+							
 								<p>
-									<span>Address:</span> 505 Silk Rd, New York
+									<span>Address :</span> 
+									Seoul, Gosan Digital 2, lines 123, 410
 								</p>
 								<p>
-									<span>Phone:</span> +1 234 122 122
+									<span>Ceo : </span>Song Jae Young  &nbsp;&nbsp;&nbsp;<span>Phone :</span> 010 - 7270 - 7446
 								</p>
 								<p>
-									<span>Email:</span> info.deercreative@gmail.com
+									<span>Email :</span> sunrise555@empas.com
 								</p>
 								<p>
-									<span>Open hours:</span> Mon - Sun: 8 AM to 9 PM
+									<span>Company Registration Number :</span> 125 - 81 - 24955
 								</p>
 								<p>
-									<span>Happy hours:</span> Sat: 2 PM to 4 PM
+									<span>Customer Center : </span> 1644 - 1111
+								</p>
+								<p>
+									<span>FAX : </span> 02 - 2025 - 4113
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="single-footer-widget">
+							<div class="widget-title">
+								<h5 style="color:black;">Founding philosophy</h5>
+							</div>
+							<div class="contact-information" id="footer1">
+								<p style="font-size:17px;">
+									Show Me The Money<br><br>
+									Black Sheep Wall <br><br>
+									Breathe Deep<br><br>
+									Food For Thought<br><br>
+									Medieval Man<br><br>
 								</p>
 							</div>
 						</div>
@@ -124,9 +153,11 @@
 				</div>
 			</div>
 		</div>
+		
 
 		<!-- Footer Bottom Area -->
-		<div class="footer-bottom-area">
+		
+		<div class="footer-bottom-area" style="display:none;">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
