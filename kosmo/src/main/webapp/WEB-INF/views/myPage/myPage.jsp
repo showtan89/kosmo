@@ -8,6 +8,8 @@
 <title>Mypage</title>
 
 <link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
+<!-- Favicon -->
+<link rel="icon" href="resources/img/core-img/favicon.ico">
 <!-- jQuery-2.2.4 js -->
 <script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">

@@ -108,15 +108,10 @@ function alarm() {
 	}
 alarm();
 
-setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
+setInterval("alarm();", 2000);//원래 2000, 개발중  60000, 시연때 2000
 
 </script>
  
-<body onload="alarmChk();">
-	<div style="position: relative;">
-		<div
-			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
-	</div>
 <body onload="alarm();">
 	<header class="header-area">
 		<!-- ***** Top Header Area ***** -->
@@ -269,12 +264,13 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 											<li><a href="getDirections">Get Directions</a></li>
 											<li><a href="restaurantlocation.jsp">Restaurant
 													Location</a></li>
-											<li><a href="emergencyfacility.jsp">Emergency
+											<li><a href="emergency">Emergency
 													facility</a></li>
 										</ul></li>
 									<li><a href="#">Tourism</a>
 										<ul class="dropdown">
 											<li><a href="weather.jsp">Weather</a></li>
+											<li><a href="travelBoard">Travel</a></li> <!-- 재영 추가  -->
 											<li><a href="eventcultur.jsp">Event/Cultural
 													Heritage</a></li>
 											<li><a href="exchangerate.jsp">Exchange Rate</a></li>

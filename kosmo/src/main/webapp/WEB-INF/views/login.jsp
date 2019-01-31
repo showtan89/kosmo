@@ -30,6 +30,7 @@
 
 <!-- 대호 회원가입 스크립트 시작 -->
 <script type="text/javascript">
+
 	function EmailCheck() {
 		
 		var email = document.memberInputForm.memberEmail.value;
@@ -42,6 +43,19 @@
 			return false;
 		} else {
 			var url = "memberConfirmidForm?email=" + email;
+			var popup = window.open(url, "", "width=600, height=400, toolba=no");
+			popup.moveTo(0, 0);
+		}
+	}
+	
+	function nameConfirmCheck() {
+		
+		var name = document.memberInputForm.memberId.value;
+		
+		if (!name) {
+			return false;
+		} else {
+			var url = "memberIdConfirm?memberId=" + name;
 			var popup = window.open(url, "", "width=600, height=400, toolba=no");
 			popup.moveTo(0, 0);
 		}
@@ -72,6 +86,9 @@
 			return false;
 		} else if (document.memberInputForm.memberId.value.length > 40) {
 			alert("Your name is too long. Please check it.");
+			return false;
+		} else if (document.memberInputForm.nameConfirmChk.value == 0) {
+			alert("Please check and confirm your name");
 			return false;
 		}
 	
@@ -150,6 +167,8 @@
 							<div class="bar"></div>
 						</div>
 						
+				
+						
 						<div class="button-container">
 							<button onclick="return EmailCheck();">
 								<span>
@@ -177,22 +196,20 @@
 							<div class="bar"></div>
 						</div>
 						
+						<input type="hidden" name="nameConfirmChk" value="0">
+						
 						<div class="button-container">
-							<a href="memberInputPro" onclick="return memberInputSubmit();">
-								<button type="submit">
+								<button onclick="return nameConfirmCheck();">
 									<span>Confirm Name</span>
 								</button>
-							</a>
 							<br>
 							<br>
 						</div>
 						
 						<div class="button-container">
-							<a href="memberInputPro" onclick="return memberInputSubmit();">
 								<button type="submit">
 									<span>Next</span>
 								</button>
-							</a>
 						</div>
 					</form>
 				</div>

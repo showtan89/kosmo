@@ -150,6 +150,15 @@ public class HelPerController{
 		return "traffic/getDirections";
 	}
 	
+	@RequestMapping("emergency")
+	public String emergency(HttpServletRequest req,Model model) throws Exception {
+		logger.info("emergency 로딩 중..");
+		
+		service.emergency(req, model);
+		
+		return "traffic/emergency";
+	}
+	
 	// 대호 종료 ==================================================================
 
 }

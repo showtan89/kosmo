@@ -24,7 +24,7 @@ public class InfoController {
 	
 	//재영 InfoController 시작 ====================================================================================
 
-	//소식 게시판 입장 -- 안해....  corsFilter.class  /////   web.xml의 필터 //// pom.xml의 json simple  //// jsonVO.class
+	//소식 게시판 입장 -- 안해....  corsFilter.class  /////   web.xml의 cors 필터 //// pom.xml의 json simple  //// jsonVO.class
 	@RequestMapping("newsBoard")
 	public String newsBoard(HttpServletRequest req, Model model) throws Exception {
 		logger.info("newsBoard 로딩 중....");

@@ -27,14 +27,23 @@ public class MemberDAOImpl implements MemberDAO {
 	// 이메일 중복 확인
 	@Override
 	public int memberConfirmidForm(String email) {
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.memberConfirmidForm", email);
+		return sqlSession.selectOne("com.spring.helper.dao.MemberDAO.memberConfirmidForm", email);
 	}
+	
+	// ID (이름) 중복 확인
+	@Override
+	public int memberIdConfirm(String memberId) {
+		return sqlSession.selectOne("com.spring.helper.dao.MemberDAO.memberIdConfirm", memberId);
+	}
+
 
 	// 회원 가입 완료
 	@Override
 	public int memberInputPro(Map<String, Object> map) {
-		return sqlSession.insert("com.spring.helper.dao.BoardDAO.memberInputPro", map);
+		return sqlSession.insert("com.spring.helper.dao.MemberDAO.memberInputPro", map);
 	}
+	
+	
 
 	// 이메일 키 메일로 전송
 	@Override
