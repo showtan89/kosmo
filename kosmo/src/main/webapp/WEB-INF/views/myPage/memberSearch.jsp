@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MEMBER LIST</title>
+<title>SEARCH LIST</title>
 <link rel="stylesheet" href="resources/style.css">
 <link rel="stylesheet" href="resources/ehddnr.css">
 </head>
@@ -26,34 +26,25 @@
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 			style="background-image: url(resources/img/ehddnr2.jpg);">
-			<h2>MEMBER LIST</h2>
+			<h2>SEARCH LIST</h2>
 		</div>
 	</div>
 	<!-- ##### Breadcrumb Area End ##### -->
 	
 	<br>
 	<br>
-	
-	<script type="text/javascript">
-		function out() {
-			var confirm = confirm("Really Out this user?");
-			
-			if (!confirm) {
-				return false;
-			}
-		}
-	</script>
 
 	
 	<div class="container col-12 col-md-9 col-lg-10">
-		<form name=memberSearchForm action="memberSearch" method="post" style="min-width: 350px">
+		<form action="memberSearch" method="post" style="min-width: 350px">
 			<div class="knowledge_select">
 				<input class=knowledge_select2 type="text" maxlength="30"
 						name="search" id="search" placeholder="input keyword">
-				<input class="knowledge_select3" id="SearchButton" type="submit" value="SEARCH">
+				<input class="knowledge_select3" id="SearchButton" type="submit"
+					onclick="knowledgeBoardListsearch();" value="SEARCH">
 			</div>
 		</form>
-		<table class="table">
+	<table class="table">
 			<c:forEach var="uvo" items="${uvos}">
 			<thead class="table-success">
 				<tr>
@@ -86,17 +77,17 @@
 		</table>
 
 
-		<nav aria-label="Page navigation" style="margin-top: 30px;"
-			align="center">
+		<nav aria-label="Page navigation" style="margin-top: 30px;" align="center">
 			<ul class="pagination" align="center" style="margin: auto auto;">
 				<c:if test="${cnt>0}">
-				
+					<!-- 게시글이 있으면 -->
+					<!-- 처음 ◀◀  / 이전블록◀ -->
 					<c:if test="${startPage > pageBlock }">
+						<li class="page-item">
+							<a class="page-link" href="memberSearch">
+							<i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a></li>
 						<li class="page-item"><a class="page-link"
-							href="hostMemberList"><i
-								class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i></a></li>
-						<li class="page-item"><a class="page-link"
-							href="hostMemberList?pageNum=${startPage-pageBlock}"><i
+							href="memberSearch?pageNum=${startPage-pageBlock}"><i
 								class="fa fa-angle-left"></i></a></li>
 					</c:if>
 
@@ -107,16 +98,17 @@
 						</c:if>
 						<c:if test="${i!=currentPage}">
 							<li class="page-item"><a class="page-link"
-								href="hostMemberList?pageNum=${i}">${i}</a></li>
+								href="memberSearch??pageNum=${i}">${i}</a></li>
 						</c:if>
 					</c:forEach>
 
+					<!-- 끝 ▶▶  / 다음블록▶ -->
 					<c:if test="${pageCount > endPage }">
 						<li class="page-item"><a class="page-link"
-							href="hostMemberList?pageNum=${startPage + pageBlock}"><i
+							href="memberSearch??pageNum=${startPage + pageBlock}"><i
 								class="fa fa-angle-right"></i></a></li>
 						<li class="page-item"><a class="page-link"
-							href="hostMemberList?pageNum=${pageCount}"><i
+							href="memberSearch??pageNum=${pageCount}"><i
 								class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i></a></li>
 					</c:if>
 				</c:if>
@@ -127,7 +119,7 @@
 	<br>
 
 	<div class="search_by_terms" align="center">
-		<button type="button" class="btn alazea-btn" onclick="window.history.back();">BACK</button>
+		<button type="button" class="btn alazea-btn" onclick="window.location.href=''">BACK</button>
 	</div>
 
 	<br>

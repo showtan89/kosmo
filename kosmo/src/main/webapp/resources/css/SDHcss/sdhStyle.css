@@ -30,6 +30,55 @@
 	height: 40px;
 }
 
+.knowledge_select {
+	margin-left: auto;
+	margin-right: auto;
+	height: 70px;
+	width: 1000px;
+	border: 2px solid #70c745;
+	border-radius: 4px;
+	background: #ffffff;
+	min-width: 350px;
+	margin-bottom: 300px;
+}
+
+.knowledge_select2 {
+	text-align: center;
+	font-size: 28px;
+	width: 100%;
+	height: 65px;
+	padding: 15px;
+	border: 0px;
+	outline: none;
+	float: left;
+}
+
+.knowledge_select3 {
+	width: 100%;
+	height: 100%;
+	border: 2px solid #70c745;
+	background: #70c745;
+	outline: none;
+	float: right;
+	color: #fff;
+	
+}
+
+#SearchButton:hover{
+	background:#fff;
+	color:#70c745;
+	border-left:1.5px solid #70c745;
+}
+
+#knowledge_button{
+	width:130px;
+	height:40px;
+	border:none;
+	background:none;
+	color:#fff;
+}
+
+
 /* Pen Title */
 .pen-title {
   padding: 20px 0;

@@ -115,6 +115,15 @@ public class MemberController {
 		
 		return "myPage/applyAuthority";
 	}
+	
+	@RequestMapping("memberSearch")
+	public String memberSearch(HttpServletRequest req, Model model) throws Exception {
+		logger.info("memberSearch 로딩 중..");
+		
+		service.memberSearch(req, model);
+		
+		return "myPage/memberSearch";
+	}
 	// 대호 끝
 	
 }
