@@ -136,5 +136,14 @@ public class HelPerController{
 	
 	//민석이 끝++++++++++++++++++++++++++++++++
 
+	// 대호 시작 ==================================================================
+	@RequestMapping("getDirections")
+	public String getDirections(HttpServletRequest req,Model model) {
+		logger.info("getDirections 로딩 중.....");
+		
+		return "traffic/getDirections";
+	}
+	
+	// 대호 종료 ==================================================================
 
 }

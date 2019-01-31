@@ -292,7 +292,7 @@ function result_callback() {
 										</ul></li>
 									<li><a href="#">Traffic</a>
 										<ul class="dropdown">
-											<li><a href="getdirections.jsp">Get Directions</a></li>
+											<li><a href="getDirections">Get Directions</a></li>
 											<li><a href="restaurantlocation.jsp">Restaurant
 													Location</a></li>
 											<li><a href="emergencyfacility.jsp">Emergency
