@@ -137,11 +137,6 @@ function result_callback() {
 		}
 }  */
 </script> 
-<body onload="alarmChk();">
-	<div style="position: relative;">
-		<div
-			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
-	</div>
 <body onload="alarm();">
 	<header class="header-area">
 		<!-- ***** Top Header Area ***** -->
