@@ -35,11 +35,11 @@ function modifyCheck() {
 function memberDeleteForm() {
 	window.location.href = "memberDeleteForm";
 }
+
 	
 </script>
 </head>
 <body>
-
 <div class="preloader d-flex align-items-center justify-content-center">
 	<div class="preloader-circle"></div>
 	<div class="preloader-img">
