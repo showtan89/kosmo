@@ -108,7 +108,7 @@ public class InfoController {
 	@RequestMapping("employeInfo")
 	public String employeInfo(HttpServletRequest req, Model model) throws Exception {
 		logger.info("다문화 고용 정보 페이지....");
-		
+		/*
 		ProcessBuilder pb = new ProcessBuilder("python", "C:/DEV_43/employe.py", "gg");
 		Process p = pb.start(); // 프로세스 호출
 
@@ -134,7 +134,7 @@ public class InfoController {
 		}
 		System.out.println(sb.toString());
 		br.close();
-		
+		*/
 		
 		return "info/multicultural/employeInfo";
 	}
