@@ -10,6 +10,8 @@ public interface MemberService {
 	public void memberConfirmidForm(HttpServletRequest req, Model model);
 
 	public void memberInputPro(HttpServletRequest req, Model model);
+	
+	public void memberIdConfirm(HttpServletRequest req, Model model);
 
 	public void memberEmailConfirmed(HttpServletRequest req, Model model);
 

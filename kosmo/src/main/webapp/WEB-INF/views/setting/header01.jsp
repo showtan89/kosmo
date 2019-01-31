@@ -295,7 +295,7 @@ function result_callback() {
 											<li><a href="getDirections">Get Directions</a></li>
 											<li><a href="restaurantlocation.jsp">Restaurant
 													Location</a></li>
-											<li><a href="emergencyfacility.jsp">Emergency
+											<li><a href="emergency">Emergency
 													facility</a></li>
 										</ul></li>
 									<li><a href="#">Tourism</a>

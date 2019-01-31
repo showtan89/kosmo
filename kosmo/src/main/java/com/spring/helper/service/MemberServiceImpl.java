@@ -91,6 +91,17 @@ public class MemberServiceImpl implements MemberService {
 
 		model.addAttribute("updateCnt", updateCnt);
 	}
+	
+	@Override
+	public void memberIdConfirm(HttpServletRequest req, Model model) {
+		
+		String memberId = req.getParameter("memberId");
+		
+		int selectCnt = memberdao.memberIdConfirm(memberId);
+		
+		model.addAttribute("selectCnt", selectCnt);
+		model.addAttribute("memberId", memberId);
+	}
 
 	// 회원정보 수정
 	@Override
@@ -346,7 +357,6 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
-
 
 
 	// 대호 메소드 종료 ===================================================
