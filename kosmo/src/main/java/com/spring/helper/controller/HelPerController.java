@@ -77,6 +77,12 @@ public class HelPerController{
 		logger.info("knowledge 로딩 중....");
 		res.sendRedirect("knowledgeBoardList");
 	}
+	@RequestMapping("legalinfo")
+	public String legalinfo(HttpServletResponse res) throws Exception {
+		logger.info("legalinfo 로딩 중....");
+		return "info/legalinfo/legalinfoList";
+	}
+	
 	// 동욱이 종료
 
 	// 재영 시작
