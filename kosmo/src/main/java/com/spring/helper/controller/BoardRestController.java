@@ -55,6 +55,8 @@ public class BoardRestController {
 		if(req.getParameter("search") != null && req.getParameter("search")!="") {
 			search= req.getParameter("search");
 		}
+		String selectchk=req.getParameter("selectchk");
+		map.put("selectchk", selectchk);
 		map.put("knowledgeCategory", knowledgeCategory);
 		map.put("search", search);
 		int pageSize = 10; 		// 한 페이지당 출력할 글 갯수

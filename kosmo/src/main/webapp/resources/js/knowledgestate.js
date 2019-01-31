@@ -10,14 +10,14 @@
 		num=1;
 	}
 function getknowledgelistJsonData(){
-	
+	var selectchk = $("#selectchk").attr("value");
 	//자료 요청에 필요한 데이터 획득(글번호,ID 등)
 	var loginId = $('#loginId').val();
 	var knowledgeCategory = $('#titlecatagory').text();
 	var btn_select = $("#btn_select").val();
 	var search = $("#search").val();
 	//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
-	$.getJSON("KnowledgeListJson?knowledgeCategory="+knowledgeCategory+"&btn_select="+btn_select+"&search="+search+"&pageNum="+num, function(data){
+	$.getJSON("KnowledgeListJson?knowledgeCategory="+knowledgeCategory+"&btn_select="+btn_select+"&search="+search+"&pageNum="+num+"&selectchk="+selectchk, function(data){
 		var str = "";	//인위적으로 만들어낼 HTMl 태그를 담기위해 선언
 		
 		var cnt = data.length;
