@@ -604,12 +604,17 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Integer alarmServiceCnt(HttpServletRequest req) {
 		Integer alarmCnt=0;
+
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
+		
 		String memEmail = userVO.getMemberEmail();
 		logger.info("memEmail : " + memEmail);
+		
 		//5단계 글갯수 구하기
-		alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
-		logger.info("alarmCnt : " + alarmCnt);
+		if(memEmail != null) {
+			alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
+			logger.info("alarmCnt : " + alarmCnt);
+		}
 		return alarmCnt;
 	
 	}
@@ -816,145 +821,27 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 클래스개설 권한 신청 처리페이지
-	/*	@Override
+	@Override
 	public void onedayclassAuthorityPro(HttpServletRequest req, Model model) {
-
-		int onedayclassAccountNumber = Integer.parseInt(req.getParameter("onedayclassAccountNumber"));
-		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
-
-		int onedayclassAccountUpdate =  boardDao.onedayclassAccountUpdate(onedayclassNumber);
-
-		model.addAttribute("onedayclassAccountNumber", onedayclassAccountNumber);
-		model.addAttribute("onedayclassAccountUpdate", onedayclassAccountUpdate);
-	}*/
+		
+		String onedayclassAccountNumber = req.getParameter("i");
+		Integer.parseInt(onedayclassAccountNumber);
+		
+		UserVO uvo = (UserVO)req.getSession().getAttribute("userVO");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("onedayclassAccountNumber", onedayclassAccountNumber);
+		map.put("memberEmail", uvo.getMemberEmail());
+		
+		int updateCnt =  boardDao.onedayclassAccountUpdate(map);
+		
+		model.addAttribute("updateCnt", updateCnt);
+	}
 
 
 	//진호 메소드 종료---------------------------------------------------
 
 
-	// 대호 메소드 시작 ===================================================
-	// 이메일 (아이디) 중복 확인
-	@Override
-	public void memberConfirmidForm(HttpServletRequest req, Model model) {
-
-		String email = (String)req.getParameter("email");
-
-		int selectCnt = boardDao.memberConfirmidForm(email);
-
-		model.addAttribute("selectCnt", selectCnt);
-		model.addAttribute("email", email);
-	}
-
-	// 회원가입 처리
-	@Override
-	public void memberInputPro(HttpServletRequest req, Model model) {
-
-		String memberCountry = req.getParameter("memberCountry");
-		String memberEmail = req.getParameter("memberEmail");
-		String password = req.getParameter("password");
-		String memberId = req.getParameter("memberId");
-
-		StringBuffer temp = new StringBuffer();
-		Random random = new Random();
-
-		for ( int i = 0; i < 6; i++ ) {
-
-			int rIndex = random.nextInt(2);
-
-			switch (rIndex) {
-			case 0 : // A-Z
-				temp.append((char)((int)(random.nextInt(26)) + 65));
-				break;
-			case 1 : // 0-9
-				temp.append((random.nextInt(10)));
-				break;
-			}
-		}
-
-		String emailKey = temp.toString();
-
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("memberCountry", memberCountry);
-		map.put("memberEmail", memberEmail);
-		map.put("password", password);
-		map.put("memberId", memberId);
-		map.put("emailKey", emailKey);
-
-
-		int insertCnt = boardDao.memberInputPro(map);
-
-		if (insertCnt == 1) {
-			boardDao.sendEmailKey(map);
-		}
-
-		model.addAttribute("insertCnt", insertCnt);
-	}
-
-	// 이메일 인증 완료
-	@Override
-	public void memberEmailConfirmed(HttpServletRequest req, Model model) {
-
-		String emailKey = req.getParameter("emailKey");
-
-		int updateCnt = boardDao.memberEmailConfirmed(emailKey);
-
-		model.addAttribute("updateCnt", updateCnt);
-	}
-
-	// 회원정보 수정
-	@Override
-	public void memberModifyPro(HttpServletRequest req, Model model) {
-
-		String password = req.getParameter("password");
-		String memberCountry = req.getParameter("memberCountry");
-
-		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("password", password);
-		map.put("memberCountry", memberCountry);
-		map.put("memberEmail", userVO.getMemberEmail());
-
-		int updateCnt = boardDao.memberModifyPro(map);
-
-		if (updateCnt == 1) {
-			userVO.setPassword(password);
-			userVO.setMemberCountry(memberCountry);
-		}
-
-		model.addAttribute("updateCnt", updateCnt);
-		model.addAttribute("memberId", userVO.getMemberId());
-	}
-
-	// 회원 탈퇴
-	@Override
-	public void memberDeletePro(HttpServletRequest req, Model model) {
-
-		String password = req.getParameter("password");
-
-		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("password", password);
-		map.put("memberEmail", userVO.getMemberEmail());
-
-		int selectCnt = boardDao.memberDeleteForm(map);
-
-		if (selectCnt == 1) {
-			int updateCnt = boardDao.memberDeletePro(map);
-			model.addAttribute("updateCnt", updateCnt);
-		} else {
-			model.addAttribute("selectCnt", selectCnt);
-		}
-	}
-
-
-
-	
-	
-	
-	// 대호 메소드 종료 ===================================================
 
 
 }

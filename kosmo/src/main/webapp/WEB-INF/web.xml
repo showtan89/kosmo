@@ -58,4 +58,15 @@
 		<filter-name>hiddenHttpMethodFilter</filter-name>
 		<url-pattern>/*</url-pattern>	
 	</filter-mapping>
+	
+	<!-- cors 필터 -->
+	<!-- <filter>
+	    <filter-name>cors</filter-name>
+	    <filter-class>com.spring.helper.security.corsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>cors</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+	
 </web-app>

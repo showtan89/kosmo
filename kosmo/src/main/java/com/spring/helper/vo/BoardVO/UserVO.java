@@ -16,15 +16,8 @@ public class UserVO {
 	 private String memberTemp1 ;	 // 회원컬럼1
 	 private String memberTemp2 ;	 // 회원컬럼2
 	 private int memberTemp3 ; 		// 회원컬럼3
+	 private String accountNumber; // 회원 계좌번호
 	 
-	 @Override
-	public String toString() {
-		return "UserVO [memberNumber=" + memberNumber + ", memberEmail=" + memberEmail + ", memberId=" + memberId
-				+ ", password=" + password + ", memberCountry=" + memberCountry + ", memberRegdate=" + memberRegdate
-				+ ", memberPoint=" + memberPoint + ", memberRecommend=" + memberRecommend + ", authority=" + authority
-				+ ", enabled=" + enabled + ", memberTemp1=" + memberTemp1 + ", memberTemp2=" + memberTemp2
-				+ ", memberTemp3=" + memberTemp3 + "]";
-	}
 	public int getMemberNumber() {
 		return memberNumber;
 	}
@@ -103,6 +96,23 @@ public class UserVO {
 	public void setMemberTemp3(int memberTemp3) {
 		this.memberTemp3 = memberTemp3;
 	}
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+	
+	@Override
+	public String toString() {
+		return "UserVO [memberNumber=" + memberNumber + ", memberEmail=" + memberEmail + ", memberId=" + memberId
+				+ ", password=" + password + ", memberCountry=" + memberCountry + ", memberRegdate=" + memberRegdate
+				+ ", memberPoint=" + memberPoint + ", memberRecommend=" + memberRecommend + ", authority=" + authority
+				+ ", enabled=" + enabled + ", memberTemp1=" + memberTemp1 + ", memberTemp2=" + memberTemp2
+				+ ", memberTemp3=" + memberTemp3 + ", accountNumber=" + accountNumber + "]";
+	}
+	 
+	
 	 
 }
 
