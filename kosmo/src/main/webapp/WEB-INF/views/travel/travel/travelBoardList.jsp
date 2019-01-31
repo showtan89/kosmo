@@ -36,12 +36,15 @@
 
 /* Modal Content/Box */
 .modal-content {
+  border: solid 5px;
+  border-color: #70c745;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
+  margin-top:10%;
   padding: 20px;
   border: 1px solid #888;
-  width: 70%; 
-  min-width:350px;
+  width: 70%;
+  max-width:1080px;
   max-height:600px;
   overflow-y: auto;
 }
@@ -173,7 +176,7 @@
 	<button type='button' id='closeModal' class='btn alazea-btn' onclick='closeModal()' style='padding:30px !important; line-height:0px !important;'>CLOSE</button>
 	</div>
 </div>
-
+<h1>페이징 보류</h1>
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
 <script src="resources/js/travel.js"></script>
 <script>

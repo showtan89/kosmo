@@ -197,7 +197,7 @@ function result_callback() {
 											class="fa fa-user" aria-hidden="true">Login</i> </a>
 									</sec:authorize>
 									<sec:authorize access="isAuthenticated()">
-										<a href="<c:url value='/j_spring_security_logout'/>"><i
+										<a href="<c:url value='/j_spring_security_logout'/>" onclick="return logoutSession()"><i
 											class="fa fa-user" aria-hidden="true">Logout</i> </a>
 									</sec:authorize>
 								</div>
@@ -233,7 +233,7 @@ function result_callback() {
 							
 								<!-- Alarm -->
 								<div class="cart">
-								<c:if test="${sessionScope.userVO != null}">
+								<c:if test="${userVO ne null}">
 									<a href="alarmBoard">
 										<i class="fa fa-envelope" aria-hidden="true"></i> 
 										<span>Alarm</span>
@@ -346,3 +346,11 @@ function result_callback() {
 </body>
 <script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="resources/js/googleTranslate.js"></script>
+<script>
+function logoutSession() {
+	alert(${sessionScope.userVO})
+	response.clear();
+  	Session.abondon();
+	alert(${sessionScope.userVO})
+}
+</script>
