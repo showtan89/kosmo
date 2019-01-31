@@ -284,6 +284,7 @@ function result_callback() {
 									<li><a href="#">Tourism</a>
 										<ul class="dropdown">
 											<li><a href="weather.jsp">Weather</a></li>
+											<li><a href="travelBoard">Travel</a></li> <!-- 재영 추가  -->
 											<li><a href="eventcultur.jsp">Event/Cultural
 													Heritage</a></li>
 											<li><a href="exchangerate.jsp">Exchange Rate</a></li>
