@@ -137,11 +137,6 @@ function result_callback() {
 		}
 }  */
 </script> 
-<body onload="alarmChk();">
-	<div style="position: relative;">
-		<div
-			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
-	</div>
 <body onload="alarm();">
 	<header class="header-area">
 		<!-- ***** Top Header Area ***** -->
@@ -301,6 +296,7 @@ function result_callback() {
 									<li><a href="#">Tourism</a>
 										<ul class="dropdown">
 											<li><a href="weather.jsp">Weather</a></li>
+											<li><a href="travelBoard">Travel</a></li> <!-- 재영 추가  -->
 											<li><a href="eventcultur.jsp">Event/Cultural
 													Heritage</a></li>
 											<li><a href="exchangerate.jsp">Exchange Rate</a></li>
