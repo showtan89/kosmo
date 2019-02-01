@@ -90,7 +90,7 @@ body {
 /* Container */
 .container {
   position: relative;
-  max-width: 460px;
+  max-width: 400px;
   width: 100%;
   margin: 0 auto 100px;
 }
@@ -330,7 +330,7 @@ body {
 .card.alt {
   position: absolute;
   top: 40px;
-  right: -70px;
+  right: -25px;
   z-index: 10;
   width: 100px;
   height: 100px;

@@ -84,7 +84,7 @@ public class MemberDAOImpl implements MemberDAO {
 	// 회원 탈퇴 확인
 	@Override
 	public int memberDeleteForm(Map<String, Object> map) {
-		return sqlSession.selectOne("com.spring.helper.dao.MemberDAO.BoardDAO.memberDeleteForm", map);
+		return sqlSession.selectOne("com.spring.helper.dao.MemberDAO.memberDeleteForm", map);
 	}
 	
 	// 회원 탈퇴 (ROLE_GUEST, enabled = 0)
