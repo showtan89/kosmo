@@ -110,7 +110,7 @@
 	<!-- 답변등록 처리시 알림 처리 -->
 	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
 		INSERT INTO commentAlarm
-		VALUES(commentAlarmSeq.nextval,#{memberNumber},'10',#{memberEmail},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
+		VALUES(commentAlarmSeq.nextval,#{memberNumber},'10',#{knowledgememberId},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
 	</insert>
 	<!-- 답변등록 처리시 포인트 처리 -->
 	<update id="knowledgeCommentPro3" parameterType="java.util.Map">
@@ -241,7 +241,10 @@
 			realestateCar = #{realestateCar},
 		</if>
 		<if test="realestateTemp1 != null">
-			realestateTemp1 = #{realestateTemp1}
+			realestateTemp1 = #{realestateTemp1},
+		</if>
+		<if test="realestateLocation != null">
+			realestateLocation = #{realestateLocation}
 		</if>
 		<where>
 			realestateNumber = #{realestateNumber}

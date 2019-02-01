@@ -95,8 +95,10 @@
 								name="kCommentTemp1" value="Y" checked="checked">공개 <input
 								type="radio" name="kCommentTemp1" value="N">비공개
 						</p> <input type="hidden" name="knowledgeNumber"
-						value="${dtos.knowledgeNumber}"> <input type="hidden"
-						name="knowledgememberId" value="${dtos.memberId}"> <input
+						value="${dtos.knowledgeNumber}"> 
+						
+						<input type="hidden"
+						name="knowledgememberId" value="${dtos.memberEmail}"> <input
 						class="knowledgeDetailForm_button2" type="submit" value="답변등록">
 						<input class="knowledgeDetailForm_button2" type="button"
 						value="목록보기" onclick="window.location='knowledgeBoardList'">

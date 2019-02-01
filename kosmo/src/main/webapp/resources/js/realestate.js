@@ -242,6 +242,7 @@ function realestatePostCheck() {
 		$("#realestateMoveindate").focus()
 		$("#realestateMoveindate").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 		return false;
+		
 	}else if($("#realestateMoveindate").val().length != 10){
 		$("#realestateMoveindate").focus()
 		$("#realestateMoveindate").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).val(null);

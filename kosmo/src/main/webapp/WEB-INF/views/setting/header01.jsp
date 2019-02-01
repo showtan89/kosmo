@@ -101,11 +101,11 @@ input:focus {
 
 function alarm() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
-	if(${sessionScope.userVO != null}){
-		$.getJSON("alarmCnt", function(cnt){
-			$('#alarmCnt').html(cnt); 
-			
-		}); }
+		if(${sessionScope.userVO != null}){
+			$.getJSON("alarmCnt", function(cnt){
+				$('#alarmCnt').html(cnt); 
+				
+			}); }
 	}
 alarm();
 

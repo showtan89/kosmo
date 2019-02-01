@@ -193,7 +193,7 @@
 				</div>
 				<p>
 					<input class="knowledgeWriteForm_button3" type="button" value="CATEGORY">&nbsp;
-					<select class="btn_select" name="knowledgeCategory" id="btn_select">
+					<select style="width:250px;" class="btn_select custom-select" name="knowledgeCategory" id="btn_select">
 						<option value="Education">Education</option>
 						<option value="Computer">Computer</option>
 						<option value="Game">Game</option>
