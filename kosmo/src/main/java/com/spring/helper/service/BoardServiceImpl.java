@@ -616,12 +616,11 @@ public class BoardServiceImpl implements BoardService {
 		//5단계 글갯수 구하기
 		if(memEmail != null) {
 			alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
-			logger.info("alarmCnt : " + alarmCnt);
 		}
+		logger.info("합산한 alarmCnt : " + alarmCnt);
 		return alarmCnt;
 	
 	}
-
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------

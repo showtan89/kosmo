@@ -95,6 +95,7 @@ input:focus {
 }
 </style>
 <link rel="stylesheet" href="resources/css/googleTranslate.css">
+
 <!-- ajax 알람  -->
 <script>
 
@@ -108,7 +109,7 @@ function alarm() {
 	}
 alarm();
 
-setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
+setInterval("alarm();", 5000);//원래 2000, 개발중  60000, 시연때 2000
 
 </script>
  
