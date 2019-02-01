@@ -11,7 +11,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>Helper - Foriener &amp; Help HTML Template</title>
+<title>Helper - Foreigner &amp; Help HTML Template</title>
 
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
@@ -91,8 +91,8 @@
 			alert("Please check and confirm your name");
 			return false;
 		}
-	
-	}
+		
+	}	
 </script>
 
 <!-- 회원가입 스트립트 종료 -->
@@ -112,12 +112,12 @@
 					<h1 class="title">Login</h1>
 					<form action="j_spring_security_check" method="post">
 						<div class="input-container">
-							<input type="text" id="Email" required="required" name="loginEmail"/> <label
+							<input type="text" required="required" name="loginEmail"/> <label
 								for="Email">Email</label>
 							<div class="bar"></div>
 						</div>
 						<div class="input-container">
-							<input type="password" id="Password" required="required" name="loginPwd"/> <label
+							<input type="password" required="required" name="loginPwd"/> <label
 								for="Password">Password</label>
 							<div class="bar"></div>
 						</div>
@@ -143,7 +143,7 @@
 					
 					<form action="memberInputPro" method="post" name="memberInputForm" onsubmit="return memberInputSubmit();">
 					
-						<input type="hidden" name="confirmChk" value="0">
+						<input type="hidden" id="confirmChk" name="confirmChk" value="0">
 					
 						<div class="input-container">
 							<select class="custom-select d-block w-100" id="memberCountry" name="memberCountry">
@@ -167,10 +167,8 @@
 							<div class="bar"></div>
 						</div>
 						
-				
-						
 						<div class="button-container">
-							<button onclick="return EmailCheck();">
+							<button type="button" onclick="return EmailCheck();">
 								<span>
 									Confirm Email
 								</span>
@@ -185,21 +183,21 @@
 						</div>
 						
 						<div class="input-container">
-							<input type="password" id="Repeat_Password" required="required" />
-							<label for="Repeat Password">Repeat Password</label>
+							<input type="password" id="Repeat_Password" />
+							<label for="Repeat_Password">Repeat Password</label>
 							<div class="bar"></div>
 						</div>
 						
 						<div class="input-container">
-							<input type="text" id="memberId" name="memberId" required="required" />
-							<label for="Repeat Password">Name</label>
+							<input type="text" id="memberId" name="memberId" />
+							<label for="memberId">Name</label>
 							<div class="bar"></div>
 						</div>
 						
-						<input type="hidden" name="nameConfirmChk" value="0">
+						<input type="hidden" id="nameConfirmChk" name="nameConfirmChk" value="0">
 						
 						<div class="button-container">
-								<button onclick="return nameConfirmCheck();">
+								<button type="button" onclick="return nameConfirmCheck();">
 									<span>Confirm Name</span>
 								</button>
 							<br>
@@ -207,9 +205,9 @@
 						</div>
 						
 						<div class="button-container">
-								<button type="submit">
-									<span>Next</span>
-								</button>
+							<button type="submit">
+								<span>Next</span>
+							</button>
 						</div>
 					</form>
 				</div>
@@ -236,6 +234,7 @@
 				$('.container').stop().removeClass('active');
 			});
 		});
+		
 	</script>
 </body>
 </html>

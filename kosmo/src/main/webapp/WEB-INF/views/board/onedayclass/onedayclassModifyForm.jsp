@@ -63,7 +63,6 @@
 
 <form action="onedayclassModifyPro" method="post" name="onedayclassModifyPro" onsubmit="return modifyCheck()">
 <input type="hidden" name="onedayclassNumber" value="${dto.onedayclassNumber}">
-<%-- <input type="hidden" name="pageNum" value="${pageNum}"> --%>
 
 <section class="about-us-area">
         <div class="container">
@@ -240,14 +239,14 @@
     </section>
     
     
-<%-- <c:if test="${userVO.memberId} == ${dto.memberId}"> --%>
+<c:if test="${userVO.memberId} == ${dto.memberId}">
 	<table style="margin-left: auto; margin-right: auto;">
 		<th colspan="2">
 			<input class="inputButton" type="submit" value="수정완료">
 			<input class="inputButton" type="reset" value="수정취소" onclick="window.history.back()">
 		</th>
 	</table>
-<%-- </c:if> --%>
+</c:if>
 
 
 

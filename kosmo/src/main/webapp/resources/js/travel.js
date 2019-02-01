@@ -129,17 +129,16 @@ function imageModal(contenttypeid,itemNumber) {
 	var url = 'http://api.visitkorea.or.kr/openapi/service/rest/EngService/detailCommon?serviceKey='+myKey+
 	'&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y'+
 	'&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y&contentId='+itemNumber;
-	
 	console.log(url);
 	var str = "";
 	$.getJSON(url, function(data) {
 		items = data.response.body.items.item;
 		console.log(items.firstimage);
-		str+= "<h5 align='center' style='color:#70c745'>"+items.title+"</h5>";
+		str+= "<h5 style='color:#70c745'>"+items.title+"</h5>";
 		if(items.homepage!=undefined){
-			str+= "<span align='center' style='color:#70c745'>Homepage : "+items.homepage+"</span><hr>";
+			str+= "<span style='color:#70c745'>Homepage : "+items.homepage+"</span><hr>";
 		}else{str+= "<hr>";}
-		/*str+= "<span><img src='"+items.firstimage+"'></img></span>";*/
+		str+= "<img src='"+items.firstimage+"' style='width:100%'></img><hr>";
 		str+= "<span>"+items.overview+"</span><hr>"
 		str+= "<h5>"+items.addr1+"</h5>";
 		if(items.directions!=undefined){
