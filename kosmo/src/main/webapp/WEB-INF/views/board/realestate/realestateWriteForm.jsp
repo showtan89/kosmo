@@ -241,7 +241,7 @@
 			<!-- 상세 주소 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateLocation">Detail Address</label> 
-		 		<input type="text" class="form-control" id="realestateLocation" name="realestateLocation" disabled placeholder="Search with the search button on the right.">
+		 		<input type="text" class="form-control" id="realestateLocation" name="realestateLocation" placeholder="Search with the search button on the right.">
 			</div>
 
 			<div class="col-md-4 mb-4">
@@ -268,7 +268,8 @@
 			</div> -->
 		</div>
 		<hr>
-		<a href="realestate"><button type="button" class='btn alazea-btn'>Back</button></a>
+		<a href="realestate">
+		<button type="button" class='btn alazea-btn'>Back</button></a>
 		<button type="submit" class='btn alazea-btn'>Write</button>
 	</form>
 </div>

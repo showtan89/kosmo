@@ -380,6 +380,7 @@ public class BoardServiceImpl implements BoardService {
 	//부동산 게시판 글 쓰기
 	@Override
 	public Integer realestateInsertArticle(HttpServletRequest req, Model model) {
+		logger.info(req.getParameter("realestateLocation"));
 		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
 		logger.info(rVO.toString());
 		return boardDao.realestateInsertArticle(rVO);
@@ -607,7 +608,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Integer alarmServiceCnt(HttpServletRequest req) {
 		Integer alarmCnt=0;
-
+		
+		if(req.getSession().getAttribute("userVO") == null) {
+			return 0;
+		}
+		
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
 		
 		String memEmail = userVO.getMemberEmail();
