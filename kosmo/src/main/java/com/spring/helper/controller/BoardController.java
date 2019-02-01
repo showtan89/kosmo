@@ -350,8 +350,7 @@ public class BoardController {
 		
 		return "board/onedayclass/onedayclassAuthorityPro";
 	}
-	
-	
+
 	// 진호  BoardController 끝----------------------------------------------------
 	
 	

@@ -234,7 +234,7 @@
 
 
 
-<%-- <c:if test="${userVO.memberId} == ${dto.memberId}"> --%>
+<c:if test="${userVO.memberId} == ${dto.memberId}">
 <table style="margin-left: auto; margin-right: auto;">
 	<th colspan="2"><input class="inputButton" type="button"
 		value="글수정"
@@ -243,8 +243,37 @@
 		onclick="window.location='onedayclassDeletePro?onedayclassNumber=${dto.onedayclassNumber}'">
 	</th>
 </table>
-<%-- </c:if> --%>
+</c:if>
 
+<%-- <div class="row">
+	<div class="col-12 col-lg-4">
+		<div class="box box-success">
+			<div class="box-header">
+				<h3 class="box-title">댓글 추가</h3>
+			</div>
+			<div class="box-body">
+				<p>${userVO.memberId}님</p>
+				<label for="newReplyText">댓글을 남겨주세요</label>
+				<input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText">
+			</div>
+			<!-- /.box-body -->
+			<div class="box-footer">
+				<button type="submit" class="btn btn-primary" id="replyAddBtn">ADD REPLY</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- The time line -->
+<ul class="timeline">
+	<!-- timeline time label -->
+	<li class="time-label" id="repliesDiv">
+		<span class="bg-green">Replies List</span>
+	</li>	
+</ul>
+<div class='text-center'>
+	<ul id="pagination" class="pagination pagination-sm no-margin"></ul>
+</div> --%>
 
 
 <!-- ##### Contact Area End ##### -->

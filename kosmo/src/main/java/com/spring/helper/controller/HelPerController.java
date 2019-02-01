@@ -46,7 +46,9 @@ public class HelPerController{
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest req) {
 		logger.info("logout 중....");
-		req.getSession().invalidate();
+		/*System.out.println("체크3:"+req.getSession().getAttribute("userVO").toString());
+		req.getSession().removeAttribute("userVO");
+		System.out.println("체크4:"+req.getSession().getAttribute("userVO").toString());*/
 		return "index";
 	}
 	//로그인 버튼
@@ -148,6 +150,15 @@ public class HelPerController{
 		logger.info("getDirections 로딩 중.....");
 		
 		return "traffic/getDirections";
+	}
+	
+	@RequestMapping("emergency")
+	public String emergency(HttpServletRequest req,Model model) throws Exception {
+		logger.info("emergency 로딩 중..");
+		
+		service.emergency(req, model);
+		
+		return "traffic/emergency";
 	}
 	
 	// 대호 종료 ==================================================================

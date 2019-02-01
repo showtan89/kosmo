@@ -16,7 +16,7 @@
 }
 </style>
 </head>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 프리로더 이미지 -->
 <div class="preloader d-flex align-items-center justify-content-center">
 	<div class="preloader-circle"></div>

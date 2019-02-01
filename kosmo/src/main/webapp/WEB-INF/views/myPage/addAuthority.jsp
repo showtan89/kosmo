@@ -8,6 +8,9 @@
 <title>Add Authority</title>
 <link rel="stylesheet" href="resources/style.css">
 <link rel="stylesheet" href="resources/ehddnr.css">
+
+<!-- Favicon -->
+<link rel="icon" href="resources/img/core-img/favicon.ico">
 </head>
 <body>
 	<div class="preloader d-flex align-items-center justify-content-center">
@@ -46,6 +49,7 @@
 
 	
 	<div class="container col-12 col-md-9 col-lg-10">
+	<form action="applyAuthority" method="post">
 		<table class="table">
 
 			<thead class="table-success">

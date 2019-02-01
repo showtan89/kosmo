@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
+import com.spring.helper.vo.BoardVO.oCommentVO;
 
 public interface BoardService {
 
@@ -109,9 +110,17 @@ public interface BoardService {
 
 	// 클래스개설 권한 신청 처리페이지
 	public void onedayclassAuthorityPro(HttpServletRequest req, Model model);
-
+	
+	// 원데이클래스 게시판 댓글 가져오기
+/*	public List<oCommentVO> CommentList(HttpServletRequest req, Model model);*/
+	
 
 
 	//진호 끝-----------------------------------------------------------
 
+	// 대호 시작 =================
+	
+	public void emergency(HttpServletRequest req, Model model) throws Exception;
+	
+	// 대호 끝 ==================
 }

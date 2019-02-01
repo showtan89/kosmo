@@ -44,6 +44,14 @@ public class MemberController {
 
 		return "board/memberInput/memberEmailConfirmed";
 	}
+	
+	@RequestMapping("memberIdConfirm")
+	public String memberIdConfirm(HttpServletRequest req, Model model) throws Exception {
+		logger.info("memberIdConfirm 로딩 중..");
+		service.memberIdConfirm(req, model);
+
+		return "board/memberInput/memberIdConfirm";
+	}
 
 	@RequestMapping("myPage")
 	public String myPage(HttpServletRequest req, Model model) throws Exception {

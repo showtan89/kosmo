@@ -10,19 +10,18 @@
 <link rel="stylesheet" href="resources/style.css">
 
 <script type="text/javascript">
-	function EmailOK(email) {
-		opener.document.memberInputForm.confirmChk.value = "1";
-		opener.document.memberInputForm.memberEmail.value = email;
+	function idOK(memberId) {
+		opener.document.memberInputForm.nameConfirmChk.value = "1";
+		opener.document.memberInputForm.memberId.value = memberId;
 		self.close();
 	}
 	
 	function reSearch() {
-		var email = document.eamailCheckFail.memberEmail.value;
-		email = email.replace("%40", "@");
-		opener.document.memberInputForm.confirmChk.value = "0";
-		window.location.href = "memberConfirmidForm?email=" + email;
+		var memberId = document.nameCheckFail.memberId.value;
+		opener.document.memberInputForm.nameConfirmChk.value = "0";
+		window.location.href = "memberIdConfirm?memberId=" + memberId;
 	}
-</script> 
+</script>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta charset="UTF-8">
@@ -30,12 +29,12 @@
 
 	<c:if test="${selectCnt == 0}">
 		<div class="container">
-			<font size="40"> <b>Your Email is can use</b>
+			<font size="40"> <b>Your name is can use</b>
 			</font>
 			<div class="toggle"></div>
 			<div class="card">
 				<div class="button-container">
-					<button onclick="EmailOK('${email}');">
+					<button onclick="idOK('${memberId}');">
 						<span> OK </span>
 					</button>
 				</div>
@@ -44,12 +43,12 @@
 	</c:if>
 	
 	<c:if test="${selectCnt > 0}">
-		<form name="eamailCheckFail" onsubmit="reSearch();">
+		<form name="nameCheckFail" onsubmit="reSearch();">
 			<div class="container">
-				<font size="40"> <b>Your Email is cannot use</b>
+				<font size="40"> <b>Your name is cannot use</b>
 				</font>
-				<input type="text" name="email" required="required"
-					placeholder="input your Email" style="width:430px; height:65px;">
+				<input type="text" name="memberId" required="required"
+					placeholder="input your name again" style="width:430px; height:65px;">
 				<div class="toggle"></div>
 				<div class="card">
 					<div class="button-container">

@@ -11,7 +11,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>Helper - Foriener &amp; Help HTML Template</title>
+<title>Helper - Foreigner &amp; Help HTML Template</title>
 
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
@@ -30,6 +30,7 @@
 
 <!-- 대호 회원가입 스크립트 시작 -->
 <script type="text/javascript">
+
 	function EmailCheck() {
 		
 		var email = document.memberInputForm.memberEmail.value;
@@ -42,6 +43,19 @@
 			return false;
 		} else {
 			var url = "memberConfirmidForm?email=" + email;
+			var popup = window.open(url, "", "width=600, height=400, toolba=no");
+			popup.moveTo(0, 0);
+		}
+	}
+	
+	function nameConfirmCheck() {
+		
+		var name = document.memberInputForm.memberId.value;
+		
+		if (!name) {
+			return false;
+		} else {
+			var url = "memberIdConfirm?memberId=" + name;
 			var popup = window.open(url, "", "width=600, height=400, toolba=no");
 			popup.moveTo(0, 0);
 		}
@@ -73,9 +87,12 @@
 		} else if (document.memberInputForm.memberId.value.length > 40) {
 			alert("Your name is too long. Please check it.");
 			return false;
+		} else if (document.memberInputForm.nameConfirmChk.value == 0) {
+			alert("Please check and confirm your name");
+			return false;
 		}
-	
-	}
+		
+	}	
 </script>
 
 <!-- 회원가입 스트립트 종료 -->
@@ -95,12 +112,12 @@
 					<h1 class="title">Login</h1>
 					<form action="j_spring_security_check" method="post">
 						<div class="input-container">
-							<input type="text" id="Email" required="required" name="loginEmail"/> <label
+							<input type="text" required="required" name="loginEmail"/> <label
 								for="Email">Email</label>
 							<div class="bar"></div>
 						</div>
 						<div class="input-container">
-							<input type="password" id="Password" required="required" name="loginPwd"/> <label
+							<input type="password" required="required" name="loginPwd"/> <label
 								for="Password">Password</label>
 							<div class="bar"></div>
 						</div>
@@ -126,7 +143,7 @@
 					
 					<form action="memberInputPro" method="post" name="memberInputForm" onsubmit="return memberInputSubmit();">
 					
-						<input type="hidden" name="confirmChk" value="0">
+						<input type="hidden" id="confirmChk" name="confirmChk" value="0">
 					
 						<div class="input-container">
 							<select class="custom-select d-block w-100" id="memberCountry" name="memberCountry">
@@ -151,7 +168,7 @@
 						</div>
 						
 						<div class="button-container">
-							<button onclick="return EmailCheck();">
+							<button type="button" onclick="return EmailCheck();">
 								<span>
 									Confirm Email
 								</span>
@@ -166,33 +183,31 @@
 						</div>
 						
 						<div class="input-container">
-							<input type="password" id="Repeat_Password" required="required" />
-							<label for="Repeat Password">Repeat Password</label>
+							<input type="password" id="Repeat_Password" />
+							<label for="Repeat_Password">Repeat Password</label>
 							<div class="bar"></div>
 						</div>
 						
 						<div class="input-container">
-							<input type="text" id="memberId" name="memberId" required="required" />
-							<label for="Repeat Password">Name</label>
+							<input type="text" id="memberId" name="memberId" />
+							<label for="memberId">Name</label>
 							<div class="bar"></div>
 						</div>
 						
+						<input type="hidden" id="nameConfirmChk" name="nameConfirmChk" value="0">
+						
 						<div class="button-container">
-							<a href="memberInputPro" onclick="return memberInputSubmit();">
-								<button type="submit">
+								<button type="button" onclick="return nameConfirmCheck();">
 									<span>Confirm Name</span>
 								</button>
-							</a>
 							<br>
 							<br>
 						</div>
 						
 						<div class="button-container">
-							<a href="memberInputPro" onclick="return memberInputSubmit();">
-								<button type="submit">
-									<span>Next</span>
-								</button>
-							</a>
+							<button type="submit">
+								<span>Next</span>
+							</button>
 						</div>
 					</form>
 				</div>
@@ -219,6 +234,7 @@
 				$('.container').stop().removeClass('active');
 			});
 		});
+		
 	</script>
 </body>
 </html>

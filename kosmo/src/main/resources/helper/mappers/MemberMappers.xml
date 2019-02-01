@@ -13,6 +13,12 @@
 		 WHERE MEMBEREMAIL = #{email}
 	</select>
 	
+	<select id="memberIdConfirm" resultType="int" parameterType="String">
+		SELECT COUNT(*)
+		  FROM users
+		 WHERE memberId = #{memberId}
+	</select>
+	
 	<insert id="memberInputPro" parameterType="java.util.Map">
 		INSERT INTO USERS (MEMBERNUMBER, MEMBEREMAIL, MEMBERID, 
 						PASSWORD, MEMBERCOUNTRY, MEMBERREGDATE, 

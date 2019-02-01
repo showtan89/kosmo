@@ -13,6 +13,8 @@ public interface MemberDAO {
 
 	public int memberInputPro(Map<String, Object> map);
 
+	public int memberIdConfirm(String memberId);
+	
 	public void sendEmailKey(Map<String, Object> map);
 
 	public int memberEmailConfirmed(String emailKey);

@@ -108,40 +108,10 @@ function alarm() {
 	}
 alarm();
 
-setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
+setInterval("alarm();", 2000);//원래 2000, 개발중  60000, 시연때 2000
 
 </script>
- <script type="text/javascript"> 
- /*
-function alarm(){
-	if(loopSendKeyword == false) return false;
-
-	//var alarmCnt = document.header01.alarmCnt.value;
-	var parms = "alarmCnt=" + alarmCnt;
-	sendRequest(result_callback, "alarmServiceCnt", "GET", params);
-	setTimeout("alarm()", 1000); //실시간 제일 중요한 개념
-}
-
-function result_callback() {
-	var alarmCnt = document.getElementById("alarmCnt");
-	if(httpRequest.readyState == 4){}
-		if(httpRequest.status == 200){
-			loopSendKeyword = true; // 0.5초마다 반복해라
-			setTimeout(sendKeyword(), 100);
-			
-			if(data != null){
-				aCnt = data;
-				checkFirst = true;
-			 alarmCnt.innerHtml = aCnt;
-			}
-		}
-}  */
-</script> 
-<body onload="alarmChk();">
-	<div style="position: relative;">
-		<div
-			style="z-index: 1; display: inline; position: absolute; top: 0; background: black; height: 200px; widht: 1000px;"></div>
-	</div>
+ 
 <body onload="alarm();">
 	<header class="header-area">
 		<!-- ***** Top Header Area ***** -->
@@ -238,7 +208,7 @@ function result_callback() {
 							
 								<!-- Alarm -->
 								<div class="cart">
-								<c:if test="${sessionScope.userVO != null}">
+								<c:if test="${userVO ne null}">
 									<a href="alarmBoard">
 										<i class="fa fa-envelope" aria-hidden="true"></i> 
 										<span>Alarm</span>
@@ -288,19 +258,19 @@ function result_callback() {
 											<li><a href="knowledge">Knowledge IN</a></li>
 											<li><a href="realestate">Real Estate</a></li>
 											<li><a href="onedayclass">Oneday Class</a></li>
-											<li><a href="alarmBoard">Alarm</a></li>
 										</ul></li>
 									<li><a href="#">Traffic</a>
 										<ul class="dropdown">
 											<li><a href="getDirections">Get Directions</a></li>
 											<li><a href="restaurantlocation.jsp">Restaurant
 													Location</a></li>
-											<li><a href="emergencyfacility.jsp">Emergency
+											<li><a href="emergency">Emergency
 													facility</a></li>
 										</ul></li>
 									<li><a href="#">Tourism</a>
 										<ul class="dropdown">
 											<li><a href="weather.jsp">Weather</a></li>
+											<li><a href="travelBoard">Travel</a></li> <!-- 재영 추가  -->
 											<li><a href="eventcultur.jsp">Event/Cultural
 													Heritage</a></li>
 											<li><a href="exchangerate.jsp">Exchange Rate</a></li>

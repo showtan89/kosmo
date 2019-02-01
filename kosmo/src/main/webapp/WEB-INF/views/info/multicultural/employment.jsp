@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Helper - Realestate</title>
+<title>Helper - employment</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
 <style>
@@ -19,8 +19,6 @@
 
 
 /* 야후후후후후후후후후후후후후후훟 */
-
-
 
 
 /* 야후후후후후후후후후후후후후후후후 */
@@ -79,7 +77,7 @@
 					<h4 class="widget-title">Categories</h4>
 					<h6 class="widget-title"><a id="knowledgeCategoryAll" href="employment">Employment</a></h6>
 						<h6 class="widget-title"><a id="Education" href="newsBoard">News</a></h6>
-						<h6 class="widget-title"><a id="Computer" href="knowledgeBoardList?knowledgeCategory=Computer">Computer</a></h6>
+						<h6 class="widget-title"><a id="employeInfo" href="employeInfo">employeInfo</a></h6>
 						<h6 class="widget-title"><a id="Game" href="knowledgeBoardList?knowledgeCategory=Game">Game</a></h6>
 				</div>
 			</div>

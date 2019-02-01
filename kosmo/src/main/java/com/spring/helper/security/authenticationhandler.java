@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import org.springframework.security.core.Authentication;
@@ -103,10 +104,12 @@ public class authenticationhandler implements AuthenticationSuccessHandler {
 				userVO.setAuthority(rs.getString("authority"));
 				userVO.setMemberTemp1(rs.getString("memberTemp1"));
 			}
-			request.getSession().setMaxInactiveInterval(6000);
-			request.getSession().setAttribute("userVO", userVO);
-			//${userVO.memberNumber}
-			System.out.println("세션에 담긴 유져 정보 : "+userVO.toString());
+			HttpSession session = request.getSession(true);
+			session.removeAttribute("userVO"); //임시방편
+			session.setMaxInactiveInterval(6000);
+			session.setAttribute("userVO", userVO);
+			System.out.println("세션에 담긴 유져 정보2 : "+userVO.toString());
+			System.out.println("체크2:"+session.getAttribute("userVO").toString());
 			
 				
 		} catch(SQLException e) {

@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Get Directions</title>
+<!-- Favicon -->
+<link rel="icon" href="resources/img/core-img/favicon.ico">
+
 <link rel="stylesheet" href="resources/style.css">
 <link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
 </head>
