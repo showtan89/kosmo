@@ -260,6 +260,7 @@ public class BoardServiceImpl implements BoardService {
 		String memberCountry = userVO.getMemberCountry();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("kCommentContent", kCommentContent);
+		map.put("knowledgememberId", knowledgememberId);
 		map.put("knowledgeNumber", knowledgeNumber);
 		map.put("kCommentTemp1", kCommentTemp1);
 		map.put("memberId", memberId);
