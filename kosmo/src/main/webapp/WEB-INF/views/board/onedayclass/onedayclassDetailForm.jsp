@@ -234,7 +234,7 @@
 
 
 
-<c:if test="${userVO.memberId} == ${dto.memberId}">
+<c:if test="${userVO.memberId eq dto.memberId}">
 <table style="margin-left: auto; margin-right: auto;">
 	<th colspan="2"><input class="inputButton" type="button"
 		value="글수정"

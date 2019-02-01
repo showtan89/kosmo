@@ -30,10 +30,13 @@
 
 	<c:if test="${selectCnt == 0}">
 		<div class="container">
-			<font size="40"> <b>Your Email is can use</b>
-			</font>
 			<div class="toggle"></div>
 			<div class="card">
+				<center>
+					<font size="10">
+						<b>${email} <br> is available</b>
+					</font>
+				</center>
 				<div class="button-container">
 					<button onclick="EmailOK('${email}');">
 						<span> OK </span>
@@ -46,12 +49,15 @@
 	<c:if test="${selectCnt > 0}">
 		<form name="eamailCheckFail" onsubmit="reSearch();">
 			<div class="container">
-				<font size="40"> <b>Your Email is cannot use</b>
-				</font>
 				<input type="text" name="email" required="required"
 					placeholder="input your Email" style="width:430px; height:65px;">
 				<div class="toggle"></div>
 				<div class="card">
+				<center>
+					<font size="10">
+						<b>${email} <br> is not available</b>
+					</font>
+				</center>
 					<div class="button-container">
 						<button type="submit">
 								<span> SEARCH </span>

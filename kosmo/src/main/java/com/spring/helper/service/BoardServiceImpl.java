@@ -854,7 +854,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void emergency(HttpServletRequest req, Model model) throws Exception {
 		
-		ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hospital.py");
+		ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
 		Process p = pb.start(); // 프로세스 호출
 
 		// 프로세스의 실행결과를 스트림으로 리턴함
@@ -868,11 +868,9 @@ public class BoardServiceImpl implements BoardService {
 			sb.append(line + "<br>"); //출력
 		}
 		
-		String originData = (sb.toString());
-		
-		String changeData = originData.substring(35);
+		String originData = sb.toString();
 
-		model.addAttribute("originData", changeData);
+		model.addAttribute("originData", originData);
 	}
 	
 	// 대호 끝 =================================
