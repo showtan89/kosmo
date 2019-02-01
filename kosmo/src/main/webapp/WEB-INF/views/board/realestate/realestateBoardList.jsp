@@ -29,26 +29,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="realimage" value="resources/img/board/realestate/" />
 
-
-
-
-
-
 <!-- 글 등록 후 처리 - 모달로 바꿀 것 -->
 <c:if test="${param.insertResult>0}">
 <script type="text/javascript">
-	alert('글 등록이 성공 되었습니다.');
+	alert('Posting successfully.');
 </script>
 </c:if>
 <c:if test="${param.insertResult==0}">
 <script type="text/javascript">
-	alert('글 등록이 실패 했습니다.');
+	alert('Posting failed.');
 </script>
 </c:if>
-
-
-
-
+<c:if test="${param.deleteResult>0}">
+<script type="text/javascript">
+	alert('Deleted successfully.');
+</script>
+</c:if>
+<c:if test="${param.deleteResult==0}">
+<script type="text/javascript">
+	alert('Delete failed.');
+</script>
+</c:if>
 
 <!-- 메뉴바 아래 이미지 -->
 <div class="breadcrumb-area">

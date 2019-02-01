@@ -65,11 +65,7 @@ public class BoardController {
         factory.setNamespaceAware(true);
         DocumentBuilder builder;
         Document doc = null;
-		        StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1270000/lawedu/lawqna"); /*URL*/
-		        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=GdoR86lqZXehbYz0fIJrJjrCLQq9UHQg9pk2RA8UgEhtJI8vJ45t8O%2B8p6N3QaDDUUkB1kUa1Ra%2BwQnLK%2FcHuQ%3D%3D"); /*Service Key*/
-		        urlBuilder.append("&" + URLEncoder.encode("ServiceKey","UTF-8") + "=" + URLEncoder.encode("GdoR86lqZXehbYz0fIJrJjrCLQq9UHQg9pk2RA8UgEhtJI8vJ45t8O%2B8p6N3QaDDUUkB1kUa1Ra%2BwQnLK%2FcHuQ%3D%3D", "UTF-8")); /*공공데이터포털에서 받은 인증키*/
-		        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
-		        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+		        StringBuilder urlBuilder = new StringBuilder("http://www.law.go.kr/DRF/lawService.do?OC=elwksl2&target=law&MST=152338&type=XML"); /*URL*/
 		        URL url = new URL(urlBuilder.toString());
 		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		        conn.setRequestMethod("GET");

@@ -260,6 +260,7 @@ public class BoardServiceImpl implements BoardService {
 		String memberCountry = userVO.getMemberCountry();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("kCommentContent", kCommentContent);
+		map.put("knowledgememberId", knowledgememberId);
 		map.put("knowledgeNumber", knowledgeNumber);
 		map.put("kCommentTemp1", kCommentTemp1);
 		map.put("memberId", memberId);
@@ -380,6 +381,7 @@ public class BoardServiceImpl implements BoardService {
 	//부동산 게시판 글 쓰기
 	@Override
 	public Integer realestateInsertArticle(HttpServletRequest req, Model model) {
+		logger.info(req.getParameter("realestateLocation"));
 		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
 		logger.info(rVO.toString());
 		return boardDao.realestateInsertArticle(rVO);
@@ -607,7 +609,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Integer alarmServiceCnt(HttpServletRequest req) {
 		Integer alarmCnt=0;
-
+		
+		if(req.getSession().getAttribute("userVO") == null) {
+			return 0;
+		}
+		
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
 		
 		String memEmail = userVO.getMemberEmail();
@@ -616,12 +622,11 @@ public class BoardServiceImpl implements BoardService {
 		//5단계 글갯수 구하기
 		if(memEmail != null) {
 			alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
-			logger.info("alarmCnt : " + alarmCnt);
 		}
+		logger.info("합산한 alarmCnt : " + alarmCnt);
 		return alarmCnt;
 	
 	}
-
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------
