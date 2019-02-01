@@ -150,7 +150,7 @@
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
-                                 <h5>날짜</h5>
+                                 <h5>오픈날짜</h5>
                                  <p>${dto.onedayclassOpendate}</p>
                              </div>
                          </div>
@@ -236,10 +236,10 @@
 
 <c:if test="${userVO.memberId eq dto.memberId}">
 <table style="margin-left: auto; margin-right: auto;">
-	<th colspan="2"><input class="inputButton" type="button"
+	<th colspan="2"><input class="btn alazea-btn mt-15" type="button"
 		value="글수정"
 		onclick="window.location='onedayclassModifyForm?onedayclassNumber=${dto.onedayclassNumber}'">
-		<input class="inputButton" type="button" value="글삭제"
+		<input class="btn alazea-btn mt-15" type="button" value="글삭제"
 		onclick="window.location='onedayclassDeletePro?onedayclassNumber=${dto.onedayclassNumber}'">
 	</th>
 </table>
