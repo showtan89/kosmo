@@ -134,7 +134,8 @@
 							<button type="submit">
 								<span>Submit</span>
 							</button>
-							<button type="button" onclick="window.history.back();">
+						<br>
+							<button type="button" onclick="window.location.href='index'">
 								<span>Back</span>
 							</button>
 						</div>
