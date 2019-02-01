@@ -162,7 +162,7 @@ function knowledgeDetailForm(knowledgeNumber){
 							</div>
 						</div>
 						<div style="margin: 15px 0;"class="search_by_terms">
-							<span style="float: left"><select class="btn_select"
+							<span style="float: left"><select class="btn_select custom-select d-block w-100"
 								name="btn_select" id="btn_select">
 									<option value="10" selected>10개 보기</option>
 									<option value="20">20개 보기</option>
