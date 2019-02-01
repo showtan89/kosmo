@@ -29,10 +29,13 @@
 
 	<c:if test="${selectCnt == 0}">
 		<div class="container">
-			<font size="40"> <b>Your name is can use</b>
-			</font>
 			<div class="toggle"></div>
 			<div class="card">
+				<center>
+					<font size="10"> 
+						<b>${memberId} is available</b>
+					</font>
+				</center>
 				<div class="button-container">
 					<button onclick="idOK('${memberId}');">
 						<span> OK </span>
@@ -45,12 +48,15 @@
 	<c:if test="${selectCnt > 0}">
 		<form name="nameCheckFail" onsubmit="reSearch();">
 			<div class="container">
-				<font size="40"> <b>Your name is cannot use</b>
-				</font>
-				<input type="text" name="memberId" required="required"
-					placeholder="input your name again" style="width:430px; height:65px;">
 				<div class="toggle"></div>
 				<div class="card">
+				<center>
+					<font size="10"> 
+						<b>${memberId} is not available</b>
+					</font>
+				</center>
+				<input type="text" name="memberId" required="required"
+					placeholder="input your name again" style="width:430px; height:65px;">
 					<div class="button-container">
 						<button type="submit">
 								<span> SEARCH </span>
