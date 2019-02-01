@@ -103,11 +103,8 @@ public class KnowledgeVO {
 			String te1 = test2.substring(0,2);
 			String te2 = test2.substring(3,5);
 			String te3 = test2.substring(6); 
-			System.out.println(to1+" "+to2+" "+to3);
-			System.out.println(te1+" "+te2+" "+te3);
 		if(test.equals(date)) {
 			if(to1.equals(te1)) {
-				System.out.println("2");
 				if(to2.equals(te2)) {
 					int c = Integer.parseInt(to3);
 					int d = Integer.parseInt(te3);

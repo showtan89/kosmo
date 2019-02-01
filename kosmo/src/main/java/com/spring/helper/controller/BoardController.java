@@ -65,7 +65,6 @@ public class BoardController {
         factory.setNamespaceAware(true);
         DocumentBuilder builder;
         Document doc = null;
-		
 		        StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1270000/lawedu/lawqna"); /*URL*/
 		        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=GdoR86lqZXehbYz0fIJrJjrCLQq9UHQg9pk2RA8UgEhtJI8vJ45t8O%2B8p6N3QaDDUUkB1kUa1Ra%2BwQnLK%2FcHuQ%3D%3D"); /*Service Key*/
 		        urlBuilder.append("&" + URLEncoder.encode("ServiceKey","UTF-8") + "=" + URLEncoder.encode("GdoR86lqZXehbYz0fIJrJjrCLQq9UHQg9pk2RA8UgEhtJI8vJ45t8O%2B8p6N3QaDDUUkB1kUa1Ra%2BwQnLK%2FcHuQ%3D%3D", "UTF-8")); /*공공데이터포털에서 받은 인증키*/
