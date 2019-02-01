@@ -92,7 +92,16 @@
 			return false;
 		}
 		
-	}	
+	}
+	
+	function emailChanged() {
+		document.memberInputForm.confirmChk.value = 0;
+	}
+	
+	function nameChanged() {
+		document.memberInputForm.nameConfirmChk.value = 0;
+	}
+	
 </script>
 
 <!-- 회원가입 스트립트 종료 -->
@@ -125,7 +134,8 @@
 							<button type="submit">
 								<span>Submit</span>
 							</button>
-							<button type="button" onclick="window.history.back();">
+						<br>
+							<button type="button" onclick="window.location.href='index'">
 								<span>Back</span>
 							</button>
 						</div>
@@ -162,7 +172,7 @@
 						</div>
 					
 						<div class="input-container">
-							<input type="text" id="memberEmail" name="memberEmail" required="required" />
+							<input type="text" id="memberEmail" name="memberEmail" required="required" onchange="emailChanged();"/>
 							<label for="memberEmail">Email</label>
 							<div class="bar"></div>
 						</div>
@@ -183,13 +193,13 @@
 						</div>
 						
 						<div class="input-container">
-							<input type="password" id="Repeat_Password" />
+							<input type="password" id="Repeat_Password"/>
 							<label for="Repeat_Password">Repeat Password</label>
 							<div class="bar"></div>
 						</div>
 						
 						<div class="input-container">
-							<input type="text" id="memberId" name="memberId" />
+							<input type="text" id="memberId" name="memberId" onchange="nameChanged();"/>
 							<label for="memberId">Name</label>
 							<div class="bar"></div>
 						</div>
