@@ -136,8 +136,7 @@
 	<form action="">
 		<!-- tbl-ex -->
 		<div align="center">
-			<table class="tbl-ex"
-				style="width: 100%; TABLE-layout:fixed; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+			<table class="table table-hover"><!-- style="width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" -->
 				<tr>
 					<th>Sender</th>
 					<th>Contents</th>
@@ -148,7 +147,7 @@
 				<c:forEach var="cos" items="${cos}">
 					<c:if test="${!sessionScope.userVO.memberId.equals(cos.memberid)}">
 						<tr>
-							<td align="center">${cos.memberid}</td>
+							<td>${cos.memberid}</td><!-- align="center" -->
 
 							<c:set var="code" value="${cos.boardcode}" />
 							<c:choose>
@@ -174,9 +173,9 @@
 								</c:when>
 							</c:choose>
 
-							<td align="center">${cos.commentregdate}</td>
-							<td align="center">checked</td>
-							<td align="center"><input type="button" value="delete"
+							<td>${cos.commentregdate}</td>
+							<td>checked</td>
+							<td><input type="button" value="delete"
 								onclick="window.location='commentAlarmDelete?commentnumber=${cos.commentnumber}&pageNum=${pageNum}';"></td>
 						</tr>
 					</c:if>
@@ -185,11 +184,11 @@
 				<c:forEach var="mos" items="${mos}">
 					<c:if test="${!sessionScope.userVO.memberId.equals(mos.memberid)}">
 						<tr>
-							<td align="center">chatting alarm</td>
+							<td>chatting alarm</td>
 							<td>${mos.chattingsubject}</td>
-							<td align="center">${mos.chattingregdate}</td>
-							<td align="center">checked</td>
-							<td align="center">
+							<td>${mos.chattingregdate}</td>
+							<td>checked</td>
+							<td>
 							<a class="btn alazea-btn mr-30" href="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';">Delete</a> 
 							<%-- <input type="button" value="Delete"
 								onclick="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';"> --%></td>
