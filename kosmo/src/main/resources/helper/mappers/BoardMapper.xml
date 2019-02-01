@@ -241,7 +241,10 @@
 			realestateCar = #{realestateCar},
 		</if>
 		<if test="realestateTemp1 != null">
-			realestateTemp1 = #{realestateTemp1}
+			realestateTemp1 = #{realestateTemp1},
+		</if>
+		<if test="realestateLocation != null">
+			realestateLocation = #{realestateLocation}
 		</if>
 		<where>
 			realestateNumber = #{realestateNumber}
