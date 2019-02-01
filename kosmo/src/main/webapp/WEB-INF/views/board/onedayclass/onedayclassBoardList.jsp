@@ -152,10 +152,12 @@
                             </div>
                         </div>
 						<div class="shop-widget sort-by mb-50">
+							<c:if test="${userVO.memberTemp1} == 0 || ${userVO.memberTemp1} == null">
 							<h6 class="widget-title"><a href="onedayclassAuthorityForm?memberId=${userVO.memberId}&onedayclassNumber=${dtos.get(0).onedayclassNumber}">클래스개설 권한신청</a></h6>
-							<%-- <c:if test="${userVO.authority} == ROLE_OdcWriteAuthority"> --%>						
+							</c:if>
+							<c:if test="${userVO.memberTemp1} == 2">						
 								<h6 class="widget-title"><a href="onedayclassWriteForm?onedayclassNumber=${dtos.get(0).onedayclassNumber}&pageNum=${pageNum}">클래스개설 새글쓰기</a></h6>						
-							<%-- </c:if> --%>
+							</c:if>
 						</div>
                     </div>
                 </div>
@@ -178,7 +180,7 @@
                                         </a>
                                         <div class="product-meta d-flex">
 	                                        <a href="#" class="wishlist-btn"><i class="icon_heart_alt"></i></a>
-	                                        <a href="#" class="add-to-cart-btn">상세페이지</a>
+	                                        <a href="onedayclassDetailForm?onedayclassNumber=${dto.onedayclassNumber}&pageNum=${pageNum}&number=${number+1}" class="add-to-cart-btn">상세페이지</a>
 	                                        <a href="#" class="compare-btn"><i class="arrow_left-right_alt"></i></a>
 	                                    </div>
 	                                </div>
