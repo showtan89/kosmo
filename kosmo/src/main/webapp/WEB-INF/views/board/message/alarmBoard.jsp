@@ -136,8 +136,8 @@
 	<form action="">
 		<!-- tbl-ex -->
 		<div align="center">
-			<table class="table table-striped"
-				style="width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100px;">
+			<table class="tbl-ex"
+				style="width: 100%; TABLE-layout:fixed; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
 				<tr>
 					<th>Sender</th>
 					<th>Contents</th>
@@ -154,8 +154,9 @@
 							<c:choose>
 								<c:when test="${code==10}">
 									<%-- <c:set var="url" value="${}"/> --%>
-									<td><a
-										href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
+									<td style="text-overflow : ellipsis;overflow : hidden;">
+									<a href="knowledgeDetailForm?knowledgeNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}"><nobr>${cos.memberid}님이 댓글을 다셨습니다.</nobr>
+									</a></td>
 								</c:when>
 							</c:choose>
 
