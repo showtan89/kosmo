@@ -543,7 +543,7 @@
 		, onedayclassPrice, onedayclassReservation, onedayclassPay, onedayclassEndCheck, onedayclassDeadlineCheck
 		, onedayclassImg1, onedayclassImg2, onedayclassImg3)
 		VALUES(onedayclassSeq.nextval, 10007, '30', 'chae@gmail.com','chae', #{onedayclassSubject}, #{onedayclassContent}
-		, sysdate, 'aa', #{onedayclassCategory}, sysdate, #{onedayclassLocation}, #{onedayclassRecruitment} 
+		, sysdate, 'aa', #{onedayclassCategory}, #{onedayclassOpendate}, #{onedayclassLocation}, #{onedayclassRecruitment} 
 		, #{onedayclassPrice}, 'aa', 'aa', 'aa', #{onedayclassDeadlineCheck}
 		, 'aa', 'aa', 'aa')
 	</insert>
@@ -552,6 +552,13 @@
 	<delete id="onedayclassDeleteBoard" parameterType="int">
 		DELETE onedayclass WHERE onedayclassNumber=#{onedayclassNumber}
 	</delete>
+	
+	<!-- 원데이 게시판 댓글 리스트 -->
+	<select id="getoCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
+		SELECT * from oComment WHERE oCommentRegdate >= #{now Time} ORDER BY oCommentRegdate
+	</select>
+	
+	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 	
 	<!-- 대호 시작 ㅋㅋㅋㅋㅋ -->
 	<update id="onedayclassAccountUpdate" parameterType="java.util.Map">
@@ -562,6 +569,6 @@
 	</update>
 	<!-- 대호 끝 ㅋㅋㅋ -->
 	
-	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
+
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.spring.helper.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -112,8 +113,7 @@ public interface BoardService {
 	public void onedayclassAuthorityPro(HttpServletRequest req, Model model);
 	
 	// 원데이클래스 게시판 댓글 가져오기
-/*	public List<oCommentVO> CommentList(HttpServletRequest req, Model model);*/
-	
+	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model);
 
 
 	//진호 끝-----------------------------------------------------------

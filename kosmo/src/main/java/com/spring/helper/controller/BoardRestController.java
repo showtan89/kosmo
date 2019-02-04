@@ -22,6 +22,7 @@ import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.service.BoardService;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
+import com.spring.helper.vo.BoardVO.oCommentVO;
 
 @RestController
 public class BoardRestController {
@@ -204,6 +205,15 @@ public class BoardRestController {
 		logger.info("alarmCnt 호출");
 		Integer alarmServiceCnt = service.alarmServiceCnt(req); 
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
+	}
+	
+	// 원데이 클래스 댓글 리스트 출력
+	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
+	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{
+		logger.info("oCommentJson - 호출중");
+		ArrayList<oCommentVO> list = service.getoCommentList(req,model);
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
 	}
 	
 }

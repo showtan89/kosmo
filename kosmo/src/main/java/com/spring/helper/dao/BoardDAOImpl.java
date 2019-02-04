@@ -21,6 +21,7 @@ import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
+import com.spring.helper.vo.BoardVO.oCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
 
@@ -319,7 +320,14 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.update("com.spring.helper.dao.BoardDAO.onedayclassAccountUpdate", map);
 	}
 	
+	// 원데이게시판 댓글 리스트 출력
+	@Override
+	public ArrayList<oCommentVO> getoCommentList(int onedayclassNumber) {
 
+		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber);
+	}
+	
+	// 
 
 
 	// 진호 메소드 종료------------------------------------------------
