@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -59,7 +58,7 @@
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px;">
 
-	<style type="text/css">
+<style type="text/css">
 .tab-box {
 	margin: 50px auto 0 auto;
 	width: 520px;
@@ -189,7 +188,7 @@
 							<td>${mos.chattingregdate}</td>
 							<td>checked</td>
 							<td>
-							<a class="btn alazea-btn mr-30" href="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';">Delete</a> 
+							<a class="btn alazea-btn mr-30" value="Delete" href="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';"></a> 
 							<%-- <input type="button" value="Delete"
 								onclick="window.location='chattingAlarmDelete?chattingnumber=${mos.chattingnumber}&pageNum=${pageNum}';"> --%></td>
 						</tr>
@@ -232,6 +231,8 @@
 		</tr>
 	</table>
 </div>
+
+<a href="test2" align="center">test2</a>
 
 <!-- ##### Contact Area End ##### -->
 

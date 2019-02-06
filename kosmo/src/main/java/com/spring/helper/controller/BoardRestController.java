@@ -198,6 +198,7 @@ public class BoardRestController {
 		return entity;
 	}*/
 	
+	// ------------- 민석 --------------------------
 	//헤더 알람 갯수 카운트
 	@RequestMapping(value="alarmCnt", method = RequestMethod.GET)
 	ResponseEntity<Integer> alarmCnt(HttpServletRequest req ){
@@ -205,5 +206,10 @@ public class BoardRestController {
 		Integer alarmServiceCnt = service.alarmServiceCnt(req); 
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
 	}
+	
+	// 쪽지 시작
+	
+	
+	//--------------- 민석 ---------------------------------
 	
 }

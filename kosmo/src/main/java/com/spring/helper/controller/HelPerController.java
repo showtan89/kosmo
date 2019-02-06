@@ -142,6 +142,13 @@ public class HelPerController{
 		return "board/message/chattingAlarmDelete";
 	}
 	
+	@RequestMapping("test2")
+	public String test(HttpServletRequest req,Model model) {
+		logger.info("test2 로딩 중.....");
+		service.alarmBoard(req, model);
+		return "test/test2";
+	}
+	
 	//민석이 끝++++++++++++++++++++++++++++++++
 
 	// 대호 시작 ==================================================================
