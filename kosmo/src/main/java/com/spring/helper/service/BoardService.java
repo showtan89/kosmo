@@ -48,11 +48,11 @@ public interface BoardService {
 	//부동산 게시판 글 목록 보기
 	public void realestateGetArticleList(HttpServletRequest req, Model model);
 	//부동산 게시판 글 쓰기
-	public Integer realestateInsertArticle(HttpServletRequest req, Model model);
+	public Integer realestateInsertArticle(MultipartHttpServletRequest req, Model model) throws Exception;
 	//부동산 게시판 글 상세 페이지
 	public void realestateGetArticle(HttpServletRequest req, Model model);
 	//부동산 게시판 글 수정
-	public Integer realestateModifyUpdate(HttpServletRequest req, Model model);
+	public Integer realestateModifyUpdate(MultipartHttpServletRequest req, Model model) throws Exception;
 	//부동산 게시판 글 삭제
 	public Integer realestateDeleteArticle(HttpServletRequest req);
 	// 부동산 게시판 댓글 가져오기

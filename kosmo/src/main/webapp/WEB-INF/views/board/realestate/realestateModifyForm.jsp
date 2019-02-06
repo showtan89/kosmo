@@ -37,7 +37,7 @@
 <div class="container" style="margin-bottom: 50px;">
 	<h5>Modify Post</h5>
 	<hr>
-	<form action="realestateModifyPro?realestateNumber=${param.realestateNumber}" method="post" >
+	<form action="realestateModifyPro?realestateNumber=${param.realestateNumber}" method="post" enctype="multipart/form-data">
 		<div class="row ">
 			<!-- 글제목 -->
 			<div class="col-12 mb-4">
@@ -236,13 +236,14 @@
 					<option value="jeollanam">Jeollanam-do (전라남도)</option>
 					<option value="jeju">Jeju-do (제주도)</option>
 				</select>
-				<input type="hidden" name='realestateCategory1' id="realestateCategory1Real">
+				<input type="hidden" name='realestateCategory1' id="realestateCategory1Real" value="${rVO.realestateCategory1}">
 			</div>
 			<!-- 상세 주소 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateLocation">Detail Address</label> 
 		 		<input type="text" class="form-control" id="realestateLocation" disabled value="${rVO.realestateLocation}">
-				<input type='hidden' id="realestateLocationReal" name="realestateLocation">
+				<input type='hidden' id="realestateLocationReal" name="realestateLocation" value="${rVO.realestateLocation}">
+				<input type='hidden' id="realestateTemp2" name="realestateTemp2" value="${rVO.realestateTemp2}"> <!-- 한글 주소 -->
 			</div>
 
 			<div class="col-md-4 mb-4">
@@ -301,19 +302,44 @@
 			</c:if>
 			<hr>
 			<!-- 첨부파일 -->
-			<h1>첨부이미지 보류</h1>
-			<!-- <div class="col-md-4 mb-4">
+			<c:if test="${rVO.realestateImg1 eq 'empty'}">
+			<div class="col-md-4 mb-4">
 				<label for="realestateImg1">Image of Place #1</label> 
 				<input type="file" class="form-control" id="realestateImg1" name="realestateImg1" required>
 			</div>
+			</c:if>
+			<c:if test="${rVO.realestateImg1 ne 'empty'}">
+			<div class="col-md-4 mb-4">
+				<img src="${realimage}${rVO.realestateImg1}">
+				<input type="hidden" name='realestateImg1' value="${rVO.realestateImg1}">
+			</div>
+			</c:if>
+			
+			<c:if test="${rVO.realestateImg2 eq 'empty'}">
 			<div class="col-md-4 mb-4">
 				<label for="realestateImg2">Image of Place #2 (optional)</label> 
 				<input type="file" class="form-control" id="realestateImg2" name="realestateImg2">
 			</div>
+			</c:if>
+			<c:if test="${rVO.realestateImg2 ne 'empty'}">
+			<div class="col-md-4 mb-4">
+				<img src="${realimage}${rVO.realestateImg2}">
+				<input type="hidden" name='realestateImg2' value="${rVO.realestateImg2}">
+			</div>
+			</c:if>
+			
+			<c:if test="${rVO.realestateImg3 eq 'empty'}">
 			<div class="col-md-4 mb-4">
 				<label for="realestateImg3">Image of Place #3 (optional)</label> 
-				<input type="file" class="form-control" id="realestateImg3" name="realestateImg3">
-			</div> -->
+				<input type="file" class="form-control" id="realestateImg3" name="realestateImg3" class='btn alazea-btn'>
+			</div>
+			</c:if>
+			<c:if test="${rVO.realestateImg3 ne 'empty'}">
+			<div class="col-md-4 mb-4">
+				<img src="${realimage}${rVO.realestateImg3}">
+				<input type="hidden" name='realestateImg3' value="${rVO.realestateImg3}">
+			</div>
+			</c:if>
 		</div>
 		<hr>
 		<c:if test="${sessionScope.userVO!=null }">
@@ -348,6 +374,7 @@
 	    	oncomplete: function(data) {
 	            var addr = data.addressEnglish; 
 	            var sido = data.sido;
+	            var korAddr = data.address;
 	            switch(sido){
 		            case '서울': $('#realestateCategory1').val("seoul");
 		            		$("#realestateCategory1Real").val("seoul");
@@ -403,6 +430,7 @@
 		            }
 	            document.getElementById("realestateLocation").value = addr;
 	            document.getElementById("realestateLocationReal").value = addr;
+	            document.getElementById("realestateTemp2").value = korAddr;
 	            geocoder.addressSearch(data.address, function(results, status) {
 	                if (status === daum.maps.services.Status.OK) {
 	                    var result = results[0]; 

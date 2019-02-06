@@ -56,7 +56,7 @@ function memberDeleteForm() {
 	<!-- Top Breadcrumb Area -->
 	<div
 		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
-		style="background-image: url(resources/img/ehddnr2.jpg);">
+		style="background-image: url(resources/img/member/usermain.jpg);">
 		<h2>${sessionScope.userVO.memberId}'s  MyPage</h2>
 	</div>
 </div>

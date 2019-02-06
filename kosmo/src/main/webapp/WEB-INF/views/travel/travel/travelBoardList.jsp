@@ -164,7 +164,12 @@
 	<!-- 데이터가 뿌려지는 공간 -->
 	<div class="shop-products-area">
 		<div class="card flex-md-row mb-4 shadow-sm h-md-250" id="jsonResult"></div>
+		<h1>페이징 보류</h1>
 	</div>
+	
+	<div class="section-heading text-center">
+		<p>The information used on this page is "공공누리 제 1유형" and used the data provided <a href="http://api.visitkorea.or.kr/">VisitKorea</a></p>
+     </div>
 </div>
 
 <!-- The Modal -->
@@ -176,7 +181,6 @@
 	<button type='button' id='closeModal' class='btn alazea-btn' onclick='closeModal()' style='padding:30px !important; line-height:0px !important;'>CLOSE</button>
 	</div>
 </div>
-<h1>페이징 보류</h1>
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
 <script src="resources/js/travel.js"></script>
 <script>

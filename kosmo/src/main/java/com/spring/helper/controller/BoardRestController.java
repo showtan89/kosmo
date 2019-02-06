@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -155,6 +156,7 @@ public class BoardRestController {
 	}
 	
 	// 부동산 댓글 등록 호출
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.POST) //VO로 받는 부분
 	public ResponseEntity<String> realestateCommentsWrite(@RequestBody RealestateCommentsVO cVO, HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - POST 호출");
@@ -169,6 +171,7 @@ public class BoardRestController {
 	}
 	
 	// 부동산 댓글 삭제 호출
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.DELETE)
 	public ResponseEntity<String> realestateCommentsDelete(@RequestBody String cNumber, HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - DELETE 호출");

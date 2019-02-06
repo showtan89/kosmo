@@ -158,15 +158,18 @@
 						<div class="input-container">
 							<select class="custom-select d-block w-100" id="memberCountry" name="memberCountry">
 								<option style="display: none;" value="null">Select Your Country</option>
-								<option value="USA">United State America</option>
-								<option value="UK">United Kingdom</option>
-								<option value="Korea">Korea</option>
-								<option value="Japan">Japan</option>
+								<option value="Australia">Australia</option>
 								<option value="China">China</option>
-								<option value="Canada">Canada</option>
-								<option value="Bangla">Bangladesh</option>
-								<option value="Hindi">Hindi</option>
-								<option value="Spanish">Spain</option>
+								<option value="France">France</option>
+								<option value="Germany">Germany</option>
+								<option value="India">India</option>
+								<option value="Japan">Japan</option>
+								<option value="Korea">Korea</option>
+								<option value="Russia">Russia</option>
+								<option value="Spain">Spain</option>
+								<option value="Thai">Thailand</option>
+								<option value="UK">United Kingdom</option>
+								<option value="USA">United States of America</option>
 							</select>
 							<div class="bar"></div>
 						</div>

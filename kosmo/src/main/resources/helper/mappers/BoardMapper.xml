@@ -160,13 +160,13 @@
 		realestateManagement,realestateOptionCheck,realestateTobaccoCheck,realestateState,realestateHeatingtype,realestateBalcony,
 		realestatePetCheck,realestateTerm,realestateMoveindate,realestateGender,realestateRoom,realestateToilet,realestateCar,
 		realestateSize,realestateType,realestateLocation,realestateFavorite,realestateRecommend,realestateLookup,realestateRegdate,
-		realestateCheckday,realestateImg1,realestateImg2,realestateImg3,realestateTemp1) values
+		realestateCheckday,realestateImg1,realestateImg2,realestateImg3,realestateTemp1,realestateTemp2) values
 		(realestateseq.nextVal,#{memberNumber},20,#{memberEmail},#{memberId},#{realestateSubject},
 		#{realestateContent},#{realestatePrice},#{realestateCategory1},'empty',#{realestateDeposit},#{realestateDepositCheck},
 		#{realestateManagement},#{realestateOptionCheck},#{realestateTobaccoCheck},#{realestateState},#{realestateHeatingtype},#{realestateBalcony},
 		#{realestatePetCheck},#{realestateTerm},#{realestateMoveindate},#{realestateGender},#{realestateRoom},#{realestateToilet},#{realestateCar},
 		#{realestateSize},#{realestateType},#{realestateLocation},'empty',0,0,sysdate,
-		'empty',#{realestateImg1},#{realestateImg2,jdbcType=VARCHAR},#{realestateImg3,jdbcType=VARCHAR},#{realestateTemp1})
+		'empty',#{realestateImg1},#{realestateImg2,jdbcType=VARCHAR},#{realestateImg3,jdbcType=VARCHAR},#{realestateTemp1},#{realestateTemp2,jdbcType=VARCHAR})
 	</insert>
 	
 	<sql id="realModifySql">
@@ -244,7 +244,19 @@
 			realestateTemp1 = #{realestateTemp1},
 		</if>
 		<if test="realestateLocation != null">
-			realestateLocation = #{realestateLocation}
+			realestateLocation = #{realestateLocation},
+		</if>
+		<if test="realestateImg1 != null"> 
+			realestateImg1 = #{realestateImg1},
+		</if>
+		<if test="realestateImg2 != null"> 
+			realestateImg2 = #{realestateImg2},
+		</if>
+		<if test="realestateImg3 != null"> 
+			realestateImg3 = #{realestateImg3},
+		</if>
+		<if test="realestateTemp2 != null">
+			realestateTemp2 = #{realestateTemp2}
 		</if>
 		<where>
 			realestateNumber = #{realestateNumber}

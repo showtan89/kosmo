@@ -5,12 +5,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -380,12 +378,16 @@ public class BoardServiceImpl implements BoardService {
 	
 	//부동산 게시판 글 쓰기
 	@Override
-	public Integer realestateInsertArticle(HttpServletRequest req, Model model) {
+	public Integer realestateInsertArticle(MultipartHttpServletRequest req, Model model) throws Exception{
 		logger.info(req.getParameter("realestateLocation"));
 		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
 		logger.info(rVO.toString());
 		return boardDao.realestateInsertArticle(rVO);
 	}
+	
+	//이미지 관련
+	
+	
 	
 	//부동산 게시판 글 상세 페이지 
 	@Override
@@ -405,7 +407,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	// 부동산 게시판 글 수정
-	public Integer realestateModifyUpdate(HttpServletRequest req, Model model) {
+	public Integer realestateModifyUpdate(MultipartHttpServletRequest req, Model model) throws Exception{
 		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
 		return boardDao.realestateModifyUpdate(rVO);
 	}
