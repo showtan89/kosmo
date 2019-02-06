@@ -490,17 +490,12 @@
 	</select>
 	
 	<!-- 민석 쪽지 보내기 -->
-	<insert id="sendMessage" parameterType="java.util.Map">
+	<insert id="sendMessage" parameterType="om.spring.helper.vo.BoardVO.MessageVO">
 		INSERT INTO message
-		VALUES(#{sendId}, #{fromId}, #{content}, sysdate)	
+		VALUES(#{memberEmail}, #{fromId}, #{sendId}, messageseq.nextval ,#{content}, #{reg_date}, 1)	
 	</insert>
 	
-	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
-		INSERT INTO chattingAlarm
-		VALUES(chattingAlarmSeq.nextval,#{memberNumber},'10',#{knowledgememberId},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
-	</insert>
-	
-	<!-- 민석이 종료 -->
+	<!-- 민석이 종료+++++++++++++++++++++++++++++++++++ -->
 
 	<!-- 진호 시작ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 	

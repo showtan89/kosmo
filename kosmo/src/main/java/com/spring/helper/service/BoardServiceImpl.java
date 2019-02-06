@@ -622,12 +622,13 @@ public class BoardServiceImpl implements BoardService {
 		
 		MessageVO vo = new MessageVO();
 		
+		vo.setMemberEmail(userVO.getMemberEmail());
 		vo.setFromId(userVO.getMemberId());
 		vo.setSendId(req.getParameter("recipientId"));
 		vo.setContent(req.getParameter("messageContent"));
 		vo.setReg_date(new Timestamp(System.currentTimeMillis()));
 		
-		int sendCnt = 0;
+		int sendCnt = boardDao.sendMessage(vo);
 		
 		return sendCnt;
 	}

@@ -249,6 +249,8 @@ public class BoardDAOImpl implements BoardDAO {
 	public int sendMessage(MessageVO vo) {
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", vo);
 	}
+	
+	
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 

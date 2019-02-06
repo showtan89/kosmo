@@ -355,8 +355,6 @@ public class BoardController {
 	public String messageSend(HttpServletRequest req, Model model) throws Exception {
 		logger.info("쪽지 보내기 처리 호출중 ....");
 		
-		
-		
 		return "board/message/messageSend";
 	}
 	
