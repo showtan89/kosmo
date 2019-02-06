@@ -446,7 +446,7 @@
 
 
 	<!-- 민석이 시작 -->
-	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
+	<!-- 메세지 알람과 댓글 알람의 총합(메세지 알람 + 댓글 알람) -->
 	<select id="commentReadCnt" resultType="int" parameterType="String">
 		select count(*) cnt from  commentalarm where memberEmail = #{memEmail}
 	</select>		
@@ -482,9 +482,6 @@
 				WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
-	
-	
-	
 	<!-- 댓글 알람 삭제 -->
 	<delete id="commentDelete" parameterType="int">
 		 delete from commentalarm where commentnumber = #{commentnumber}
@@ -503,6 +500,12 @@
 	<select id="chattingAlarmCnt" resultType="int" parameterType="String">
 		SELECT COUNT(*) cnt FROM  chattingalarm WHERE memberEmail = #{memEmail} AND chattingalarm = 1
 	</select>
+	
+	<!-- 민석 쪽지 보내기 -->
+	<insert id="sendMessage" parameterType="java.util.Map">
+		INSERT INTO message
+		VALUES(#{sendId}, #{fromId}, #{content}, sysdate)	
+	</insert>
 	
 	<!-- 민석이 종료 -->
 
@@ -555,7 +558,7 @@
 		, onedayclassPrice, onedayclassReservation, onedayclassPay, onedayclassEndCheck, onedayclassDeadlineCheck
 		, onedayclassImg1, onedayclassImg2, onedayclassImg3)
 		VALUES(onedayclassSeq.nextval, 10007, '30', 'chae@gmail.com','chae', #{onedayclassSubject}, #{onedayclassContent}
-		, sysdate, 'aa', #{onedayclassCategory}, sysdate, #{onedayclassLocation}, #{onedayclassRecruitment} 
+		, sysdate, 'aa', #{onedayclassCategory}, #{onedayclassOpendate}, #{onedayclassLocation}, #{onedayclassRecruitment} 
 		, #{onedayclassPrice}, 'aa', 'aa', 'aa', #{onedayclassDeadlineCheck}
 		, 'aa', 'aa', 'aa')
 	</insert>
@@ -564,6 +567,13 @@
 	<delete id="onedayclassDeleteBoard" parameterType="int">
 		DELETE onedayclass WHERE onedayclassNumber=#{onedayclassNumber}
 	</delete>
+	
+	<!-- 원데이 게시판 댓글 리스트 -->
+	<select id="getoCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
+		SELECT * from oComment WHERE oCommentRegdate >= #{now Time} ORDER BY oCommentRegdate
+	</select>
+	
+	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 	
 	<!-- 대호 시작 ㅋㅋㅋㅋㅋ -->
 	<update id="onedayclassAccountUpdate" parameterType="java.util.Map">
@@ -574,6 +584,6 @@
 	</update>
 	<!-- 대호 끝 ㅋㅋㅋ -->
 	
-	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
+
 
 </mapper>

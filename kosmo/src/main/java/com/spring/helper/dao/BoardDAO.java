@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
+import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
+import com.spring.helper.vo.BoardVO.oCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
 
@@ -97,9 +100,13 @@ public interface BoardDAO {
 	// 채팅 알람 지우기
 	public int chattingDelete (int chattingnumber);
 	
+	// ajax 알람 갯수 구하기(댓글)
 	public int commentAlarmCnt(String memEmail);
 	
+	// ajax 알람 갯수 구하기(쪽지)
 	public int chattingAlarmCnt(String memEmail);
+	
+	public int sendMessage(MessageVO vo);
 
 	//민석이 메소드 종료+++++++++++++++++++++++++++++++
 
@@ -130,6 +137,9 @@ public interface BoardDAO {
 
 	// 계좌번호 업데이트
 	public int onedayclassAccountUpdate(Map<String, Object> map);
+	
+	
+	public ArrayList<oCommentVO> getoCommentList(int onedayclassNumber);
 
 
 	// 진호 메소드 종료--------------------------------------

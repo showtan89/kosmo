@@ -1,5 +1,6 @@
 package com.spring.helper.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,14 +76,11 @@ public interface BoardService {
 	// 댓글 알람 지우기
 	public void commentAlarmDelete(HttpServletRequest req, Model model);
 
-	// 채팅알람 지우기
-	public void chattingAlarmDelete(HttpServletRequest req, Model model);
-	//ajax 댓글 알람
-	
+	//ajax 댓글 및 쪽지 알람
 	public Integer alarmServiceCnt(HttpServletRequest req);
-	/*messagePro
-			messageAlarmForm
-			messageAlarmPro*/
+	
+	// 쪽지 보내기
+	public int messageSend(HttpServletRequest req, Model model);
 
 	//민석이 종료+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -112,8 +110,7 @@ public interface BoardService {
 	public void onedayclassAuthorityPro(HttpServletRequest req, Model model);
 	
 	// 원데이클래스 게시판 댓글 가져오기
-/*	public List<oCommentVO> CommentList(HttpServletRequest req, Model model);*/
-	
+	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model);
 
 
 	//진호 끝-----------------------------------------------------------

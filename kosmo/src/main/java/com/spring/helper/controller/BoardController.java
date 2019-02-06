@@ -341,12 +341,24 @@ public class BoardController {
 		logger.info("원데이 클래스 권한신청처리페이지 호출중 ....");
 		
 		service.onedayclassAuthorityPro(req, model);
-		
 		return "board/onedayclass/onedayclassAuthorityPro";
 	}
 
 	// 진호  BoardController 끝----------------------------------------------------
 	
+	
+	// 민석 BoardController 시작++++++++++++++++++++++++++++++++
+	
+	@RequestMapping("messageSend")
+	public String messageSend(HttpServletRequest req, Model model) throws Exception {
+		logger.info("쪽지 보내기 처리 호출중 ....");
+		
+		
+		
+		return "board/message/messageSend";
+	}
+	
+	// 민석 BoardController 끝++++++++++++++++++++++++++++++++
 	
 
 }

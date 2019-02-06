@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +27,13 @@ import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
+import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.PageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
+import com.spring.helper.vo.BoardVO.oCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
 
@@ -485,7 +489,7 @@ public class BoardServiceImpl implements BoardService {
 		String memEmail = userVO.getMemberEmail();
 		System.out.println("memEmail : " + memEmail);
 		//5단계 글갯수 구하기
-		cnt = boardDao.commentReadCnt(memEmail)+ boardDao.chattingReadCnt(memEmail);
+		cnt = boardDao.commentReadCnt(memEmail);
 		System.out.println("글 갯수cnt ===============: "+cnt);
 
 		pageNum = req.getParameter("pageNum");
@@ -589,23 +593,7 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("pageNum", pageNum);
 	}
 	// 채팅 알람 삭제
-	@Override
-	public void chattingAlarmDelete(HttpServletRequest req, Model model) {
-
-		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-		int chattingnumber = Integer.parseInt(req.getParameter("chattingnumber"));
-		System.out.println("chattingnumber : " + chattingnumber);
-		int deleteCnt = 0;
-
-		if(chattingnumber != 0) {
-			chattingnumber = boardDao.chattingDelete(chattingnumber);
-			deleteCnt=chattingnumber;
-		}
-
-		model.addAttribute("deleteCnt", deleteCnt);
-		model.addAttribute("pageNum", pageNum);
-
-	}
+	
 
 	//ajax 댓글 알림
 	@Override
@@ -623,12 +611,30 @@ public class BoardServiceImpl implements BoardService {
 		
 		//5단계 글갯수 구하기
 		if(memEmail != null) {
-			alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
+			alarmCnt = boardDao.commentAlarmCnt(memEmail);
 		}
 		logger.info("합산한 alarmCnt : " + alarmCnt);
 		return alarmCnt;
 	
 	}
+	
+	//민석 쪽지 보내기
+	@Override
+	public int messageSend(HttpServletRequest req, Model model) {
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		
+		MessageVO vo = new MessageVO();
+		
+		vo.setFromId(userVO.getMemberId());
+		vo.setSendId(req.getParameter("recipientId"));
+		vo.setContent(req.getParameter("messageContent"));
+		vo.setReg_date(new Timestamp(System.currentTimeMillis()));
+		
+		int sendCnt = 0;
+		
+		return sendCnt;
+	}
+	
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------
@@ -801,10 +807,13 @@ public class BoardServiceImpl implements BoardService {
 
 		onedayclassVO vo = new onedayclassVO();
 
+	/*	vo.setProduct_date(new Timestamp(System.currentTimeMillis()));*/
 		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
 		/*vo.setOnedayclassNumber(Integer.parseInt(req.getParameter("onedayclassNumber")));*/
 
 		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
+		vo.setOnedayclassOpendate(Timestamp.valueOf("onedayclassOpendate".replace('T',' ')));
+		System.out.println("값나오나?" + "onedayclassOpendate".replace("T"," "));
 		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
 		vo.setOnedayclassRecruitment(req.getParameter("onedayclassRecruitment"));
 		vo.setOnedayclassPrice(Integer.parseInt(req.getParameter("onedayclassPrice")));
@@ -848,6 +857,34 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("updateCnt", updateCnt);
 	}
 	
+	// 원데이 클래스 댓글 목록 출력
+	@Override
+	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model){
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		return boardDao.getoCommentList(onedayclassNumber);
+	}
+
+	//부동산 게시판 댓글 달기
+	/*	@Override
+	public Integer realestateCommentPro(RealestateCommentsVO cVO, HttpServletRequest req) {
+		if(req.getSession().getAttribute("userVO")==null) { 
+			return 0;	// 회원ID 가 없는 상태로 요청 받으면 0 리턴
+		}else {
+			UserVO uVO = (UserVO)req.getSession().getAttribute("userVO"); // 있으면 자료 입력 시도
+			logger.info(uVO.toString());
+			cVO.setMemberId(uVO.getMemberId());
+			cVO.setMemberEmail(uVO.getMemberEmail());
+			cVO.setMemberNumber(uVO.getMemberNumber());
+			cVO.setMemberCountry(uVO.getMemberCountry());
+			return boardDao.realestateCommentPro(cVO);
+		}
+	}*/
+
+	//부동산 게시판 댓글 삭제
+	/*	@Override
+	public Integer realestateCommentsDelete(int rCommentNumber) { //전달 받은 댓글 번호 삭제
+		return boardDao.realestateCommentsDelete(rCommentNumber);
+	}*/	
 
 
 	//진호 메소드 종료---------------------------------------------------

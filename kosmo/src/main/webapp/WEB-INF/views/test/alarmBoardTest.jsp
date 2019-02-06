@@ -34,7 +34,7 @@
 	</div>
 </div>
 
-<jsp:include page="../../setting/header01.jsp" flush="false" />
+<jsp:include page="../setting/header01.jsp" flush="false" />
 
 <!-- ##### Breadcrumb Area Start ##### -->
 <div class="breadcrumb-area">
@@ -223,7 +223,7 @@
 				<section id="section-3" align="center">
 					<b>Message receiving ID</b>
 					&nbsp;
-					<input type="text" name="sendId" value="" style="padding:1px;border:1px solid #333;">
+					<input type="text" name="recipientId" value="" style="padding:1px;border:1px solid #333;">
 					<br>
 					<b>CONTENT</b>
 					<br>
@@ -231,7 +231,7 @@
 					<textarea class="content" maxlength="600" style="width: 80%; height: 20%;padding:5px 5px;" name="messageContent"></textarea>
 			
 					<br>
-					<input type="button" class="btn btn-success mr-30" value="send message" style="padding:1px;" onclick="window.location='messageSend?pageNum=${pageNum}&recipientId=${recipientId}&messageContent=${messageContent}'">
+					<input type="button" class="btn btn-success mr-30" value="send Message" style="padding:1px;" onclick="window.location='messageSend?pageNum=${pageNum}&recipientId=${recipientId}&messageContent=${messageContent}'">
 					
 				</section>
 				<section id="section-4">
@@ -275,7 +275,7 @@
 		
 	</div>
 
-<jsp:include page="../../setting/footer01.jsp" flush="false" />
+<jsp:include page="../setting/footer01.jsp" flush="false" />
 	<script src="resources/js/cbpFWTabs.js"></script>
 	<script>
 		new CBPFWTabs( document.getElementById( 'tabs' ) );
