@@ -9,6 +9,7 @@ import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
+import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.UserVO;
@@ -99,9 +100,13 @@ public interface BoardDAO {
 	// 채팅 알람 지우기
 	public int chattingDelete (int chattingnumber);
 	
+	// ajax 알람 갯수 구하기(댓글)
 	public int commentAlarmCnt(String memEmail);
 	
+	// ajax 알람 갯수 구하기(쪽지)
 	public int chattingAlarmCnt(String memEmail);
+	
+	public int sendMessage(MessageVO vo);
 
 	//민석이 메소드 종료+++++++++++++++++++++++++++++++
 

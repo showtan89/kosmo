@@ -114,7 +114,7 @@
 
 							<td>${cos.commentregdate}</td>
 							<td>checked</td>
-							<td><input type="button" class="btn alazea-btn mr-10" width="100" height="50" value="delete"
+							<td><input type="button" class="btn btn-success mr-10" width="100" height="50" value="delete"
 								onclick="window.location='commentAlarmDelete?commentnumber=${cos.commentnumber}&pageNum=${pageNum}';"></td>
 						</tr>
 					</c:if>
@@ -176,7 +176,7 @@
 
 							<td>${mos.commentregdate}</td>
 							<td>checked</td>
-							<td><input type="button" class="btn alazea-btn mr-30" value="delete"
+							<td><input type="button" class="btn btn-success mr-30" value="delete"
 								onclick="window.location='commentAlarmDelete?commentnumber=${mos.commentnumber}&pageNum=${pageNum}';"></td>
 						</tr>
 					</c:if>
@@ -223,7 +223,7 @@
 				<section id="section-3" align="center">
 					<b>Message receiving ID</b>
 					&nbsp;
-					<input type="text" name="sendId" value="" style="padding:1px;border:1px solid #333;">
+					<input type="text" name="recipientId" value="" style="padding:1px;border:1px solid #333;">
 					<br>
 					<b>CONTENT</b>
 					<br>
@@ -231,7 +231,7 @@
 					<textarea class="content" maxlength="600" style="width: 80%; height: 20%;padding:5px 5px;" name="messageContent"></textarea>
 			
 					<br>
-					<input type="button" class="btn alazea-btn mr-30" value="send message" style="padding:1px;">
+					<input type="button" class="btn btn-success mr-30" value="send Message" style="padding:1px;" onclick="window.location='messageSend?pageNum=${pageNum}&recipientId=${recipientId}&messageContent=${messageContent}'">
 					
 				</section>
 				<section id="section-4">

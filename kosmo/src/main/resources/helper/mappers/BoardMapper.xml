@@ -434,7 +434,7 @@
 
 
 	<!-- 민석이 시작 -->
-	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
+	<!-- 메세지 알람과 댓글 알람의 총합(메세지 알람 + 댓글 알람) -->
 	<select id="commentReadCnt" resultType="int" parameterType="String">
 		select count(*) cnt from  commentalarm where memberEmail = #{memEmail}
 	</select>		
@@ -470,9 +470,6 @@
 				WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
-	
-	
-	
 	<!-- 댓글 알람 삭제 -->
 	<delete id="commentDelete" parameterType="int">
 		 delete from commentalarm where commentnumber = #{commentnumber}
@@ -491,6 +488,17 @@
 	<select id="chattingAlarmCnt" resultType="int" parameterType="String">
 		SELECT COUNT(*) cnt FROM  chattingalarm WHERE memberEmail = #{memEmail} AND chattingalarm = 1
 	</select>
+	
+	<!-- 민석 쪽지 보내기 -->
+	<insert id="sendMessage" parameterType="java.util.Map">
+		INSERT INTO message
+		VALUES(#{sendId}, #{fromId}, #{content}, sysdate)	
+	</insert>
+	
+	<insert id="knowledgeCommentPro2" parameterType="java.util.Map">
+		INSERT INTO chattingAlarm
+		VALUES(chattingAlarmSeq.nextval,#{memberNumber},'10',#{knowledgememberId},#{memberId},#{memberCountry},#{knowledgeNumber},knowledgeseq.nextval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
+	</insert>
 	
 	<!-- 민석이 종료 -->
 

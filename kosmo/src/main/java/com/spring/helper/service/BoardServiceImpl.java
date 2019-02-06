@@ -28,6 +28,7 @@ import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
+import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.PageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
@@ -485,7 +486,7 @@ public class BoardServiceImpl implements BoardService {
 		String memEmail = userVO.getMemberEmail();
 		System.out.println("memEmail : " + memEmail);
 		//5단계 글갯수 구하기
-		cnt = boardDao.commentReadCnt(memEmail)+ boardDao.chattingReadCnt(memEmail);
+		cnt = boardDao.commentReadCnt(memEmail);
 		System.out.println("글 갯수cnt ===============: "+cnt);
 
 		pageNum = req.getParameter("pageNum");
@@ -589,23 +590,7 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("pageNum", pageNum);
 	}
 	// 채팅 알람 삭제
-	@Override
-	public void chattingAlarmDelete(HttpServletRequest req, Model model) {
-
-		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-		int chattingnumber = Integer.parseInt(req.getParameter("chattingnumber"));
-		System.out.println("chattingnumber : " + chattingnumber);
-		int deleteCnt = 0;
-
-		if(chattingnumber != 0) {
-			chattingnumber = boardDao.chattingDelete(chattingnumber);
-			deleteCnt=chattingnumber;
-		}
-
-		model.addAttribute("deleteCnt", deleteCnt);
-		model.addAttribute("pageNum", pageNum);
-
-	}
+	
 
 	//ajax 댓글 알림
 	@Override
@@ -623,12 +608,30 @@ public class BoardServiceImpl implements BoardService {
 		
 		//5단계 글갯수 구하기
 		if(memEmail != null) {
-			alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.chattingAlarmCnt(memEmail);
+			alarmCnt = boardDao.commentAlarmCnt(memEmail);
 		}
 		logger.info("합산한 alarmCnt : " + alarmCnt);
 		return alarmCnt;
 	
 	}
+	
+	//민석 쪽지 보내기
+	@Override
+	public int messageSend(HttpServletRequest req, Model model) {
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		
+		MessageVO vo = new MessageVO();
+		
+		vo.setFromId(userVO.getMemberId());
+		vo.setSendId(req.getParameter("recipientId"));
+		vo.setContent(req.getParameter("messageContent"));
+		vo.setReg_date(new Timestamp(System.currentTimeMillis()));
+		
+		int sendCnt = 0;
+		
+		return sendCnt;
+	}
+	
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------

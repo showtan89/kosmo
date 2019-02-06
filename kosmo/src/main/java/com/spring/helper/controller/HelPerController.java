@@ -137,8 +137,6 @@ public class HelPerController{
 	public String chattingAlarmDelete(HttpServletRequest req,Model model) {
 		logger.info("chattingAlarmDelete 로딩 중.....");
 		
-		service.chattingAlarmDelete(req, model);
-		
 		return "board/message/chattingAlarmDelete";
 	}
 	

@@ -76,14 +76,11 @@ public interface BoardService {
 	// 댓글 알람 지우기
 	public void commentAlarmDelete(HttpServletRequest req, Model model);
 
-	// 채팅알람 지우기
-	public void chattingAlarmDelete(HttpServletRequest req, Model model);
-	//ajax 댓글 알람
-	
+	//ajax 댓글 및 쪽지 알람
 	public Integer alarmServiceCnt(HttpServletRequest req);
-	/*messagePro
-			messageAlarmForm
-			messageAlarmPro*/
+	
+	// 쪽지 보내기
+	public int messageSend(HttpServletRequest req, Model model);
 
 	//민석이 종료+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

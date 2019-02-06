@@ -17,6 +17,7 @@ import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
+import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.UserVO;
@@ -238,12 +239,16 @@ public class BoardDAOImpl implements BoardDAO {
 	public int commentAlarmCnt(String memEmail) {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentAlarmCnt", memEmail);
 	}
-
 	@Override
 	public int chattingAlarmCnt(String memEmail) {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingAlarmCnt", memEmail);
 	}
-
+	
+	//쪽지 보내기
+	@Override
+	public int sendMessage(MessageVO vo) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", vo);
+	}
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -326,6 +331,8 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber);
 	}
+	
+	
 	
 	// 
 
