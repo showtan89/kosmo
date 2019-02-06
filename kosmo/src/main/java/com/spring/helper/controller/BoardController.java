@@ -343,7 +343,6 @@ public class BoardController {
 		logger.info("원데이 클래스 권한신청처리페이지 호출중 ....");
 		
 		service.onedayclassAuthorityPro(req, model);
-		
 		return "board/onedayclass/onedayclassAuthorityPro";
 	}
 

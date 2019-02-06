@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
@@ -12,6 +13,7 @@ import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
 import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
+import com.spring.helper.vo.BoardVO.oCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
 
 
@@ -130,6 +132,9 @@ public interface BoardDAO {
 
 	// 계좌번호 업데이트
 	public int onedayclassAccountUpdate(Map<String, Object> map);
+	
+	
+	public ArrayList<oCommentVO> getoCommentList(int onedayclassNumber);
 
 
 	// 진호 메소드 종료--------------------------------------
