@@ -86,7 +86,7 @@ public interface BoardDAO {
 		public int commentReadCnt(String memEmail);
 
 		// 채팅 알람 갯수
-		public int messageReadCnt(String memEmail);
+		public int messageReadCnt(String memberId);
 
 		// 쪽지 리스트
 		public List<MessageVO> messageReadList(Map<String, Object> map);
@@ -100,9 +100,10 @@ public interface BoardDAO {
 		// 채팅 알람 지우기
 		public int messageDelete (int messagenumber);
 		
+		// ajax 알람 갯수 
 		public int commentAlarmCnt(String memEmail);
 		
-		public int messageCnt(String memEmail);
+		public int messageCnt(String memberId);
 		
 		public int sendMessage(Map<String, Object> map);
 

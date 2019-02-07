@@ -69,10 +69,12 @@ public interface BoardService {
 
 
 	//민석이 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//알람 게시판 
-	public void alarmBoard(HttpServletRequest req, Model model);
-	// 댓글 알람 
-	//public List<CommentAlarmVO> commentAlarm(HttpServletRequest req, Model model);
+	//댓글 알람 게시판 
+	public void commentAlarmBoard(HttpServletRequest req, Model model);
+	
+	//쪽지 알람 게시판
+	public void messageAlarmBoard(HttpServletRequest req, Model model);
+	
 	// 댓글 알람 지우기
 	public void commentAlarmDelete(HttpServletRequest req, Model model);
 
