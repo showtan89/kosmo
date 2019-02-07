@@ -170,14 +170,14 @@
 					<th>Delete</th>
 				</tr>
 				<c:forEach var="mos" items="${mos}">
-					<c:if test="${!sessionScope.userVO.memberId.equals(mos.sendId)}">
+					<c:if test="${!sessionScope.userVO.memberId.equals(mos.messageSendId)}">
 						<tr>
-							<td>${mos.fromId}</td><!-- align="center" -->
+							<td>${mos.messageFromId}</td><!-- align="center" -->
 
-							<td>${mos.content}</td>
+							<td>${mos.messageContent}</td>
 							<td>checked</td>
 							<td><input type="button" class="btn btn-success mr-30" value="delete"
-								onclick="window.location='messageDelete?messagenumber=${mos.messagenumber}&pageNum=${pageNum}';"></td>
+								onclick="window.location='messageDelete?messageNumber=${mos.messageNumber}&pageNum=${pageNum}';"></td>
 						</tr>
 					</c:if>
 				</c:forEach>
@@ -223,12 +223,12 @@
 				<section id="section-3" align="center">
 					<b>Message receiving ID</b>
 					&nbsp;
-					<input type="text" name="sendId" id="sendId" value="" style="padding:1px;border:1px solid #333;">
+					<input type="text" name="messageSendId" id="messageSendId" value="" style="padding:1px;border:1px solid #333;">
 					<br>
 					<b>CONTENT</b>
 					<br>
 					
-					<textarea class="content" id="content" maxlength="600" style="width: 80%; height: 20%;padding:5px 5px;" name="messageContent"></textarea>
+					<textarea class="content" id="messageContent" maxlength="600" style="width: 80%; height: 20%;padding:5px 5px;" name="messageContent"></textarea>
 			
 					<br>
 					<input type="button" class="btn btn-success mr-30" value="send message" style="padding:1px;" onclick="sendMessage();">
@@ -281,9 +281,9 @@
 		new CBPFWTabs( document.getElementById( 'tabs' ) );
 		
 		function sendMessage(){
-			var sendId=$("#sendId").val();
-			var content=$("#content").val();
-			window.location='messageSend?sendId='+sendId+'&content='+content;
+			var messageSendId=$("#messageSendId").val();
+			var messageContent=$("#messageContent").val();
+			window.location='messageSend?messageSendId='+messageSendId+'&messageContent='+messageContent;
 		}
 		</script>
 </body>

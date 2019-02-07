@@ -453,12 +453,12 @@
 	</select>		
 	
 	<select id="messageReadCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  messagetbl where memberEmail = #{memEmail}
+		select count(*) cnt from  message where memberEmail = #{memEmail}
 	</select>
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
 	<update id="messageReadList2" parameterType="String">
-		UPDATE messagetbl SET messagealarm = 2 WHERE messagealarm = 1 AND memberEmail = #{memEmail}
+		UPDATE message SET messagealarm = 2 WHERE messagealarm = 1 AND memberEmail = #{memEmail}
 	</update >
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
@@ -469,8 +469,8 @@
 	<!-- 쪽지 알람의 리스트 -->
 	<select id="messageReadList" resultType="com.spring.helper.vo.BoardVO.MessageVO" parameterType="java.util.Map">
 		<![CDATA[
-			SELECT * FROM (SELECT messagenumber, memberemail, fromid, sendid, content, messageregdate, messagealarm, rownum rNum 
-			FROM ( SELECT * FROM messagetbl WHERE messagealarm != 0 ORDER BY messageregdate DESC ))
+			SELECT * FROM (SELECT messagenumber, memberemail, messagefromid, messagesendid, messagecontent, messageregdate, messagealarm, rownum rNum 
+			FROM ( SELECT * FROM message WHERE messagealarm != 0 ORDER BY messageregdate DESC ))
 			WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
@@ -491,7 +491,7 @@
 	
 	<!-- 채팅 알람 삭제 -->
 	<delete id="messageDelete" parameterType="int">
-		 delete from messagetbl where messagenumber = #{messagenumber}
+		 delete from message where messagenumber = #{messagenumber}
 	</delete>
 	
 	<!-- ajax 댓글 알람 갯수 -->
@@ -500,12 +500,12 @@
 	</select>
 	<!-- ajax 채팅 알람 갯수 -->
 	<select id="messageCnt" resultType="int" parameterType="String">
-		SELECT COUNT(*) cnt FROM  messagetbl WHERE memberEmail = #{memEmail} AND messagealarm = 1
+		SELECT COUNT(*) cnt FROM  message WHERE memberEmail = #{memEmail} AND messagealarm = 1
 	</select>
 	<!--  쪽지 보내기 -->
 	<insert id="sendMessage" parameterType="java.util.Map">
-		INSERT INTO messagetbl VALUES
-		( #{userVO.memberEmail}, #{userVO.memberId}, #{sendId}, messageseq.nextval, #{content}, sysdate, 1, 0, '0', '0' )	
+		INSERT INTO message VALUES
+		( #{userVO.memberEmail}, #{userVO.memberId}, #{messageSendId}, messageseq.nextval, #{messageContent}, sysdate, 1, 0, '0', '0' )	
 	</insert>
 	
 	<!-- 민석이 종료+++++++++++++++++++++++++++++++++++ -->

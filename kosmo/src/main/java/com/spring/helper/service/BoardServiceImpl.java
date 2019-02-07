@@ -597,13 +597,13 @@ public class BoardServiceImpl implements BoardService {
 	public void messageDelete(HttpServletRequest req, Model model) {
 
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-		int messagenumber = Integer.parseInt(req.getParameter("messagenumber"));
-		System.out.println("messagenumber : " + messagenumber);
+		int messageNumber = Integer.parseInt(req.getParameter("messagenumber"));
+		System.out.println("messagenumber : " + messageNumber);
 		int deleteCnt = 0;
 
-		if(messagenumber != 0) {
-			messagenumber = boardDao.messageDelete(messagenumber);
-			deleteCnt=messagenumber;
+		if(messageNumber != 0) {
+			messageNumber = boardDao.messageDelete(messageNumber);
+			deleteCnt=messageNumber;
 		}
 
 		model.addAttribute("deleteCnt", deleteCnt);
@@ -639,19 +639,19 @@ public class BoardServiceImpl implements BoardService {
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
 		String memEmail = userVO.getMemberEmail();
 		logger.info("memEmail : " + memEmail);
-		String fromId = userVO.getMemberId();
-		String sendId = req.getParameter("sendId");
-		logger.info("sendId : " + sendId);
-		String content = req.getParameter("content");
-		logger.info("content : " + content);
+		String messageFromId = userVO.getMemberId();
+		String messageSendId = req.getParameter("messageSendId");
+		logger.info("messageSendId : " + messageSendId);
+		String messageContent = req.getParameter("messageContent");
+		logger.info("messageContent : " + messageContent);
 		
 		int sendCnt = 0;
 		
-		if(memEmail != null && fromId != null) {
+		if(memEmail != null && messageFromId != null) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("userVO", userVO);
-			map.put("sendId", sendId);
-			map.put("content", content);
+			map.put("messageSendId", messageSendId);
+			map.put("messageContent", messageContent);
 			
 			sendCnt = boardDao.sendMessage(map);
 		}
