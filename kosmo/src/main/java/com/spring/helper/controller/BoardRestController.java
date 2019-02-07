@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.service.BoardService;
+import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.jsonVO.news.jsonlegalinfo;
@@ -342,10 +343,18 @@ public class BoardRestController {
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
 	}
 	
-	// 채팅 
-	@RequestMapping(value="chattingWrite", method = RequestMethod.GET)
-	ResponseEntity<Integer> chatting(HttpServletRequest req ){
+	//채팅글뿌리기
+	@RequestMapping(value="chatting", method = RequestMethod.GET)
+	ResponseEntity<List<ChattingVO>> chatting(HttpServletRequest req, Model model){
 		logger.info("chatting 호출");
+		List<ChattingVO> chatting = service.chatting(req, model);
+		return new ResponseEntity<List<ChattingVO>>(chatting,HttpStatus.OK);
+	}
+	
+	// 채팅 글쓰기
+	@RequestMapping(value="chattingWrite", method = RequestMethod.GET)
+	ResponseEntity<Integer> chattingWrite(HttpServletRequest req ){
+		logger.info("chattingWrite 호출");
 		Integer chattingWrite = service.chattingWrite(req);
 		return new ResponseEntity<Integer>(chattingWrite,HttpStatus.OK);
 	}

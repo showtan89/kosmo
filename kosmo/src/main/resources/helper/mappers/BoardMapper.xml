@@ -516,7 +516,7 @@
 	<!-- 채팅 글쓰기 -->
 	<insert id="chattingWrite" parameterType="com.spring.helper.vo.BoardVO.ChattingVO">
 		INSERT INTO chatting VALUES
-		( chattingseq.nextval, #{chattingMemberId}, #{chattingContent}, #{chattingRegedate}, 0, 'n', 'n' )	
+		( chattingseq.nextval, #{chattingMemberId}, #{chattingContent}, sysdate, 0, 'n', 'n' )	
 	</insert>
 	
 	<!-- 민석이 종료+++++++++++++++++++++++++++++++++++ -->

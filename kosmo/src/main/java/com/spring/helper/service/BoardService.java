@@ -89,7 +89,7 @@ public interface BoardService {
 	public Integer sendMessage(HttpServletRequest req, Model model);
 	
 	// 채팅 글뿌리기
-	public void chatting(HttpServletRequest req, Model model);
+	public List<ChattingVO> chatting(HttpServletRequest req, Model model);
 	
 	// 채팅 글 쓰기
 	public Integer chattingWrite(HttpServletRequest req);

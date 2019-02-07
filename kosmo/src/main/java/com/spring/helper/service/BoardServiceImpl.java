@@ -767,10 +767,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 	// 채팅 글뿌리기
 	@Override
-	public void chatting(HttpServletRequest req, Model model) {
+	public List<ChattingVO> chatting(HttpServletRequest req, Model model) {
 		List<ChattingVO> chat = boardDao.chatting();
 		
-		model.addAttribute("chat", chat);
+		return chat;
 		
 	}
 	// 채팅 글쓰기
@@ -778,7 +778,9 @@ public class BoardServiceImpl implements BoardService {
 	public Integer chattingWrite(HttpServletRequest req) {
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
 		String chattingMemberId = userVO.getMemberId();
+		logger.info("chattingMemberId : " + chattingMemberId);
 		String chattingContent = req.getParameter("chattingContent");
+		logger.info("chattingContent : " + chattingContent);
 		
 		ChattingVO vo = new ChattingVO();
 		

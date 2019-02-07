@@ -302,7 +302,7 @@ public class BoardController {
 		
 		return "board/message/messageSend";
 	}
-	@RequestMapping("chatting")
+	@RequestMapping("chattingstart")
 	public String chattingView(HttpServletRequest req, Model model) throws Exception {
 		logger.info("채팅 호출중 ....");
 		

@@ -349,8 +349,8 @@
 
 		// 채팅 창 open
 		function chatting() {
-			var url = "chatting";
-			window.open(url, "chatting", "menubar=yes, width=500, height=500");
+			var url = "chattingstart";
+			window.open(url, "chatting", "menubar=yes, width=800, height=800");
 		}
 	</script>
 	
