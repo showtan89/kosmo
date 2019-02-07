@@ -60,18 +60,22 @@
 
 <script type="text/javascript">
 	function submitFunction() {
-		var oCommentNumber = $('#ocommentNumber').val();
-		var memberId = $('#memberId').val();
+		var oCommentNumber = "${oCommentNumber}";
+		var onedayclassNumber = "${dto.onedayclassNumber}";
+		var memberEmail = "${userVO.memberEmail}";
+		var memberId = "${userVO.memberId}";
 		var oCommentContent = $('#oCommentContent').val();
 		var oCommnetRegdate = $('#oCommnetRegdate').val();
 		$.ajax({
 			type : "POST",
-			url: '${pageContext.request.contextPath}/BoardRestController',
+			url: '${pageContext.request.contextPath}/insert',
 			data: {
-				oCommentNumber: oCommentNumber,
-				memberId: memberId,
-				oCommentContent: oCommentContent,
-				oCommnetRegdate: oCommnetRegdate,
+				"oCommentNumber": oCommentNumber,
+				"onedayclassNumber": onedayclassNumber,
+				"memberEmail": memberEmail,
+				"memberId": memberId,
+				"oCommentContent": oCommentContent,
+				"oCommnetRegdate": oCommnetRegdate,
 			},
 			success: function(result) {
 				if(result == 1) {
@@ -320,6 +324,7 @@
 </table>
 </c:if>
 
+<c:if test="${userVO.memberId != null}">
 <div class="row">
 	<div class="col-12 col-lg-4">
 		<div class="box box-success">
@@ -338,6 +343,7 @@
 		</div>
 	</div>
 </div>
+</c:if>
 
 <!-- The time line -->
 <ul class="timeline">

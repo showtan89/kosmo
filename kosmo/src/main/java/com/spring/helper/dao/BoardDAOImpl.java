@@ -321,11 +321,35 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	// 원데이게시판 댓글 리스트 출력
-	@Override
-	public ArrayList<oCommentVO> getoCommentList(int onedayclassNumber) {
+/*	@Override
+	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end) {
 
-		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber);
+		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber, start, end);
 	}
+	@Override
+	public int oCommentCount(int oCommentNumber) {
+		
+		return 0;
+	}*/
+	@Override
+	public void oCommentCreate(oCommentVO dto) {
+		sqlSession.insert("com.spring.helper.dao.BoardDAO.oCommentCreate", dto);
+	}
+/*	@Override
+	public void oCommentUpdate(oCommentVO dto) {
+		
+		
+	}
+	@Override
+	public void oCommentDelete(oCommentVO dto) {
+		
+		
+	}
+	@Override
+	public oCommentVO oCommentDetail(int onedayclassNumber) {
+		
+		return null;
+	}*/
 	
 	// 
 

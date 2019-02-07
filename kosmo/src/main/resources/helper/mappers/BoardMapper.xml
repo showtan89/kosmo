@@ -554,9 +554,15 @@
 	</delete>
 	
 	<!-- 원데이 게시판 댓글 리스트 -->
-	<select id="getoCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
+<!-- 	<select id="getoCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
 		SELECT * from oComment WHERE oCommentRegdate >= #{now Time} ORDER BY oCommentRegdate
-	</select>
+	</select> -->
+	
+	<insert id="oCommentCreate">
+		insert into oComment (oCommentNumber, onedayclassNumber, boardCode, memberEmail, memberId, oCommentContent, oCommnetRegdate)
+		values(oCommentSeq.nextval, #{onedayclassNumber}, '31', #{memberEmail}, #{memberId}, #{oCommentContent}, #{oCommnetRegdate})
+	</insert>
+	
 	
 	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 	

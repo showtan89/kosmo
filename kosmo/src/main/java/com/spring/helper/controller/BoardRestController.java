@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -208,12 +210,19 @@ public class BoardRestController {
 	}
 	
 	// 원데이 클래스 댓글 리스트 출력
-	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
+/*	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
 	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{
 		logger.info("oCommentJson - 호출중");
 		ArrayList<oCommentVO> list = service.getoCommentList(req,model);
 		return new ResponseEntity<>(list,HttpStatus.OK);
-		
+	}*/
+	
+	@RequestMapping("insert")
+	public void insert(@ModelAttribute oCommentVO dto, HttpSession session) throws Exception{
+		String memberId = (String)session.getAttribute("memberId");
+		dto.setMemberId(memberId);
+		service.oCommentCreate(dto);
 	}
+	
 	
 }

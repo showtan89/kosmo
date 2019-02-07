@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -852,11 +853,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	// 원데이 클래스 댓글 목록 출력
-	@Override
+/*	@Override
 	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model){
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		return boardDao.getoCommentList(onedayclassNumber);
-	}
+	}*/
 
 	//부동산 게시판 댓글 달기
 	/*	@Override
@@ -880,6 +881,35 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.realestateCommentsDelete(rCommentNumber);
 	}*/	
 
+/*	@Override
+	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end, HttpSession session) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int oCommentCount(int oCommentNumber) {
+		// TODO Auto-generated method stub
+		return 0;
+	}*/
+	@Override
+	public void oCommentCreate(oCommentVO dto) {
+		boardDao.oCommentCreate(dto);
+	}
+/*	@Override
+	public void oCommentUpdate(oCommentVO dto) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void oCommentDelete(oCommentVO dto) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public oCommentVO oCommentDetail(int onedayclassNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
 
 	//진호 메소드 종료---------------------------------------------------
 
@@ -905,6 +935,7 @@ public class BoardServiceImpl implements BoardService {
 
 		model.addAttribute("originData", originData);
 	}
+
 	
 	// 대호 끝 =================================
 
