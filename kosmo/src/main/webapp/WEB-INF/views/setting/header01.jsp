@@ -274,7 +274,7 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 											<li><a href="travelBoard">Travel</a></li> <!-- 재영 추가  -->
 											<li><a href="eventcultur.jsp">Event/Cultural
 													Heritage</a></li>
-											<li><a href="exchangerate.jsp">Exchange Rate</a></li>
+											<li><a href="exchangerate">Exchange Rate</a></li>
 										</ul></li>
 									<li><a href="#">Information</a>
 										<ul class="dropdown">
