@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -150,5 +151,10 @@ public interface BoardDAO {
 
 	// 진호 메소드 종료--------------------------------------
 
+	// 대호 시작 ============================================
+	public List<HospitalVO> emergency();
+	
+	public int emergencyCnt();
+	// 대호 종료 ============================================
 
 }

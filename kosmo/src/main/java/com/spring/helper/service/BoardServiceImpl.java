@@ -26,6 +26,7 @@ import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.PageVO;
@@ -1047,6 +1048,15 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void emergency(HttpServletRequest req, Model model) throws Exception {
 
+		
+		List<HospitalVO> hlist = boardDao.emergency();
+		
+		int emergencyCnt = boardDao.emergencyCnt();
+		
+		model.addAttribute("emergencyCnt", emergencyCnt);
+		model.addAttribute("hlist", hlist);
+
+
 		ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
 		Process p = pb.start(); // 프로세스 호출
 
@@ -1066,9 +1076,6 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("originData", originData);
 	}
 	
-	
-
-
 	// 대호 끝 =================================
 
 

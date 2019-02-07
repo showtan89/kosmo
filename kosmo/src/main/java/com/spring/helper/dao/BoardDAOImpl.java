@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -348,5 +349,17 @@ public class BoardDAOImpl implements BoardDAO {
 	// 진호 메소드 종료------------------------------------------------
 
 
+	// 대호 시작 ==============================================================
+	@Override
+	public List<HospitalVO> emergency() {
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.emergency");
+	}
+	@Override
+	public int emergencyCnt() {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
+	}
+	
+	
+	// 대호 종료 ==============================================================
 
 }
