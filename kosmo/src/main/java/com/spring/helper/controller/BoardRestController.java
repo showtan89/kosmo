@@ -1,14 +1,22 @@
 package com.spring.helper.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +37,9 @@ import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.service.BoardService;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
-import com.spring.helper.vo.jsonVO.news.jsonlegalinfo;
 import com.spring.helper.vo.BoardVO.oCommentVO;
+import com.spring.helper.vo.jsonVO.news.ExchangerateVO;
+import com.spring.helper.vo.jsonVO.news.jsonlegalinfo;
 
 @RestController
 public class BoardRestController {
@@ -43,7 +52,24 @@ public class BoardRestController {
 	@Autowired
 	BoardDAO boardDao;
 	
-	//동욱이 메소드 시작
+	// 환율정보 가져오기
+	@RequestMapping(value="exchangeratejson", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<String> exchangeratejson(HttpServletRequest req, Model model) throws Exception{
+		 BufferedReader br = null;
+	            String urlstr = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=XLm9HNCZCeP55wg6CqSfNfgUnyjsPb13&searchdate=20190103&data=AP01";
+	            URL url = new URL(urlstr);
+	            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	            urlconnection.setRequestMethod("GET");
+	            br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	            String result = "";
+	            String line;
+	            while((line = br.readLine()) != null) {
+	                result = result + line + "\n";
+	                
+	            }
+	            System.out.println(result);
+		return new ResponseEntity<String>(result,HttpStatus.OK);
+	}
 	// 법률 정보 가져오기
 	@RequestMapping(value="legalinfoListJson", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<jsonlegalinfo>> legalinfoListJson(HttpServletRequest req, Model model) throws Exception{
