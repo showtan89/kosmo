@@ -154,8 +154,8 @@
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
-                                 <h5>날짜</h5>
-                                 <p>${dto.onedayclassOpendate}</p>
+                                 <h5>오픈날짜</h5>
+                                 <p><input class="input" type="datetime-local" name="onedayclassOpendate" placeholder="yyyy-MM-dd" style="width:190px"></p>
                              </div>
                          </div>
                          
@@ -240,12 +240,12 @@
 
 
 
-<c:if test="${userVO.memberId eq dto.memberId}">
+<c:if test="${userVO.memberTemp1 eq 2}">
 	<table style="margin-left: auto; margin-right: auto;">
 		<th colspan="2">
-			<input class="inputButton" type="submit" value="작성">
-			<input class="inputButton" type="reset" value="취소">
-			<input class="inputButton" type="button" value="목록"
+			<input class="btn alazea-btn mt-15" type="submit" value="작성">
+			<input class="btn alazea-btn mt-15" type="reset" value="취소">
+			<input class="btn alazea-btn mt-15" type="button" value="목록"
 					onclick="window.location='onedayclassBoardList'">
 		</th>
 	</table>

@@ -58,6 +58,41 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+	function submitFunction() {
+		var oCommentNumber = $('#ocommentNumber').val();
+		var memberId = $('#memberId').val();
+		var oCommentContent = $('#oCommentContent').val();
+		var oCommnetRegdate = $('#oCommnetRegdate').val();
+		$.ajax({
+			type : "POST",
+			url: '${pageContext.request.contextPath}/BoardRestController',
+			data: {
+				oCommentNumber: oCommentNumber,
+				memberId: memberId,
+				oCommentContent: oCommentContent,
+				oCommnetRegdate: oCommnetRegdate,
+			},
+			success: function(result) {
+				if(result == 1) {
+					alert('전송에 성공했습니다.');
+				} else if(result == 0) {
+					alert('내용을 정확히 입력하세요');
+				} else {
+					alert('데이터베이스 오류가 발생했습니다.');
+				}
+			}
+		});
+		$('#oCommentContent').val('');
+	}
+</script>
+
+
+
+
+
+
+
 	<section class="about-us-area">
         <div class="container">
             <div class="row">
@@ -150,7 +185,7 @@
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
-                                 <h5>날짜</h5>
+                                 <h5>오픈날짜</h5>
                                  <p>${dto.onedayclassOpendate}</p>
                              </div>
                          </div>
@@ -199,7 +234,47 @@
                                  <p>${dto.onedayclassEndCheck}</p>
                              </div>
                          </div>
-
+<!-- public void setKnowledgeRegdate(Timestamp knowledgeRegdate) {
+         Date today = new Date();
+       String date = new SimpleDateFormat("yyyy-MM-dd").format(today);
+       String time = new SimpleDateFormat("HH:mm:ss").format(today);
+       String test = new SimpleDateFormat("yyyy-MM-dd").format(knowledgeRegdate);
+       String test2 = new SimpleDateFormat("HH:mm:ss").format(knowledgeRegdate);
+         String to1 = time.substring(0,2);
+         String to2 = time.substring(3,5);
+         String to3 = time.substring(6);
+         
+         String te1 = test2.substring(0,2);
+         String te2 = test2.substring(3,5);
+         String te3 = test2.substring(6); 
+         System.out.println(to1+" "+to2+" "+to3);
+         System.out.println(te1+" "+te2+" "+te3);
+      if(test.equals(date)) {
+         if(to1.equals(te1)) {
+            System.out.println("2");
+            if(to2.equals(te2)) {
+               int c = Integer.parseInt(to3);
+               int d = Integer.parseInt(te3);
+               int sub = c-d;
+               test = "방금";
+            } else {
+               int c = Integer.parseInt(to2);
+               int d = Integer.parseInt(te2);
+               int sub = c-d;
+               test = String.valueOf(sub)+" 분 전";
+            }
+         } else {
+            int c = Integer.parseInt(to1);
+            int d = Integer.parseInt(te1);
+            int sub = c-d;
+            test = String.valueOf(sub)+" 시간 전";
+         }
+      } else {
+         test = new SimpleDateFormat("yyyy-MM-dd").format(knowledgeRegdate);
+      }
+       
+      this.knowledgeRegdate = test;
+   } -->
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
@@ -236,16 +311,16 @@
 
 <c:if test="${userVO.memberId eq dto.memberId}">
 <table style="margin-left: auto; margin-right: auto;">
-	<th colspan="2"><input class="inputButton" type="button"
+	<th colspan="2"><input class="btn alazea-btn mt-15" type="button"
 		value="글수정"
 		onclick="window.location='onedayclassModifyForm?onedayclassNumber=${dto.onedayclassNumber}'">
-		<input class="inputButton" type="button" value="글삭제"
+		<input class="btn alazea-btn mt-15" type="button" value="글삭제"
 		onclick="window.location='onedayclassDeletePro?onedayclassNumber=${dto.onedayclassNumber}'">
 	</th>
 </table>
 </c:if>
 
-<%-- <div class="row">
+<div class="row">
 	<div class="col-12 col-lg-4">
 		<div class="box box-success">
 			<div class="box-header">
@@ -253,12 +328,12 @@
 			</div>
 			<div class="box-body">
 				<p>${userVO.memberId}님</p>
-				<label for="newReplyText">댓글을 남겨주세요</label>
-				<input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText">
+				<label for="oCommentContent">댓글을 남겨주세요</label>
+				<input class="form-control" type="text" placeholder="REPLY TEXT" id="oCommentContent">
 			</div>
 			<!-- /.box-body -->
 			<div class="box-footer">
-				<button type="submit" class="btn btn-primary" id="replyAddBtn">ADD REPLY</button>
+				<button type="button" class="btn btn-primary" id="submitFunction">ADD REPLY</button>
 			</div>
 		</div>
 	</div>
@@ -273,7 +348,7 @@
 </ul>
 <div class='text-center'>
 	<ul id="pagination" class="pagination pagination-sm no-margin"></ul>
-</div> --%>
+</div>
 
 
 <!-- ##### Contact Area End ##### -->

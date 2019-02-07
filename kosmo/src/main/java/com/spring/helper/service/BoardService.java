@@ -1,5 +1,6 @@
 package com.spring.helper.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,11 +49,11 @@ public interface BoardService {
 	//부동산 게시판 글 목록 보기
 	public void realestateGetArticleList(HttpServletRequest req, Model model);
 	//부동산 게시판 글 쓰기
-	public Integer realestateInsertArticle(HttpServletRequest req, Model model);
+	public Integer realestateInsertArticle(MultipartHttpServletRequest req, Model model) throws Exception;
 	//부동산 게시판 글 상세 페이지
 	public void realestateGetArticle(HttpServletRequest req, Model model);
 	//부동산 게시판 글 수정
-	public Integer realestateModifyUpdate(HttpServletRequest req, Model model);
+	public Integer realestateModifyUpdate(MultipartHttpServletRequest req, Model model) throws Exception;
 	//부동산 게시판 글 삭제
 	public Integer realestateDeleteArticle(HttpServletRequest req);
 	// 부동산 게시판 댓글 가져오기
@@ -75,14 +76,11 @@ public interface BoardService {
 	// 댓글 알람 지우기
 	public void commentAlarmDelete(HttpServletRequest req, Model model);
 
-	// 채팅알람 지우기
-	public void chattingAlarmDelete(HttpServletRequest req, Model model);
-	//ajax 댓글 알람
-	
+	//ajax 댓글 및 쪽지 알람
 	public Integer alarmServiceCnt(HttpServletRequest req);
-	/*messagePro
-			messageAlarmForm
-			messageAlarmPro*/
+	
+	// 쪽지 보내기
+	public int messageSend(HttpServletRequest req, Model model);
 
 	//민석이 종료+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -112,8 +110,7 @@ public interface BoardService {
 	public void onedayclassAuthorityPro(HttpServletRequest req, Model model);
 	
 	// 원데이클래스 게시판 댓글 가져오기
-/*	public List<oCommentVO> CommentList(HttpServletRequest req, Model model);*/
-	
+	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model);
 
 
 	//진호 끝-----------------------------------------------------------

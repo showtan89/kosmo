@@ -67,6 +67,13 @@ public class HelPerController{
 		return "login";
 	}
 
+	//권한 없음 페이지 테스트중
+	@RequestMapping("error403")
+	public String error403(HttpServletRequest req) {
+		logger.info("error403 로딩 중....");
+		return "error403";
+	}
+	
 	@RequestMapping("content")
 	public String contents() {
 		logger.info("content 로딩 중....");
@@ -137,9 +144,14 @@ public class HelPerController{
 	public String chattingAlarmDelete(HttpServletRequest req,Model model) {
 		logger.info("chattingAlarmDelete 로딩 중.....");
 		
-		service.chattingAlarmDelete(req, model);
-		
 		return "board/message/chattingAlarmDelete";
+	}
+	
+	@RequestMapping("test2")
+	public String test(HttpServletRequest req,Model model) {
+		logger.info("test2 로딩 중.....");
+		service.alarmBoard(req, model);
+		return "test/test2";
 	}
 	
 	//민석이 끝++++++++++++++++++++++++++++++++
