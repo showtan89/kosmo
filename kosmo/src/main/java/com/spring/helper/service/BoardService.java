@@ -45,7 +45,7 @@ public interface BoardService {
 
 
 	//재영 boardService 시작 ===============================================================================================
-	
+
 	//부동산 게시판 글 목록 보기
 	public void realestateGetArticleList(HttpServletRequest req, Model model);
 	//부동산 게시판 글 쓰기
@@ -64,23 +64,28 @@ public interface BoardService {
 	public Integer realestateCommentsDelete(int rCommentNumber);
 	//부동산 게시판 더미 데이터생성기 - 현재 버튼 주석 처리
 	public void realestateDummyMaker(HttpServletRequest req, Model model);
-	
+
 	//재영 boardService 끝 ===============================================================================================
 
 
 	//민석이 시작+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	//알람 게시판 
-	public void alarmBoard(HttpServletRequest req, Model model);
-	// 댓글 알람 
-	//public List<CommentAlarmVO> commentAlarm(HttpServletRequest req, Model model);
+	//댓글 알람 게시판 
+	public void commentAlarmBoard(HttpServletRequest req, Model model);
+	
+	//쪽지 알람 게시판
+	public void messageAlarmBoard(HttpServletRequest req, Model model);
+	
 	// 댓글 알람 지우기
 	public void commentAlarmDelete(HttpServletRequest req, Model model);
 
-	//ajax 댓글 및 쪽지 알람
+	// 채팅알람 지우기
+	public void messageDelete(HttpServletRequest req, Model model);
+
+	//ajax 댓글 알람
 	public Integer alarmServiceCnt(HttpServletRequest req);
 	
 	// 쪽지 보내기
-	public int messageSend(HttpServletRequest req, Model model);
+	public Integer sendMessage(HttpServletRequest req, Model model);
 
 	//민석이 종료+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -108,7 +113,7 @@ public interface BoardService {
 
 	// 클래스개설 권한 신청 처리페이지
 	public void onedayclassAuthorityPro(HttpServletRequest req, Model model);
-	
+
 	// 원데이클래스 게시판 댓글 가져오기
 	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model);
 
@@ -116,8 +121,8 @@ public interface BoardService {
 	//진호 끝-----------------------------------------------------------
 
 	// 대호 시작 =================
-	
+
 	public void emergency(HttpServletRequest req, Model model) throws Exception;
-	
+
 	// 대호 끝 ==================
 }
