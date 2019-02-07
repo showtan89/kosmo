@@ -160,13 +160,13 @@
 		realestateManagement,realestateOptionCheck,realestateTobaccoCheck,realestateState,realestateHeatingtype,realestateBalcony,
 		realestatePetCheck,realestateTerm,realestateMoveindate,realestateGender,realestateRoom,realestateToilet,realestateCar,
 		realestateSize,realestateType,realestateLocation,realestateFavorite,realestateRecommend,realestateLookup,realestateRegdate,
-		realestateCheckday,realestateImg1,realestateImg2,realestateImg3,realestateTemp1) values
+		realestateCheckday,realestateImg1,realestateImg2,realestateImg3,realestateTemp1,realestateTemp2) values
 		(realestateseq.nextVal,#{memberNumber},20,#{memberEmail},#{memberId},#{realestateSubject},
 		#{realestateContent},#{realestatePrice},#{realestateCategory1},'empty',#{realestateDeposit},#{realestateDepositCheck},
 		#{realestateManagement},#{realestateOptionCheck},#{realestateTobaccoCheck},#{realestateState},#{realestateHeatingtype},#{realestateBalcony},
 		#{realestatePetCheck},#{realestateTerm},#{realestateMoveindate},#{realestateGender},#{realestateRoom},#{realestateToilet},#{realestateCar},
 		#{realestateSize},#{realestateType},#{realestateLocation},'empty',0,0,sysdate,
-		'empty',#{realestateImg1},#{realestateImg2,jdbcType=VARCHAR},#{realestateImg3,jdbcType=VARCHAR},#{realestateTemp1})
+		'empty',#{realestateImg1},#{realestateImg2,jdbcType=VARCHAR},#{realestateImg3,jdbcType=VARCHAR},#{realestateTemp1},#{realestateTemp2,jdbcType=VARCHAR})
 	</insert>
 	
 	<sql id="realModifySql">
@@ -241,7 +241,22 @@
 			realestateCar = #{realestateCar},
 		</if>
 		<if test="realestateTemp1 != null">
-			realestateTemp1 = #{realestateTemp1}
+			realestateTemp1 = #{realestateTemp1},
+		</if>
+		<if test="realestateLocation != null">
+			realestateLocation = #{realestateLocation},
+		</if>
+		<if test="realestateImg1 != null"> 
+			realestateImg1 = #{realestateImg1},
+		</if>
+		<if test="realestateImg2 != null"> 
+			realestateImg2 = #{realestateImg2},
+		</if>
+		<if test="realestateImg3 != null"> 
+			realestateImg3 = #{realestateImg3},
+		</if>
+		<if test="realestateTemp2 != null">
+			realestateTemp2 = #{realestateTemp2}
 		</if>
 		<where>
 			realestateNumber = #{realestateNumber}
@@ -431,18 +446,19 @@
 
 
 	<!-- 민석이 시작 -->
+	
 	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
 	<select id="commentReadCnt" resultType="int" parameterType="String">
 		select count(*) cnt from  commentalarm where memberEmail = #{memEmail}
 	</select>		
 	
-	<select id="chattingReadCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  chattingalarm where memberEmail = #{memEmail}
+	<select id="messageReadCnt" resultType="int" parameterType="String">
+		select count(*) cnt from  messagetbl where memberEmail = #{memEmail}
 	</select>
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
-	<update id="chattingReadList2" parameterType="String">
-		UPDATE chattingalarm SET chattingalarm = 2 WHERE chattingalarm = 1 AND memberEmail = #{memEmail}
+	<update id="messageReadList2" parameterType="String">
+		UPDATE messagetbl SET messagealarm = 2 WHERE messagealarm = 1 AND memberEmail = #{memEmail}
 	</update >
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
@@ -450,11 +466,11 @@
 		UPDATE commentalarm SET commentalarm = 2 WHERE commentalarm = 1 AND memberEmail = #{memEmail}
 	</update >
 	
-	<!-- 채팅 알람의 리스트 -->
-	<select id="chattingReadList" resultType="com.spring.helper.vo.BoardVO.ChattingAlarmVO" parameterType="java.util.Map">
+	<!-- 쪽지 알람의 리스트 -->
+	<select id="messageReadList" resultType="com.spring.helper.vo.BoardVO.MessageVO" parameterType="java.util.Map">
 		<![CDATA[
-			SELECT * FROM (SELECT chattingnumber, membernumber, boardcode, memberemail, memberid, membercountry, chattingsubject, chattingcontent, chattingalarm, chattingregdate, rownum rNum 
-			FROM ( SELECT * FROM chattingalarm WHERE chattingalarm != 0 ORDER BY chattingregdate DESC ))
+			SELECT * FROM (SELECT messagenumber, memberemail, fromid, sendid, content, messageregdate, messagealarm, rownum rNum 
+			FROM ( SELECT * FROM messagetbl WHERE messagealarm != 0 ORDER BY messageregdate DESC ))
 			WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
@@ -468,16 +484,14 @@
 		]]>
 	</select>
 	
-	
-	
 	<!-- 댓글 알람 삭제 -->
 	<delete id="commentDelete" parameterType="int">
 		 delete from commentalarm where commentnumber = #{commentnumber}
 	</delete>
 	
 	<!-- 채팅 알람 삭제 -->
-	<delete id="chattingDelete" parameterType="int">
-		 delete from chattingalarm where chattingnumber = #{chattingnumber}
+	<delete id="messageDelete" parameterType="int">
+		 delete from messagetbl where messagenumber = #{messagenumber}
 	</delete>
 	
 	<!-- ajax 댓글 알람 갯수 -->
@@ -485,11 +499,16 @@
 		SELECT COUNT(*) cnt FROM  commentalarm WHERE memberEmail = #{memEmail} AND commentalarm = 1
 	</select>
 	<!-- ajax 채팅 알람 갯수 -->
-	<select id="chattingAlarmCnt" resultType="int" parameterType="String">
-		SELECT COUNT(*) cnt FROM  chattingalarm WHERE memberEmail = #{memEmail} AND chattingalarm = 1
+	<select id="messageCnt" resultType="int" parameterType="String">
+		SELECT COUNT(*) cnt FROM  messagetbl WHERE memberEmail = #{memEmail} AND messagealarm = 1
 	</select>
+	<!--  쪽지 보내기 -->
+	<insert id="sendMessage" parameterType="java.util.Map">
+		INSERT INTO messagetbl VALUES
+		( #{userVO.memberEmail}, #{userVO.memberId}, #{sendId}, messageseq.nextval, #{content}, sysdate, 1, 0, '0', '0' )	
+	</insert>
 	
-	<!-- 민석이 종료 -->
+	<!-- 민석이 종료+++++++++++++++++++++++++++++++++++ -->
 
 	<!-- 진호 시작ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 	
@@ -540,7 +559,7 @@
 		, onedayclassPrice, onedayclassReservation, onedayclassPay, onedayclassEndCheck, onedayclassDeadlineCheck
 		, onedayclassImg1, onedayclassImg2, onedayclassImg3)
 		VALUES(onedayclassSeq.nextval, 10007, '30', 'chae@gmail.com','chae', #{onedayclassSubject}, #{onedayclassContent}
-		, sysdate, 'aa', #{onedayclassCategory}, sysdate, #{onedayclassLocation}, #{onedayclassRecruitment} 
+		, sysdate, 'aa', #{onedayclassCategory}, #{onedayclassOpendate}, #{onedayclassLocation}, #{onedayclassRecruitment} 
 		, #{onedayclassPrice}, 'aa', 'aa', 'aa', #{onedayclassDeadlineCheck}
 		, 'aa', 'aa', 'aa')
 	</insert>
@@ -549,6 +568,13 @@
 	<delete id="onedayclassDeleteBoard" parameterType="int">
 		DELETE onedayclass WHERE onedayclassNumber=#{onedayclassNumber}
 	</delete>
+	
+	<!-- 원데이 게시판 댓글 리스트 -->
+	<select id="getoCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
+		SELECT * from oComment WHERE oCommentRegdate >= #{now Time} ORDER BY oCommentRegdate
+	</select>
+	
+	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 	
 	<!-- 대호 시작 ㅋㅋㅋㅋㅋ -->
 	<update id="onedayclassAccountUpdate" parameterType="java.util.Map">
@@ -559,6 +585,6 @@
 	</update>
 	<!-- 대호 끝 ㅋㅋㅋ -->
 	
-	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
+
 
 </mapper>

@@ -34,7 +34,7 @@
 	</div>
 </div>
 
-<jsp:include page="../../setting/header01.jsp" flush="false" />
+<jsp:include page="../setting/header01.jsp" flush="false" />
 
 <!-- ##### Breadcrumb Area Start ##### -->
 <div class="breadcrumb-area">
@@ -170,14 +170,14 @@
 					<th>Delete</th>
 				</tr>
 				<c:forEach var="mos" items="${mos}">
-					<c:if test="${!sessionScope.userVO.memberId.equals(mos.sendId)}">
+					<c:if test="${!sessionScope.userVO.memberId.equals(mos.memberid)}">
 						<tr>
-							<td>${mos.fromId}</td><!-- align="center" -->
+							<td>${mos.memberid}</td><!-- align="center" -->
 
-							<td>${mos.content}</td>
+							<td>${mos.commentregdate}</td>
 							<td>checked</td>
 							<td><input type="button" class="btn btn-success mr-30" value="delete"
-								onclick="window.location='messageDelete?messagenumber=${mos.messagenumber}&pageNum=${pageNum}';"></td>
+								onclick="window.location='commentAlarmDelete?commentnumber=${mos.commentnumber}&pageNum=${pageNum}';"></td>
 						</tr>
 					</c:if>
 				</c:forEach>
@@ -223,15 +223,15 @@
 				<section id="section-3" align="center">
 					<b>Message receiving ID</b>
 					&nbsp;
-					<input type="text" name="sendId" id="sendId" value="" style="padding:1px;border:1px solid #333;">
+					<input type="text" name="recipientId" value="" style="padding:1px;border:1px solid #333;">
 					<br>
 					<b>CONTENT</b>
 					<br>
 					
-					<textarea class="content" id="content" maxlength="600" style="width: 80%; height: 20%;padding:5px 5px;" name="messageContent"></textarea>
+					<textarea class="content" maxlength="600" style="width: 80%; height: 20%;padding:5px 5px;" name="messageContent"></textarea>
 			
 					<br>
-					<input type="button" class="btn btn-success mr-30" value="send message" style="padding:1px;" onclick="sendMessage();">
+					<input type="button" class="btn btn-success mr-30" value="send Message" style="padding:1px;" onclick="window.location='messageSend?pageNum=${pageNum}&recipientId=${recipientId}&messageContent=${messageContent}'">
 					
 				</section>
 				<section id="section-4">
@@ -275,16 +275,11 @@
 		
 	</div>
 
-<jsp:include page="../../setting/footer01.jsp" flush="false" />
+<jsp:include page="../setting/footer01.jsp" flush="false" />
 	<script src="resources/js/cbpFWTabs.js"></script>
 	<script>
 		new CBPFWTabs( document.getElementById( 'tabs' ) );
-		
-		function sendMessage(){
-			var sendId=$("#sendId").val();
-			var content=$("#content").val();
-			window.location='messageSend?sendId='+sendId+'&content='+content;
-		}
-		</script>
+	</script
+	>
 </body>
 </html>

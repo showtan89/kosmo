@@ -36,8 +36,8 @@
 <!-- 부동산 게시판 본문  -->
 <div class="container" style="margin-bottom: 50px;">
 	<h5>Create Post</h5>
-	<hr>
-	<form action="realestateWritePro" method="post" onsubmit="return realestatePostCheck()">
+	<hr>																						<!-- 전송 타입 변경 -->
+	<form action="realestateWritePro" method="post" onsubmit="return realestatePostCheck()" enctype="multipart/form-data">
 		<div class="row ">
 			<!-- 글제목 -->
 			<div class="col-12 mb-4">
@@ -217,7 +217,7 @@
 			<!-- 지역권 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateCategory1">Province</label> 
-				<select	class="custom-select d-block w-100" id="realestateCategory1" name='realestateCategory1'>
+				<select	class="custom-select d-block w-100" id="realestateCategory1" disabled>
 					<option style="display:none;" selected>Select</option>
 					<option value="seoul">Seoul (서울)</option>
 					<option value="busan">Busan (부산)</option>
@@ -237,11 +237,14 @@
 					<option value="jeollanam">Jeollanam-do (전라남도)</option>
 					<option value="jeju">Jeju-do (제주도)</option>
 				</select>
+				<input type="hidden" name='realestateCategory1' id="realestateCategory1Real">
 			</div>
 			<!-- 상세 주소 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateLocation">Detail Address</label> 
-		 		<input type="text" class="form-control" id="realestateLocation" name="realestateLocation" disabled placeholder="Search with the search button on the right.">
+		 		<input type="text" class="form-control" id="realestateLocation" disabled placeholder="Search with the search button on the right.">
+				<input type='hidden' id="realestateLocationReal" name="realestateLocation">
+				<input type='hidden' id="realestateTemp2" name="realestateTemp2"> <!-- 한글 주소 -->
 			</div>
 
 			<div class="col-md-4 mb-4">
@@ -253,8 +256,7 @@
 			</div>
 			<hr>
 			<!-- 첨부파일 -->
-			<h1>첨부이미지 보류</h1>
-			<!-- <div class="col-md-4 mb-4">
+			<div class="col-md-4 mb-4">
 				<label for="realestateImg1">Image of Place #1</label> 
 				<input type="file" class="form-control" id="realestateImg1" name="realestateImg1" required>
 			</div>
@@ -264,11 +266,12 @@
 			</div>
 			<div class="col-md-4 mb-4">
 				<label for="realestateImg3">Image of Place #3 (optional)</label> 
-				<input type="file" class="form-control" id="realestateImg3" name="realestateImg3">
-			</div> -->
+				<input type="file" class="form-control" id="realestateImg3" name="realestateImg3" class='btn alazea-btn'>
+			</div>
 		</div>
 		<hr>
-		<a href="realestate"><button type="button" class='btn alazea-btn'>Back</button></a>
+		<a href="realestate">
+		<button type="button" class='btn alazea-btn'>Back</button></a>
 		<button type="submit" class='btn alazea-btn'>Write</button>
 	</form>
 </div>
@@ -290,7 +293,65 @@
 	    new daum.Postcode({
 	        oncomplete: function(data) {
 	            var addr = data.addressEnglish; 
+	            var sido = data.sido;
+	            var korAddr = data.address;
+	            switch(sido){
+		            case '서울': $('#realestateCategory1').val("seoul");
+		            		$("#realestateCategory1Real").val("seoul");
+		            		break;
+		            case '부산': $('#realestateCategory1').val("busan");
+		            		$("#realestateCategory1Real").val("busan");
+	        				break;
+		            case '인천': $('#realestateCategory1').val("incheon");
+		            		$("#realestateCategory1Real").val("incheon");
+	        				break;
+		            case '광주': $('#realestateCategory1').val("gwangju");
+		            		$("#realestateCategory1Real").val("gwangju");
+	        				break;
+		            case '대전': $('#realestateCategory1').val("daejeon");
+		        			$("#realestateCategory1Real").val("daejeon");
+	        				break;
+		            case '세종특별자치시': $('#realestateCategory1').val("sejong");
+		            		$("#realestateCategory1Real").val("sejong");
+	        				break;
+		            case '대구': $('#realestateCategory1').val("daegu");
+		            		$("#realestateCategory1Real").val("daegu");
+	        				break;
+		            case '울산': $('#realestateCategory1').val("ulsan");
+		            		$("#realestateCategory1Real").val("ulsan");
+	        				break;
+		            case '경기': $('#realestateCategory1').val("gyeonggi");
+		        			$("#realestateCategory1Real").val("gyeonggi");
+	        				break;
+		            case '강원': $('#realestateCategory1').val("gangwon");
+		           			$("#realestateCategory1Real").val("gangwon");
+	        				break;
+		            case '충북': $('#realestateCategory1').val("chungcheongbuk");
+		           			$("#realestateCategory1Real").val("chungcheongbuk");
+	        				break;
+		            case '충남': $('#realestateCategory1').val("chungcheongnam");
+		            		$("#realestateCategory1Real").val("chungcheongnam");
+	        				break;
+		            case '경북': $('#realestateCategory1').val("gyeongsangbuk");
+		            		$("#realestateCategory1Real").val("gyeongsangbuk");
+	        				break;
+		            case '경남': $('#realestateCategory1').val("gyeongsangnam");
+		            		$("#realestateCategory1Real").val("gyeongsangnam");
+	        				break;
+		            case '전북': $('#realestateCategory1').val("jeollabuk");
+		            		$("#realestateCategory1Real").val("jeollabuk");
+	        				break;
+		            case '전남': $('#realestateCategory1').val("jeollanam");
+		            		$("#realestateCategory1Real").val("jeollanam");
+	        				break;
+		            case '제주특별자치도': $('#realestateCategory1').val("jeju");
+		           			$("#realestateCategory1Real").val("jeju");
+	        				break;	
+		            }
 	            document.getElementById("realestateLocation").value = addr;
+	            document.getElementById("realestateLocationReal").value = addr;
+	            document.getElementById("realestateTemp2").value = korAddr;
+
 	            geocoder.addressSearch(data.address, function(results, status) {
 	                if (status === daum.maps.services.Status.OK) {
 	                    var result = results[0]; 

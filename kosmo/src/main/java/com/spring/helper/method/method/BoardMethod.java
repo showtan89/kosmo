@@ -1,10 +1,19 @@
 package com.spring.helper.method.method;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.vo.BoardVO.PageVO;
 import com.spring.helper.vo.BoardVO.RealestateVO;
@@ -13,7 +22,10 @@ import com.spring.helper.vo.BoardVO.UserVO;
 @Component
 public class BoardMethod {
 
-//재영 메소드 시작	
+	@Resource(name="songUploadPath")
+	String realDir;
+
+	//재영 메소드 시작	
 	//재영 - 글 갯수로 페이지 VO 만드는 메소드 
 	public PageVO getRealestatePageVO(int pageNum, int cnt) {
 		PageVO pVO = new PageVO();
@@ -30,7 +42,7 @@ public class BoardMethod {
 		if(pVO.getEndPage() > pVO.getPageCount()) pVO.setEndPage(pVO.getPageCount());
 		return pVO;
 	}
-	
+
 	//페이지 변경시 사용 할 URL 주소 만들기
 	public String makeURLbyParameter(HttpServletRequest req) {
 		String temp = "";
@@ -87,7 +99,7 @@ public class BoardMethod {
 	}
 
 	// 재영 부동산 VO 가져오기 메소드 - 글쓰기 & 수정용
-	public RealestateVO getFullRealestateVO(HttpServletRequest req) {
+	public RealestateVO getFullRealestateVO(MultipartHttpServletRequest req) throws Exception {
 		RealestateVO rVO = new RealestateVO();
 		UserVO uVO = (UserVO)req.getSession().getAttribute("userVO");
 		//	NUMBER(12,0)	No 		부동산번호
@@ -171,6 +183,9 @@ public class BoardMethod {
 		if(req.getParameter("realestateType") != null) rVO.setRealestateType(req.getParameter("realestateType").toString());
 		//	VARCHAR2(120 BYTE)	No	부동산지도위치
 		if(req.getParameter("realestateLocation") != null) rVO.setRealestateLocation(req.getParameter("realestateLocation").toString());
+		// 한글 주소
+		if(req.getParameter("realestateTemp2") != null) rVO.setRealestateTemp2(req.getParameter("realestateTemp2").toString());
+		
 		//	VARCHAR2(120 BYTE)	Yes	찜
 		/*if(req.getParameter("realestateFavorite") != null) rVO.setRealestateFavorite(req.getParameter("realestateFavorite").toString());*/
 		//	VARCHAR2(120 BYTE)	Yes	추천
@@ -182,7 +197,88 @@ public class BoardMethod {
 		//	DATE	No				확인매물날짜
 		//if(req.getParameter("realestateCheckday") != null) rVO.setRealestateCheckday(req.getParameter("realestateCheckday").toString());
 
-		//	VARCHAR2(120 BYTE)	No	부동산사진1
+		//	VARCHAR2(120 BYTE)	Yes	부동산임시컬럼1 - 엘리베이터 여부로 사용
+		if(req.getParameter("realestateTemp1") != null) {
+			rVO.setRealestateTemp1(req.getParameter("realestateTemp1").toString());
+		}else {
+			rVO.setRealestateTemp1("off");
+		}
+
+		//파일 입출력
+		//업로드 할 디렉토리를 만들고
+		String saveDir = req.getSession().getServletContext().getRealPath("/resources/img/board/realestate/");
+		/*본인 디렉토리 경로에 따라 바뀜. 이클립스 워크스페이스가 아닌 git work tree 경로 찾는 법이 있어야 하는데....
+		서블릿컨텍스트에 등록 해두었고, 상단에서 Resource 어노테이션으로 선언 후 사용
+		String realDir = "C:\\Users\\panga\\git\\kosmo1\\kosmo\\src\\main\\webapp\\resources\\img\\board\\realestate\\upload\\";*/
+		
+		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ("yyyyMMdd_HHmmss_", Locale.KOREA );
+		Date currentTime = new Date ();
+		String mTime = mSimpleDateFormat.format ( currentTime );
+		String image1 = "";
+		String image2 = "";
+		String image3 = "";
+		
+		if(req.getParameter("realestateImg1") == null) {
+			if(req.getFile("realestateImg1").getOriginalFilename().length() != 0) {
+				MultipartFile file = req.getFile("realestateImg1");
+				file.transferTo(new File(saveDir+file.getOriginalFilename()));
+				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(realDir +mTime+ file.getOriginalFilename());
+				int data = 0;
+				while((data = fis.read()) != -1) {
+					fos.write(data);  
+				}
+				fis.close();
+				fos.close();
+				image1 = mTime+file.getOriginalFilename();
+				rVO.setRealestateImg1(image1);
+			}else {
+				rVO.setRealestateImg1("empty");
+			}
+		}else {
+			rVO.setRealestateImg1(req.getParameter("realestateImg1"));
+		}
+		if(req.getParameter("realestateImg2") == null) {
+			if(req.getFile("realestateImg2").getOriginalFilename().length() != 0) {
+				MultipartFile file = req.getFile("realestateImg2");
+				file.transferTo(new File(saveDir+file.getOriginalFilename()));
+				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(realDir +mTime+ file.getOriginalFilename());
+				int data = 0;
+				while((data = fis.read()) != -1) {
+					fos.write(data);  
+				}
+				fis.close();
+				fos.close();
+				image2 = mTime+file.getOriginalFilename();
+				rVO.setRealestateImg2(image2);
+			}else {
+				rVO.setRealestateImg2("empty");
+			}
+		}else {
+			rVO.setRealestateImg2(req.getParameter("realestateImg2"));
+		}
+		if(req.getParameter("realestateImg3") == null) {
+			if(req.getFile("realestateImg3").getOriginalFilename().length() != 0) {
+				MultipartFile file = req.getFile("realestateImg3");
+				file.transferTo(new File(saveDir+file.getOriginalFilename()));
+				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(realDir +mTime+ file.getOriginalFilename());
+				int data = 0;
+				while((data = fis.read()) != -1) {
+					fos.write(data);  
+				}
+				fis.close();
+				fos.close();
+				image3 = mTime+file.getOriginalFilename();
+				rVO.setRealestateImg3(image3);
+			}else {
+				rVO.setRealestateImg3("empty");
+			}
+		}else {
+			rVO.setRealestateImg3(req.getParameter("realestateImg3"));
+		}
+		/*//	VARCHAR2(120 BYTE)	No	부동산사진1
 		if(req.getParameter("realestateImg1") != null) {
 			rVO.setRealestateImg1(req.getParameter("realestateImg1").toString());
 		}else {
@@ -200,13 +296,8 @@ public class BoardMethod {
 			rVO.setRealestateImg3(req.getParameter("realestateImg3").toString());
 		}else {
 			rVO.setRealestateImg3("empty");
-		}
-		//	VARCHAR2(120 BYTE)	Yes	부동산임시컬럼1 - 엘리베이터 여부로 사용
-		if(req.getParameter("realestateTemp1") != null) {
-			rVO.setRealestateTemp1(req.getParameter("realestateTemp1").toString());
-		}else {
-			rVO.setRealestateTemp1("off");
-		}
+		}*/
+
 		//	VARCHAR2(120 BYTE)	Yes	부동산임시컬럼2
 		//if(req.getParameter("realestateTemp2") != null) rVO.setRealestateTemp2(req.getParameter("realestateTemp2").toString());
 		//	NUMBER(12,0)	Yes		부동산임시컬럼3	
@@ -405,5 +496,5 @@ public class BoardMethod {
 
 		return rVO;
 	}
-//재영 메소드 끝
+	//재영 메소드 끝
 }

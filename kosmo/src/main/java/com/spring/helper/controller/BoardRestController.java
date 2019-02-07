@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import com.spring.helper.service.BoardService;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.jsonVO.news.jsonlegalinfo;
+import com.spring.helper.vo.BoardVO.oCommentVO;
 
 @RestController
 public class BoardRestController {
@@ -223,6 +225,7 @@ public class BoardRestController {
 	}
 	
 	// 부동산 댓글 등록 호출
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.POST) //VO로 받는 부분
 	public ResponseEntity<String> realestateCommentsWrite(@RequestBody RealestateCommentsVO cVO, HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - POST 호출");
@@ -237,6 +240,7 @@ public class BoardRestController {
 	}
 	
 	// 부동산 댓글 삭제 호출
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.DELETE)
 	public ResponseEntity<String> realestateCommentsDelete(@RequestBody String cNumber, HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - DELETE 호출");
@@ -266,12 +270,24 @@ public class BoardRestController {
 		return entity;
 	}*/
 	
+	// ------------- 민석 --------------------------
 	//헤더 알람 갯수 카운트
 	@RequestMapping(value="alarmCnt", method = RequestMethod.GET)
 	ResponseEntity<Integer> alarmCnt(HttpServletRequest req ){
 		logger.info("alarmCnt 호출");
 		Integer alarmServiceCnt = service.alarmServiceCnt(req); 
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
+	}
+	
+	// 쪽지 시작
+	//--------------- 민석 ---------------------------------
+	// 원데이 클래스 댓글 리스트 출력
+	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
+	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{
+		logger.info("oCommentJson - 호출중");
+		ArrayList<oCommentVO> list = service.getoCommentList(req,model);
+		return new ResponseEntity<>(list,HttpStatus.OK);
+		
 	}
 	
 }

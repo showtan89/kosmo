@@ -177,10 +177,10 @@
   <tr>
     <td class="tg-xldj"></td>
     <td class="tg-h6ay">
-    	<input class="inputButton" type="submit" value="Apply">
+    	<input class="btn alazea-btn mt-15" type="submit" value="신청">
     </td>
     <td class="tg-xldj">
-    	<input class="inputButton" type="reset" value="취소" onclick="window.history.back();">
+    	<input class="btn alazea-btn mt-15" type="reset" value="취소" onclick="window.history.back();">
 	</td>
     <td class="tg-h6ay"></td>
   </tr>

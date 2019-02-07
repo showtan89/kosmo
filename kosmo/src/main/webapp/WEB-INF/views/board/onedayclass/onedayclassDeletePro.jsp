@@ -66,7 +66,7 @@
 			</th>
 		</tr>
 			<th colspan="2">
-				<input class="inputButton" type="button" value="확인" 
+				<input class="btn alazea-btn mt-15" type="button" value="확인" 
 						onclick="button_delete();">
 							<script type="text/javascript">
 								function button_delete() {
@@ -74,7 +74,7 @@
 									window.location="onedayclassBoardList?";
 							}
 							</script>
-				<input class="inputButton" type="reset" value="취소"
+				<input class="btn alazea-btn mt-15" type="reset" value="취소"
 						onclick="window.history.back();">				
 			</th>
 	</table>
