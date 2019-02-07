@@ -302,6 +302,14 @@ public class BoardController {
 		
 		return "board/message/messageSend";
 	}
+	@RequestMapping("chatting")
+	public String chattingView(HttpServletRequest req, Model model) throws Exception {
+		logger.info("채팅 호출중 ....");
+		
+		service.chatting(req, model);
+		
+		return "board/message/chatting";
+	}
 	
 	// 민석 BoardController 끝++++++++++++++++++++++++++++++++
 	
