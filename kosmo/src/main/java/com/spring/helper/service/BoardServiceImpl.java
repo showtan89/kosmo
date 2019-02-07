@@ -26,6 +26,7 @@ import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.PageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
@@ -855,25 +856,13 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void emergency(HttpServletRequest req, Model model) throws Exception {
 		
-		ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
-		Process p = pb.start(); // 프로세스 호출
-
-		// 프로세스의 실행결과를 스트림으로 리턴함
-		BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-		String line ="";
-
-		// 방법2.
-		StringBuilder sb = new StringBuilder();
-		while((line = br.readLine()) != null) {
-			sb.append(line + "<br>"); //출력
-		}
+		List<HospitalVO> hlist = boardDao.emergency();
 		
-		String originData = sb.toString();
-
-		model.addAttribute("originData", originData);
+		int emergencyCnt = boardDao.emergencyCnt();
+		
+		model.addAttribute("emergencyCnt", emergencyCnt);
+		model.addAttribute("hlist", hlist);
 	}
-	
 	// 대호 끝 =================================
 
 

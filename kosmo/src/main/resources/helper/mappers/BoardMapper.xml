@@ -563,5 +563,21 @@
 	<!-- 대호 끝 ㅋㅋㅋ -->
 	
 	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
+	
+	
+	
+	
+	
+	<!-- emergency -->
+	<select id="emergency" resultType="java.util.Map">
+		SELECT hosNum, hosPhone, hosAddress, hosName, hosLocx, hosLocy, hosKind, hosDetail, rownum
+		  FROM hospitals
+		 ORDER BY rownum ASC
+	</select>
+	
+	<select id="emergencyCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM hospitals
+	</select>
 
 </mapper>
