@@ -3,6 +3,7 @@ package com.spring.helper.vo.BoardVO;
 import java.sql.Timestamp;
 
 public class MessageVO {
+	private String messagenumber;
 	private String memberEmail;
     private String fromId;
     private String sendId;
@@ -17,7 +18,13 @@ public class MessageVO {
     
     
     
-    public String getMemberEmail() {
+    public String getMessagenumber() {
+		return messagenumber;
+	}
+	public void setMessagenumber(String messagenumber) {
+		this.messagenumber = messagenumber;
+	}
+	public String getMemberEmail() {
 		return memberEmail;
 	}
 	public void setMemberEmail(String memberEmail) {
@@ -73,9 +80,10 @@ public class MessageVO {
 	}
 	@Override
 	public String toString() {
-		return "MessageVO [memberEmail=" + memberEmail + ", fromId=" + fromId + ", sendId=" + sendId + ", content="
-				+ content + ", messageRegdate=" + messageRegdate + ", messagealarm=" + messagealarm + ", temp1=" + temp1 + ", temp2=" + temp2
-				+ ", temp3=" + temp3 + "]";
+		return "MessageVO [messagenumber=" + messagenumber + ", memberEmail=" + memberEmail + ", fromId=" + fromId
+				+ ", sendId=" + sendId + ", content=" + content + ", messageRegdate=" + messageRegdate
+				+ ", messagealarm=" + messagealarm + ", temp1=" + temp1 + ", temp2=" + temp2 + ", temp3=" + temp3 + "]";
 	}
+	
 	
 }
