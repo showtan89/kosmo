@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -203,14 +204,14 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.update("com.spring.helper.dao.BoardDAO.commentReadList2", memEmail);
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentReadCnt", memEmail);
 	}
-	// 채팅 알람 갯수 구하기
+	// 쪽지 알람 갯수 구하기
 	@Override
-	public int messageReadCnt(String memEmail) {
-		sqlSession.update("com.spring.helper.dao.BoardDAO.messageReadList2", memEmail);
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageReadCnt", memEmail);
+	public int messageReadCnt(String memberId) {
+		sqlSession.update("com.spring.helper.dao.BoardDAO.messageReadList2", memberId);
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageReadCnt", memberId);
 	}
 
-	//채팅 알람 리스트
+	//쪽지 알람 리스트
 	@Override
 	public List<MessageVO> messageReadList(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.messageReadList", map);
@@ -242,8 +243,8 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	//쪽지 알람 갯수
 	@Override
-	public int messageCnt(String memEmail) {
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageCnt", memEmail);
+	public int messageCnt(String memberId) {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageCnt", memberId);
 	}
 	// 쪽지 보내기 처리
 	@Override
@@ -336,5 +337,17 @@ public class BoardDAOImpl implements BoardDAO {
 	// 진호 메소드 종료------------------------------------------------
 
 
+	// 대호 시작 ==============================================================
+	@Override
+	public List<HospitalVO> emergency() {
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.emergency");
+	}
+	@Override
+	public int emergencyCnt() {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
+	}
+	
+	
+	// 대호 종료 ==============================================================
 
 }

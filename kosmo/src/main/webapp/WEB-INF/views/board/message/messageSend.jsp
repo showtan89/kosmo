@@ -7,7 +7,7 @@
 <body>
 	<c:if test="${sendCnt==0}">
 		<script type="text/javascript">
-			alert("Failed to send message.");
+			alert("ID does not exist.");
 			window.location = "alarmBoard";
 		</script>
 	</c:if>

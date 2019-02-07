@@ -128,7 +128,8 @@ public class HelPerController{
 		if(req.getParameter("loginPage")!=null);
 		model.addAttribute("loginPage",req.getParameter("loginPage"));
 
-		service.alarmBoard(req, model);
+		service.commentAlarmBoard(req, model);
+		service.messageAlarmBoard(req, model);
 		return "board/message/alarmBoard";
 	}
 	// 댓글 알람 삭제

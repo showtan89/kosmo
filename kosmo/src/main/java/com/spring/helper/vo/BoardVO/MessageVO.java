@@ -3,49 +3,45 @@ package com.spring.helper.vo.BoardVO;
 import java.sql.Timestamp;
 
 public class MessageVO {
+	private String messageNumber;
 	private String memberEmail;
-    private String fromId;
-    private String sendId;
-    private String content;
+    private String messageFromId;
+    private String messageSendId;
+    private String messageContent;
     private Timestamp messageRegdate;
-    private int messagealarm;
-    private int temp1;
-    private String temp2;
-    private String temp3;
-	
-    
-    
-    
-    
-    public String getMemberEmail() {
+    private int messageAlarm;
+    private int messageTemp1;
+    private String messageTemp2;
+    private String messageTemp3;
+	public String getMessageNumber() {
+		return messageNumber;
+	}
+	public void setMessageNumber(String messageNumber) {
+		this.messageNumber = messageNumber;
+	}
+	public String getMemberEmail() {
 		return memberEmail;
 	}
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
-	public int getMessagealarm() {
-		return messagealarm;
+	public String getMessageFromId() {
+		return messageFromId;
 	}
-	public void setMessagealarm(int type) {
-		this.messagealarm = type;
+	public void setMessageFromId(String messageFromId) {
+		this.messageFromId = messageFromId;
 	}
-	public String getFromId() {
-		return fromId;
+	public String getMessageSendId() {
+		return messageSendId;
 	}
-	public void setFromId(String fromId) {
-		this.fromId = fromId;
+	public void setMessageSendId(String messageSendId) {
+		this.messageSendId = messageSendId;
 	}
-	public String getSendId() {
-		return sendId;
+	public String getMessageContent() {
+		return messageContent;
 	}
-	public void setSendId(String sendId) {
-		this.sendId = sendId;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setMessageContent(String messageContent) {
+		this.messageContent = messageContent;
 	}
 	public Timestamp getMessageRegdate() {
 		return messageRegdate;
@@ -53,29 +49,37 @@ public class MessageVO {
 	public void setMessageRegdate(Timestamp messageRegdate) {
 		this.messageRegdate = messageRegdate;
 	}
-	public int getTemp1() {
-		return temp1;
+	public int getMessageAlarm() {
+		return messageAlarm;
 	}
-	public void setTemp1(int temp1) {
-		this.temp1 = temp1;
+	public void setMessageAlarm(int messageAlarm) {
+		this.messageAlarm = messageAlarm;
 	}
-	public String getTemp2() {
-		return temp2;
+	public int getMessageTemp1() {
+		return messageTemp1;
 	}
-	public void setTemp2(String temp2) {
-		this.temp2 = temp2;
+	public void setMessageTemp1(int messageTemp1) {
+		this.messageTemp1 = messageTemp1;
 	}
-	public String getTemp3() {
-		return temp3;
+	public String getMessageTemp2() {
+		return messageTemp2;
 	}
-	public void setTemp3(String temp3) {
-		this.temp3 = temp3;
+	public void setMessageTemp2(String messageTemp2) {
+		this.messageTemp2 = messageTemp2;
+	}
+	public String getMessageTemp3() {
+		return messageTemp3;
+	}
+	public void setMessageTemp3(String messageTemp3) {
+		this.messageTemp3 = messageTemp3;
 	}
 	@Override
 	public String toString() {
-		return "MessageVO [memberEmail=" + memberEmail + ", fromId=" + fromId + ", sendId=" + sendId + ", content="
-				+ content + ", messageRegdate=" + messageRegdate + ", messagealarm=" + messagealarm + ", temp1=" + temp1 + ", temp2=" + temp2
-				+ ", temp3=" + temp3 + "]";
+		return "MessageVO [messageNumber=" + messageNumber + ", memberEmail=" + memberEmail + ", messageFromId="
+				+ messageFromId + ", messageSendId=" + messageSendId + ", messageContent=" + messageContent
+				+ ", messageRegdate=" + messageRegdate + ", messageAlarm=" + messageAlarm + ", messageTemp1="
+				+ messageTemp1 + ", messageTemp2=" + messageTemp2 + ", messageTemp3=" + messageTemp3 + "]";
 	}
 	
+    
 }

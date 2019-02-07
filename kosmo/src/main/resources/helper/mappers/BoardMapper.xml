@@ -453,12 +453,12 @@
 	</select>		
 	
 	<select id="messageReadCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  messagetbl where memberEmail = #{memEmail}
+		select count(*) cnt from  message where messageSendId = #{memberId}
 	</select>
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
 	<update id="messageReadList2" parameterType="String">
-		UPDATE messagetbl SET messagealarm = 2 WHERE messagealarm = 1 AND memberEmail = #{memEmail}
+		UPDATE message SET messagealarm = 2 WHERE messagealarm = 1 AND messageSendId = #{memberId}
 	</update >
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
@@ -469,8 +469,8 @@
 	<!-- 쪽지 알람의 리스트 -->
 	<select id="messageReadList" resultType="com.spring.helper.vo.BoardVO.MessageVO" parameterType="java.util.Map">
 		<![CDATA[
-			SELECT * FROM (SELECT messagenumber, memberemail, fromid, sendid, content, messageregdate, messagealarm, rownum rNum 
-			FROM ( SELECT * FROM messagetbl WHERE messagealarm != 0 ORDER BY messageregdate DESC ))
+			SELECT * FROM (SELECT messageNumber, memberEmail, messageFromId, messageSendId, messageContent, messageRegdate, messageAlarm, rownum rNum 
+			FROM ( SELECT * FROM message WHERE messagealarm != 0  AND messageSendId = #{userVO.memberId} ORDER BY messageregdate DESC ))
 			WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
@@ -489,23 +489,23 @@
 		 delete from commentalarm where commentnumber = #{commentnumber}
 	</delete>
 	
-	<!-- 채팅 알람 삭제 -->
+	<!-- 쪽지 알람 삭제 -->
 	<delete id="messageDelete" parameterType="int">
-		 delete from messagetbl where messagenumber = #{messagenumber}
+		 delete from message where messagenumber = #{messagenumber}
 	</delete>
 	
 	<!-- ajax 댓글 알람 갯수 -->
 	<select id="commentAlarmCnt" resultType="int" parameterType="String">
 		SELECT COUNT(*) cnt FROM  commentalarm WHERE memberEmail = #{memEmail} AND commentalarm = 1
 	</select>
-	<!-- ajax 채팅 알람 갯수 -->
+	<!-- ajax 쪽지 알람 갯수 -->
 	<select id="messageCnt" resultType="int" parameterType="String">
-		SELECT COUNT(*) cnt FROM  messagetbl WHERE memberEmail = #{memEmail} AND messagealarm = 1
+		SELECT COUNT(*) cnt FROM  message WHERE messageSendId = #{memberId} AND messagealarm = 1
 	</select>
 	<!--  쪽지 보내기 -->
 	<insert id="sendMessage" parameterType="java.util.Map">
-		INSERT INTO messagetbl VALUES
-		( #{userVO.memberEmail}, #{userVO.memberId}, #{sendId}, messageseq.nextval, #{content}, sysdate, 1, 0, '0', '0' )	
+		INSERT INTO message VALUES
+		( #{userVO.memberEmail}, #{userVO.memberId}, #{messageSendId}, messageseq.nextval, #{messageContent}, sysdate, 1, 0, '0', '0' )	
 	</insert>
 	
 	<!-- 민석이 종료+++++++++++++++++++++++++++++++++++ -->
@@ -584,7 +584,23 @@
 		 WHERE memberEmail = #{memberEmail}
 	</update>
 	<!-- 대호 끝 ㅋㅋㅋ -->
+
+	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 	
-
-
+	
+	
+	
+	
+	<!-- emergency -->
+	<select id="emergency" resultType="java.util.Map">
+		SELECT hosNum, hosPhone, hosAddress, hosName, hosLocx, hosLocy, hosKind, hosDetail, rownum
+		  FROM hospitals
+		 ORDER BY rownum ASC
+	</select>
+	
+	<select id="emergencyCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM hospitals
+	</select>
+	
 </mapper>

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -86,7 +87,7 @@ public interface BoardDAO {
 		public int commentReadCnt(String memEmail);
 
 		// 채팅 알람 갯수
-		public int messageReadCnt(String memEmail);
+		public int messageReadCnt(String memberId);
 
 		// 쪽지 리스트
 		public List<MessageVO> messageReadList(Map<String, Object> map);
@@ -100,9 +101,10 @@ public interface BoardDAO {
 		// 채팅 알람 지우기
 		public int messageDelete (int messagenumber);
 		
+		// ajax 알람 갯수 
 		public int commentAlarmCnt(String memEmail);
 		
-		public int messageCnt(String memEmail);
+		public int messageCnt(String memberId);
 		
 		public int sendMessage(Map<String, Object> map);
 
@@ -142,5 +144,10 @@ public interface BoardDAO {
 
 	// 진호 메소드 종료--------------------------------------
 
+	// 대호 시작 ============================================
+	public List<HospitalVO> emergency();
+	
+	public int emergencyCnt();
+	// 대호 종료 ============================================
 
 }
