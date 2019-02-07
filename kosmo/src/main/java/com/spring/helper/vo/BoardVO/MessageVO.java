@@ -7,8 +7,8 @@ public class MessageVO {
     private String fromId;
     private String sendId;
     private String content;
-    private Timestamp reg_date;
-    private int type;
+    private Timestamp messageRegdate;
+    private int messagealarm;
     private int temp1;
     private String temp2;
     private String temp3;
@@ -23,11 +23,11 @@ public class MessageVO {
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
-	public int getType() {
-		return type;
+	public int getMessagealarm() {
+		return messagealarm;
 	}
-	public void setType(int type) {
-		this.type = type;
+	public void setMessagealarm(int type) {
+		this.messagealarm = type;
 	}
 	public String getFromId() {
 		return fromId;
@@ -47,11 +47,11 @@ public class MessageVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Timestamp getReg_date() {
-		return reg_date;
+	public Timestamp getMessageRegdate() {
+		return messageRegdate;
 	}
-	public void setReg_date(Timestamp reg_date) {
-		this.reg_date = reg_date;
+	public void setMessageRegdate(Timestamp messageRegdate) {
+		this.messageRegdate = messageRegdate;
 	}
 	public int getTemp1() {
 		return temp1;
@@ -74,7 +74,7 @@ public class MessageVO {
 	@Override
 	public String toString() {
 		return "MessageVO [memberEmail=" + memberEmail + ", fromId=" + fromId + ", sendId=" + sendId + ", content="
-				+ content + ", reg_date=" + reg_date + ", type=" + type + ", temp1=" + temp1 + ", temp2=" + temp2
+				+ content + ", messageRegdate=" + messageRegdate + ", messagealarm=" + messagealarm + ", temp1=" + temp1 + ", temp2=" + temp2
 				+ ", temp3=" + temp3 + "]";
 	}
 	

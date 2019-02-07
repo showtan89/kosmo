@@ -5,9 +5,8 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
@@ -24,15 +23,14 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.spring.helper.service.BoardService;
-import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 
 @Controller
 public class BoardController {
@@ -230,7 +228,7 @@ public class BoardController {
 	
 	//부동산 게시판 글쓰기 실행
 	@RequestMapping("realestateWritePro")
-	public void realestateWritePro(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
+	public void realestateWritePro(MultipartHttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
 		logger.info("realestateWritePro 로딩 중....");
 		Integer realestateInsertArticle = service.realestateInsertArticle(req, model);
 		res.sendRedirect("realestateBoardList?insertResult="+realestateInsertArticle);
@@ -246,7 +244,7 @@ public class BoardController {
 	
 	//부동산 게시판 글 수정 실행
 	@RequestMapping("realestateModifyPro")
-	public void realestateModifyPro(HttpServletRequest req, Model model,HttpServletResponse res) throws Exception {
+	public void realestateModifyPro(MultipartHttpServletRequest req, Model model,HttpServletResponse res) throws Exception {
 		logger.info("realestateModifyPro 로딩 중....");
 		Integer modifyResult = service.realestateModifyUpdate(req, model);
 		String realestateNumber = req.getParameter("realestateNumber");
@@ -354,6 +352,8 @@ public class BoardController {
 	@RequestMapping("messageSend")
 	public String messageSend(HttpServletRequest req, Model model) throws Exception {
 		logger.info("쪽지 보내기 처리 호출중 ....");
+		
+		service.sendMessage(req, model);
 		
 		return "board/message/messageSend";
 	}

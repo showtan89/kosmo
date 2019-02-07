@@ -170,14 +170,14 @@
 					<th>Delete</th>
 				</tr>
 				<c:forEach var="mos" items="${mos}">
-					<c:if test="${!sessionScope.userVO.memberId.equals(mos.memberid)}">
+					<c:if test="${!sessionScope.userVO.memberId.equals(mos.sendId)}">
 						<tr>
-							<td>${mos.memberid}</td><!-- align="center" -->
+							<td>${mos.fromId}</td><!-- align="center" -->
 
-							<td>${mos.commentregdate}</td>
+							<td>${mos.content}</td>
 							<td>checked</td>
 							<td><input type="button" class="btn btn-success mr-30" value="delete"
-								onclick="window.location='commentAlarmDelete?commentnumber=${mos.commentnumber}&pageNum=${pageNum}';"></td>
+								onclick="window.location='messageDelete?messagenumber=${mos.messagenumber}&pageNum=${pageNum}';"></td>
 						</tr>
 					</c:if>
 				</c:forEach>
@@ -223,15 +223,15 @@
 				<section id="section-3" align="center">
 					<b>Message receiving ID</b>
 					&nbsp;
-					<input type="text" name="sendId" value="" style="padding:1px;border:1px solid #333;">
+					<input type="text" name="sendId" id="sendId" value="" style="padding:1px;border:1px solid #333;">
 					<br>
 					<b>CONTENT</b>
 					<br>
 					
-					<textarea class="content" maxlength="600" style="width: 80%; height: 20%;padding:5px 5px;" name="messageContent"></textarea>
+					<textarea class="content" id="content" maxlength="600" style="width: 80%; height: 20%;padding:5px 5px;" name="messageContent"></textarea>
 			
 					<br>
-					<input type="button" class="btn btn-success mr-30" value="send message" style="padding:1px;" onclick="window.location='messageSend?pageNum=${pageNum}&recipientId=${recipientId}&messageContent=${messageContent}'">
+					<input type="button" class="btn btn-success mr-30" value="send message" style="padding:1px;" onclick="sendMessage();">
 					
 				</section>
 				<section id="section-4">
@@ -279,7 +279,12 @@
 	<script src="resources/js/cbpFWTabs.js"></script>
 	<script>
 		new CBPFWTabs( document.getElementById( 'tabs' ) );
-	</script
-	>
+		
+		function sendMessage(){
+			var sendId=$("#sendId").val();
+			var content=$("#content").val();
+			window.location='messageSend?sendId='+sendId+'&content='+content;
+		}
+		</script>
 </body>
 </html>

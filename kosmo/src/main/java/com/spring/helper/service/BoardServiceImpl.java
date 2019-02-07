@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -133,7 +132,7 @@ public class BoardServiceImpl implements BoardService {
 		if(end > cnt) end = cnt;	
 		// 출력용 글번호
 		number = cnt - (currentPage -1)* pageSize;
-		
+
 		map.put("start", start);
 		map.put("end", end);
 		if(cnt>0) {
@@ -343,7 +342,7 @@ public class BoardServiceImpl implements BoardService {
 	public void knowledgeAddReadCnt(HttpServletRequest req, Model model) {
 		int knowledgeNumber = Integer.parseInt(req.getParameter("knowledgeNumber"));
 		boardDao.knowledgeAddReadCnt(knowledgeNumber);
-		
+
 	}
 	// 동욱이 메소드 종료
 
@@ -380,16 +379,20 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("list", list);
 		model.addAttribute("pVO", pVO);
 	}
-	
+
 	//부동산 게시판 글 쓰기
 	@Override
-	public Integer realestateInsertArticle(HttpServletRequest req, Model model) {
+	public Integer realestateInsertArticle(MultipartHttpServletRequest req, Model model) throws Exception{
 		logger.info(req.getParameter("realestateLocation"));
 		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
 		logger.info(rVO.toString());
 		return boardDao.realestateInsertArticle(rVO);
 	}
-	
+
+	//이미지 관련
+
+
+
 	//부동산 게시판 글 상세 페이지 
 	@Override
 	public void realestateGetArticle(HttpServletRequest req, Model model) {
@@ -406,13 +409,13 @@ public class BoardServiceImpl implements BoardService {
 			logger.info("에러이니 페이지 되돌리기 기능넣기!!!");
 		}
 	}
-	
+
 	// 부동산 게시판 글 수정
-	public Integer realestateModifyUpdate(HttpServletRequest req, Model model) {
+	public Integer realestateModifyUpdate(MultipartHttpServletRequest req, Model model) throws Exception{
 		RealestateVO rVO = boardMethod.getFullRealestateVO(req); 
 		return boardDao.realestateModifyUpdate(rVO);
 	}
-	
+
 	//부동산 게시판 글 삭제
 	public Integer realestateDeleteArticle(HttpServletRequest req) {
 		Integer deleteResult = 0;
@@ -486,7 +489,7 @@ public class BoardServiceImpl implements BoardService {
 		String memEmail = userVO.getMemberEmail();
 		System.out.println("memEmail : " + memEmail);
 		//5단계 글갯수 구하기
-		cnt = boardDao.commentReadCnt(memEmail);
+		cnt = boardDao.commentReadCnt(memEmail)+ boardDao.messageReadCnt(memEmail);
 		System.out.println("글 갯수cnt ===============: "+cnt);
 
 		pageNum = req.getParameter("pageNum");
@@ -530,12 +533,12 @@ public class BoardServiceImpl implements BoardService {
 			map.put("userVO", userVO);
 
 			//5-2. 게시글 목록 조회
-			List<CommentAlarmVO> mos =boardDao.chattingReadList(map);
+			List<MessageVO> mos =boardDao.messageReadList(map);
 
 			// 큰바구니 : 게시글 목록 cf)작은 바구니 : 게시글 1건
 			req.setAttribute("mos", mos);
 
-			List<ChattingAlarmVO> cos = boardDao.commentReadList(map);
+			List<CommentAlarmVO> cos = boardDao.commentReadList(map);
 			req.setAttribute("cos", cos);
 
 		}
@@ -589,46 +592,69 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("deleteCnt", deleteCnt);
 		model.addAttribute("pageNum", pageNum);
 	}
-	// 채팅 알람 삭제
-	
+	// 쪽지 알람 삭제
+	@Override
+	public void messageDelete(HttpServletRequest req, Model model) {
+
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		int messagenumber = Integer.parseInt(req.getParameter("messagenumber"));
+		System.out.println("messagenumber : " + messagenumber);
+		int deleteCnt = 0;
+
+		if(messagenumber != 0) {
+			messagenumber = boardDao.messageDelete(messagenumber);
+			deleteCnt=messagenumber;
+		}
+
+		model.addAttribute("deleteCnt", deleteCnt);
+		model.addAttribute("pageNum", pageNum);
+
+	}
 
 	//ajax 댓글 알림
 	@Override
 	public Integer alarmServiceCnt(HttpServletRequest req) {
 		Integer alarmCnt=0;
-		
+
 		if(req.getSession().getAttribute("userVO") == null) {
 			return 0;
 		}
-		
+
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
-		
+
 		String memEmail = userVO.getMemberEmail();
 		logger.info("memEmail : " + memEmail);
-		
+
 		//5단계 글갯수 구하기
 		if(memEmail != null) {
-			alarmCnt = boardDao.commentAlarmCnt(memEmail);
+			alarmCnt = boardDao.commentAlarmCnt(memEmail)+ boardDao.messageCnt(memEmail);
 		}
 		logger.info("합산한 alarmCnt : " + alarmCnt);
 		return alarmCnt;
-	
+
 	}
-	
-	//민석 쪽지 보내기
+	//쪽지 보내기
 	@Override
-	public int messageSend(HttpServletRequest req, Model model) {
+	public Integer sendMessage(HttpServletRequest req, Model model) {
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		String memEmail = userVO.getMemberEmail();
+		logger.info("memEmail : " + memEmail);
+		String fromId = userVO.getMemberId();
+		String sendId = req.getParameter("sendId");
+		logger.info("sendId : " + sendId);
+		String content = req.getParameter("content");
+		logger.info("content : " + content);
 		
-		MessageVO vo = new MessageVO();
+		int sendCnt = 0;
 		
-		vo.setMemberEmail(userVO.getMemberEmail());
-		vo.setFromId(userVO.getMemberId());
-		vo.setSendId(req.getParameter("recipientId"));
-		vo.setContent(req.getParameter("messageContent"));
-		vo.setReg_date(new Timestamp(System.currentTimeMillis()));
-		
-		int sendCnt = boardDao.sendMessage(vo);
+		if(memEmail != null && fromId != null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("userVO", userVO);
+			map.put("sendId", sendId);
+			map.put("content", content);
+			
+			sendCnt = boardDao.sendMessage(map);
+		}
 		
 		return sendCnt;
 	}
@@ -805,7 +831,7 @@ public class BoardServiceImpl implements BoardService {
 
 		onedayclassVO vo = new onedayclassVO();
 
-	/*	vo.setProduct_date(new Timestamp(System.currentTimeMillis()));*/
+		/*	vo.setProduct_date(new Timestamp(System.currentTimeMillis()));*/
 		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
 		/*vo.setOnedayclassNumber(Integer.parseInt(req.getParameter("onedayclassNumber")));*/
 
@@ -840,21 +866,21 @@ public class BoardServiceImpl implements BoardService {
 	// 클래스개설 권한 신청 처리페이지
 	@Override
 	public void onedayclassAuthorityPro(HttpServletRequest req, Model model) {
-		
+
 		String onedayclassAccountNumber = req.getParameter("i");
 		Integer.parseInt(onedayclassAccountNumber);
-		
+
 		UserVO uvo = (UserVO)req.getSession().getAttribute("userVO");
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("onedayclassAccountNumber", onedayclassAccountNumber);
 		map.put("memberEmail", uvo.getMemberEmail());
-		
+
 		int updateCnt =  boardDao.onedayclassAccountUpdate(map);
-		
+
 		model.addAttribute("updateCnt", updateCnt);
 	}
-	
+
 	// 원데이 클래스 댓글 목록 출력
 	@Override
 	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model){
@@ -890,7 +916,7 @@ public class BoardServiceImpl implements BoardService {
 	// 대호 시작 ================================
 	@Override
 	public void emergency(HttpServletRequest req, Model model) throws Exception {
-		
+
 		ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
 		Process p = pb.start(); // 프로세스 호출
 
@@ -904,12 +930,13 @@ public class BoardServiceImpl implements BoardService {
 		while((line = br.readLine()) != null) {
 			sb.append(line + "<br>"); //출력
 		}
-		
+
 		String originData = sb.toString();
 
 		model.addAttribute("originData", originData);
 	}
-	
+
+
 	// 대호 끝 =================================
 
 

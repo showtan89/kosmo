@@ -36,8 +36,8 @@
 <!-- 부동산 게시판 본문  -->
 <div class="container" style="margin-bottom: 50px;">
 	<h5>Create Post</h5>
-	<hr>
-	<form action="realestateWritePro" method="post" onsubmit="return realestatePostCheck()">
+	<hr>																						<!-- 전송 타입 변경 -->
+	<form action="realestateWritePro" method="post" onsubmit="return realestatePostCheck()" enctype="multipart/form-data">
 		<div class="row ">
 			<!-- 글제목 -->
 			<div class="col-12 mb-4">
@@ -244,6 +244,7 @@
 				<label for="realestateLocation">Detail Address</label> 
 		 		<input type="text" class="form-control" id="realestateLocation" disabled placeholder="Search with the search button on the right.">
 				<input type='hidden' id="realestateLocationReal" name="realestateLocation">
+				<input type='hidden' id="realestateTemp2" name="realestateTemp2"> <!-- 한글 주소 -->
 			</div>
 
 			<div class="col-md-4 mb-4">
@@ -255,8 +256,7 @@
 			</div>
 			<hr>
 			<!-- 첨부파일 -->
-			<h1>첨부이미지 보류</h1>
-			<!-- <div class="col-md-4 mb-4">
+			<div class="col-md-4 mb-4">
 				<label for="realestateImg1">Image of Place #1</label> 
 				<input type="file" class="form-control" id="realestateImg1" name="realestateImg1" required>
 			</div>
@@ -266,8 +266,8 @@
 			</div>
 			<div class="col-md-4 mb-4">
 				<label for="realestateImg3">Image of Place #3 (optional)</label> 
-				<input type="file" class="form-control" id="realestateImg3" name="realestateImg3">
-			</div> -->
+				<input type="file" class="form-control" id="realestateImg3" name="realestateImg3" class='btn alazea-btn'>
+			</div>
 		</div>
 		<hr>
 		<a href="realestate">
@@ -294,6 +294,7 @@
 	        oncomplete: function(data) {
 	            var addr = data.addressEnglish; 
 	            var sido = data.sido;
+	            var korAddr = data.address;
 	            switch(sido){
 		            case '서울': $('#realestateCategory1').val("seoul");
 		            		$("#realestateCategory1Real").val("seoul");
@@ -349,6 +350,8 @@
 		            }
 	            document.getElementById("realestateLocation").value = addr;
 	            document.getElementById("realestateLocationReal").value = addr;
+	            document.getElementById("realestateTemp2").value = korAddr;
+
 	            geocoder.addressSearch(data.address, function(results, status) {
 	                if (status === daum.maps.services.Status.OK) {
 	                    var result = results[0]; 

@@ -28,7 +28,7 @@
 		<!-- Top Breadcrumb Area -->
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
-			style="background-image: url(resources/img/ehddnr2.jpg);">
+			style="background-image: url(resources/img/member/usermain.jpg);">
 			<h2>Add  Authority  LIST</h2>
 		</div>
 	</div>
@@ -47,6 +47,8 @@
 		}
 	</script>
 
+	
+	
 	
 	<div class="container col-12 col-md-9 col-lg-10">
 	<form action="applyAuthority" method="post">

@@ -35,34 +35,36 @@
 
 <!-- 부동산 게시판 본문  -->
 <div class="container" style="margin-bottom: 50px;">
-	<h5>Modify Post</h5>
+	<h5>Create Post</h5>
 	<hr>
-	<form action="realestateModifyPro?realestateNumber=${param.realestateNumber}" method="post" enctype="multipart/form-data">
+	<form action="realestateWritePro" method="post" onsubmit="return realestatePostCheck()">
 		<div class="row ">
 			<!-- 글제목 -->
 			<div class="col-12 mb-4">
 				<label for="realestateSubject">Title</label> 
-				<input type="text" class="form-control" id="realestateSubject" name="realestateSubject" value="${rVO.realestateSubject}">
+				<input type="text" class="form-control" id="realestateSubject" name="realestateSubject"  
+				placeholder="Please write a brief introduction to the place.">
 			</div>
 			<!-- 내용 -->
 			<div class="col-md-12 mb-4">
 				<label for="realestateContent">Contents</label>
-				<textarea class="form-control" id="realestateContent" name="realestateContent" cols="30" rows="10">${rVO.realestateContent}</textarea>
+				<textarea class="form-control" id="realestateContent" name="realestateContent" cols="30" rows="10"
+					placeholder="Briefly describe the advantages and disadvantages of place."></textarea>
 			</div>
 			<!-- 가격 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestatePrice">Price per Week</label> 
-				<input type="text" class="form-control" id="realestatePrice" name="realestatePrice" value="${rVO.realestatePrice}">
+				<input type="text" class="form-control" id="realestatePrice" name="realestatePrice">
 			</div>
 			<!-- 관리비 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateManagement">Management fees per Week</label>
-				<input type="text" class="form-control" id="realestateManagement" name="realestateManagement" value="${rVO.realestateManagement}">
+				<input type="text" class="form-control" id="realestateManagement" name="realestateManagement">
 			</div>
 			<!-- 보증금 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateDeposit">Security Deposit</label> 
-				<input type="text" class="form-control" id="realestateDeposit" name="realestateDeposit" value="${rVO.realestateDeposit}">
+				<input type="text" class="form-control" id="realestateDeposit" name="realestateDeposit">
 			</div>
 			<!-- 방 갯수 -->
 			<div class="col-md-4 mb-4">
@@ -75,7 +77,6 @@
 					<option value="over3">more than 3</option>
 				</select>
 			</div>
-			
 			<!-- 화장실 갯수 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateToilet">Number of Bathrooms</label> 
@@ -105,7 +106,6 @@
 					<option value="under">Underground</option>
 				</select>
 			</div>
-			
 			<!-- 부동산 형태 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateType">Type of Place</label> 
@@ -136,7 +136,7 @@
 			<!-- 입주가능일 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateMoveindate">Date of Availability</label> 
-				<input type="date" class="form-control" id="realestateMoveindate" name="realestateMoveindate" value="${rVO.realestateMoveindate}">
+				<input type="date" class="form-control" id="realestateMoveindate" name="realestateMoveindate">
 			</div>
 			<!-- 성별 -->
 			<div class="col-md-4 mb-4"><!-- Female Only -->
@@ -193,6 +193,7 @@
 					</div>
 				</div>
 			</div>
+			<hr>
 			<div class="col-md-6 mb-6">
 				<div class="d-flex align-items-center">
 					<!-- 발코니 여부 -->
@@ -236,14 +237,13 @@
 					<option value="jeollanam">Jeollanam-do (전라남도)</option>
 					<option value="jeju">Jeju-do (제주도)</option>
 				</select>
-				<input type="hidden" name='realestateCategory1' id="realestateCategory1Real" value="${rVO.realestateCategory1}">
+				<input type="hidden" name='realestateCategory1' id="realestateCategory1Real">
 			</div>
 			<!-- 상세 주소 -->
 			<div class="col-md-4 mb-4">
 				<label for="realestateLocation">Detail Address</label> 
-		 		<input type="text" class="form-control" id="realestateLocation" disabled value="${rVO.realestateLocation}">
-				<input type='hidden' id="realestateLocationReal" name="realestateLocation" value="${rVO.realestateLocation}">
-				<input type='hidden' id="realestateTemp2" name="realestateTemp2" value="${rVO.realestateTemp2}"> <!-- 한글 주소 -->
+		 		<input type="text" class="form-control" id="realestateLocation" disabled placeholder="Search with the search button on the right.">
+				<input type='hidden' id="realestateLocationReal" name="realestateLocation">
 			</div>
 
 			<div class="col-md-4 mb-4">
@@ -252,109 +252,29 @@
 			</div>
 			<!-- 지도 위치 -->
 			<div class="col-md-12 mb-4" id="map" style="display:none">
-			
 			</div>
-			
-			<c:if test="${rVO.realestateRoom!=null}">
-				<script>$("#realestateRoom").val('${rVO.realestateRoom}').prop("selected", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateToilet!=null}">
-				<script>$("#realestateToilet").val('${rVO.realestateToilet}').prop("selected", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateState!=null}">
-				<script>$("#realestateState").val('${rVO.realestateState}').prop("selected", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateCategory1!=null}">
-				<script>$("#realestateCategory1").val('${rVO.realestateCategory1}').prop("selected", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateType!=null}">
-				<script>$("#realestateType").val('${rVO.realestateType}').prop("selected", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateTerm!=null}">
-				<script>$("#realestateTerm").val('${rVO.realestateTerm}').prop("selected", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateGender!=null}">
-				<script>$("#realestateGender").val('${rVO.realestateGender}').prop("selected", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateHeatingtype!=null}">
-				<script>$("#realestateHeatingtype").val('${rVO.realestateHeatingtype}').prop("selected", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateSize!=null}">
-				<script>$("#realestateSize").val('${rVO.realestateSize}').prop("selected", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateOptionCheck.equals('on')}">
-				<script>$("#realestateOptionCheck").val('${rVO.realestateOptionCheck}').prop("checked", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateTobaccoCheck.equals('on')}">
-				<script>$("#realestateTobaccoCheck").val('${rVO.realestateTobaccoCheck}').prop("checked", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestatePetCheck.equals('on')}">
-				<script>$("#realestatePetCheck").val('${rVO.realestatePetCheck}').prop("checked", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateBalcony.equals('on')}">
-				<script>$("#realestateBalcony").val('${rVO.realestateBalcony}').prop("checked", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateCar.equals('on')}">
-				<script>$("#realestateCar").val('${rVO.realestateCar}').prop("checked", true);</script>
-			</c:if>
-			<c:if test="${rVO.realestateTemp1.equals('on')}">
-				<script>$("#realestateTemp1").val('${rVO.realestateTemp1}').prop("checked", true);</script>
-			</c:if>
 			<hr>
 			<!-- 첨부파일 -->
-			<c:if test="${rVO.realestateImg1 eq 'empty'}">
-			<div class="col-md-4 mb-4">
+			<h1>첨부이미지 보류</h1>
+			<!-- <div class="col-md-4 mb-4">
 				<label for="realestateImg1">Image of Place #1</label> 
 				<input type="file" class="form-control" id="realestateImg1" name="realestateImg1" required>
 			</div>
-			</c:if>
-			<c:if test="${rVO.realestateImg1 ne 'empty'}">
-			<div class="col-md-4 mb-4">
-				<img src="${realimage}${rVO.realestateImg1}">
-				<input type="hidden" name='realestateImg1' value="${rVO.realestateImg1}">
-			</div>
-			</c:if>
-			
-			<c:if test="${rVO.realestateImg2 eq 'empty'}">
 			<div class="col-md-4 mb-4">
 				<label for="realestateImg2">Image of Place #2 (optional)</label> 
 				<input type="file" class="form-control" id="realestateImg2" name="realestateImg2">
 			</div>
-			</c:if>
-			<c:if test="${rVO.realestateImg2 ne 'empty'}">
-			<div class="col-md-4 mb-4">
-				<img src="${realimage}${rVO.realestateImg2}">
-				<input type="hidden" name='realestateImg2' value="${rVO.realestateImg2}">
-			</div>
-			</c:if>
-			
-			<c:if test="${rVO.realestateImg3 eq 'empty'}">
 			<div class="col-md-4 mb-4">
 				<label for="realestateImg3">Image of Place #3 (optional)</label> 
-				<input type="file" class="form-control" id="realestateImg3" name="realestateImg3" class='btn alazea-btn'>
-			</div>
-			</c:if>
-			<c:if test="${rVO.realestateImg3 ne 'empty'}">
-			<div class="col-md-4 mb-4">
-				<img src="${realimage}${rVO.realestateImg3}">
-				<input type="hidden" name='realestateImg3' value="${rVO.realestateImg3}">
-			</div>
-			</c:if>
+				<input type="file" class="form-control" id="realestateImg3" name="realestateImg3">
+			</div> -->
 		</div>
 		<hr>
-		<c:if test="${sessionScope.userVO!=null }">
-			<c:set var="loginId" value="${sessionScope.userVO.memberId}" />
-		</c:if>
-		<c:if test="${sessionScope.userVO==null }">
-			<c:set var="loginId" value="null" />
-		</c:if>
-		<c:if test="${rVO.memberId.equals(loginId)}">
-			<button type="button" class='btn alazea-btn' onclick='window.history.back();'>Back</button>
-			<button type="submit" class='btn alazea-btn'>Modify</button>
-		</c:if>
+		<a href="realestate">
+		<button type="button" class='btn alazea-btn'>Back</button></a>
+		<button type="submit" class='btn alazea-btn'>Write</button>
 	</form>
 </div>
-
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
 <script>
 	//다음 지도 & 주소 검색 API
@@ -371,10 +291,9 @@
 	});
 	function execDaumPostcode() {
 	    new daum.Postcode({
-	    	oncomplete: function(data) {
+	        oncomplete: function(data) {
 	            var addr = data.addressEnglish; 
 	            var sido = data.sido;
-	            var korAddr = data.address;
 	            switch(sido){
 		            case '서울': $('#realestateCategory1').val("seoul");
 		            		$("#realestateCategory1Real").val("seoul");
@@ -430,7 +349,6 @@
 		            }
 	            document.getElementById("realestateLocation").value = addr;
 	            document.getElementById("realestateLocationReal").value = addr;
-	            document.getElementById("realestateTemp2").value = korAddr;
 	            geocoder.addressSearch(data.address, function(results, status) {
 	                if (status === daum.maps.services.Status.OK) {
 	                    var result = results[0]; 
