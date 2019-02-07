@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
-import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
+import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
@@ -250,6 +250,17 @@ public class BoardDAOImpl implements BoardDAO {
 	public int sendMessage(Map<String, Object> map) {
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", map);
 	}
+	// 채팅 글뿌리기
+	@Override
+	public List<ChattingVO> chatting(){
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.chatting");
+	}
+	// 채팅 글 쓰기
+	@Override
+	public int chattingWrite(ChattingVO vo) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.chattingWrite", vo);
+	}
+	
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -332,6 +343,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber);
 	}
+	
 
 	// 진호 메소드 종료------------------------------------------------
 

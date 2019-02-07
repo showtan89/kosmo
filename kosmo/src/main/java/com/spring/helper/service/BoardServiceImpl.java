@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
-import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
+import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -764,7 +764,31 @@ public class BoardServiceImpl implements BoardService {
 
 		return sendCnt;
 	}
-
+	// 채팅 글뿌리기
+	@Override
+	public void chatting(HttpServletRequest req, Model model) {
+		List<ChattingVO> chat = boardDao.chatting();
+		
+		model.addAttribute("chat", chat);
+		
+	}
+	// 채팅 글쓰기
+	@Override
+	public Integer chattingWrite(HttpServletRequest req) {
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		String chattingMemberId = userVO.getMemberId();
+		String chattingContent = req.getParameter("chattingContent");
+		
+		ChattingVO vo = new ChattingVO();
+		
+		vo.setChattingRegdate(new Timestamp(System.currentTimeMillis()));
+		vo.setChattingMemberId(chattingMemberId);
+		vo.setChattingContent(chattingContent);
+		
+		int chattingWrite = boardDao.chattingWrite(vo);
+		
+		return chattingWrite;
+	}
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------
@@ -1041,6 +1065,8 @@ public class BoardServiceImpl implements BoardService {
 
 		model.addAttribute("originData", originData);
 	}
+	
+	
 
 
 	// 대호 끝 =================================
