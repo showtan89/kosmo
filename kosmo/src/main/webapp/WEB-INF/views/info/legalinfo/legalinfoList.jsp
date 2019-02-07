@@ -6,7 +6,7 @@
 <%@ page import="java.util.Map" %>
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="">
@@ -78,13 +78,11 @@
 						</div>
 					</div>
 					
+					<br>
+					<br>
+						<br>
+					<div class="col-12" style="margin: 0; padding: 0;" id="KnowledgeAjaxStart2">
 					
-					<div class="col-12" style="margin: 0; padding: 0;" id="KnowledgeAjaxStart">
-					<ul align="left">
-						<li>ㅇㅇㅇ</li>
-						<li>ㅇㅇㅇ</li>
-						<li>ㅇㅇㅇ</li>
-					</ul>
 					</div>
 				</div>
 			</div>
@@ -105,10 +103,17 @@
 <!-- ##### Footer Area End ##### -->
 
 </body>
+<script src="resources/js/legalinfostate.js"></script>
 <script>
 function legalin(title){
 		var ti = title;
 		$('#legalintitle').text(ti);
+		$(function(){
+			getlegalinfoJsonData();
+		});
 }
+$(function(){
+	getlegalinfoJsonData();
+});
 </script>
 </html>
