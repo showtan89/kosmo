@@ -6,24 +6,35 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.w3c.dom.CharacterData;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.service.BoardService;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
+import com.spring.helper.vo.jsonVO.news.jsonlegalinfo;
 import com.spring.helper.vo.BoardVO.oCommentVO;
 
 @RestController
@@ -36,6 +47,67 @@ public class BoardRestController {
 	
 	@Autowired
 	BoardDAO boardDao;
+	
+	//동욱이 메소드 시작
+	// 법률정보 가져오기
+	@RequestMapping(value="legalinfoJson", method = RequestMethod.GET)
+	public ResponseEntity<ArrayList<jsonlegalinfo>> legalinfoJson(HttpServletRequest req, Model model) throws Exception{
+				// XML 데이터 읽어올 주소
+				String url = "http://www.law.go.kr/DRF/lawService.do?OC=elwksl2&target=law&MST=152338&type=XML";
+				// XML 데이터 파싱 부분
+				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+				Document doc = dBuilder.parse(url);
+				    NodeList nodes = doc.getElementsByTagName("조문단위");
+				    ArrayList<jsonlegalinfo> ss = new ArrayList<jsonlegalinfo>();
+				    for (int i = 0; i < nodes.getLength(); i++) {
+				    	jsonlegalinfo vo = new jsonlegalinfo();
+				      Element element = (Element) nodes.item(i);
+				      NodeList title = element.getElementsByTagName("조문내용");
+				      Element line = (Element)title.item(0);
+				      //test[i] = "";
+				      //test[i] += getCharacterDataFromElement(line)+"\n";
+				      vo.setA(getCharacterDataFromElement(line));
+				      if(element.getElementsByTagName("항내용")!=null) {
+			    		  NodeList title2 = element.getElementsByTagName("항내용");
+			    		  String[] test = new String[title2.getLength()];
+			    		  for(int j=0;j<title2.getLength();j++) {
+			    			  Element line2 = (Element)title2.item(j);
+			    			  test[j] =getCharacterDataFromElement(line2);
+				    		  if(element.getElementsByTagName("호내용")!=null) {
+					    		  NodeList title3 = element.getElementsByTagName("호내용");
+					    		  String[] test2 = new String[title3.getLength()];
+					    		  for(int k=0;k<title3.getLength();k++) {
+						    		  Element line3 = (Element)title3.item(k);
+						    		  test2[k] =getCharacterDataFromElement(line3);
+					    		  }
+						    	  vo.setC(test2);
+					    	  }
+			    		  }
+			    		  vo.setB(test);
+				      }
+				      ss.add(vo);
+			      }
+		return new ResponseEntity<ArrayList<jsonlegalinfo>>(ss,HttpStatus.OK);
+	}
+	//법률정보 가져온 데이터 가공하기
+	public static String getCharacterDataFromElement(Element e) {
+
+	    NodeList list = e.getChildNodes();
+	    String data;
+
+	    for(int index = 0; index < list.getLength(); index++){
+	        if(list.item(index) instanceof CharacterData){
+	            CharacterData child = (CharacterData) list.item(index);
+	            data = child.getData();
+
+	            if(data != null && data.trim().length() > 0)
+	                return child.getData();
+	        }
+	    }
+	    return "";
+	}
+	
 	// 지식인 게시판 리스트 출력 호출
 	@RequestMapping(value="KnowledgeListJson", method = RequestMethod.GET)
 	public ResponseEntity<Map<String,Object>> KnowledgeListJson(HttpServletRequest req, Model model) throws Exception{
@@ -146,7 +218,7 @@ public class BoardRestController {
 		
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
-	
+	// 동욱이 메소드 종료
 	
 	// 부동산 댓글 출력 호출
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.GET)
@@ -158,6 +230,7 @@ public class BoardRestController {
 	}
 	
 	// 부동산 댓글 등록 호출
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.POST) //VO로 받는 부분
 	public ResponseEntity<String> realestateCommentsWrite(@RequestBody RealestateCommentsVO cVO, HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - POST 호출");
@@ -172,6 +245,7 @@ public class BoardRestController {
 	}
 	
 	// 부동산 댓글 삭제 호출
+	@Secured({"ROLE_USER","ROLE_ADMIN"}) 
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.DELETE)
 	public ResponseEntity<String> realestateCommentsDelete(@RequestBody String cNumber, HttpServletRequest req, Model model) throws Exception{
 		logger.info("realestateCommentsJson - DELETE 호출");
@@ -201,6 +275,7 @@ public class BoardRestController {
 		return entity;
 	}*/
 	
+	// ------------- 민석 --------------------------
 	//헤더 알람 갯수 카운트
 	@RequestMapping(value="alarmCnt", method = RequestMethod.GET)
 	ResponseEntity<Integer> alarmCnt(HttpServletRequest req ){
@@ -209,6 +284,8 @@ public class BoardRestController {
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
 	}
 	
+	// 쪽지 시작
+	//--------------- 민석 ---------------------------------
 	// 원데이 클래스 댓글 리스트 출력
 /*	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
 	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{

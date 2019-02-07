@@ -67,6 +67,13 @@ public class HelPerController{
 		return "login";
 	}
 
+	//권한 없음 페이지 테스트중
+	@RequestMapping("error403")
+	public String error403(HttpServletRequest req) {
+		logger.info("error403 로딩 중....");
+		return "error403";
+	}
+	
 	@RequestMapping("content")
 	public String contents() {
 		logger.info("content 로딩 중....");
@@ -121,7 +128,8 @@ public class HelPerController{
 		if(req.getParameter("loginPage")!=null);
 		model.addAttribute("loginPage",req.getParameter("loginPage"));
 
-		service.alarmBoard(req, model);
+		service.commentAlarmBoard(req, model);
+		service.messageAlarmBoard(req, model);
 		return "board/message/alarmBoard";
 	}
 	// 댓글 알람 삭제
@@ -132,14 +140,6 @@ public class HelPerController{
 		service.commentAlarmDelete(req, model);
 
 		return "board/message/commentAlarmDelete";
-	}
-	@RequestMapping("chattingAlarmDelete")
-	public String chattingAlarmDelete(HttpServletRequest req,Model model) {
-		logger.info("chattingAlarmDelete 로딩 중.....");
-		
-		service.chattingAlarmDelete(req, model);
-		
-		return "board/message/chattingAlarmDelete";
 	}
 	
 	//민석이 끝++++++++++++++++++++++++++++++++

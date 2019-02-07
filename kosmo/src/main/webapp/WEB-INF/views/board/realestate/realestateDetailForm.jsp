@@ -124,38 +124,36 @@
 								data-ride="carousel">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
-										<%-- <a class="product-img" href="${realimage}${rVO.realestateImg1}" title="Product Image">  --%>
+										<a class="product-img" href="${realimage}${rVO.realestateImg1}" title="Image 1">
 										<img class="d-block w-100" src="${realimage}${rVO.realestateImg1}" alt="1">
-										<!-- </a> -->
+										</a>
 									</div>
 									<c:if test="${!rVO.realestateImg2.equals('empty')}">
 										<div class="carousel-item">
-											<%-- <a class="product-img" href="${realimage}${rVO.realestateImg2}" title="Product Image">  --%>
-											<img class="d-block w-100" src="${realimage}${rVO.realestateImg2}" alt="1">
-											<!-- </a> -->
+											<a class="product-img" href="${realimage}${rVO.realestateImg2}" title="Image 2">
+											<img class="d-block w-100" src="${realimage}${rVO.realestateImg2}" alt="2">
+											</a>
 										</div>
 									</c:if>
 									<c:if test="${!rVO.realestateImg3.equals('empty')}">
 										<div class="carousel-item">
-											<%-- <a class="product-img" href="${realimage}${rVO.realestateImg3}" title="Product Image">  --%>
-											<img class="d-block w-100"
-												src="${realimage}${rVO.realestateImg3}" alt="1">
-											<!-- </a> -->
+											<a class="product-img" href="${realimage}${rVO.realestateImg3}" title="Image 3">
+											<img class="d-block w-100" src="${realimage}${rVO.realestateImg3}" alt="3">
+											</a>
 										</div>
 									</c:if>
 								</div>
 								<ol class="carousel-indicators">
-									<c:if
-										test="${!rVO.realestateImg2.equals('empty') && !rVO.realestateImg3.equals('empty')}">
+									<c:if test="${rVO.realestateImg1 ne 'empty'}">
 										<li class="active" data-target="#product_details_slider"
 											data-slide-to="0"
 											style="background-image: url(${realimage}${rVO.realestateImg1});"></li>
 									</c:if>
-									<c:if test="${!rVO.realestateImg2.equals('empty')}">
+									<c:if test="${rVO.realestateImg2 ne 'empty'}">
 										<li data-target="#product_details_slider" data-slide-to="1"
 											style="background-image: url(${realimage}${rVO.realestateImg2});"></li>
 									</c:if>
-									<c:if test="${!rVO.realestateImg3.equals('empty')}">
+									<c:if test="${rVO.realestateImg3 ne 'empty'}">
 										<li data-target="#product_details_slider" data-slide-to="2"
 											style="background-image: url(${realimage}${rVO.realestateImg3});"></li>
 									</c:if>
@@ -184,6 +182,7 @@
 							<div class="description_area">
 								<p>
 									<span>Location detail : </span> <span>${rVO.realestateLocation}</span>
+									<input type="hidden" value='${rVO.realestateTemp2}' id="realestateTemp2">
 								</p>
 								<p>
 									<span>Management fees per Week : </span> <span> <fmt:setLocale
@@ -394,7 +393,7 @@
 		</div>
 		<c:if test="${rVO.memberId.equals(loginId)}">
 			<a href="realestateModifyForm?realestateNumber=${param.realestateNumber}"><button type="button" class='btn alazea-btn'>Modify</button></a>
-			<button id="myBtn" class='btn alazea-btn'>Delete</button>
+			<button id="myBtn" class='btn alazea-btn active'>Delete</button>
 			
 			<!-- The Modal -->
 			<div id="myModal" class="modal">
@@ -429,15 +428,19 @@
 				<div class="col-12">
 					<div class="product_details_tab clearfix">
 						<!-- Tabs -->
-						<ul class="nav nav-tabs" role="tablist" id="product-details-tab">
+						
+						<div class="col-md-12 mb-4" id="map">
+						</div>
+						
+						<!--<ul class="nav nav-tabs" role="tablist" id="product-details-tab">
 							<li class="nav-item"><a href="#reviews" class="nav-link active" data-toggle="tab" role="tab">Comments</a></li>
-							<li class="nav-item"><a href="#description" class="nav-link" data-toggle="tab" role="tab"> Additional Information</a></li>
-						</ul>
+							 <li class="nav-item"><a href="#description" class="nav-link" data-toggle="tab" role="tab"> Additional Information</a></li> 
+						</ul>-->
 						<!-- Tab Content -->
 						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane fade show active"
-								id="reviews">
-								<c:if test="${sessionScope.userVO!=null }">
+							<div role="tabpanel" class="tab-pane fade show active" id="reviews">
+								<c:if test="${sessionScope.userVO ne null }">
+									<c:if test="${sessionScope.userVO.authority ne 'ROLE_GUEST' }">
 									<div class="submit_a_review_area mt-50">
 										<h4>Submit Comment</h4>
 										<!-- <form action="realestateCommentPro" method="post"> -->
@@ -457,19 +460,18 @@
 										</div>
 										<!-- </form> -->
 									</div>
+									</c:if>
 								</c:if>
 								<!-- JSON -->
 								<div id="realestateCommentJson">
 								
 								</div>
 							</div>
-							<div role="tabpanel" class="tab-pane fade" id="description">
+							<!-- <div role="tabpanel" class="tab-pane fade" id="description"  style="height:300px">
 								<div class="description_area">
-									<div class="col-md-12 mb-4" id="map" style="display:none">
-									&nbsp;
-									</div>
+									
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -484,29 +486,36 @@
 	/*$(document).ready(getJsonData());*/
 	$(function(){
 		getJsonData();
+		var temp = $("#realestateTemp2").val();
+		if(temp != null){
+			var Juso = temp;
+		}else {
+			var Juso = "서울특별시 금천구 가산동 426-5";
+		}
+		var Name = 'Here';
 		
 		var mapContainer = document.getElementById('map'), 
 		mapOption = {
-		    center: new daum.maps.LatLng(37.537187, 127.005476), 
-		    level: 4 
+			center: new daum.maps.LatLng(33.450701, 126.570667), 
+			level: 4,
 		};
-		var map = new daum.maps.Map(mapContainer, mapOption);
+		mapContainer.style.height = '300px'; 
+		var map = new daum.maps.Map(mapContainer, mapOption); 
 		var geocoder = new daum.maps.services.Geocoder();
-		var marker = new daum.maps.Marker({
-			position: new daum.maps.LatLng(37.537187, 127.005476),
-			map: map
-			});
-		var data = '${rVO.realestateLocation}';
-		geocoder.addressSearch(data, function(results, status) {
-	              if (status === daum.maps.services.Status.OK) {
-	                  var result = results[0]; 
-	                  var coords = new daum.maps.LatLng(result.y, result.x);
-	                  mapContainer.style.display = "block";
-	                  map.relayout();
-	                  map.setCenter(coords);
-	                  marker.setPosition(coords)
-	              }
-	          });
+		geocoder.addressSearch(Juso, function(result, status) {
+			if (status === daum.maps.services.Status.OK) {
+				var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+				var marker = new daum.maps.Marker({
+					map: map,
+					position: coords
+				});
+				var infowindow = new daum.maps.InfoWindow({
+					content: '<div style="width:150px;text-align:center;padding:6px 0;">'+Name+'</div>'
+				});
+				infowindow.open(map, marker);
+				map.setCenter(coords);
+			} 
+		});
 	});
 </script>
 </body>

@@ -21,7 +21,6 @@ public class TravelController {
 		logger.info("travelBoard 로딩 중....");
 		return "travel/travel/travelBoardList";
 	}
-
 	//재영 TravelController 끝 ====================================================================================
 
 }
