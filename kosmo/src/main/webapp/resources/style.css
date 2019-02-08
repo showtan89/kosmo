@@ -165,6 +165,7 @@ img {
 
 /* :: 3.5.0 Preloader */
 .preloader {
+	
   background-color: #f2f4f5;
   width: 100%;
   height: 100%;
@@ -2653,3 +2654,7 @@ img {
 .bg-img-custom {
 	background-image: url("./img/bg-img/3.jpg");
 	background-repeat: repeat !important;}
+
+.trans-preloader{
+	opacity: 0.7;
+}

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.spring.helper.service.UtilService;
 
 import com.spring.helper.service.UtilService;
 
@@ -19,15 +22,17 @@ public class UtilController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UtilController.class);
 
+	@Autowired
+	UtilService utilService;
+	
 	//재영 UtilController 시작 ====================================================================================
 
-	//이미지 검색 기능
+	//이미지 검색 페이지 이동
 	@RequestMapping("imageSearch")
 	public String imageSearch(HttpServletRequest req, Model model) throws Exception {
 		logger.info("imageSearch 로딩 중....");
 		return "util/image/imageSearch";
 	}
-
 	//재영 UtilController 끝 ====================================================================================
 	
 	

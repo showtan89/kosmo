@@ -6,7 +6,7 @@
 <%@ page import="java.util.Map" %>
 <!DOCTYPE html>
 
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="">
@@ -55,10 +55,10 @@
 		<div class="col-12">
 			<div class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between" 
 			style="margin:20px 0 0 0;padding-bottom:10px;">
-					<button style="margin:3px 0;"type="button" class='btn alazea-btn' onclick="legalin('decree Information');">decree Information</button>
-					<button type="button" class='btn alazea-btn' onclick="legalin('Incident Information');">Incident Information</button>
-					<button type="button" class='btn alazea-btn' onclick="legalin('leading case Information');">leading case Information</button>
-					<button type="button" class='btn alazea-btn' onclick="legalin('Recent sentence Information');">Recent sentence Information</button>
+					<button style="margin:3px 0;"type="button" class='btn alazea-btn' onclick="legalin('ALL');">ALL</button>
+					<button type="button" class='btn alazea-btn' onclick="legalin('Foreigner');">Foreigner</button>
+					<button type="button" class='btn alazea-btn' onclick="legalin('Employment');">Employment</button>
+					<button type="button" class='btn alazea-btn' onclick="legalin('life');">life</button>
 			</div>
 		</div>
 	</div>
@@ -70,10 +70,10 @@
 				<div class="row">
 					<div name="legalindiv"style="width: 100%; margin: 0 0 15px 0; padding: 0 5px;">
 						<div id="knowledge_div3">
-							<h4 style="float: left;padding-top:10px;"id="legalintitle" class="knowledgeup">decree Information</h4>
+							<h4 style="float: left;padding-top:10px;"id="legalintitle" class="knowledgeup">ALL</h4>
 							<div class="knowledge_select">
 								<input class="knowledge_select2" type="text" maxlength="30" name="search" id="search" placeholder=""> 
-								<input class="knowledge_select3" id="SearchButton" type="button" onclick="knowledgeBoardListsearch();" value="SEARCH">
+								<input class="knowledge_select3" id="SearchButton" type="button" onclick="getlegalinfoJsonData2();" value="SEARCH">
 							</div>
 						</div>
 					</div>
@@ -108,12 +108,12 @@
 function legalin(title){
 		var ti = title;
 		$('#legalintitle').text(ti);
-		$(function(){
-			getlegalinfoJsonData();
-		});
+			getlegalinfoJsonData2();
 }
 $(function(){
-	getlegalinfoJsonData();
+	getlegalinfoJsonData2();
 });
+
+
 </script>
 </html>

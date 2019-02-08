@@ -508,6 +508,17 @@
 		( #{userVO.memberEmail}, #{userVO.memberId}, #{messageSendId}, messageseq.nextval, #{messageContent}, sysdate, 1, 0, '0', '0' )	
 	</insert>
 	
+	<!-- 채팅 글 뿌리기-->
+	<select id="chatting" resultType="com.spring.helper.vo.BoardVO.ChattingVO">
+		SELECT * FROM chatting
+	</select>
+	
+	<!-- 채팅 글쓰기 -->
+	<insert id="chattingWrite" parameterType="com.spring.helper.vo.BoardVO.ChattingVO">
+		INSERT INTO chatting VALUES
+		( chattingseq.nextval, #{chattingMemberId}, #{chattingContent}, sysdate, 0, 'n', 'n' )	
+	</insert>
+	
 	<!-- 민석이 종료+++++++++++++++++++++++++++++++++++ -->
 
 	<!-- 진호 시작ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->

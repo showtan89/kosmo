@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
-<title>Helper - Foriener &amp; Help HTML Template</title>
+<title>Helper - Interaction &amp; Help HTML Template</title>
 
 <head lang="en">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -66,10 +66,10 @@
 			<nav>
 				<ul>
 					<li><a href="#section-1"><span>Comment</span></a></li>
-					<li><a href="#section-2"><span>Message</span></a></li>
-					<li><a href="#section-3"><span>Send Message</span></a></li>
-					<li><a href="#section-4"><span>Chatting</span></a></li>
-					<li><a href="#section-5"><span>Order</span></a></li>
+					<li><a href="#section-2"><span>Receive Message</span></a></li>
+					<li><a href="#section-3"><span>Message</span></a></li>
+					<li><a href="#section-4"><span>Send Message</span></a></li>
+					<li><a href="#section-5"><span>Chatting</span></a></li>
 				</ul>
 			</nav>
 			<div class="content">
@@ -236,13 +236,16 @@
 				<section id="section-3" align="center">
 					<b>Message receiving ID</b> &nbsp; <input type="text"
 						name="messageSendId" id="messageSendId" value=""
-						style="padding: 1px; border: 1px solid #333;"> <br> <b>CONTENT</b>
+						style="padding: 1px; border: 1px solid #333;"> 
 					<br>
-
+					<br> 
+						<b>CONTENT</b>
+					<br>
+					<br>
 					<textarea class="content" id="messageContent" maxlength="600"
 						style="width: 80%; height: 20%; padding: 5px 5px;"
 						name="messageContent"></textarea>
-
+					<br>
 					<br> <input type="button" class="btn btn-success mr-30"
 						value="send message" style="padding: 1px;"
 						onclick="sendMessage();">
@@ -250,75 +253,106 @@
 				</section>
 				<section id="section-4">
 					<div class="mediabox">
-						<img src="resources/img/03.png" alt="img03" />
-						<h3>Tomato Cucumber Curd</h3>
-						<p>Chickweed okra pea winter purslane coriander yarrow sweet
-							pepper radish garlic brussels sprout groundnut summer purslane
-							earthnut pea tomato spring onion azuki bean gourd.</p>
-					</div>
-					<div class="mediabox">
-						<img src="resources/img/01.png" alt="img01" />
-						<h3>Mushroom Green</h3>
-						<p>Salsify taro catsear garlic gram celery bitterleaf wattle
-							seed collard greens nori. Grape wattle seed kombu beetroot
-							horseradish carrot squash brussels sprout chard.</p>
-					</div>
-					<div class="mediabox">
-						<img src="resources/img/04.png" alt="img04" />
-						<h3>Swiss Celery Chard</h3>
-						<p>Celery quandong swiss chard chicory earthnut pea potato.
-							Salsify taro catsear garlic gram celery bitterleaf wattle seed
-							collard greens nori.</p>
+						<table class="table table-hover" style="width: 335%;">
+							<!-- style="width: 100%; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" -->
+							<tr>
+								<th>Receiver</th>
+								<th>Contents</th>
+								<th>Sending time</th>
+								<th>Checked message</th>
+								<th>Delete</th>
+							</tr>
+							<c:forEach var="mos" items="${mos}">
+								<c:if
+									test="${sessionScope.userVO.memberId.equals(mos.messageFromId)}">
+									<tr>
+										<!-- ${!sessionScope.userVO.memberId.equals(cos.memberid)} -->
+										<td>${mos.messageSendId}</td>
+										<!-- align="center" -->
+
+										<td><a onclick="messageContent();">${mos.messageContent}</a></td>
+										<td>${mos.messageRegdate}</td>
+										<td>checked</td>
+										<td><input type="button" class="btn btn-success mr-30"
+											value="delete"
+											onclick="window.location='messageDelete?messageNumber=${mos.messageNumber}&pageNum=${pageNum}';"></td>
+									</tr>
+								</c:if>
+							</c:forEach>
+							<tr>
+								<td colspan="5">
+									<div id="page" align="center">
+										<table align="center">
+											<tr>
+												<th align="center">
+													<!-- 게시글이 있으면 --> <c:if test="${cnt > 0}">
+														<!-- 처음[◀◀]/ 이전블록 --[◀ ]-->
+														<c:if test="${startPage > pageBlock}">
+															<a href="alarmBoard">[ ◀◀ ]</a>
+															<a href="alarmBoard?pageNum=${startPage - pageBlock}">[
+																◀ ]</a>
+														</c:if>
+
+														<!-- 블록내의 페이지 번호 -->
+														<c:forEach var="i" begin="${startPage}" end="${endPage}">
+															<c:if test="${i == currentPage}">
+																<span><b>[${i}]</b></span>
+															</c:if>
+															<c:if test="${i != currentPage}">
+																<a href="alarmBoard?pageNum=${i}">[${i}]</a>
+															</c:if>
+
+														</c:forEach>
+
+														<!--  다음[▶]/첫페이지[▶▶] -->
+														<c:if test="${pageCount > endPage}">
+															<a href="alarmBoard?pageNum=${startPage + pageBlock}">[
+																▶ ]</a>
+															<a href="alarmBoard?pageNum=${pageCount}">[▶ ▶ ]</a>
+														</c:if>
+													</c:if>
+												</th>
+											</tr>
+										</table>
+									</div>
+								</td>
+							</tr>
+						</table>
 					</div>
 				</section>
-				<section id="section-5">
-					<div class="mediabox">
-						<img src="resources/img/02.png" alt="img02" />
-						<h3>Radish Tomato</h3>
-						<p>Catsear cauliflower garbanzo yarrow salsify chicory garlic
-							bell pepper napa cabbage lettuce tomato kale arugula melon sierra
-							leone bologi rutabaga tigernut.</p>
-					</div>
-					<div class="mediabox">
-						<img src="resources/img/06.png" alt="img06" />
-						<h3>Fennel Wasabi</h3>
-						<p>Sea lettuce gumbo grape kale kombu cauliflower salsify
-							kohlrabi okra sea lettuce broccoli celery lotus root carrot
-							winter purslane turnip greens garlic.</p>
-					</div>
-					<div class="mediabox">
-						<img src="resources/img/01.png" alt="img01" />
-						<h3>Red Tofu Wrap</h3>
-						<p>Green horseradish azuki bean lettuce avocado asparagus
-							okra. Kohlrabi radish okra azuki bean corn fava bean mustard
-							tigernut wasabi tofu broccoli mixture soup.</p>
-					</div>
+				<section id="section-5" align="center">
+
+					Talk to everyone.<br>
+					Share your travel information.<br>
+					You may ask	questions! <br><br>
+					<input type="button" class="btn btn-success mr-30"
+						value="ChattingRoomEnter" style="padding: 1px;"
+						onclick="chatting();">
 				</section>
 			</div>
 			<!-- /content -->
 		</div>
 		<!-- /tabs -->
-
-
-
 	</div>
 
 	<jsp:include page="../../setting/footer01.jsp" flush="false" />
 	<script src="resources/js/cbpFWTabs.js"></script>
 	<script>
-		new CBPFWTabs( document.getElementById( 'tabs' ) );
-		
-		function sendMessage(){
-			var messageSendId=$("#messageSendId").val();
-			var messageContent=$("#messageContent").val();
-			window.location='messageSend?messageSendId='+messageSendId+'&messageContent='+messageContent;
+		new CBPFWTabs(document.getElementById('tabs'));
+
+		function sendMessage() {
+			var messageSendId = $("#messageSendId").val();
+			var messageContent = $("#messageContent").val();
+			window.location = 'messageSend?messageSendId=' + messageSendId
+					+ '&messageContent=' + messageContent;
 		}
-		
-		function messageContent(){
-			alert($("#mos.messageContent").val());
+
+		// 채팅 창 open
+		function chatting() {
+			var url = "chattingstart";
+			window.open(url, "chatting", "menubar=yes, width=800, height=800");
 		}
-		
-		
-		</script>
+	</script>
+	
 </body>
 </html>
