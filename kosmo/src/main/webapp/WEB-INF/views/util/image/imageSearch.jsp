@@ -37,7 +37,6 @@
 
 <!-- 이미지 서치 본문  -->
 <div class="container" style="margin-bottom: 50px;">
-	<h1 style="color:red">구글 API 무료 사용량 정해져 있으니 주의!ㅠㅠ</h1>
 	<h5>Image Search</h5>
 	<hr>
 	<!-- <form action="imageSearchPro" method="POST" enctype="multipart/form-data" onsubmit="return getImageInfo();"> -->
@@ -68,8 +67,18 @@
 	<hr>
 	<!-- 데이터가 뿌려지는 공간 -->
 	<div class="shop-products-area">
-		<div class="card flex-md-row mb-4 shadow-sm h-md-250" id="jsonResult" style="padding-top: 15px; padding-bottom: 15px;">
-		</div>
+		<div class="card flex-md-row mb-4 shadow-sm h-md-250" id="jsonResult" style="padding:15px;">
+		<span><b>Image Search how to use</b><br>
+		Please select a type, attach the picture or image you took, then press the search button and wait.<br><br>
+		<br>
+		<b>Type</b><br>
+		Label - Analyze the overall information about the picture.<br>
+		Landmark -  Specialized searching for landmarks. <b>***under development***</b><br>
+		Text Reader - Extracts text from the image. If you don't know what it means, use it with the search feature at the top of the page. <b>***under development***</b><br>
+		<br>
+		<b>Image File</b><br>
+		Photographs or high-definition images may take some time to analyze.
+		</span></div>
 	</div>
 </div>
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
