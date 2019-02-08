@@ -779,16 +779,13 @@ public class BoardServiceImpl implements BoardService {
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
 		String chattingMemberId = userVO.getMemberId();
 		logger.info("chattingMemberId : " + chattingMemberId);
-		String chattingContent = req.getParameter("chattingContent");
-		logger.info("chattingContent : " + chattingContent);
 		
-		ChattingVO vo = new ChattingVO();
+		
 		
 		//vo.setChattingRegdate(new Timestamp(System.currentTimeMillis()));
-		vo.setChattingMemberId(chattingMemberId);
-		vo.setChattingContent(chattingContent);
+		cVO.setChattingMemberId(chattingMemberId);
 		
-		int chattingWrite =boardDao.chattingWrite(vo);
+		int chattingWrite =boardDao.chattingWrite(cVO);
 		
 		return chattingWrite;
 	}
