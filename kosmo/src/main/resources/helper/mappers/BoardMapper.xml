@@ -446,18 +446,19 @@
 
 
 	<!-- 민석이 시작 -->
-	<!-- 메세지 알람과 댓글 알람의 총합(메세지 알람 + 댓글 알람) -->
+	
+	<!-- 멧세지 알람과 댓글 알람의 총합(멧세지 알람 + 댓글 알람) -->
 	<select id="commentReadCnt" resultType="int" parameterType="String">
 		select count(*) cnt from  commentalarm where memberEmail = #{memEmail}
 	</select>		
 	
-	<select id="chattingReadCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  chattingalarm where memberEmail = #{memEmail}
+	<select id="messageReadCnt" resultType="int" parameterType="String">
+		select count(*) cnt from  message where messageSendId = #{memberId}
 	</select>
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
-	<update id="chattingReadList2" parameterType="String">
-		UPDATE chattingalarm SET chattingalarm = 2 WHERE chattingalarm = 1 AND memberEmail = #{memEmail}
+	<update id="messageReadList2" parameterType="String">
+		UPDATE message SET messagealarm = 2 WHERE messagealarm = 1 AND messageSendId = #{memberId}
 	</update >
 	
 	<!-- 알람 게시판으로 이동 했을때 alarm숫자 업데이트 -->
@@ -465,11 +466,11 @@
 		UPDATE commentalarm SET commentalarm = 2 WHERE commentalarm = 1 AND memberEmail = #{memEmail}
 	</update >
 	
-	<!-- 채팅 알람의 리스트 -->
-	<select id="chattingReadList" resultType="com.spring.helper.vo.BoardVO.ChattingAlarmVO" parameterType="java.util.Map">
+	<!-- 쪽지 알람의 리스트 -->
+	<select id="messageReadList" resultType="com.spring.helper.vo.BoardVO.MessageVO" parameterType="java.util.Map">
 		<![CDATA[
-			SELECT * FROM (SELECT chattingnumber, membernumber, boardcode, memberemail, memberid, membercountry, chattingsubject, chattingcontent, chattingalarm, chattingregdate, rownum rNum 
-			FROM ( SELECT * FROM chattingalarm WHERE chattingalarm != 0 ORDER BY chattingregdate DESC ))
+			SELECT * FROM (SELECT messageNumber, memberEmail, messageFromId, messageSendId, messageContent, messageRegdate, messageAlarm, rownum rNum 
+			FROM ( SELECT * FROM message WHERE messagealarm != 0  AND messageSendId = #{userVO.memberId} ORDER BY messageregdate DESC ))
 			WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
@@ -482,32 +483,43 @@
 				WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
+	
 	<!-- 댓글 알람 삭제 -->
 	<delete id="commentDelete" parameterType="int">
 		 delete from commentalarm where commentnumber = #{commentnumber}
 	</delete>
 	
-	<!-- 채팅 알람 삭제 -->
-	<delete id="chattingDelete" parameterType="int">
-		 delete from chattingalarm where chattingnumber = #{chattingnumber}
+	<!-- 쪽지 알람 삭제 -->
+	<delete id="messageDelete" parameterType="int">
+		 delete from message where messagenumber = #{messagenumber}
 	</delete>
 	
 	<!-- ajax 댓글 알람 갯수 -->
 	<select id="commentAlarmCnt" resultType="int" parameterType="String">
 		SELECT COUNT(*) cnt FROM  commentalarm WHERE memberEmail = #{memEmail} AND commentalarm = 1
 	</select>
-	<!-- ajax 채팅 알람 갯수 -->
-	<select id="chattingAlarmCnt" resultType="int" parameterType="String">
-		SELECT COUNT(*) cnt FROM  chattingalarm WHERE memberEmail = #{memEmail} AND chattingalarm = 1
+	<!-- ajax 쪽지 알람 갯수 -->
+	<select id="messageCnt" resultType="int" parameterType="String">
+		SELECT COUNT(*) cnt FROM  message WHERE messageSendId = #{memberId} AND messagealarm = 1
 	</select>
-	
-	<!-- 민석 쪽지 보내기 -->
+	<!--  쪽지 보내기 -->
 	<insert id="sendMessage" parameterType="java.util.Map">
-		INSERT INTO message
-		VALUES(#{sendId}, #{fromId}, #{content}, sysdate)	
+		INSERT INTO message VALUES
+		( #{userVO.memberEmail}, #{userVO.memberId}, #{messageSendId}, messageseq.nextval, #{messageContent}, sysdate, 1, 0, '0', '0' )	
 	</insert>
 	
-	<!-- 민석이 종료 -->
+	<!-- 채팅 글 뿌리기-->
+	<select id="chatting" resultType="com.spring.helper.vo.BoardVO.ChattingVO">
+		SELECT * FROM chatting
+	</select>
+	
+	<!-- 채팅 글쓰기 -->
+	<insert id="chattingWrite" parameterType="com.spring.helper.vo.BoardVO.ChattingVO">
+		INSERT INTO chatting VALUES
+		( chattingseq.nextval, #{chattingMemberId}, #{chattingContent}, sysdate, 0, 'n', 'n' )	
+	</insert>
+	
+	<!-- 민석이 종료+++++++++++++++++++++++++++++++++++ -->
 
 	<!-- 진호 시작ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 	
@@ -583,7 +595,23 @@
 		 WHERE memberEmail = #{memberEmail}
 	</update>
 	<!-- 대호 끝 ㅋㅋㅋ -->
+
+	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
 	
-
-
+	
+	
+	
+	
+	<!-- emergency -->
+	<select id="emergency" resultType="java.util.Map">
+		SELECT hosNum, hosPhone, hosAddress, hosName, hosLocx, hosLocy, hosKind, hosDetail, rownum
+		  FROM hospitals
+		 ORDER BY rownum ASC
+	</select>
+	
+	<select id="emergencyCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM hospitals
+	</select>
+	
 </mapper>

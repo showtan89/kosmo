@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 
-import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
+import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -86,27 +87,33 @@ public interface BoardDAO {
 	public int commentReadCnt(String memEmail);
 
 	// 채팅 알람 갯수
-	public int chattingReadCnt(String memEmail);
+	public int messageReadCnt(String memberId);
 
-	// 댓글 알람 리스트
-	public List<CommentAlarmVO> chattingReadList(Map<String, Object> map);
+	// 쪽지 리스트
+	public List<MessageVO> messageReadList(Map<String, Object> map);
 
 	// 채팅알람 리스트
-	public List<ChattingAlarmVO> commentReadList(Map<String, Object> map);
+	public List<CommentAlarmVO> commentReadList(Map<String, Object> map);
 
 	// 댓글 알람 지우기
 	public int commentDelete (int commentnumber);
 
 	// 채팅 알람 지우기
-	public int chattingDelete (int chattingnumber);
-	
-	// ajax 알람 갯수 구하기(댓글)
+	public int messageDelete (int messagenumber);
+
+	// ajax 알람 갯수 
 	public int commentAlarmCnt(String memEmail);
+
+	public int messageCnt(String memberId);
+
+	// 쪽지 보내기
+	public int sendMessage(Map<String, Object> map);
 	
-	// ajax 알람 갯수 구하기(쪽지)
-	public int chattingAlarmCnt(String memEmail);
+	// 채팅 글뿌리기
+	public List<ChattingVO> chatting();
 	
-	public int sendMessage(MessageVO vo);
+	//채팅 글쓰기
+	public int chattingWrite(ChattingVO vo);
 
 	//민석이 메소드 종료+++++++++++++++++++++++++++++++
 
@@ -137,12 +144,17 @@ public interface BoardDAO {
 
 	// 계좌번호 업데이트
 	public int onedayclassAccountUpdate(Map<String, Object> map);
-	
-	
+
+
 	public ArrayList<oCommentVO> getoCommentList(int onedayclassNumber);
 
 
 	// 진호 메소드 종료--------------------------------------
 
+	// 대호 시작 ============================================
+	public List<HospitalVO> emergency();
+	
+	public int emergencyCnt();
+	// 대호 종료 ============================================
 
 }

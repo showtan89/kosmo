@@ -13,8 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
-import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
+import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -122,7 +123,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public int knowledgeSelectComent(Map<String, Object> map) {
 		// 질문자 포인트 차감
 		int cnt = 0;
-			cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent2",map);
+		cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent2",map);
 		// 글 채택완료 처리
 		if(cnt == 1)
 			cnt = sqlSession.update("com.spring.helper.dao.BoardDAO.knowledgeSelectComent3",map);
@@ -161,18 +162,18 @@ public class BoardDAOImpl implements BoardDAO {
 	public RealestateVO realestateGetArticle(int realestateNumber) {
 		return sqlSession.getMapper(BoardDAO.class).realestateGetArticle(realestateNumber);
 	}
-	
+
 	//부동산 게시판 글 수정
 	public Integer realestateModifyUpdate(RealestateVO rVO) {
 		return sqlSession.getMapper(BoardDAO.class).realestateModifyUpdate(rVO);
 	}
-	
+
 	//부동산 게시판 글 삭제
 	public Integer realestateDeleteArticle(int realestateNumber) {
 		sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateDeleteComments",realestateNumber);
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.realestateDeleteArticle",realestateNumber);
 	}
-	
+
 	// 부동산 게시판 댓글 가져오기
 	public List<RealestateCommentsVO> realestateGetCommentsList(int realestateNumber){
 		return sqlSession.getMapper(BoardDAO.class).realestateGetCommentsList(realestateNumber);
@@ -186,12 +187,12 @@ public class BoardDAOImpl implements BoardDAO {
 		}
 		return insertResult;
 	}
-	
+
 	//부동산 게시판 댓글 삭제
 	public Integer realestateCommentsDelete(int rCommentNumber) {
 		return sqlSession.getMapper(BoardDAO.class).realestateCommentsDelete(rCommentNumber);
 	}
-	
+
 	// 재영 boardDAOImpl 끝 ===============================================================================================
 
 
@@ -203,21 +204,21 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.update("com.spring.helper.dao.BoardDAO.commentReadList2", memEmail);
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentReadCnt", memEmail);
 	}
-	// 채팅 알람 갯수 구하기
+	// 쪽지 알람 갯수 구하기
 	@Override
-	public int chattingReadCnt(String memEmail) {
-		sqlSession.update("com.spring.helper.dao.BoardDAO.chattingReadList2", memEmail);
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingReadCnt", memEmail);
+	public int messageReadCnt(String memberId) {
+		sqlSession.update("com.spring.helper.dao.BoardDAO.messageReadList2", memberId);
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageReadCnt", memberId);
 	}
 
-	//채팅 알람 리스트
+	//쪽지 알람 리스트
 	@Override
-	public List<CommentAlarmVO> chattingReadList(Map<String, Object> map) {
-		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.chattingReadList", map);
+	public List<MessageVO> messageReadList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.messageReadList", map);
 	}
 	// 댓글 알람 리스트
 	@Override
-	public List<ChattingAlarmVO> commentReadList(Map<String, Object> map) {
+	public List<CommentAlarmVO> commentReadList(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.commentReadList", map);
 	}
 
@@ -231,24 +232,36 @@ public class BoardDAOImpl implements BoardDAO {
 
 	//채팅 알람 삭제
 	@Override
-	public int chattingDelete(int chattingnumber) {
-		return sqlSession.delete("com.spring.helper.dao.BoardDAO.chattingDelete", chattingnumber);
+	public int messageDelete(int messagenumber) {
+		return sqlSession.delete("com.spring.helper.dao.BoardDAO.messageDelete", messagenumber);
 	}
-	//채팅 및 댓글 알람 갯수
+	//댓글 알람 갯수
 	@Override
 	public int commentAlarmCnt(String memEmail) {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.commentAlarmCnt", memEmail);
 	}
+	
+	//쪽지 알람 갯수
 	@Override
-	public int chattingAlarmCnt(String memEmail) {
-		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingAlarmCnt", memEmail);
+	public int messageCnt(String memberId) {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageCnt", memberId);
+	}
+	// 쪽지 보내기 처리
+	@Override
+	public int sendMessage(Map<String, Object> map) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", map);
+	}
+	// 채팅 글뿌리기
+	@Override
+	public List<ChattingVO> chatting(){
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.chatting");
+	}
+	// 채팅 글 쓰기
+	@Override
+	public int chattingWrite(ChattingVO vo) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.chattingWrite", vo);
 	}
 	
-	//쪽지 보내기
-	@Override
-	public int sendMessage(MessageVO vo) {
-		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", vo);
-	}
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -324,7 +337,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public int onedayclassAccountUpdate(Map<String, Object> map) {
 		return sqlSession.update("com.spring.helper.dao.BoardDAO.onedayclassAccountUpdate", map);
 	}
-	
+
 	// 원데이게시판 댓글 리스트 출력
 	@Override
 	public ArrayList<oCommentVO> getoCommentList(int onedayclassNumber) {
@@ -332,13 +345,21 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber);
 	}
 	
-	
-	
-	// 
-
 
 	// 진호 메소드 종료------------------------------------------------
 
 
+	// 대호 시작 ==============================================================
+	@Override
+	public List<HospitalVO> emergency() {
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.emergency");
+	}
+	@Override
+	public int emergencyCnt() {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
+	}
+	
+	
+	// 대호 종료 ==============================================================
 
 }

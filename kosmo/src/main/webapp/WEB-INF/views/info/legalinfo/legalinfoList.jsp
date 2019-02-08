@@ -55,10 +55,10 @@
 		<div class="col-12">
 			<div class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between" 
 			style="margin:20px 0 0 0;padding-bottom:10px;">
-					<button style="margin:3px 0;"type="button" class='btn alazea-btn' onclick="legalin('decree Information');">decree Information</button>
-					<button type="button" class='btn alazea-btn' onclick="legalin('Incident Information');">Incident Information</button>
-					<button type="button" class='btn alazea-btn' onclick="legalin('leading case Information');">leading case Information</button>
-					<button type="button" class='btn alazea-btn' onclick="legalin('Recent sentence Information');">Recent sentence Information</button>
+					<button style="margin:3px 0;"type="button" class='btn alazea-btn' onclick="legalin('ALL');">ALL</button>
+					<button type="button" class='btn alazea-btn' onclick="legalin('Foreigner');">Foreigner</button>
+					<button type="button" class='btn alazea-btn' onclick="legalin('Employment');">Employment</button>
+					<button type="button" class='btn alazea-btn' onclick="legalin('life');">life</button>
 			</div>
 		</div>
 	</div>
@@ -70,21 +70,19 @@
 				<div class="row">
 					<div name="legalindiv"style="width: 100%; margin: 0 0 15px 0; padding: 0 5px;">
 						<div id="knowledge_div3">
-							<h4 style="float: left;padding-top:10px;"id="legalintitle" class="knowledgeup">decree Information</h4>
+							<h4 style="float: left;padding-top:10px;"id="legalintitle" class="knowledgeup">ALL</h4>
 							<div class="knowledge_select">
 								<input class="knowledge_select2" type="text" maxlength="30" name="search" id="search" placeholder=""> 
-								<input class="knowledge_select3" id="SearchButton" type="button" onclick="knowledgeBoardListsearch();" value="SEARCH">
+								<input class="knowledge_select3" id="SearchButton" type="button" onclick="getlegalinfoJsonData2();" value="SEARCH">
 							</div>
 						</div>
 					</div>
 					
+					<br>
+					<br>
+						<br>
+					<div class="col-12" style="margin: 0; padding: 0;" id="KnowledgeAjaxStart2">
 					
-					<div class="col-12" style="margin: 0; padding: 0;" id="KnowledgeAjaxStart">
-					<ul align="left">
-						<li>ㅇㅇㅇ</li>
-						<li>ㅇㅇㅇ</li>
-						<li>ㅇㅇㅇ</li>
-					</ul>
 					</div>
 				</div>
 			</div>
@@ -105,10 +103,17 @@
 <!-- ##### Footer Area End ##### -->
 
 </body>
+<script src="resources/js/legalinfostate.js"></script>
 <script>
 function legalin(title){
 		var ti = title;
 		$('#legalintitle').text(ti);
+			getlegalinfoJsonData2();
 }
+$(function(){
+	getlegalinfoJsonData2();
+});
+
+
 </script>
 </html>

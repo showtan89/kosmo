@@ -1,12 +1,22 @@
 package com.spring.helper.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +28,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.w3c.dom.CharacterData;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.service.BoardService;
+import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
+import com.spring.helper.vo.jsonVO.news.ExchangerateVO;
+import com.spring.helper.vo.jsonVO.news.jsonlegalinfo;
 
 @RestController
 public class BoardRestController {
@@ -35,6 +52,147 @@ public class BoardRestController {
 	
 	@Autowired
 	BoardDAO boardDao;
+	
+	// 환율정보 가져오기
+	@RequestMapping(value="exchangeratejson", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<String> exchangeratejson(HttpServletRequest req, Model model) throws Exception{
+		 BufferedReader br = null;
+	            String urlstr = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=XLm9HNCZCeP55wg6CqSfNfgUnyjsPb13&searchdate=20190103&data=AP01";
+	            URL url = new URL(urlstr);
+	            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	            urlconnection.setRequestMethod("GET");
+	            br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	            String result = "";
+	            String line;
+	            while((line = br.readLine()) != null) {
+	                result = result + line + "\n";
+	                
+	            }
+	            System.out.println(result);
+		return new ResponseEntity<String>(result,HttpStatus.OK);
+	}
+	// 법률 정보 가져오기
+	@RequestMapping(value="legalinfoListJson", method = RequestMethod.GET)
+	public ResponseEntity<ArrayList<jsonlegalinfo>> legalinfoListJson(HttpServletRequest req, Model model) throws Exception{
+				// XML 데이터 읽어올 주소
+				String search = req.getParameter("search");
+				String catitle = req.getParameter("catitle");
+				System.out.println(catitle);
+				String url = "http://www.law.go.kr/DRF/lawSearch.do?OC=elwksl2&target=elaw&type=XML&search=1&display=100&query="+search+"&page=1";
+				if(!catitle.equals("ALL") && search=="") {
+					url = "http://www.law.go.kr/DRF/lawSearch.do?OC=elwksl2&target=elaw&type=XML&search=1&display=100&query="+catitle+"&page=1";
+					System.out.println("1번url");
+				} else if(catitle.equals("ALL") && search=="") {
+					url = "http://www.law.go.kr/DRF/lawSearch.do?OC=elwksl2&target=elaw&type=XML&search=1&display=100&page=1";
+					System.out.println("2번url");
+				} else if(search!=""){
+					url = "http://www.law.go.kr/DRF/lawSearch.do?OC=elwksl2&target=elaw&type=XML&search=1&display=100&query="+search+"&page=1";
+					System.out.println("3번url");
+				}
+				
+				// XML 데이터 파싱 부분
+				System.out.println(url);
+				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+				Document doc = dBuilder.parse(url);
+				    NodeList nodes = doc.getElementsByTagName("law");
+				    ArrayList<jsonlegalinfo> ss = new ArrayList<jsonlegalinfo>();
+				    for (int i = 0; i < nodes.getLength(); i++) {
+				    	jsonlegalinfo vo = new jsonlegalinfo();
+				      Element element = (Element) nodes.item(i);
+				      NodeList title = element.getElementsByTagName("법령명한글");
+				      Element line = (Element)title.item(0);
+				      NodeList title4 = element.getElementsByTagName("소관부처명");
+				      Element line4 = (Element)title4.item(0);
+				  	vo.setDepartment(getCharacterDataFromElement(line4));
+				  	NodeList title5 = element.getElementsByTagName("제개정구분명");
+				  	 Element line5 = (Element)title5.item(0);
+				 	vo.setClassification(getCharacterDataFromElement(line5));
+					NodeList title6 = element.getElementsByTagName("법령구분명");
+					 Element line6 = (Element)title6.item(0);
+						vo.setTypeofAct(getCharacterDataFromElement(line6));
+					NodeList title7 = element.getElementsByTagName("공포번호");
+					 Element line7 = (Element)title7.item(0);
+						vo.setFearnumber(getCharacterDataFromElement(line7));
+					NodeList title8 = element.getElementsByTagName("공포일자");
+					 Element line8 = (Element)title8.item(0);
+						vo.setFeardate(getCharacterDataFromElement(line8));
+					NodeList title9 = element.getElementsByTagName("시행일자");
+					 Element line9 = (Element)title9.item(0);
+						vo.setEffectiveDate(getCharacterDataFromElement(line9));
+				      
+				      vo.setLawListHangul(getCharacterDataFromElement(line));
+				      if(element.getElementsByTagName("법령명영문")!=null) {
+			    		  NodeList title2 = element.getElementsByTagName("법령명영문");
+			    		  String test;
+			    		  for(int j=0;j<title2.getLength();j++) {
+			    			  Element line2 = (Element)title2.item(j);
+			    			  test =getCharacterDataFromElement(line2);
+				    		  if(element.getElementsByTagName("법령상세링크")!=null) {
+					    		  NodeList title3 = element.getElementsByTagName("법령상세링크");
+					    		  String test2;
+					    		  for(int k=0;k<title3.getLength();k++) {
+						    		  Element line3 = (Element)title3.item(k);
+						    		  test2 =getCharacterDataFromElement(line3);
+						    		  test2= test2.replace("/DRF/lawService.do?OC=elwksl2&target=elaw&MST=", "");
+						    		  test2= test2.replace("&type=HTML&mobileYn=", "");
+						    		  vo.setLawlistlink(test2);
+					    		  }
+						    	 
+					    	  }
+				    		  vo.setLawListEnglish(test);
+			    		  }
+				      }
+				      ss.add(vo);
+			      }
+		return new ResponseEntity<ArrayList<jsonlegalinfo>>(ss,HttpStatus.OK);
+	}
+	@RequestMapping(value="legalinfoDetailJson", method = RequestMethod.GET)
+	public ResponseEntity<ArrayList<jsonlegalinfo>> legalinfoDetailJson(HttpServletRequest req, Model model) throws Exception{
+				// XML 데이터 읽어올 주소
+				String address = req.getParameter("address");
+				System.out.println(address);
+				String url = "http://www.law.go.kr/DRF/lawService.do?OC=elwksl2&target=elaw&MST="+address+"&type=XML&mobileYn=";
+				
+				System.out.println(url);
+				// XML 데이터 파싱 부분
+				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+				Document doc = dBuilder.parse(url);
+				NodeList lsNmEng = doc.getElementsByTagName("lsNmEng");
+				Element element2 = (Element) lsNmEng.item(0);
+				String lsNm = getCharacterDataFromElement(element2);
+				NodeList nodes = doc.getElementsByTagName("Jo");
+				ArrayList<jsonlegalinfo> ss = new ArrayList<jsonlegalinfo>();
+				    for (int i = 0; i < nodes.getLength(); i++) {
+				    	  jsonlegalinfo vo = new jsonlegalinfo();
+					      Element element = (Element) nodes.item(i);
+					      NodeList title = element.getElementsByTagName("joCts");
+					      Element line = (Element)title.item(0);
+					      vo.setJoCts(getCharacterDataFromElement(line));
+					      vo.setLsNmEng(lsNm);
+					      ss.add(vo);
+			      }
+		return new ResponseEntity<ArrayList<jsonlegalinfo>>(ss,HttpStatus.OK);
+	}
+	//법률정보 가져온 데이터 가공하기
+	public static String getCharacterDataFromElement(Element e) {
+
+	    NodeList list = e.getChildNodes();
+	    String data;
+
+	    for(int index = 0; index < list.getLength(); index++){
+	        if(list.item(index) instanceof CharacterData){
+	            CharacterData child = (CharacterData) list.item(index);
+	            data = child.getData();
+
+	            if(data != null && data.trim().length() > 0)
+	                return child.getData();
+	        }
+	    }
+	    return "";
+	}
+	
 	// 지식인 게시판 리스트 출력 호출
 	@RequestMapping(value="KnowledgeListJson", method = RequestMethod.GET)
 	public ResponseEntity<Map<String,Object>> KnowledgeListJson(HttpServletRequest req, Model model) throws Exception{
@@ -145,7 +303,7 @@ public class BoardRestController {
 		
 		return new ResponseEntity<Map<String,Object>>(map,HttpStatus.OK);
 	}
-	
+	// 동욱이 메소드 종료
 	
 	// 부동산 댓글 출력 호출
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.GET)
@@ -211,8 +369,22 @@ public class BoardRestController {
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
 	}
 	
-	// 쪽지 시작
-	//--------------- 민석 ---------------------------------
+	//채팅글뿌리기
+	@RequestMapping(value="chatting", method = RequestMethod.GET)
+	ResponseEntity<List<ChattingVO>> chatting(HttpServletRequest req, Model model){
+		logger.info("chatting 호출");
+		List<ChattingVO> chatting = service.chatting(req, model);
+		return new ResponseEntity<List<ChattingVO>>(chatting,HttpStatus.OK);
+	}
+	
+	// 채팅 글쓰기
+	@RequestMapping(value="chattingWrite", method = RequestMethod.GET)
+	ResponseEntity<Integer> chattingWrite(HttpServletRequest req ){
+		logger.info("chattingWrite 호출");
+		Integer chattingWrite = service.chattingWrite(req);
+		return new ResponseEntity<Integer>(chattingWrite,HttpStatus.OK);
+	}
+	//--------------- 민석 종료 ---------------------------------
 	// 원데이 클래스 댓글 리스트 출력
 	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
 	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{
