@@ -217,7 +217,9 @@ public class BoardMethod {
 		String image1 = "";
 		String image2 = "";
 		String image3 = "";
-		
+		System.out.println(realDir);
+		realDir = realDir +"board\\realestate\\";
+		System.out.println(realDir);
 		if(req.getParameter("realestateImg1") == null) {
 			if(req.getFile("realestateImg1").getOriginalFilename().length() != 0) {
 				MultipartFile file = req.getFile("realestateImg1");

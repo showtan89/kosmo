@@ -767,26 +767,28 @@ public class BoardServiceImpl implements BoardService {
 	}
 	// 채팅 글뿌리기
 	@Override
-	public void chatting(HttpServletRequest req, Model model) {
+	public List<ChattingVO> chatting(HttpServletRequest req, Model model) {
 		List<ChattingVO> chat = boardDao.chatting();
 		
-		model.addAttribute("chat", chat);
+		return chat;
 		
 	}
 	// 채팅 글쓰기
 	@Override
-	public Integer chattingWrite(HttpServletRequest req) {
+	public Integer chattingWrite(ChattingVO cVO, HttpServletRequest req) {
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
 		String chattingMemberId = userVO.getMemberId();
+		logger.info("chattingMemberId : " + chattingMemberId);
 		String chattingContent = req.getParameter("chattingContent");
+		logger.info("chattingContent : " + chattingContent);
 		
 		ChattingVO vo = new ChattingVO();
 		
-		vo.setChattingRegdate(new Timestamp(System.currentTimeMillis()));
+		//vo.setChattingRegdate(new Timestamp(System.currentTimeMillis()));
 		vo.setChattingMemberId(chattingMemberId);
 		vo.setChattingContent(chattingContent);
 		
-		int chattingWrite = boardDao.chattingWrite(vo);
+		int chattingWrite =boardDao.chattingWrite(vo);
 		
 		return chattingWrite;
 	}

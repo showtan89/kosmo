@@ -34,14 +34,26 @@
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 
-<!-- ajax 알람  -->
+<!-- 채팅 ajax -->
 <script>
+
+function emptychattingContent(){
+	$('#chattingContent').val('');
+}
 
 function chatting() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
 		if(${sessionScope.userVO != null}){
-			$.getJSON("chatting", function(cnt){
-				$('chatting').html(cnt); 
+			$.getJSON("chatting", function(data){
+				var str="";
+				$(data).each(
+					function () {
+						this.chattingMemberId
+						str += '<p>'+ this.chattingMemberId+' : ' + this.chattingContent +'('+ this.chattingRegdate+')'+'</p>'
+					}		
+				);
+				
+				$('#chattingList').html(str); 
 				
 			}); }
 	}
@@ -49,29 +61,60 @@ chatting();
 
 setInterval("chatting();", 2000);//원래 2000, 개발중  60000, 시연때 2000
 
+$("#chattingWrite").on("click", function(){
+	var chattingContent = $('#chattingContent').val();
+	$.ajax({
+		type:'post',
+		url:'chatting',
+		headers:{
+			"Content-Type":"application/json",
+			"X-HTTP-Method-Override":"POST"
+		},
+		dataType:"text",
+		data:JSON.stringify({chattingContent:chattingContent}), 
+		success:function(result){
+			if(result == 'SUCCESS'){
+				chatting();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
+			}else{
+				chatting();
+				alert('error!');
+			}
+			emptychattingContent();//댓글 입력창 초기화
+		}
+	});
+})
+
 </script>
 <meta charset="UTF-8">
 <title>Chatting</title>
 </head>
 <body onload="chatting();">
-
-	<table>
-		<c:forEach var="chat" items="${chat}">
-			<tr>
-				<td id="chatting">${chat.chattingMemberId}님의 말 : <br>
-					${chat.chattingContent}<a style="font-size: 7;">${chat.chattingRegdate}</a>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-	
-	<textarea class="chattingContent" id="chattingContent" maxlength="600"
-		style="width: 50%; height: 10%; padding: 5px 5px;"
-		name="chattingContent"></textarea>
-
-	<br>
-	<input type="submit" class="btn btn-success mr-30" value="send message"
-		style="padding: 1px;">
-	
+	<div>
+		<div id="chattingList">
+		
+		</div>
+	</div>
 </body>
+<footer>
+<div align="center">
+	<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
+		<input type="text" id="chattingContent" maxlength="300"
+			style="width: 50%; height: 10%; padding: 5px 5px;"
+			name="chattingContent">
+	
+		<br>
+		<br>
+		<input type="button" id="chattingWrite" class="btn btn-success mr-30" value="Enter"
+			style="padding: 1px;">
+	<!-- </form> -->
+</div>	
+		<!-- <script>
+		onclick="chattingWrite();"
+			function chattingWrite(){
+				var chattingContent = $("#chattingContent").val();
+				window.location = 'chatting?chattingContent=' + chattingContent;
+			}
+		</script> -->
+	
+</footer>
 </html>

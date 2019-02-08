@@ -263,16 +263,16 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 									<li><a href="#">Traffic</a>
 										<ul class="dropdown">
 											<li><a href="getDirections">Get Directions</a></li>
-											<li><a href="restaurantlocation.jsp">Restaurant
+											<li><a href="restaurantlocation">Restaurant
 													Location</a></li>
 											<li><a href="emergency">Emergency
 													facility</a></li>
 										</ul></li>
 									<li><a href="#">Tourism</a>
 										<ul class="dropdown">
-											<li><a href="weather.jsp">Weather</a></li>
+											<li><a href="weather">Weather</a></li>
 											<li><a href="travelBoard">Travel</a></li> <!-- 재영 추가  -->
-											<li><a href="eventcultur.jsp">Event/Cultural
+											<li><a href="eventculture">Event/Cultural
 													Heritage</a></li>
 											<li><a href="exchangerate">Exchange Rate</a></li>
 										</ul></li>
@@ -280,12 +280,12 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 										<ul class="dropdown">
 											<li><a href="employment">Employment</a></li>
 											<li><a href="news">News</a></li> <!-- 재영 추가  -->
-											<li><a href="multicultural.jsp">Multicultural</a></li>
+											<li><a href="multicultural">Multicultural</a></li>
 											<li><a href="legalinfo">Legal Information</a></li>
 										</ul></li>
 									<li><a href="#">Utility</a>
 										<ul class="dropdown">
-											<li><a href="size.jsp">Convert to Size</a></li>
+											<li><a href="convertSize">Convert to Size</a></li>
 											<li><a href="imageSearch">Image Search</a></li>
 										</ul></li>
 								</ul>

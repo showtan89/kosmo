@@ -36,7 +36,7 @@
 	
 	<!-- 재영 git working tree 경로 - 부동산 사진 업로드에 사용 -->
 	<beans:bean id="songUploadPath" class="java.lang.String">
-		<beans:constructor-arg value='C:\\Users\\panga\\git\\kosmo1\\kosmo\\src\\main\\webapp\\resources\\img\\board\\realestate\\' />
+		<beans:constructor-arg value='C:\\Users\\panga\\git\\kosmo1\\kosmo\\src\\main\\webapp\\resources\\img\\' />
 	</beans:bean>
 	
 

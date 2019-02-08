@@ -27,7 +27,6 @@
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 
 <link rel="stylesheet" href="resources/style.css">
-<link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
 </head>
 
 <body>
@@ -61,7 +60,21 @@
 		style="width: 500px; height: 400px; margin-left: auto; margin-right: auto;">
 
 	</div>
+	
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=u91vrld6gw"></script>
+<body>
+<div id="map" style="width:100%;height:400px;"></div>
 
+<script>
+var mapOptions = {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 10
+};
+
+var map = new naver.maps.Map('map', mapOptions);
+</script>
+	
+<!-- 
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=37c2e71a114ce757eb2a4b922679624c&libraries=services"></script>
 <script>
@@ -88,7 +101,7 @@ function getLocation() {
 			  // WTM 좌표를 WGS84 좌표계의 좌표로 변환합니다
 			  geocoder.transCoord(wtmX, wtmY, transCoordCB, {
 			      input_coord: daum.maps.services.Coords.WTM, // 변환을 위해 입력한 좌표계 입니다
-			      output_coord: daum.maps.services.Coords.WGS84 // 변환 결과로 받을 좌표계 입니다 
+			      output_coord: daum.maps.services.Coords.WGS84, // 변환 결과로 받을 좌표계 입니다 
 			  });
 			      
 		</c:forEach>
@@ -98,12 +111,14 @@ function getLocation() {
 	
 		  // 좌표 변환 결과를 받아서 처리할 콜백함수 입니다.
 		  function transCoordCB(result, status) {
-	
+			  
 		      // 정상적으로 검색이 완료됐으면 
 		      if (status === daum.maps.services.Status.OK) {
 	
 		          // 마커를 변환된 위치에 표시합니다
 		          var marker = new daum.maps.Marker({
+		        	  
+		        	  
 		              position: new daum.maps.LatLng(result[0].y, result[0].x), // 마커를 표시할 위치입니다
 		              map: map // 마커를 표시할 지도객체입니다
 		          })
@@ -116,13 +131,7 @@ function getLocation() {
 	    
 	    }, 
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+
 	    
 	    
 	    
@@ -145,7 +154,7 @@ function getLocation() {
 	getLocation();
 		
 </script>
-
+ -->
 	<br>
 	<br>
 	<br>

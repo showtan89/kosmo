@@ -12,12 +12,7 @@ public class ChattingVO {
     private String chattingTemp2;
     private String chattingTemp3;
 	
-    public int getChattingNumber() {
-		return chattingNumber;
-	}
-	public void setChattingNumber(int chattingNumber) {
-		this.chattingNumber = chattingNumber;
-	}
+    
 	public String getChattingMemberId() {
 		return chattingMemberId;
 	}
