@@ -376,12 +376,12 @@ public class BoardRestController {
 		List<ChattingVO> chatting = service.chatting(req, model);
 		return new ResponseEntity<List<ChattingVO>>(chatting,HttpStatus.OK);
 	}
-	
+
 	// 채팅 글쓰기
-	@RequestMapping(value="chattingWrite", method = RequestMethod.GET)
-	ResponseEntity<Integer> chattingWrite(HttpServletRequest req ){
-		logger.info("chattingWrite 호출");
-		Integer chattingWrite = service.chattingWrite(req);
+	@RequestMapping(value="chattingList", method = RequestMethod.POST)
+	ResponseEntity<Integer> chattingList(@RequestBody ChattingVO cVO, HttpServletRequest req ) throws Exception{
+		logger.info("chattingList 호출");
+		Integer chattingWrite = service.chattingWrite(cVO, req);
 		return new ResponseEntity<Integer>(chattingWrite,HttpStatus.OK);
 	}
 	//--------------- 민석 종료 ---------------------------------
