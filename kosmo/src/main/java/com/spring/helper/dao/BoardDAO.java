@@ -139,6 +139,9 @@ public interface BoardDAO {
 	public int onedayclassAccountUpdate(Map<String, Object> map);
 	
 	// 댓글 목록
+	public static List<oCommentVO> getoCommentList(int oCommentNumber, int start, int end) {
+		return null;
+	}
 	/*public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end);*/
 	// 댓글 갯수
 	/*public int oCommentCount(int oCommentNumber);*/
@@ -159,5 +162,6 @@ public interface BoardDAO {
 	
 	public int emergencyCnt();
 	// 대호 종료 ============================================
+
 
 }

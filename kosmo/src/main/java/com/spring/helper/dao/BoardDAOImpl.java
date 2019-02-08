@@ -1,6 +1,7 @@
 package com.spring.helper.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ import com.spring.helper.vo.BoardVO.onedayclassVO;
 public class BoardDAOImpl implements BoardDAO {
 
 	@Autowired
+	static
 	SqlSession sqlSession;
 
 	@Autowired
@@ -332,9 +334,16 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end) {
 
 		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber, start, end);
+	}*/
+
+	public static List<oCommentVO> getoCommentList(int oCommentNumber, int start, int end) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("oCommentNumber", oCommentNumber);
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.oCommentList", map);
 	}
-<<<<<<< HEAD
-	@Override
+	/*	@Override
 	public int oCommentCount(int oCommentNumber) {
 		
 		return 0;

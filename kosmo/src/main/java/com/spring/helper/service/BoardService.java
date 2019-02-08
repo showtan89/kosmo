@@ -119,6 +119,7 @@ public interface BoardService {
 	/*public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model);*/
 	
 	// 댓글 목록
+	public List<oCommentVO> getoCommentList(int oCommentNumber, int start, int end, HttpSession session);
 	/*public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end, HttpSession session);*/
 	// 댓글 갯수
 	/*public int oCommentCount(int oCommentNumber);*/
@@ -136,6 +137,7 @@ public interface BoardService {
 	// 대호 시작 =================
 
 	public void emergency(HttpServletRequest req, Model model) throws Exception;
+	
 
 	// 대호 끝 ==================
 }

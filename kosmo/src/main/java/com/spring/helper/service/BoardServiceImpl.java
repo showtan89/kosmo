@@ -1018,6 +1018,12 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.realestateCommentsDelete(rCommentNumber);
 	}*/	
 
+	@Override
+	public List<oCommentVO> getoCommentList(int oCommentNumber, int start, int end, HttpSession session) {
+		List<oCommentVO> items=BoardDAO.getoCommentList(oCommentNumber, start, end);
+		return items;
+	}
+	
 /*	@Override
 	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end, HttpSession session) {
 		// TODO Auto-generated method stub
@@ -1081,6 +1087,7 @@ public class BoardServiceImpl implements BoardService {
 
 		model.addAttribute("originData", originData);
 	}
+
 
 	// 대호 끝 =================================
 

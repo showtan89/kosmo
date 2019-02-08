@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
@@ -286,6 +287,8 @@ public class BoardRestController {
 	
 	// 쪽지 시작
 	//--------------- 민석 ---------------------------------
+	
+	//----------------진호 시작-----------------------------------------------------------
 	// 원데이 클래스 댓글 리스트 출력
 /*	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
 	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{
@@ -294,12 +297,30 @@ public class BoardRestController {
 		return new ResponseEntity<>(list,HttpStatus.OK);
 	}*/
 	
-	@RequestMapping("insert")
-	public void insert(@ModelAttribute oCommentVO dto, HttpSession session) throws Exception{
+/*	@RequestMapping("oCommentInsert")
+	public void oCommentInsert(@ModelAttribute oCommentVO dto, HttpSession session) throws Exception{
 		String memberId = (String)session.getAttribute("memberId");
 		dto.setMemberId(memberId);
+		System.out.println("값들어오니?" + dto.toString());
+		service.oCommentCreate(dto);
+	}*/
+	
+	@RequestMapping(value="oCommentInsert", method = RequestMethod.POST)
+	public void oCommentInsert(@RequestBody oCommentVO dto, HttpServletRequest req, Model model) throws Exception{
+		logger.info("댓글 추가 호출중");
+		
+		System.out.println("ajax stress" + dto.toString());
 		service.oCommentCreate(dto);
 	}
 	
+	@RequestMapping(value="list_json", method = RequestMethod.GET)
+	public List<oCommentVO> list_json(@RequestParam(defaultValue="1") int currentPage, @RequestParam int oCommentNumber, 
+			HttpSession session, HttpServletRequest req, Model model) throws Exception{
+		logger.info("댓글리스트 호출중");
+		
+		return service.getoCommentList(oCommentNumber, 1, 10, session);
+	}
+	
+	//----------------진호 끝----------------------------------------------------------
 	
 }

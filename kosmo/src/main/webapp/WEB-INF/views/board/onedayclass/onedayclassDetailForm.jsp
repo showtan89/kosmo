@@ -59,27 +59,34 @@
 </div>
 
 <script type="text/javascript">
+
 	function submitFunction() {
 		var oCommentNumber = "${oCommentNumber}";
 		var onedayclassNumber = "${dto.onedayclassNumber}";
 		var memberEmail = "${userVO.memberEmail}";
+		/* alert(memberEmail) */
 		var memberId = "${userVO.memberId}";
 		var oCommentContent = $('#oCommentContent').val();
-		var oCommnetRegdate = $('#oCommnetRegdate').val();
+
 		$.ajax({
 			type : "POST",
-			url: '${pageContext.request.contextPath}/insert',
-			data: {
-				"oCommentNumber": oCommentNumber,
-				"onedayclassNumber": onedayclassNumber,
-				"memberEmail": memberEmail,
-				"memberId": memberId,
-				"oCommentContent": oCommentContent,
-				"oCommnetRegdate": oCommnetRegdate,
+			url: "oCommentInsert",
+			data: JSON.stringify({
+				oCommentNumber: oCommentNumber,
+				onedayclassNumber: onedayclassNumber,
+				memberEmail: memberEmail,
+				memberId: memberId,
+				oCommentContent: oCommentContent
+
+			}),
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			success: function(result) {
 				if(result == 1) {
 					alert('전송에 성공했습니다.');
+					getoCommentList("1");
 				} else if(result == 0) {
 					alert('내용을 정확히 입력하세요');
 				} else {
@@ -88,6 +95,27 @@
 			}
 		});
 		$('#oCommentContent').val('');
+	}
+	
+	function getoCommentList() {
+		$.ajax({
+			type: "get",
+			contentType: "application/json",
+			url:"list_json?oCommentNumber=${dto.oCommentNumber}",
+			success:function(result){
+				console.log(result);
+				var output="<table>";
+				for(var i in result){
+					output += "<tr>";
+					output += "<tr>"+result[i].memId;
+					output += "("+result[i].regdate+")";
+					output += "<br>"+result[i].oCommentContent;
+					output += "</td></tr>";
+				}
+				output += "</table>";
+				$("#getoCommentList").html(output);
+			}
+		});
 	}
 </script>
 
@@ -338,13 +366,27 @@
 			</div>
 			<!-- /.box-body -->
 			<div class="box-footer">
-				<button type="button" class="btn btn-primary" id="submitFunction">ADD REPLY</button>
+				<button type="button" class="btn btn-primary" id="submitFunction" onClick="submitFunction()">ADD REPLY</button>
 			</div>
 		</div>
 	</div>
 </div>
 </c:if>
 
+<!-- 댓글 목록을 출력할 영역 -->
+<div id="getoCommentList">
+	<table style="width:700px;">
+		<c:forEach var="row" items="${getoCommentList}">
+			<tr>
+				<td>${row.memId}(${row.regdate})<br>${row.oCommentContent}
+					<c:if test="${userVO.memberId == row.memberId}">
+						<input type="button" value="Modify">
+					</c:if>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
 <!-- The time line -->
 <ul class="timeline">
 	<!-- timeline time label -->
