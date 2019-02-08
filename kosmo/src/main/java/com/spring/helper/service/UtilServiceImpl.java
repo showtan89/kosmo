@@ -33,7 +33,7 @@ public class UtilServiceImpl implements UtilService {
 	private static final Logger logger = LoggerFactory.getLogger(UtilServiceImpl.class);
 	//재영 서비스 시작
 	
-	//이미지 검색
+	//이미지 검색 ----------- 이미지 업로드 부분이라 경로 통일이 필요함
 	public Map<String,Object> imageSearchPro(MultipartHttpServletRequest req, Model model) throws Exception {
 		String urlPath ="";
 		//이미지가 업로드 되는 실제 위치 경로 구하기 (깃 working tree 경로)

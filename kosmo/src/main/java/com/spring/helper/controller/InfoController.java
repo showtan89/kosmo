@@ -137,4 +137,11 @@ public class InfoController {
 		return "info/multicultural/employeInfo";
 	}
 	// 민석이 끝++++++++++++++++++++++++++++++++
+	
+	@RequestMapping("multicultural")
+	public String multicultural() throws Exception {
+		logger.info("multicultural....");
+
+		return "info/multicultural/multicultural";
+	}
 }

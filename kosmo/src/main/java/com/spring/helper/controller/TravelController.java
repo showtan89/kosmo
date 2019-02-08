@@ -23,6 +23,20 @@ public class TravelController {
 	
 	//재영 TravelController 시작 ====================================================================================
 
+	//날씨????????????????????
+	@RequestMapping("weather")
+	public String weather() throws Exception {
+		logger.info("weather 로딩 중....");
+		return "travel/weather/weather";
+	}
+	
+	//이벤트????????????????????
+	@RequestMapping("eventculture")
+	public String eventculture() throws Exception {
+		logger.info("eventculture 로딩 중....");
+		return "travel/event/eventculture";
+	}
+	
 	//관광 게시판
 	@RequestMapping("travelBoard")
 	public String travelBoard(HttpServletRequest req, Model model) throws Exception {
