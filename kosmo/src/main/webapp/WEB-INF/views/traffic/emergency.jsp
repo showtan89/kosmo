@@ -88,7 +88,7 @@ function getLocation() {
 			  // WTM 좌표를 WGS84 좌표계의 좌표로 변환합니다
 			  geocoder.transCoord(wtmX, wtmY, transCoordCB, {
 			      input_coord: daum.maps.services.Coords.WTM, // 변환을 위해 입력한 좌표계 입니다
-			      output_coord: daum.maps.services.Coords.WGS84 // 변환 결과로 받을 좌표계 입니다 
+			      output_coord: daum.maps.services.Coords.WGS84, // 변환 결과로 받을 좌표계 입니다 
 			  });
 			      
 		</c:forEach>
@@ -98,12 +98,14 @@ function getLocation() {
 	
 		  // 좌표 변환 결과를 받아서 처리할 콜백함수 입니다.
 		  function transCoordCB(result, status) {
-	
+			  
 		      // 정상적으로 검색이 완료됐으면 
 		      if (status === daum.maps.services.Status.OK) {
 	
 		          // 마커를 변환된 위치에 표시합니다
 		          var marker = new daum.maps.Marker({
+		        	  
+		        	  
 		              position: new daum.maps.LatLng(result[0].y, result[0].x), // 마커를 표시할 위치입니다
 		              map: map // 마커를 표시할 지도객체입니다
 		          })
@@ -116,13 +118,7 @@ function getLocation() {
 	    
 	    }, 
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+
 	    
 	    
 	    

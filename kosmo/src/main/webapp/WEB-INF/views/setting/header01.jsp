@@ -285,7 +285,7 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 										</ul></li>
 									<li><a href="#">Utility</a>
 										<ul class="dropdown">
-											<li><a href="size.jsp">Convert to Size</a></li>
+											<li><a href="convertSize">Convert to Size</a></li>
 											<li><a href="imageSearch">Image Search</a></li>
 										</ul></li>
 								</ul>
