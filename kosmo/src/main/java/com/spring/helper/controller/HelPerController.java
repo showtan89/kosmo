@@ -161,6 +161,12 @@ public class HelPerController{
 		return "traffic/emergency";
 	}
 	
+	//레스토랑 - 대호야 여기가 아니란다! 옮길때 같이 옮기렴
+	@RequestMapping("restaurantlocation")
+	public String restaurantlocation() {
+		return "traffic/restaurantlocation";
+	}
+	
 	// 대호 종료 ==================================================================
 
 }

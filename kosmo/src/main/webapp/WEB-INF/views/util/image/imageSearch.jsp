@@ -37,7 +37,7 @@
 
 <!-- 이미지 서치 본문  -->
 <div class="container" style="margin-bottom: 50px;">
-	<h1 style="color:red">구글 API 무료 사용량 정해져 있으니 주의!</h1>
+	<h1 style="color:red">구글 API 무료 사용량 정해져 있으니 주의!ㅠㅠ</h1>
 	<h5>Image Search</h5>
 	<hr>
 	<!-- <form action="imageSearchPro" method="POST" enctype="multipart/form-data" onsubmit="return getImageInfo();"> -->
