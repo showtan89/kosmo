@@ -129,7 +129,7 @@
 	<br>
 
 	<div class="search_by_terms" align="center">
-		<button type="button" class="btn alazea-btn" onclick="window.history.back();">BACK</button>
+		<button type="button" class="btn alazea-btn" onclick="window.location.href='adminPage';">BACK</button>
 	</div>
 
 	<br>

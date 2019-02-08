@@ -1245,7 +1245,7 @@
 	<br>
 	<br>
 <form action="#" method="post"
-	style="margin-left: auto; margin-right: auto; border: 1px solid #ced4da; padding: 50px; backgrond-color: green; border-radius: 6px;" 
+	style="margin-left: auto; margin-right: auto; border: 1px solid #ced4da; padding: 30px; backgrond-color: green; border-radius: 10px;" 
 		name="convertForm">
 
 			<div class="col-md-7 mb-7" style="margin-left: auto; margin-right: auto;">
