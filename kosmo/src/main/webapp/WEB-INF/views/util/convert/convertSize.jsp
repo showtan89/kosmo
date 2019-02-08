@@ -1204,7 +1204,39 @@
 					}
 				}
 			})
+			
+			$("input:text[numberOnly]").on("focus", function() {
+			    var x = $(this).val();
+			    x = removeCommas(x);
+			    $(this).val(x);
+			}).on("focusout", function() {
+			    var x = $(this).val();
+			    if(x && x.length > 0) {
+			        if(!$.isNumeric(x)) {
+			            x = x.replace(/[^0-9\\.]/g,"");
+			        }
+			        x = addCommas(x);
+			        $(this).val(x);
+			    }
+			}).on("keyup", function() {
+			    $(this).val($(this).val().replace(/[^0-9\\.]/g,""));
+			});
+			
 		});
+		
+		
+		
+		
+		//3자리 단위마다 콤마 생성
+		function addCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		 
+		//모든 콤마 제거
+		function removeCommas(x) {
+		    if(!x || x.length == 0) return "";
+		    else return x.split(",").join("");
+		}
 	
 	</script>
 
@@ -1231,9 +1263,9 @@
 			
 			<div class="col-md-7 mb-7" style="margin-left: auto; margin-right: auto;">
 			
-			<div class="col-md-12 mb-12" align="center">
+			<div class="col-md-12 mb-12">
 				<label for="baseInput">I N P U T</label> 
-				<input type="text" name="baseInput" id="baseInput" value="0" class="form-control">
+				<input type="text" name="baseInput" id="baseInput" value="0" class="form-control" maxlength="10" numberOnly>
 			
 			
 			<select class="custom-select d-block w-100" name="baseType" id="baseType">
@@ -1248,12 +1280,12 @@
 			
 			<div align="center">
 			<br>
-			TO<br>
+			<img src="resources/img/util/equal.png"><br>
 			<br>
 			</div>
 			
 			<div class="col-md-12 mb-12">
-				<label for="baseInput">R E S U L T</label> 
+				<label for="resultInput">R E S U L T</label> 
 				<input type="text" id="resultInput" name="resultInput" disabled="disabled"
 				value="0" class="form-control">
 			
