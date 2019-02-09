@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 
-import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
+import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
@@ -83,32 +83,39 @@ public interface BoardDAO {
 
 	//민석이 메소드 시작+++++++++++++++++++++++++++++++
 
-		// 댓글 알람 갯수
-		public int commentReadCnt(String memEmail);
+	// 댓글 알람 갯수
+	public int commentReadCnt(String memEmail);
 
-		// 채팅 알람 갯수
-		public int messageReadCnt(String memberId);
+	// 채팅 알람 갯수
+	public int messageReadCnt(String memberId);
 
-		// 쪽지 리스트
-		public List<MessageVO> messageReadList(Map<String, Object> map);
+	// 쪽지 리스트
+	public List<MessageVO> messageReadList(Map<String, Object> map);
 
-		// 채팅알람 리스트
-		public List<CommentAlarmVO> commentReadList(Map<String, Object> map);
+	// 채팅알람 리스트
+	public List<CommentAlarmVO> commentReadList(Map<String, Object> map);
 
-		// 댓글 알람 지우기
-		public int commentDelete (int commentnumber);
+	// 댓글 알람 지우기
+	public int commentDelete (int commentnumber);
 
-		// 채팅 알람 지우기
-		public int messageDelete (int messagenumber);
-		
-		// ajax 알람 갯수 
-		public int commentAlarmCnt(String memEmail);
-		
-		public int messageCnt(String memberId);
-		
-		public int sendMessage(Map<String, Object> map);
+	// 채팅 알람 지우기
+	public int messageDelete (int messagenumber);
 
-		//민석이 메소드 종료+++++++++++++++++++++++++++++++
+	// ajax 알람 갯수 
+	public int commentAlarmCnt(String memEmail);
+
+	public int messageCnt(String memberId);
+
+	// 쪽지 보내기
+	public int sendMessage(Map<String, Object> map);
+	
+	// 채팅 글뿌리기
+	public List<ChattingVO> chatting();
+	
+	//채팅 글쓰기
+	public int chattingWrite(ChattingVO vo);
+
+	//민석이 메소드 종료+++++++++++++++++++++++++++++++
 
 
 
@@ -137,11 +144,11 @@ public interface BoardDAO {
 
 	// 계좌번호 업데이트
 	public int onedayclassAccountUpdate(Map<String, Object> map);
+
 	
 	// 댓글 목록
-	public static List<oCommentVO> getoCommentList(int oCommentNumber, int start, int end) {
-		return null;
-	}
+	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end);
+
 	/*public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end);*/
 	// 댓글 갯수
 	/*public int oCommentCount(int oCommentNumber);*/
@@ -153,7 +160,8 @@ public interface BoardDAO {
 	/*public void oCommentDelete(oCommentVO dto);*/
 	// 댓글 상세
 	/*public oCommentVO oCommentDetail(int onedayclassNumber);*/
-	
+
+
 
 	// 진호 메소드 종료--------------------------------------
 

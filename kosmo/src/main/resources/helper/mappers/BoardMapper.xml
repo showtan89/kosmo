@@ -508,6 +508,17 @@
 		( #{userVO.memberEmail}, #{userVO.memberId}, #{messageSendId}, messageseq.nextval, #{messageContent}, sysdate, 1, 0, '0', '0' )	
 	</insert>
 	
+	<!-- 채팅 글 뿌리기-->
+	<select id="chatting" resultType="com.spring.helper.vo.BoardVO.ChattingVO">
+		SELECT * FROM chatting ORDER BY chattingRegdate ASC
+	</select>
+	
+	<!-- 채팅 글쓰기 -->
+	<insert id="chattingWrite" parameterType="com.spring.helper.vo.BoardVO.ChattingVO">
+		INSERT INTO chatting VALUES
+		( chattingseq.nextval, #{chattingMemberId}, #{chattingContent}, sysdate, 0,'n','n' )	
+	</insert>
+	
 	<!-- 민석이 종료+++++++++++++++++++++++++++++++++++ -->
 
 	<!-- 진호 시작ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->
@@ -573,15 +584,16 @@
 <!-- 	<select id="getoCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
 		SELECT * from oComment WHERE oCommentRegdate >= #{now Time} ORDER BY oCommentRegdate
 	</select> -->
-	<select id="oCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
+	<!-- 원데이 게시판 댓글 리스트 -->
+	<select id="getoCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
 		SELECT oCommentNumber, onedayclassNumber, boardCode, memberEmail, memberId, oCommentContent, oCommentRegdate
 		FROM oComment
-		WHERE oCommentNumber=#{oCommentNumber}
+		WHERE onedayclassNumber=#{onedayclassNumber}
 		order by oCommentNumber
 	</select>
 	
 	
-	
+	<!-- 원데이 게시판 댓글 추가 -->
 	<insert id="oCommentCreate">
 		insert into oComment (oCommentNumber, onedayclassNumber, boardCode, memberEmail, memberId, oCommentContent, oCommentRegdate)
 		values(oCommentSeq.nextval, #{onedayclassNumber}, '31', #{memberEmail}, #{memberId}, #{oCommentContent}, sysdate)

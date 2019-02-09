@@ -222,6 +222,7 @@ public class BoardController {
 		logger.info("원데이 클래스 게시판 상세페이지 호출중 ....");
 		
 		service.onedayclassDetailForm(req, model);
+		logger.info("원데이 클래스 게시판 상세페이지 호출!!!!!!!!!!!!!!!!!!!!! ....");
 		return "board/onedayclass/onedayclassDetailForm";
 	}
 	
@@ -302,6 +303,23 @@ public class BoardController {
 		
 		return "board/message/messageSend";
 	}
+	@RequestMapping("chattingstart")
+	public String chattingView(HttpServletRequest req, Model model) throws Exception {
+		logger.info("채팅 호출중 ....");
+		
+		service.chatting(req, model);
+		
+		return "board/message/chatting";
+	}
+	
+	/*@RequestMapping("chattingWrite")
+	public String chattingWrite(HttpServletRequest req, Model model) throws Exception {
+		logger.info("채팅 호출중 ....");
+		
+		service.chattingWrite(req);
+		
+		return "board/message/chatting";
+	}*/
 	
 	// 민석 BoardController 끝++++++++++++++++++++++++++++++++
 	

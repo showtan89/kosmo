@@ -60,63 +60,6 @@
 
 <script type="text/javascript">
 
-	function submitFunction() {
-		var oCommentNumber = "${oCommentNumber}";
-		var onedayclassNumber = "${dto.onedayclassNumber}";
-		var memberEmail = "${userVO.memberEmail}";
-		/* alert(memberEmail) */
-		var memberId = "${userVO.memberId}";
-		var oCommentContent = $('#oCommentContent').val();
-
-		$.ajax({
-			type : "POST",
-			url: "oCommentInsert",
-			data: JSON.stringify({
-				oCommentNumber: oCommentNumber,
-				onedayclassNumber: onedayclassNumber,
-				memberEmail: memberEmail,
-				memberId: memberId,
-				oCommentContent: oCommentContent
-
-			}),
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			success: function(result) {
-				if(result == 1) {
-					alert('전송에 성공했습니다.');
-					getoCommentList("1");
-				} else if(result == 0) {
-					alert('내용을 정확히 입력하세요');
-				} else {
-					alert('데이터베이스 오류가 발생했습니다.');
-				}
-			}
-		});
-		$('#oCommentContent').val('');
-	}
-	
-	function getoCommentList() {
-		$.ajax({
-			type: "get",
-			contentType: "application/json",
-			url:"list_json?oCommentNumber=${dto.oCommentNumber}",
-			success:function(result){
-				console.log(result);
-				var output="<table>";
-				for(var i in result){
-					output += "<tr>";
-					output += "<tr>"+result[i].memId;
-					output += "("+result[i].regdate+")";
-					output += "<br>"+result[i].oCommentContent;
-					output += "</td></tr>";
-				}
-				output += "</table>";
-				$("#getoCommentList").html(output);
-			}
-		});
-	}
 </script>
 
 
@@ -374,11 +317,17 @@
 </c:if>
 
 <!-- 댓글 목록을 출력할 영역 -->
-<div id="getoCommentList">
-	<table style="width:700px;">
+<div class="bg-green" id="getoCommentList">
+	<table style="width:1000px;">
 		<c:forEach var="row" items="${getoCommentList}">
 			<tr>
-				<td>${row.memId}(${row.regdate})<br>${row.oCommentContent}
+				<td>${row.oCommentNumber}</td>
+				<td>${row.memberId}</td>
+				<td>${row.oCommentContent}</td>
+				<td>(<fmt:formatDate value="${row.oCommentRegdate}"
+				       pattern="yyyy-mm-dd a HH:mm:ss" /> )
+				</td>
+				<td>
 					<c:if test="${userVO.memberId == row.memberId}">
 						<input type="button" value="Modify">
 					</c:if>
@@ -387,6 +336,7 @@
 		</c:forEach>
 	</table>
 </div>
+
 <!-- The time line -->
 <ul class="timeline">
 	<!-- timeline time label -->
@@ -403,6 +353,77 @@
 
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
 <!-- ##### Footer Area End ##### -->
+<script type="text/javascript">
 
+
+function submitFunction() {
+	var oCommentNumber = "${oCommentNumber}";
+	var onedayclassNumber = "${dto.onedayclassNumber}";
+	var memberEmail = "${userVO.memberEmail}";
+	/* alert(memberEmail) */
+	var memberId = "${userVO.memberId}";
+	var oCommentContent = $('#oCommentContent').val();
+
+	$.ajax({
+		type : "POST",
+		url: "oCommentInsert",
+		data: JSON.stringify({
+			oCommentNumber: oCommentNumber,
+			onedayclassNumber: onedayclassNumber,
+			memberEmail: memberEmail,
+			memberId: memberId,
+			oCommentContent: oCommentContent
+
+		}),
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		success: function(result) {
+			if(result == 1) {
+				alert('전송에 성공했습니다.');
+				getoCommentList();
+			} else if(result == 0) {
+				alert('내용을 정확히 입력하세요');
+			} else {
+				alert('데이터베이스 오류가 발생했습니다.');
+			}
+		}
+	});
+	$('#oCommentContent').val('');
+}
+
+function getoCommentList() {
+	/* alert("댓글떳2222음!!!!!!!") */
+	 $.ajax({
+		type: "get",
+		contentType: "application/json",
+		url:"list_json?onedayclassNumber=${dto.onedayclassNumber}",
+		success:function(result){
+			/* console.log(result); */
+			var output="<table>";
+			for(var i in result){
+				output += "<tr>";
+				output += "<td>"+result[i].oCommentNumber + "</td>";
+				output += "<td>"+result[i].memberId + "</td>";
+				output += "<td>"+result[i].oCommentRegdate + "</td>";
+				output += "<td>"+result[i].oCommentContent + "</td>";
+				output += "<td></td>";
+				output += "</tr>";
+			}
+			output += "</table>";
+			$("#getoCommentList").html(output);
+		}
+	}); 
+}
+
+
+
+
+$(function(){
+	/* alert("댓글떳음!!!!!!!") */
+	getoCommentList();
+})
+	</script>
 </body>
 </html>

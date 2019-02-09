@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+
+#resultInput:disabled {
+	background-color: #ffffff;
+}
+
 #memberModify {
 	width: 50%;
 	min-width: 450px;

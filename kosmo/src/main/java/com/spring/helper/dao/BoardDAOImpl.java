@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
-import com.spring.helper.vo.BoardVO.ChattingAlarmVO;
+import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
@@ -33,7 +33,6 @@ import com.spring.helper.vo.BoardVO.onedayclassVO;
 public class BoardDAOImpl implements BoardDAO {
 
 	@Autowired
-	static
 	SqlSession sqlSession;
 
 	@Autowired
@@ -253,6 +252,17 @@ public class BoardDAOImpl implements BoardDAO {
 	public int sendMessage(Map<String, Object> map) {
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", map);
 	}
+	// 채팅 글뿌리기
+	@Override
+	public List<ChattingVO> chatting(){
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.chatting");
+	}
+	// 채팅 글 쓰기
+	@Override
+	public int chattingWrite(ChattingVO vo) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.chattingWrite", vo);
+	}
+	
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -335,14 +345,17 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber, start, end);
 	}*/
-
-	public static List<oCommentVO> getoCommentList(int oCommentNumber, int start, int end) {
+	
+	// 원데이게시판 댓글 리스트 출력
+	@Override
+	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("oCommentNumber", oCommentNumber);
-		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.oCommentList", map);
+		map.put("onedayclassNumber", onedayclassNumber);
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.getoCommentList", map);
 	}
+	
 	/*	@Override
 	public int oCommentCount(int oCommentNumber) {
 		
@@ -352,6 +365,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public void oCommentCreate(oCommentVO dto) {
 		sqlSession.insert("com.spring.helper.dao.BoardDAO.oCommentCreate", dto);
 	}
+
 /*	@Override
 	public void oCommentUpdate(oCommentVO dto) {
 		
@@ -371,6 +385,9 @@ public class BoardDAOImpl implements BoardDAO {
 	// 
 
 
+	
+
+
 	// 진호 메소드 종료------------------------------------------------
 
 
@@ -383,6 +400,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public int emergencyCnt() {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
 	}
+
 	
 	
 	// 대호 종료 ==============================================================
