@@ -48,6 +48,7 @@ function chatting() {
 				var str="";
 				$(data).each(
 					function () {
+						var chattingRegdate = new Date(chattingRegdate);
 						this.chattingMemberId
 						str += '<p>'+ this.chattingMemberId+' : ' + this.chattingContent +'('+ this.chattingRegdate+')'+'</p>'
 					}		
@@ -59,30 +60,9 @@ function chatting() {
 	}
 chatting();
 
-setInterval("chatting();", 2000);//원래 2000, 개발중  60000, 시연때 2000
+setInterval("chatting();", 6000);//원래 2000, 개발중  60000, 시연때 2000
 
-$("#chattingWrite").on("click", function(){
-	var chattingContent = $('#chattingContent').val();
-	$.ajax({
-		type:'post',
-		url:'chatting',
-		headers:{
-			"Content-Type":"application/json",
-			"X-HTTP-Method-Override":"POST"
-		},
-		dataType:"text",
-		data:JSON.stringify({chattingContent:chattingContent}), 
-		success:function(result){
-			if(result == 'SUCCESS'){
-				chatting();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
-			}else{
-				chatting();
-				alert('error!');
-			}
-			emptychattingContent();//댓글 입력창 초기화
-		}
-	});
-})
+
 
 </script>
 <meta charset="UTF-8">
@@ -90,31 +70,54 @@ $("#chattingWrite").on("click", function(){
 </head>
 <body onload="chatting();">
 	<div>
-		<div id="chattingList">
-		
-		</div>
+		<div id="chattingList"></div>
 	</div>
 </body>
+
 <footer>
-<div align="center">
-	<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
+	<div align="center">
+		<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
 		<input type="text" id="chattingContent" maxlength="300"
 			style="width: 50%; height: 10%; padding: 5px 5px;"
-			name="chattingContent">
-	
-		<br>
-		<br>
-		<input type="button" id="chattingWrite" class="btn btn-success mr-30" value="Enter"
-			style="padding: 1px;">
-	<!-- </form> -->
-</div>	
-		<!-- <script>
+			name="chattingContent"> <br> <br> <input
+			type="button" id="chattingWrite" class="btn btn-success mr-30"
+			value="Enter" style="padding: 1px;">
+		<!-- </form> -->
+	</div>
+	<!-- <script>
 		onclick="chattingWrite();"
 			function chattingWrite(){
 				var chattingContent = $("#chattingContent").val();
 				window.location = 'chatting?chattingContent=' + chattingContent;
 			}
 		</script> -->
-	
+
 </footer>
+
+<script type="text/javascript">
+$("#chattingWrite").on("click", function(){
+	var chattingContent = $('#chattingContent').val();
+	/* alert(chattingContent); */
+	$.ajax({
+		type:'POST',
+		url:'chattingContent',
+		headers:{
+			"Content-Type":"application/json",
+			"X-HTTP-Method-Override":"POST"
+		},
+		dataType:"JSON",
+		data:JSON.stringify({chattingContent:chattingContent}), 
+		success:function(result){
+				chatting();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
+				emptychattingContent();//댓글 입력창 초기화
+			},
+		error:function(result){
+			chatting();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
+			alert('error!');	
+			emptychattingContent();//댓글 입력창 초기화
+		}
+		
+	});
+});
+</script>
 </html>

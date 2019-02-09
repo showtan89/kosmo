@@ -393,9 +393,9 @@ public class BoardRestController {
 	}
 
 	// 채팅 글쓰기
-	@RequestMapping(value="chattingList", method = RequestMethod.POST)
-	ResponseEntity<Integer> chattingList(@RequestBody ChattingVO cVO, HttpServletRequest req ) throws Exception{
-		logger.info("chattingList 호출");
+	@RequestMapping(value="chattingContent", method = RequestMethod.POST)
+	ResponseEntity<Integer> chattingContent(@RequestBody ChattingVO cVO, HttpServletRequest req ) throws Exception{
+		logger.info("chattingContent 호출" + cVO.getChattingContent());
 		Integer chattingWrite = service.chattingWrite(cVO, req);
 		return new ResponseEntity<Integer>(chattingWrite,HttpStatus.OK);
 	}

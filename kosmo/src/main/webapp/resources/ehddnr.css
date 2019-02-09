@@ -66,10 +66,12 @@
 .knowledgeup{
 	text-transform: uppercase;
 }
-
+.knowledgeCategoryAteg{
+	font-size:18px;
+}
 .knowledgeCategoryAteg:hover{
+	font-size:23px;
 	font-weight: bold;
-	font-size:16px;
 }
 .knowledge_ul li{
 display:inline;

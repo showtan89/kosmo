@@ -10,8 +10,8 @@
 <meta name="X-Content-Type-Options" content="nosniff" />
 <title>Helper - Convert</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
-<link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
 <link rel="stylesheet" href="resources/style.css">
+</head>
 <body>
 
 <jsp:include page="../../setting/header01.jsp" flush="false" />
@@ -19,9 +19,8 @@
 <div class="breadcrumb-area">
 	<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 		style="background-image: url(resources/img/bg-img/image5.jpg);">
-		<h2>Convert To Size</h2>
-	</div>
-	<br> <br>
+		<h2><b>Convert To Size</b></h2>
+	</div> <br><br>
 </div>
 
 <script type="text/javascript">
@@ -1241,7 +1240,7 @@
 	</script>
 
 <div class="container" style="margin-bottom: 50px;">
-	<font size="20">C O N V E R T</font>
+	<font size="20"><b>C O N V E R T</b></font>
 	<br>
 	<br>
 <form action="#" method="post"
@@ -1264,7 +1263,9 @@
 			<div class="col-md-7 mb-7" style="margin-left: auto; margin-right: auto;">
 			
 			<div class="col-md-12 mb-12">
-				<label for="baseInput">I N P U T</label> 
+				<label for="baseInput">
+					<font size="5"><b>I N P U T</b></font>
+				</label> 
 				<input type="text" name="baseInput" id="baseInput" value="0" class="form-control" maxlength="10" numberOnly>
 			
 			
@@ -1284,8 +1285,10 @@
 			<br>
 			</div>
 			
-			<div class="col-md-12 mb-12">
-				<label for="resultInput">R E S U L T</label> 
+			<div class="col-md-12 mb-12" align="right">
+				<label for="resultInput">
+					<font size="5"><b>R E S U L T</b></font>
+				</label> 
 				<input type="text" id="resultInput" name="resultInput" disabled="disabled"
 				value="0" class="form-control">
 			
@@ -1302,9 +1305,6 @@
 			</div>
 			
 			</div>
-
-			
-		
 
 </form>
 </div>

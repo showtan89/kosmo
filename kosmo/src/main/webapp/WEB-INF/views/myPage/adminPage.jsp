@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>ADMIN PAGE</title>
-<link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
 </head>
 <body>
 <div class="preloader d-flex align-items-center justify-content-center">

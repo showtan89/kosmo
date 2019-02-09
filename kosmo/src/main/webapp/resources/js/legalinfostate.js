@@ -7,7 +7,7 @@ function getlegalinfoJsonData2(){
 		var str2 = "";	//인위적으로 만들어낼 HTMl 태그를 담기위해 선언
 		//ex 테이블의 경우 테이블 태그와 같이 1개만 존재해야 되는 부분 each 전에 작성
 				//반복 작업될 부분 작성 ex) <tr><td> 등
-					str2 += '<br><table align="left"  class="table">';
+					str2 += '<br><table align="left" class="table">';
 					str2 += ' <thead class="table-success"><tr align="center">';
 						str2 += '<th style="width:50%;">법령명</th>';
 						str2 += '<th style="width:13%;">소관부처</th>';

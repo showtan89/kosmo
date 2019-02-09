@@ -27,7 +27,6 @@
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 
 <link rel="stylesheet" href="resources/style.css">
-<link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
 </head>
 
 <body>
@@ -61,7 +60,21 @@
 		style="width: 500px; height: 400px; margin-left: auto; margin-right: auto;">
 
 	</div>
+	
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=u91vrld6gw"></script>
+<body>
+<div id="map" style="width:100%;height:400px;"></div>
 
+<script>
+var mapOptions = {
+    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    zoom: 10
+};
+
+var map = new naver.maps.Map('map', mapOptions);
+</script>
+	
+<!-- 
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=37c2e71a114ce757eb2a4b922679624c&libraries=services"></script>
 <script>
@@ -141,7 +154,7 @@ function getLocation() {
 	getLocation();
 		
 </script>
-
+ -->
 	<br>
 	<br>
 	<br>

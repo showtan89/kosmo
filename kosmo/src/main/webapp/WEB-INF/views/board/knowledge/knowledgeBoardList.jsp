@@ -82,22 +82,22 @@ function knowledgeDetailForm(knowledgeNumber){
 			<div class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between" 
 			style="margin:20px 0 0 0;padding-bottom:10px;">
 					<!-- 이부분 바꿔야함  -->
-					<div align="center"style="font-size:25px;font-weight:bold;"id="ehddnr_1" class="knowledge_div2" onclick="ehddnr_select1()">
-					답변을 원하는 질문
+					<div align="center"style="margin-top:20px;font-size:30px;font-weight:bold;color:black;"id="ehddnr_1" class="knowledge_div2" onclick="ehddnr_select1()">
+					QUESTIONS THAT NEED ANSWERS
 					</div>
-					<div style="font-size:25px;"id="ehddnr_2"class="knowledge_div2" align="center" onclick="ehddnr_select2()">
-						답변이 완료된 질문
+					<div style="margin-top:20px;font-size:30px;color:black;"id="ehddnr_2"class="knowledge_div2" align="center" onclick="ehddnr_select2()">
+					ANSWER COMPLETED QUESTION
 					</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="row" style="margin-top: 20px;">
+	<div class="row" style="margin-top: 30px;">
 		<!-- 사이드바 -->
 		<div class="col-12 col-md-3 col-lg-2">
 			<div class="shop-sidebar-area">
 				<div class="shop-widget catagory mb-50" align="left">
-					<h4 class="widget-title">Categories</h4>
+					<h4 class="widget-title" style="font-size:30px;font-weight:bold;">Categories</h4>
 					<h6 class="widget-title" >
 						<a id="All" class="knowledgeCategoryAteg"
 							onclick="getknowledgelist('All');">All</a>
@@ -149,16 +149,16 @@ function knowledgeDetailForm(knowledgeNumber){
 				</div>
 			</div>
 		</div>
-		<div class="col-12 col-md-9 col-lg-10">
-			<div class="shop-products-area">
+		<div class="col-12 col-md-9 col-lg-10" >
+			<div class="shop-products-area" style="padding-left:30px;">
 				<div class="row">
 					<div name="ehddnrform"
 						style="width: 100%; margin: 0 0 15px 0; padding: 0 5px;">
 						<div id="knowledge_div3">
-							<h4 style="float: left;"id="titlecatagory" class="knowledgeup">All</h4>
+							<h4 style="float:left;font-size:30px;font-weight:bold;" id="titlecatagory" class="knowledgeup" >All</h4>
 							<div class="knowledge_select ">
-								<input class=knowledge_select2 type="text" maxlength="30" name="search" id="search" placeholder=""> 
-								<input class="knowledge_select3" id="SearchButton" type="button" onclick="knowledgeBoardListsearch();" value="SEARCH">
+								<input class=knowledge_select2 type="text" maxlength="30" name="search" id="search" style="font-weight:bold;"> 
+								<input class="knowledge_select3" id="SearchButton" type="button" style="font-weight:bold;"onclick="knowledgeBoardListsearch();" value="SEARCH">
 							</div>
 						</div>
 						<div style="margin: 15px 0;"class="search_by_terms">
