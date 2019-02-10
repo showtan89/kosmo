@@ -83,6 +83,7 @@ function getJsonData() {
 		items = data.response.body.items.item;
 		pageNo = data.response.body.pageNo;
 		totalCount = data.response.body.totalCount;
+		console.log("page:"+pageNo+" / total:"+totalCount);
 		if(items == undefined){
 			str+='<div class="col-12 col-lg-4"><div class="single-blog-post mb-50"><div class="post-thumbnail mb-30"><br><h1>0 Result Found.</h1></div></div></div>'
 		}else{
