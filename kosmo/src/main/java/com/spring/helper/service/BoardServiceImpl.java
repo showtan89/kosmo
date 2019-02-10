@@ -765,6 +765,7 @@ public class BoardServiceImpl implements BoardService {
 
 		return sendCnt;
 	}
+	
 	// 채팅 글뿌리기
 	@Override
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model) {

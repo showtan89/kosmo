@@ -251,6 +251,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public int sendMessage(Map<String, Object> map) {
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", map);
 	}
+	
 	// 채팅 글뿌리기
 	@Override
 	public List<ChattingVO> chatting(){
@@ -358,7 +359,6 @@ public class BoardDAOImpl implements BoardDAO {
 	public int emergencyCnt() {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
 	}
-	
 	
 	// 대호 종료 ==============================================================
 

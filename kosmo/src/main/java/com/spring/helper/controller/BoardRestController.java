@@ -385,6 +385,7 @@ public class BoardRestController {
 		return new ResponseEntity<Integer>(chattingWrite,HttpStatus.OK);
 	}
 	//--------------- 민석 종료 ---------------------------------
+	
 	// 원데이 클래스 댓글 리스트 출력
 	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
 	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{

@@ -9,6 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <link rel="stylesheet" type="text/css" href="resources/css/demo.css" />
 <link rel="stylesheet" type="text/css"
 	href="resources/css/component.css" />
@@ -26,6 +27,54 @@
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 
 <!-- Core Stylesheet -->
+
+<style type="text/css">
+
+/* The Modal (background) */
+.w3-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999999999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #70c745; /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.w3-modal-content {
+  border: solid 5px;
+  border-color: #70c745;
+  background-color: #dcf1d1;
+  margin: 15% auto; /* 15% from the top and centered */
+  margin-top:10%;
+  padding: 20px;
+  border: 2px solid #888;
+  width: 50%;
+  max-width:1080px;
+  max-height:600px;
+  overflow-y: auto;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+</style>
 </head>
 
 <div class="preloader d-flex align-items-center justify-content-center">
@@ -46,7 +95,7 @@
 		<h2>Interaction</h2>
 	</div>
 </div>
-<div class="container">
+<div class="container" id="container">
 	<div class="row">
 		<div class="col-12">
 			<nav aria-label="breadcrumb">
@@ -69,7 +118,7 @@
 				<li><a href="#section-5"><span>Chatting</span></a></li>
 			</ul>
 		</nav>
-		<div class="content">
+		<div class="content" id="content">
 			<section id="section-1">
 				<div class="mediabox">
 
@@ -177,11 +226,14 @@
 						<c:forEach var="mos" items="${mos}">
 							<%-- <c:if test="${!sessionScope.userVO.memberId.equals(mos.messageSendId)}"> --%>
 							<tr>
-								<td>${mos.messageFromId}</td>
+								<td id="messageFromIdR">${mos.messageFromId}</td>
 								<!-- align="center" -->
 
-								<td><a onclick="messageContent();">${mos.messageContent}</a></td>
-								<td>${mos.messageRegdate}</td>
+								<td>
+								<a id="messageContentR" onclick="recieveMessage('${mos.messageFromId}','${mos.messageContent}','${mos.messageRegdate}');"> ${mos.messageContent}</a>
+								</td>
+								
+								<td id="messageRegdateR">${mos.messageRegdate}</td>
 								<td>checked</td>
 								<td><input type="button" class="btn btn-success mr-30"
 									value="delete"
@@ -255,8 +307,7 @@
 							<th>Delete</th>
 						</tr>
 						<c:forEach var="mos" items="${mos}">
-							<c:if
-								test="${sessionScope.userVO.memberId.equals(mos.messageFromId)}">
+							<c:if test="${sessionScope.userVO.memberId.equals(mos.messageFromId)}">
 								<tr>
 									<!-- ${!sessionScope.userVO.memberId.equals(cos.memberid)} -->
 									<td>${mos.messageSendId}</td>
@@ -271,6 +322,7 @@
 								</tr>
 							</c:if>
 						</c:forEach>
+
 						<tr>
 							<td colspan="5">
 								<div id="page" align="center">
@@ -311,6 +363,9 @@
 						</tr>
 					</table>
 				</div>
+
+
+
 			</section>
 			<section id="section-5" align="center">
 
@@ -323,20 +378,73 @@
 		<!-- /content -->
 	</div>
 	<!-- /tabs -->
+	
 </div>
 
+ <div id="id01" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        
+        <p> sender : </p>
+        <p id="msgfromId"></p>
+        	<hr>
+        <p> content : </p>	
+        <p id="msgContent"></p>
+       		<hr>
+       	<p>date sent</p>
+        <p id="msgRegdate"></p>
+        
+        <p>
+        
+        <span onclick="document.getElementById('id01').style.display='none'" class="btn btn-success mr-30" value="close">close</span>
+        
+        	&nbsp; &nbsp;
+        <input type="button" class="btn btn-success mr-30"
+									value="reply" onclick="reply();">
+		</p>
+      </div>
+    </div>
+  </div>
 
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
 <script src="resources/js/cbpFWTabs.js"></script>
 <script>
 		new CBPFWTabs(document.getElementById('tabs'));
 
+		// 메세지 보내기 값
 		function sendMessage() {
 			var messageSendId = $("#messageSendId").val();
 			var messageContent = $("#messageContent").val();
 			window.location = 'messageSend?messageSendId=' + messageSendId
 					+ '&messageContent=' + messageContent;
 		}
+		//메세지 상세보기 팝업창
+		function recieveMessage(id,content,regdate) {
+			$('#msgfromId').html(id)
+			document.getElementById('id01').style.display='block';
+			
+			$('#msgContent').html(content)
+			document.getElementById('id01').style.display='block';
+			
+			$('#msgRegdate').html(regdate)
+			document.getElementById('id01').style.display='block';
+			
+			
+		}
+		
+		 //메세지 답장하기
+		 function reply(id, content, regdate){
+			
+			$('#msgfromId').html(id)
+			document.getElementById('id01').style.display='none';
+			
+			$('#msgContent').html(content)
+			document.getElementById('id01').style.display='none';
+			
+			$('#msgRegdate').html(regdate)
+			document.getElementById('id01').style.display='none';
+			
+		}   
 
 		// 채팅 창 open
 		function chatting() {
