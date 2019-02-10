@@ -222,6 +222,7 @@ public class BoardController {
 		logger.info("원데이 클래스 게시판 상세페이지 호출중 ....");
 		
 		service.onedayclassDetailForm(req, model);
+		logger.info("원데이 클래스 게시판 상세페이지 호출!!!!!!!!!!!!!!!!!!!!! ....");
 		return "board/onedayclass/onedayclassDetailForm";
 	}
 	

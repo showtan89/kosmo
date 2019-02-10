@@ -1,6 +1,7 @@
 package com.spring.helper.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -340,12 +341,53 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// 원데이게시판 댓글 리스트 출력
-	@Override
-	public ArrayList<oCommentVO> getoCommentList(int onedayclassNumber) {
+/*	@Override
+	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end) {
 
-		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber);
+		return sqlSession.getMapper(BoardDAO.class).getoCommentList(onedayclassNumber, start, end);
+	}*/
+	
+	// 원데이게시판 댓글 리스트 출력
+	@Override
+	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("onedayclassNumber", onedayclassNumber);
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.getoCommentList", map);
 	}
 	
+	/*	@Override
+	public int oCommentCount(int oCommentNumber) {
+		
+		return 0;
+	}*/
+	@Override
+	public void oCommentCreate(oCommentVO dto) {
+		sqlSession.insert("com.spring.helper.dao.BoardDAO.oCommentCreate", dto);
+	}
+
+/*	@Override
+	public void oCommentUpdate(oCommentVO dto) {
+		
+		
+	}
+	@Override
+	public void oCommentDelete(oCommentVO dto) {
+		
+		
+	}
+	@Override
+	public oCommentVO oCommentDetail(int onedayclassNumber) {
+		
+		return null;
+	}*/
+	
+	// 
+
+
+	
+
 
 	// 진호 메소드 종료------------------------------------------------
 
@@ -359,6 +401,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public int emergencyCnt() {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
 	}
+
 	
 	// 대호 종료 ==============================================================
 
