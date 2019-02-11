@@ -10,9 +10,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+
+import javax.servlet.http.HttpSession;
+
+
 import javax.servlet.http.HttpServletResponse;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -24,9 +31,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
@@ -397,6 +406,12 @@ public class BoardRestController {
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
 	}
 	
+
+	// 쪽지 시작
+	//--------------- 민석 ---------------------------------
+	
+	//----------------진호 시작-----------------------------------------------------------
+
 	//채팅글뿌리기
 	@RequestMapping(value="chatting", method = RequestMethod.GET)
 	ResponseEntity<List<ChattingVO>> chatting(HttpServletRequest req, Model model){
@@ -406,20 +421,51 @@ public class BoardRestController {
 	}
 
 	// 채팅 글쓰기
-	@RequestMapping(value="chattingList", method = RequestMethod.POST)
-	ResponseEntity<Integer> chattingList(@RequestBody ChattingVO cVO, HttpServletRequest req ) throws Exception{
-		logger.info("chattingList 호출");
+	@RequestMapping(value="chattingContent", method = RequestMethod.POST)
+	ResponseEntity<Integer> chattingContent(@RequestBody ChattingVO cVO, HttpServletRequest req ) throws Exception{
+		logger.info("chattingContent 호출" + cVO.getChattingContent());
 		Integer chattingWrite = service.chattingWrite(cVO, req);
 		return new ResponseEntity<Integer>(chattingWrite,HttpStatus.OK);
 	}
 	//--------------- 민석 종료 ---------------------------------
+	
+
 	// 원데이 클래스 댓글 리스트 출력
-	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
+/*	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
 	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{
 		logger.info("oCommentJson - 호출중");
 		ArrayList<oCommentVO> list = service.getoCommentList(req,model);
 		return new ResponseEntity<>(list,HttpStatus.OK);
+	}*/
+	
+/*	@RequestMapping("oCommentInsert")
+	public void oCommentInsert(@ModelAttribute oCommentVO dto, HttpSession session) throws Exception{
+		String memberId = (String)session.getAttribute("memberId");
+		dto.setMemberId(memberId);
+		System.out.println("값들어오니?" + dto.toString());
+		service.oCommentCreate(dto);
+	}*/
+	
+	// 댓글 추가
+	@RequestMapping(value="oCommentInsert", method = RequestMethod.POST)
+	public void oCommentInsert(@RequestBody oCommentVO dto, HttpServletRequest req, Model model) throws Exception{
+		logger.info("댓글 추가 호출중");
 		
+		System.out.println("ajax stress" + dto.toString());
+		service.oCommentCreate(dto);
 	}
+	
+	// 댓글리스트 출력
+	@RequestMapping(value="list_json", method = RequestMethod.GET)
+	public ResponseEntity<List<oCommentVO>> list_json(HttpServletRequest req, Model model) throws Exception{
+		logger.info("댓글리스트 호출중");
+		
+		/*return service.getoCommentList(oCommentNumber, 1, 10, session);*/
+		
+		List<oCommentVO> list = service.getoCommentList(req,model); //댓글 리스트 가져오기
+		return new ResponseEntity<>(list,HttpStatus.OK);
+	}
+	
+	//----------------진호 끝----------------------------------------------------------
 	
 }

@@ -59,14 +59,14 @@ $("#submitComment").on("click", function(){
 		dataType:"text",
 		data:JSON.stringify({realestateNumber:realestateNumber,rCommentContent:rCommentContent,rCommentTemp1:memberEmail}), 
 		success:function(result){
-			if(result == ';'){
-				getJsonData();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
-			}else{
-				getJsonData();
-				alert('error !');
-			}
+			getJsonData();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
 			emptyComment();	//댓글 입력창 초기화
-		}
+		},
+		error:function(result){
+			getJsonData();	
+			emptyComment();	
+			alert('error !');
+		}		
 	});
 })
 
@@ -242,7 +242,7 @@ function realestatePostCheck() {
 		$("#realestateMoveindate").focus()
 		$("#realestateMoveindate").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 		return false;
-		
+
 	}else if($("#realestateMoveindate").val().length != 10){
 		$("#realestateMoveindate").focus()
 		$("#realestateMoveindate").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).val(null);
@@ -272,4 +272,7 @@ function realestatePostCheck() {
 		$("#realestateContent").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 		return false;
 	}
+
+	var preloader = '<div class="preloader trans-preloader d-flex align-items-center justify-content-center"><div class="preloader-circle"></div><div class="preloader-img"><img src="resources/img/core-img/leaf.png" alt=""></div></div>';
+	$('#preloader').html(preloader); 
 }
