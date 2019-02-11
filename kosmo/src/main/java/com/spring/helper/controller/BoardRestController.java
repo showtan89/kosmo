@@ -63,6 +63,34 @@ public class BoardRestController {
 	@Autowired
 	BoardDAO boardDao;
 	
+	//길찾기 주소정보 가져오기
+	@RequestMapping(value="AddressJson", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<String> AddressJson(HttpServletRequest req, Model model) throws Exception{
+		logger.info("AddressJson 로딩 중....");
+				BufferedReader br = null;
+				String x1 = req.getParameter("x1");
+				String y1 = req.getParameter("y1");
+				String x2 = req.getParameter("x2");
+				String y2 = req.getParameter("y2");
+				System.out.println(x1);
+				System.out.println(y1);
+				System.out.println(x2);
+				System.out.println(y2);
+	            String urlstr = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+x1+"&SY="+y1+"&EX="+x2+"&EY="+y2+"&apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0";
+	            URL url = new URL(urlstr);
+	            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	            urlconnection.setRequestMethod("GET");
+	            br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	            String result = "";
+	            String line;
+	            while((line = br.readLine()) != null) {
+	                result = result + line + "\n";
+	                
+	            }
+	            System.out.println(result);
+		return new ResponseEntity<String>(result,HttpStatus.OK);
+	}
+	
 	// 환율정보 가져오기
 	@RequestMapping(value="exchangeratejson", method = RequestMethod.GET, produces = "application/json; charset=utf8")
 	public ResponseEntity<String> exchangeratejson(HttpServletRequest req, Model model) throws Exception{
