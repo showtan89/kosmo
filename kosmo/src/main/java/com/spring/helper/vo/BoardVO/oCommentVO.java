@@ -15,6 +15,8 @@ public class oCommentVO {
 	private String oCommentTemp2;			// 댓글컬럼2
 	private int oCommentTemp3;				// 댓글컬럼3
 	
+	public oCommentVO() {}
+	
 	@Override
 	public String toString() {
 		return "oCommentVO [oCommentNumber=" + oCommentNumber + ", onedayclassNumber=" + onedayclassNumber

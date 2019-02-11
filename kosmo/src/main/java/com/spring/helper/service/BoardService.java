@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
 
@@ -92,7 +94,6 @@ public interface BoardService {
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model);
 	
 	// 채팅 글 쓰기
-	//public List<ChattingVO> chattingWrite(HttpServletRequest req);
 	public Integer chattingWrite(ChattingVO cVO, HttpServletRequest req);
 
 	//민석이 종료+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -123,14 +124,30 @@ public interface BoardService {
 	public void onedayclassAuthorityPro(HttpServletRequest req, Model model);
 
 	// 원데이클래스 게시판 댓글 가져오기
-	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model);
-
+	/*public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model);*/
+	
+	// 댓글 목록
+	/*public List<oCommentVO> getoCommentList(int oCommentNumber, int start, int end, HttpSession session);*/
+	public List<oCommentVO> getoCommentList(HttpServletRequest req, Model model);
+	/*public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end, HttpSession session);*/
+	// 댓글 갯수
+	/*public int oCommentCount(int oCommentNumber);*/
+	// 댓글 쓰기
+	public void oCommentCreate(oCommentVO dto);
+	// 댓글 수정
+	/*public void oCommentUpdate(oCommentVO dto);*/
+	// 댓글 삭제
+	/*public void oCommentDelete(oCommentVO dto);*/
+	// 댓글 상세
+	/*public oCommentVO oCommentDetail(int onedayclassNumber);*/
 
 	//진호 끝-----------------------------------------------------------
 
 	// 대호 시작 =================
 
 	public void emergency(HttpServletRequest req, Model model) throws Exception;
+
+	
 
 	// 대호 끝 ==================
 }
