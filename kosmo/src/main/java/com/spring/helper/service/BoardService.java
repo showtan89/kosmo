@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -95,6 +96,12 @@ public interface BoardService {
 	
 	// 채팅 글 쓰기
 	public Integer chattingWrite(ChattingVO cVO, HttpServletRequest req);
+	
+	// 채팅 글뿌리기
+	public List<ChattingAllVO> chattingAll(HttpServletRequest req, Model model);
+		
+	// 채팅 글 쓰기
+	public Integer chattingWriteAll(ChattingAllVO cVO, HttpServletRequest req);
 
 	//민석이 종료+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

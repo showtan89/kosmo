@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
@@ -110,10 +110,16 @@ public interface BoardDAO {
 	public int sendMessage(Map<String, Object> map);
 	
 	// 채팅 글뿌리기
-	public List<ChattingVO> chatting();
+	public List<ChattingVO> chatting(String chattingContry);
 	
 	//채팅 글쓰기
 	public int chattingWrite(ChattingVO vo);
+	
+	//세계 채팅 글뿌리기
+	public List<ChattingAllVO> chattingAll(String chattingAllContry);
+		
+	//세계 채팅 글쓰기
+	public int chattingWriteAll(ChattingAllVO vo);
 
 	//민석이 메소드 종료+++++++++++++++++++++++++++++++
 

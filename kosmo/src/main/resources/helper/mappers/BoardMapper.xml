@@ -510,13 +510,24 @@
 	
 	<!-- 채팅 글 뿌리기-->
 	<select id="chatting" resultType="com.spring.helper.vo.BoardVO.ChattingVO">
-		SELECT * FROM chatting ORDER BY chattingRegdate ASC
+		SELECT * FROM chatting WHERE chattingcontry=#{chattingContry} ORDER BY chattingRegdate ASC
 	</select>
 	
 	<!-- 채팅 글쓰기 -->
 	<insert id="chattingWrite" parameterType="com.spring.helper.vo.BoardVO.ChattingVO">
 		INSERT INTO chatting VALUES
-		( chattingseq.nextval, #{chattingMemberId}, #{chattingContent}, sysdate, 0,'n','n' )	
+		( chattingseq.nextval, #{chattingMemberId}, #{chattingContent}, sysdate, #{chattingContry}, 0,'n','n' )	
+	</insert>
+	
+	<!-- 세계 채팅 글 뿌리기-->
+	<select id="chattingAll" resultType="com.spring.helper.vo.BoardVO.ChattingAllVO">
+		SELECT * FROM chattingall ORDER BY chattingAllRegdate ASC
+	</select>
+	
+	<!-- 세계 채팅 글쓰기 -->
+	<insert id="chattingWriteAll" parameterType="com.spring.helper.vo.BoardVO.ChattingAllVO">
+		INSERT INTO chattingall VALUES
+		( chattingallseq.nextval, #{chattingAllMemberId}, #{chattingAllContent}, sysdate, #{chattingAllContry}, 0,'n','n' )	
 	</insert>
 	
 	<!-- 민석이 종료+++++++++++++++++++++++++++++++++++ -->

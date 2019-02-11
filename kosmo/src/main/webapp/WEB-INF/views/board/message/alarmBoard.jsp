@@ -375,11 +375,18 @@
 					</div>
 				</section>
 				<section id="section-5" align="center">
-
 					Talk to everyone.<br> Share your travel information.<br>
 					You may ask questions! <br> <br> <input type="button"
 						class="btn btn-success mr-30" value="ChattingRoomEnter"
 						style="padding: 1px;" onclick="chatting();">
+						<br><br><hr><br>
+					
+					Talk to everyone in the world. <br>
+					It's going to be a pretty pleasant<br> 
+					chat room with different languages.<br><br>
+					<input type="button"
+						class="btn btn-success mr-30" value="ChattingRoomEnter"
+						style="padding: 1px;" onclick="chattingAll();">
 				</section>
 			</div>
 			<!-- /content -->
@@ -410,7 +417,7 @@
 					
 					<input type="button" id="reply"
 										class="btn btn-success mr-30" value="reply"
-										onclick="reply();">
+										onclick="reply('');">
 				</p>
 			</div>
 		</div>
@@ -420,9 +427,15 @@
 		<div class="w3-modal-content">
 			<div class="w3-container">
 				<form action="messageSend" method="post">
-				<b>Message receiving ID</b> &nbsp; 
-				<input type="text" name="messageSendId" id="messageSendId"
-						style="padding: 1px; border: 1px solid #333;">
+				<b>
+				Message receiving ID :&nbsp;
+				</b> 
+				<p id="messageSendId">
+				
+				</p>
+				 
+				<!-- <input type="text" name="messageSendId" id="messageSendId"
+						style="padding: 1px; border: 1px solid #333;"> -->
 				<hr>
 				<b>CONTENT</b> <br> <br>
 					<textarea class="content" name="messageContent" id="messageContent"
@@ -474,9 +487,10 @@
 		}
 		
 		 //메세지 답장하기
-		function reply() {
+		function reply(id) {
+			$('#hiddenId').val(id);
 			
-			$('#messageSendId').html()
+			$('#messageSendId').html(id)
 			document.getElementById('id02').style.display='block';
 			
 			$('#messageContent').html()
@@ -491,11 +505,18 @@
 					$('.messageSendId').val(id);
 			}); */
 
-		// 채팅 창 open
+		//국가 채팅 창 open
 		function chatting() {
 			var url = "chattingstart";
 			window.open(url, "chatting", "menubar=yes, width=800, height=500");
 		}
+			
+		// 세계 채팅 창 open
+		function chattingAll(){
+			var url = "chattingAll";
+			window.open(url, "chattingAll", "menubar=yes, width=800, height=500");
+		}
+		
 	</script>
 
 </html>
