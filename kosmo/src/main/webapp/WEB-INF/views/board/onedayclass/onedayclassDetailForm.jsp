@@ -377,7 +377,7 @@ function submitFunction() {
     }, 4000);
 }
 
-<!-- 댓글 목록을 출력할 영역 -->
+/* 댓글 목록을 출력할 영역 */
 function getoCommentList() {
 	/* alert("댓글떳2222음!!!!!!!") */
 	 $.ajax({
