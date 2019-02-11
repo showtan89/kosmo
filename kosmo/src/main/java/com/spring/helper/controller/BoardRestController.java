@@ -377,12 +377,8 @@ public class BoardRestController {
 		Integer alarmServiceCnt = service.alarmServiceCnt(req); 
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
 	}
-	
 
 	// 쪽지 시작
-	//--------------- 민석 ---------------------------------
-	
-	//----------------진호 시작-----------------------------------------------------------
 
 	//채팅글뿌리기
 	@RequestMapping(value="chatting", method = RequestMethod.GET)
@@ -400,7 +396,9 @@ public class BoardRestController {
 		return new ResponseEntity<Integer>(chattingWrite,HttpStatus.OK);
 	}
 	//--------------- 민석 종료 ---------------------------------
-
+	
+	
+	//----------------진호 시작-----------------------------------------------------------
 	// 원데이 클래스 댓글 리스트 출력
 /*	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
 	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{

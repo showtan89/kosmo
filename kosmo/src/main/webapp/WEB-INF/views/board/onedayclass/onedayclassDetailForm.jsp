@@ -316,26 +316,8 @@
 </div>
 </c:if>
 
-<!-- 댓글 목록을 출력할 영역 -->
-<div class="bg-green" id="getoCommentList">
-	<table style="width:1000px;">
-		<c:forEach var="row" items="${getoCommentList}">
-			<tr>
-				<td>${row.oCommentNumber}</td>
-				<td>${row.memberId}</td>
-				<td>${row.oCommentContent}</td>
-				<td>(<fmt:formatDate value="${row.oCommentRegdate}"
-				       pattern="yyyy-mm-dd a HH:mm:ss" /> )
-				</td>
-				<td>
-					<c:if test="${userVO.memberId == row.memberId}">
-						<input type="button" value="Modify">
-					</c:if>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-</div>
+
+
 
 <!-- The time line -->
 <ul class="timeline">
@@ -382,7 +364,6 @@ function submitFunction() {
 		success: function(result) {
 			if(result == 1) {
 				alert('전송에 성공했습니다.');
-				getoCommentList();
 			} else if(result == 0) {
 				alert('내용을 정확히 입력하세요');
 			} else {
@@ -391,8 +372,12 @@ function submitFunction() {
 		}
 	});
 	$('#oCommentContent').val('');
+	setTimeout(function(){
+		getoCommentList();
+    }, 4000);
 }
 
+<!-- 댓글 목록을 출력할 영역 -->
 function getoCommentList() {
 	/* alert("댓글떳2222음!!!!!!!") */
 	 $.ajax({
@@ -400,7 +385,7 @@ function getoCommentList() {
 		contentType: "application/json",
 		url:"list_json?onedayclassNumber=${dto.onedayclassNumber}",
 		success:function(result){
-			/* console.log(result); */
+			console.log(result);
 			var output="<table>";
 			for(var i in result){
 				output += "<tr>";
@@ -408,17 +393,18 @@ function getoCommentList() {
 				output += "<td>"+result[i].memberId + "</td>";
 				output += "<td>"+result[i].oCommentRegdate + "</td>";
 				output += "<td>"+result[i].oCommentContent + "</td>";
-				output += "<td></td>";
+				if("${userVO.memberId}" == result[i].memberId){
+					output += "<td><input type='button' value='Modify'></td>";
+				}				
 				output += "</tr>";
 			}
 			output += "</table>";
-			$("#getoCommentList").html(output);
+			console.log(output);
+			//$("#getoCommentList").html(output);
+			$(output).appendTo("#getoCommentList");
 		}
 	}); 
 }
-
-
-
 
 $(function(){
 	/* alert("댓글떳음!!!!!!!") */

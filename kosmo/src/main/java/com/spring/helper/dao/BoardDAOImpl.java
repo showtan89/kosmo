@@ -361,6 +361,8 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return 0;
 	}*/
+	
+	// 원데이게시판 댓글 추가
 	@Override
 	public void oCommentCreate(oCommentVO dto) {
 		sqlSession.insert("com.spring.helper.dao.BoardDAO.oCommentCreate", dto);
