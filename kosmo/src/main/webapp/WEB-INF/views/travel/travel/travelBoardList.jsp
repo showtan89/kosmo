@@ -88,7 +88,7 @@
 
 <!-- 여행 게시판 본문  -->
 <div class="container" style="margin-bottom: 50px;">
-	<h5>Travel Search</h5>
+	<h5>Travel Search <span id="countResult"></span></h5>
 	<hr>
 	<div class="row ">
 		<!-- 카테1 -->
@@ -163,8 +163,11 @@
 	<hr>
 	<!-- 데이터가 뿌려지는 공간 -->
 	<div class="shop-products-area">
+	
 		<div class="card flex-md-row mb-4 shadow-sm h-md-250" id="jsonResult"></div>
-		<h1>페이징 보류</h1>
+		<!-- 페이지가 뿌려지는 곳 -->
+		<div id="pageResult"></div>
+		<br>
 	</div>
 	
 	<div class="section-heading text-center">
