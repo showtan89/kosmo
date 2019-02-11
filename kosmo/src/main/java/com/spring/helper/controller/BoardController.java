@@ -163,7 +163,7 @@ public class BoardController {
 		return "board/realestate/realestateWriteForm";
 	}
 	
-	//부동산 게시판 글쓰기 실행
+	//부동산 게시판 글삭제 실행
 	@RequestMapping("realestateDeletePro")
 	public void realestateDeletePro(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
 		logger.info("realestateDeletePro 로딩 중....");
@@ -176,8 +176,10 @@ public class BoardController {
 	public void realestateWritePro(MultipartHttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
 		logger.info("realestateWritePro 로딩 중....");
 		Integer realestateInsertArticle = service.realestateInsertArticle(req, model);
+		Thread.sleep(5000); //이미지 서버가 없기 떄문에 서버에 이미지 반영 되는 딜레이 처리의 임시 방편으로 5초 딜레이
 		res.sendRedirect("realestateBoardList?insertResult="+realestateInsertArticle);
 	}
+	
 	
 	//부동산 게시판 글 수정 페이지로 이동
 	@RequestMapping("realestateModifyForm")
@@ -200,8 +202,12 @@ public class BoardController {
 	@RequestMapping("realestateDummyMaker")
 	public String realestateDummyMaker(HttpServletRequest req, Model model) throws Exception {
 		logger.info("realestateDummyMaker 로딩 중....");
-		service.realestateDummyMaker(req, model);
-		return "board/realestate/realestate";
+		for(int i = 0 ; i< 6500; i++) {
+			service.realestateDummyMaker(req, model);
+			Thread.sleep(500);
+		}
+		//vo의 setRealestateMoveindate 부분 수정해야 돌아감
+		return "board/realestate/realestateBoardList";
 	}
 	
 	//재영 BoardController 끝 ====================================================================================
@@ -222,6 +228,7 @@ public class BoardController {
 		logger.info("원데이 클래스 게시판 상세페이지 호출중 ....");
 		
 		service.onedayclassDetailForm(req, model);
+		logger.info("원데이 클래스 게시판 상세페이지 호출!!!!!!!!!!!!!!!!!!!!! ....");
 		return "board/onedayclass/onedayclassDetailForm";
 	}
 	
@@ -294,6 +301,7 @@ public class BoardController {
 	
 	// 민석 BoardController 시작++++++++++++++++++++++++++++++++
 	
+	// 쪽지 보내기
 	@RequestMapping("messageSend")
 	public String messageSend(HttpServletRequest req, Model model) throws Exception {
 		logger.info("쪽지 보내기 처리 호출중 ....");
@@ -302,6 +310,8 @@ public class BoardController {
 		
 		return "board/message/messageSend";
 	}
+	
+	// 채팅 창 띄우기
 	@RequestMapping("chattingstart")
 	public String chattingView(HttpServletRequest req, Model model) throws Exception {
 		logger.info("채팅 호출중 ....");
@@ -310,15 +320,6 @@ public class BoardController {
 		
 		return "board/message/chatting";
 	}
-	
-	/*@RequestMapping("chattingWrite")
-	public String chattingWrite(HttpServletRequest req, Model model) throws Exception {
-		logger.info("채팅 호출중 ....");
-		
-		service.chattingWrite(req);
-		
-		return "board/message/chatting";
-	}*/
 	
 	// 민석 BoardController 끝++++++++++++++++++++++++++++++++
 	

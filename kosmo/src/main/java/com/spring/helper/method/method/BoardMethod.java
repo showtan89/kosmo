@@ -217,15 +217,15 @@ public class BoardMethod {
 		String image1 = "";
 		String image2 = "";
 		String image3 = "";
-		System.out.println(realDir);
-		realDir = realDir +"board\\realestate\\";
-		System.out.println(realDir);
+		System.out.println("realDir:"+realDir);
+		String newDir = realDir +"board\\realestate\\";
+		System.out.println("newDir:"+newDir);
 		if(req.getParameter("realestateImg1") == null) {
 			if(req.getFile("realestateImg1").getOriginalFilename().length() != 0) {
 				MultipartFile file = req.getFile("realestateImg1");
 				file.transferTo(new File(saveDir+file.getOriginalFilename()));
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
-				FileOutputStream fos = new FileOutputStream(realDir +mTime+ file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(newDir +mTime+ file.getOriginalFilename());
 				int data = 0;
 				while((data = fis.read()) != -1) {
 					fos.write(data);  
@@ -245,7 +245,7 @@ public class BoardMethod {
 				MultipartFile file = req.getFile("realestateImg2");
 				file.transferTo(new File(saveDir+file.getOriginalFilename()));
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
-				FileOutputStream fos = new FileOutputStream(realDir +mTime+ file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(newDir +mTime+ file.getOriginalFilename());
 				int data = 0;
 				while((data = fis.read()) != -1) {
 					fos.write(data);  
@@ -265,13 +265,14 @@ public class BoardMethod {
 				MultipartFile file = req.getFile("realestateImg3");
 				file.transferTo(new File(saveDir+file.getOriginalFilename()));
 				FileInputStream fis = new FileInputStream(saveDir + file.getOriginalFilename());
-				FileOutputStream fos = new FileOutputStream(realDir +mTime+ file.getOriginalFilename());
+				FileOutputStream fos = new FileOutputStream(newDir +mTime+ file.getOriginalFilename());
 				int data = 0;
 				while((data = fis.read()) != -1) {
 					fos.write(data);  
 				}
 				fis.close();
 				fos.close();
+
 				image3 = mTime+file.getOriginalFilename();
 				rVO.setRealestateImg3(image3);
 			}else {
@@ -396,29 +397,99 @@ public class BoardMethod {
 		String memberId = memberIdList[temp];
 		rVO.setMemberId(memberId);
 
-		String[] realestateSubjectList = {"좋은 집입니다.","전망 좋은 집","교통이 좋아요.","교통 편리합니다.",
-				"볕이 잘들어요.","역세권 주거지","어디든 갈 수 있어요.","강남까지 30분",
-				"조용한 곳 찾으시는분.","살기 좋은 동네","편의시설 가까워요","출퇴근 하기 편한곳"};
+		String[] realestateSubjectList = {"It's a nice house.","a house with a fine view","The transportation is really good.","The transfer station is very close.",
+				"The sun is shining well.","The subway station and bus stop are very close, so it's good to live.","It's really close to the airport.","You can go anywhere from here.","10 minutes to the station, and very good.",
+				"This is a really quiet town. Good place to study.","Line 2 is five minutes away.", "It's the place right behind the park, Good to take a walk.","The university and the library are close.","The convenience store and the police station are nearby. safe at night.",
+				"If you are looking for a quiet place, come!","It's a great neighborhood to live in.","It's a place where amenities are nearby.","a convenient place to commute to and from work"};
 		String realestateSubject = realestateSubjectList[random.nextInt(realestateSubjectList.length)];
 		rVO.setRealestateSubject(realestateSubject);
 		rVO.setRealestateContent(realestateSubject);
 
-		int realestatePrice = (random.nextInt(100)+1)*20000 ;
+		int realestatePrice = (random.nextInt(25)+15)*10000 ;
 		rVO.setRealestatePrice(realestatePrice);
-
+		
 		String[] realestateCategory1List = {"seoul","busan","incheon","gwangju","daejeon","sejong","daegu","ulsan","gyeonggi",
 				"gangwon","chungcheongbuk","chungcheongnam","gyeongsangbuk","gyeongsangnam","jeollabuk","jeollanam","jeju"};
-		String realestateCategory1 = realestateCategory1List[random.nextInt(realestateCategory1List.length)];
-		rVO.setRealestateCategory1(realestateCategory1);
+		int locationRandom = random.nextInt(realestateCategory1List.length);
+		rVO.setRealestateCategory1(realestateCategory1List[locationRandom]);
 
-		String[] realestateLocationList1 = {"서울","부산","인천","광주","대전","세종","대구","울산","경기",
-				"강원","충북","충남","경북","경남","전북","전남","제주"};
-		String[] realestateLocationList2 = {"종로구","중구","용산구","성동구","광진구","동대문구","중랑구","성북구","강북구",
-				"도봉구","노원구","은평구","서대문구","마포구","양천구","강서구","구로구","금천구","영등포구","동작구","관악구",
-				"서초구","강남구","송파구","강동구"	};
-		String local1 = realestateLocationList1[random.nextInt(realestateLocationList1.length)];
-		String local2 = realestateLocationList2[random.nextInt(realestateLocationList2.length)];
-		rVO.setRealestateLocation(local1+" "+local2);
+		String[] seoulJuso = {"서울특별시 종로구 난계로25길 5","5, Nangye-ro 25-gil, Jongno-gu, Seoul"};
+		String[] busanJuso = {"부산광역시 중구 광복로6번길 10-2","10-2, Gwangbok-ro 6beon-gil, Jung-gu, Busan"};
+		String[] incheonJuso = {"인천광역시 중구 도원로26번길 33-8","33-8, Dowon-ro 26beon-gil, Jung-gu, Incheon"};
+		String[] gwangjuJuso = {"광주광역시 동구 남문로 555","555, Nammun-ro, Dong-gu, Gwangju"};
+		String[] daejeonJuso = {"대전광역시 동구 계족로443번길 24","24, Gyejok-ro 443beon-gil, Dong-gu, Daejeon"};
+		String[] sejongJuso = {"세종특별자치시 조치원읍 도원로 16","16, Dowon-ro, Jochiwon-eup, Sejong-si"};
+		String[] daeguJuso = {"대구광역시 중구 공평로10길 30-10","30-10, Gongpyeong-ro 10-gil, Jung-gu, Daegu"};
+		String[] ulsanJuso = {"울산광역시 중구 곽남2길 20-2","20-2, Gwangnam 2-gil, Jung-gu, Ulsan"};
+		String[] gyeonggiJuso = {"경기도 수원시 장안구 천천로22번길 34","34, Cheoncheon-ro 22beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do"};
+		String[] gangwonJuso = {"강원도 춘천시 동내면 거두택지길 88","88, Geodutaekji-gil, Dongnae-myeon, Chuncheon-si, Gangwon-do"};
+		String[] chungcheongbukJuso = {"충청북도 제천시 고암로 22","22, Goam-ro, Jecheon-si, Chungcheongbuk-do"};
+		String[] chungcheongnamJuso = {"충청남도 천안시 동남구 구성8길 26","26, Guseong 8-gil, Dongnam-gu, Cheonan-si, Chungcheongnam-do"};
+		String[] gyeongsangbukJuso = {"경상북도 안동시 감나무5길 15","15, Gamnamu 5-gil, Andong-si, Gyeongsangbuk-do"};
+		String[] gyeongsangnamJuso = {"경상남도 창원시 마산합포구 가포로 154-11","154-11, Gapo-ro, Masanhappo-gu, Changwon-si, Gyeongsangnam-do"};
+		String[] jeollabukJuso = {"전라북도 전주시 완산구 감나무로 25","25, Gamnamu-ro, Wansan-gu, Jeonju-si, Jeollabuk-do"};
+		String[] jeollanamJuso = {"전라남도 여수시 돌산읍 강남8길 20","20, Gangnam 8-gil, Dolsan-eup, Yeosu-si, Jeollanam-do"};
+		String[] jejuJuso = {"제주특별자치도 제주시 가령로4길 14","14, Garyeong-ro 4-gil, Jeju-si, Jeju-do"};										
+		
+		String locaEng = "";
+		String locaKor = "";
+		
+		switch(locationRandom) {
+			case 0: locaKor = seoulJuso[0];
+					locaEng = seoulJuso[1];
+					break;
+			case 1: locaKor = busanJuso[0];
+					locaEng = busanJuso[1];
+					break;
+			case 2: locaKor = incheonJuso[0];
+					locaEng = incheonJuso[1];
+					break;
+			case 3: locaKor = gwangjuJuso[0];
+					locaEng = gwangjuJuso[1];
+					break;
+			case 4: locaKor = daejeonJuso[0];
+					locaEng = daejeonJuso[1];
+					break;
+			case 5: locaKor = sejongJuso[0];
+					locaEng = sejongJuso[1];
+					break;
+			case 6: locaKor = daeguJuso[0];
+					locaEng = daeguJuso[1];
+					break;
+			case 7: locaKor = ulsanJuso[0];
+					locaEng = ulsanJuso[1];
+					break;
+			case 8: locaKor = gyeonggiJuso[0];
+					locaEng = gyeonggiJuso[1];
+					break;
+			case 9: locaKor = gangwonJuso[0];
+					locaEng = gangwonJuso[1];
+					break;
+			case 10: locaKor = chungcheongbukJuso[0];
+					locaEng = chungcheongbukJuso[1];
+					break;
+			case 11: locaKor = chungcheongnamJuso[0];
+					locaEng = chungcheongnamJuso[1];
+					break;
+			case 12: locaKor = gyeongsangbukJuso[0];
+					locaEng = gyeongsangbukJuso[1];
+					break;
+			case 13: locaKor = gyeongsangnamJuso[0];
+					locaEng = gyeongsangnamJuso[1];
+					break;
+			case 14: locaKor = jeollabukJuso[0];
+					locaEng = jeollabukJuso[1];
+					break;
+			case 15: locaKor = jeollanamJuso[0];
+					locaEng = jeollanamJuso[1];
+					break;
+			case 16: locaKor = jejuJuso[0];
+					locaEng = jejuJuso[1];
+					break;
+		}
+		
+		rVO.setRealestateLocation(locaEng);
+		rVO.setRealestateTemp2(locaKor);
 
 		String[] check = {"on","off"};
 		String realestateDepositCheck = check[random.nextInt(2)];
@@ -430,7 +501,7 @@ public class BoardMethod {
 		}
 		rVO.setRealestateDeposit(realestateDeposit);
 
-		int realestateManagement = (random.nextInt(100)+1)*10000 ;
+		int realestateManagement = (random.nextInt(15)+5)*10000 ;
 		rVO.setRealestateManagement(realestateManagement);
 
 		String realestateBalcony = check[random.nextInt(2)];

@@ -145,8 +145,22 @@ public interface BoardDAO {
 	// 계좌번호 업데이트
 	public int onedayclassAccountUpdate(Map<String, Object> map);
 
+	
+	// 댓글 목록
+	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end);
 
-	public ArrayList<oCommentVO> getoCommentList(int onedayclassNumber);
+	/*public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end);*/
+	// 댓글 갯수
+	/*public int oCommentCount(int oCommentNumber);*/
+	// 댓글 쓰기
+	public void oCommentCreate(oCommentVO dto);
+	// 댓글 수정
+	/*public void oCommentUpdate(oCommentVO dto);*/
+	// 댓글 삭제
+	/*public void oCommentDelete(oCommentVO dto);*/
+	// 댓글 상세
+	/*public oCommentVO oCommentDetail(int onedayclassNumber);*/
+
 
 
 	// 진호 메소드 종료--------------------------------------
@@ -156,5 +170,6 @@ public interface BoardDAO {
 	
 	public int emergencyCnt();
 	// 대호 종료 ============================================
+
 
 }

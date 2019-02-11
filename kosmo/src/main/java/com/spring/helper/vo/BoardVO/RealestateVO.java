@@ -273,7 +273,8 @@ public class RealestateVO {
 	}
 
 	public void setRealestateMoveindate(String realestateMoveindate) {
-		this.realestateMoveindate = realestateMoveindate.substring(0, 10);
+		/*this.realestateMoveindate = realestateMoveindate; 더미용*/
+		this.realestateMoveindate = realestateMoveindate.substring(0, 10); 
 	}
 
 	public String getRealestateGender() {
