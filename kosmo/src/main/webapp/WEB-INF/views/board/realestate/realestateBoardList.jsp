@@ -440,7 +440,7 @@
 	
 						<c:forEach var="i" begin="${pVO.startPage}" end="${pVO.endPage}">
 							<c:if test="${i==pVO.currentPage}">
-								<li class="page-item"><a class="page-link" style="background-color: #28a745 !important; color:white !important">${i}</a></li>
+								<li class="page-item"><a class="page-link" style="background-color: #70c745 !important; color:white !important">${i}</a></li>
 							</c:if>
 							<c:if test="${i!=pVO.currentPage}">
 								<li class="page-item"><a class="page-link" href="${basicURL}?pageNum=${i}${linkURL}">${i}</a></li>

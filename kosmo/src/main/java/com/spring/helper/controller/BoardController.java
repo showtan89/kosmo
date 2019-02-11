@@ -163,7 +163,7 @@ public class BoardController {
 		return "board/realestate/realestateWriteForm";
 	}
 	
-	//부동산 게시판 글쓰기 실행
+	//부동산 게시판 글삭제 실행
 	@RequestMapping("realestateDeletePro")
 	public void realestateDeletePro(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
 		logger.info("realestateDeletePro 로딩 중....");
@@ -176,8 +176,10 @@ public class BoardController {
 	public void realestateWritePro(MultipartHttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
 		logger.info("realestateWritePro 로딩 중....");
 		Integer realestateInsertArticle = service.realestateInsertArticle(req, model);
+		Thread.sleep(5000); //이미지 서버가 없기 떄문에 서버에 이미지 반영 되는 딜레이 처리의 임시 방편으로 5초 딜레이
 		res.sendRedirect("realestateBoardList?insertResult="+realestateInsertArticle);
 	}
+	
 	
 	//부동산 게시판 글 수정 페이지로 이동
 	@RequestMapping("realestateModifyForm")
@@ -200,8 +202,12 @@ public class BoardController {
 	@RequestMapping("realestateDummyMaker")
 	public String realestateDummyMaker(HttpServletRequest req, Model model) throws Exception {
 		logger.info("realestateDummyMaker 로딩 중....");
-		service.realestateDummyMaker(req, model);
-		return "board/realestate/realestate";
+		for(int i = 0 ; i< 6500; i++) {
+			service.realestateDummyMaker(req, model);
+			Thread.sleep(500);
+		}
+		//vo의 setRealestateMoveindate 부분 수정해야 돌아감
+		return "board/realestate/realestateBoardList";
 	}
 	
 	//재영 BoardController 끝 ====================================================================================

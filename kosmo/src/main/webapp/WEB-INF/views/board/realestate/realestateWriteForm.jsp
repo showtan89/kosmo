@@ -21,6 +21,8 @@
 	</div>
 </div>
 
+<div id="preloader"></div>
+
 <jsp:include page="../../setting/header01.jsp" flush="false" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="realimage" value="resources/img/board/realestate/" />
