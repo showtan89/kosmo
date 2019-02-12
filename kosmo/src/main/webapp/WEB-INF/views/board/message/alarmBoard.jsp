@@ -120,9 +120,9 @@
 			<nav>
 				<ul class="tab">
 					<li><a href="#section-1"><span>Comment</span></a></li>
-					<li><a href="#section-2"><span>Receive Message</span></a></li>
+					<li><a href="#section-2"><span>RecMsg</span></a></li>
 					<li><a href="#section-3"><span>Message</span></a></li>
-					<li><a href="#section-4"><span>Send Message</span></a></li>
+					<li><a href="#section-4"><span>SendMsg</span></a></li>
 					<li><a href="#section-5"><span>Chatting</span></a></li>
 				</ul>
 			</nav>
