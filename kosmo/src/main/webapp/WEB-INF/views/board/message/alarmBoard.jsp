@@ -375,17 +375,18 @@
 					</div>
 				</section>
 				<section id="section-5" align="center">
-					Talk to everyone.<br> Share your travel information.<br>
-					You may ask questions! <br> <br> <input type="button"
-						class="btn btn-success mr-30" value="ChattingRoomEnter"
+						In this chat room, there are people of the same nationality as you.<br>
+						If you are lonely or have difficulty with perfume, <br>
+						try to strengthen friendship and comfort here.<br><br>
+						<input type="button"
+						class="btn alazea-btn mr-30" value="ChattingRoomEnter"
 						style="padding: 1px;" onclick="chatting();">
 						<br><br><hr><br>
 					
-					Talk to everyone in the world. <br>
-					It's going to be a pretty pleasant<br> 
-					chat room with different languages.<br><br>
+					In this chat room, there are all foreigners who use this site.<br>
+					It's a pleasant room that's spoken in each other's language. <br><br>
 					<input type="button"
-						class="btn btn-success mr-30" value="ChattingRoomEnter"
+						class="btn alazea-btn mr-30" value="ChattingRoomEnter"
 						style="padding: 1px;" onclick="chattingAll();">
 				</section>
 			</div>
@@ -513,7 +514,7 @@
 			
 		// 세계 채팅 창 open
 		function chattingAll(){
-			var url = "chattingAll";
+			var url = "chattingWorld";
 			window.open(url, "chattingAll", "menubar=yes, width=800, height=500");
 		}
 		

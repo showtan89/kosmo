@@ -427,16 +427,16 @@ public class BoardRestController {
 	// 세계 채팅글뿌리기
 	@RequestMapping(value="chattingAll", method = RequestMethod.GET)
 	ResponseEntity<List<ChattingAllVO>> chattingAll(HttpServletRequest req, Model model){
-		logger.info("chattingAll 호출");
+		logger.info("chattingAll 호출...");
 		List<ChattingAllVO> chattingAll = service.chattingAll(req, model);
 		return new ResponseEntity<List<ChattingAllVO>>(chattingAll,HttpStatus.OK);
 	}
 
 	// 세계 채팅 글쓰기
 	@RequestMapping(value="chattingAllContent", method = RequestMethod.POST)
-	ResponseEntity<Integer> chattingAllContent(@RequestBody ChattingAllVO cVO, HttpServletRequest req ) throws Exception{
-		logger.info("chattingAllContent 호출" + cVO.getChattingAllContent());
-		Integer chattingWriteAll = service.chattingWriteAll(cVO, req);
+	ResponseEntity<Integer> chattingAllContent(@RequestBody ChattingAllVO caVO, HttpServletRequest req ) throws Exception{
+		logger.info("chattingAllContent 호출" + caVO.getChattingAllContent());
+		Integer chattingWriteAll = service.chattingWriteAll(caVO, req);
 		return new ResponseEntity<Integer>(chattingWriteAll,HttpStatus.OK);
 	}
 	//--------------- 민석 종료 ---------------------------------
