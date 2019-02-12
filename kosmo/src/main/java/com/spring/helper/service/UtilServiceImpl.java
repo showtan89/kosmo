@@ -33,8 +33,9 @@ public class UtilServiceImpl implements UtilService {
 	private static final Logger logger = LoggerFactory.getLogger(UtilServiceImpl.class);
 	//재영 서비스 시작
 	
-	//이미지 검색 ----------- 이미지 업로드 부분이라 경로 통일이 필요함
-	public Map<String,Object> imageSearchPro(MultipartHttpServletRequest req, Model model) throws Exception {
+	//이미지 검색 ----------- 이미지 업로드 부분이라 경로 통일이 필요함   - URL 방식 
+	public Map<String,Object> imageSearchURLPro(MultipartHttpServletRequest req, Model model) throws Exception {
+		logger.info("URL 검색");
 		String urlPath ="";
 		//이미지가 업로드 되는 실제 위치 경로 구하기 (깃 working tree 경로)
 		String[] imgArray = gv.imgUploader(req);
@@ -46,8 +47,39 @@ public class UtilServiceImpl implements UtilService {
 		logger.info("*** newPath : " + urlPath);
 		PrintStream out = System.out;
 		//여기서 이제 값을 받아야함
+		Thread.sleep(2000);
 		Map<String,Object> result = gv.detectLabelsGcs(urlPath, out);
 		result.put("imgName", imgName);
+		return result;
+	}
+	//이미지 검색 -- 로컬 검색
+	public Map<String,Object> imageSearchLocalPro(MultipartHttpServletRequest req, Model model) throws Exception {
+		logger.info("Local 검색");
+		//이미지가 업로드 되는 실제 위치 경로 구하기 (깃 working tree 경로) - 로컬 경로
+		String[] imgArray = gv.imgUploader(req);
+		String imgPathString = imgArray[0]; 
+		String imgName = imgArray[1];
+		logger.info("*** imgPath : " + imgPathString);
+		PrintStream out = System.out;
+		Thread.sleep(5000);
+		String searchType = req.getParameter("searchType");
+		
+		Map<String,Object> result = new HashMap<String,Object>();
+		
+		if(searchType.equals("label")) {//라벨 검색
+			result = gv.detectLabels(imgPathString, out);
+		}else if(searchType.equals("web")) {// 웹검색
+			result = gv.detectWebDetections(imgPathString, out);
+		}else if(searchType.equals("text")) {//텍스트 검색
+			result = gv.detectText(imgPathString, out);
+		}else if(searchType.equals("hand")) {// 손글씨 검색
+			result = gv.detectDocumentText(imgPathString, out);
+		}else if(searchType.equals("landmark")) {//랜드마크 검색 
+			result = gv.detectLandmarks(imgPathString, out);
+		}
+		
+		result.put("imgName", imgName);
+		result.put("type", searchType);
 		return result;
 	}
 	

@@ -48,7 +48,9 @@
 				name="searchType" onchange="infoUpdate();">
 				<option style="display: none;" selected>Select Type</option>
 				<option value="label">Label Search</option>
+				<option value="web">Web Search Result</option>
 				<option value="text">Text Search</option>
+				<option value="hand">Text Search(Hand Writing)</option>
 				<option value="landmark">Landmark Search</option>
 			</select>
 		</div>
@@ -72,9 +74,13 @@
 		Please select a type, attach the picture or image you took, then press the search button and wait.<br><br>
 		<br>
 		<b>Type</b><br>
-		Label - Analyze the overall information about the picture.<br>
+		Label - Analyze the overall information about the image.<br>
+		Web Search - Use it to get results from searching the web for that image.<br><br>
+		
+		Text Reader - Extracts text from the image. If you don't know what it means, use it with the search feature at the top of the page. <br>
+		Text Reader (Hand Writing) - Use this to recognize handwritten letters. <br><br>
+		
 		Landmark -  Specialized searching for landmarks. <b>***under development***</b><br>
-		Text Reader - Extracts text from the image. If you don't know what it means, use it with the search feature at the top of the page. <b>***under development***</b><br>
 		<br>
 		<b>Image File</b><br>
 		Photographs or high-definition images may take some time to analyze.

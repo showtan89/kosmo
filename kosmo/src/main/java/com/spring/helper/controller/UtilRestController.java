@@ -30,15 +30,13 @@ public class UtilRestController {
 	public ResponseEntity<Map<String,Object>> imageSearchPro(MultipartHttpServletRequest req, Model model) throws Exception{
 		logger.info("imageSearchPro 로딩 중....");
 		Map<String,Object> map = new HashMap<String,Object>();
-		map = utilService.imageSearchPro(req, model);
-		String type = req.getParameter("searchType");
-		map.put("type", type);
+		//map = utilService.imageSearchURLPro(req, model); // URL 방식 계속 에러 떠서 방식 바꿈... 씁
+		map = utilService.imageSearchLocalPro(req, model);
 		ResponseEntity<Map<String,Object>> entity = null;
 		if(map.get("imgName").toString().length()==0) {
 			entity = new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
 		}else {
-			entity =
-					new ResponseEntity<>(map,HttpStatus.OK);
+			entity = new ResponseEntity<>(map,HttpStatus.OK);
 		}
 		return entity;
 	}
