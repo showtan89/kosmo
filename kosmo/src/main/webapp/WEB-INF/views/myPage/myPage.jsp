@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Mypage</title>
 
+<link rel="stylesheet" href="resources/css/style.css">
 <link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
@@ -68,7 +69,7 @@ function memberDeleteForm() {
 		<div class="row">
 		
 
-<div id="memberModify">
+<div id="memberModify"> 
 
 	<H2 style="margin-bottom: 50px">I N F O</H2>
 		
@@ -93,7 +94,7 @@ function memberDeleteForm() {
 			<div id="modifyTitle" style="padding-left:60px; font-size: 20px;">
 				Email
 			</div>
-			<div class="input-container" style="text-align: center; font-size: 35px; min-width: 360px;">
+			<div class="input-container" style="text-align: center; font-size: 35px; min-width: 30px;">
 				${userVO.memberEmail}
 			</div>
 
@@ -113,14 +114,14 @@ function memberDeleteForm() {
 			<div id="modifyTitle" style="padding-left:60px; font-size: 20px;">
 				Registration Dates
 			</div>			
-			<div class="input-container" style="text-align: center; font-size: 35px; min-width: 360px;">
+			<div class="input-container" style="text-align: center; font-size: 35px; min-width: 30px;">
 				<fmt:formatDate pattern="yyyy-MM-dd" value="${userVO.memberRegdate}"/>
 			</div>
 			
 			<div id="modifyTitle" style="padding-left:60px; font-size: 20px;">
 				Points
 			</div>			
-			<div class="input-container" style="text-align: center; font-size: 35px; min-width: 360px;">
+			<div class="input-container" style="text-align: center; font-size: 35px; min-width: 30px;">
 				${userVO.memberPoint}
 			</div>
 			
