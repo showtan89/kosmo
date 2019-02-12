@@ -61,17 +61,42 @@
 
 	</div>
 	
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=37c2e71a114ce757eb2a4b922679624c&libraries=services"></script>	
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=u91vrld6gw"></script>
 <body>
 <div id="map" style="width:100%;height:400px;"></div>
 
 <script>
-var mapOptions = {
-    center: new naver.maps.LatLng(37.3595704, 127.105399),
-    zoom: 10
-};
 
-var map = new naver.maps.Map('map', mapOptions);
+
+var map = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(37.5666805, 126.9784147),
+    zoom: 5,
+    mapTypeId: naver.maps.MapTypeId.NORMAL
+});
+
+<c:forEach var="hvo" items="${hlist}">
+
+var geocoder = new daum.maps.services.Geocoder(), // 좌표계 변환 객체를 생성합니다
+    wtmX = "${hvo.HOSLOCX}", // 변환할 WTM X 좌표 입니다
+    wtmY = "${hvo.HOSLOCY}"; // 변환할 WTM Y 좌표 입니다
+
+// WTM 좌표를 WGS84 좌표계의 좌표로 변환합니다
+geocoder.transCoord(wtmX, wtmY, transCoordCB, {
+    input_coord: daum.maps.services.Coords.WTM, // 변환을 위해 입력한 좌표계 입니다
+    output_coord: daum.maps.services.Coords.WGS84, // 변환 결과로 받을 좌표계 입니다 
+});
+    
+var marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(wtmX, wtmY),
+    map: map
+});
+
+</c:forEach>
+
+    
+
 </script>
 	
 <!-- 

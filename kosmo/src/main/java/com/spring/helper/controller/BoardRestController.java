@@ -44,6 +44,7 @@ import org.w3c.dom.NodeList;
 
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.service.BoardService;
+import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
@@ -61,6 +62,34 @@ public class BoardRestController {
 	
 	@Autowired
 	BoardDAO boardDao;
+	
+	//길찾기 주소정보 가져오기
+	@RequestMapping(value="AddressJson", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<String> AddressJson(HttpServletRequest req, Model model) throws Exception{
+		logger.info("AddressJson 로딩 중....");
+				BufferedReader br = null;
+				String x1 = req.getParameter("x1");
+				String y1 = req.getParameter("y1");
+				String x2 = req.getParameter("x2");
+				String y2 = req.getParameter("y2");
+				System.out.println(x1);
+				System.out.println(y1);
+				System.out.println(x2);
+				System.out.println(y2);
+	            String urlstr = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+x1+"&SY="+y1+"&EX="+x2+"&EY="+y2+"&apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0";
+	            URL url = new URL(urlstr);
+	            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	            urlconnection.setRequestMethod("GET");
+	            br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	            String result = "";
+	            String line;
+	            while((line = br.readLine()) != null) {
+	                result = result + line + "\n";
+	                
+	            }
+	            System.out.println(result);
+		return new ResponseEntity<String>(result,HttpStatus.OK);
+	}
 	
 	// 환율정보 가져오기
 	@RequestMapping(value="exchangeratejson", method = RequestMethod.GET, produces = "application/json; charset=utf8")
@@ -379,11 +408,6 @@ public class BoardRestController {
 	}
 	
 
-	// 쪽지 시작
-	//--------------- 민석 ---------------------------------
-	
-	//----------------진호 시작-----------------------------------------------------------
-
 	//채팅글뿌리기
 	@RequestMapping(value="chatting", method = RequestMethod.GET)
 	ResponseEntity<List<ChattingVO>> chatting(HttpServletRequest req, Model model){
@@ -399,7 +423,26 @@ public class BoardRestController {
 		Integer chattingWrite = service.chattingWrite(cVO, req);
 		return new ResponseEntity<Integer>(chattingWrite,HttpStatus.OK);
 	}
+	
+	// 세계 채팅글뿌리기
+	@RequestMapping(value="chattingAll", method = RequestMethod.GET)
+	ResponseEntity<List<ChattingAllVO>> chattingAll(HttpServletRequest req, Model model){
+		logger.info("chattingAll 호출");
+		List<ChattingAllVO> chattingAll = service.chattingAll(req, model);
+		return new ResponseEntity<List<ChattingAllVO>>(chattingAll,HttpStatus.OK);
+	}
+
+	// 세계 채팅 글쓰기
+	@RequestMapping(value="chattingAllContent", method = RequestMethod.POST)
+	ResponseEntity<Integer> chattingAllContent(@RequestBody ChattingAllVO cVO, HttpServletRequest req ) throws Exception{
+		logger.info("chattingAllContent 호출" + cVO.getChattingAllContent());
+		Integer chattingWriteAll = service.chattingWriteAll(cVO, req);
+		return new ResponseEntity<Integer>(chattingWriteAll,HttpStatus.OK);
+	}
 	//--------------- 민석 종료 ---------------------------------
+	
+	//----------------진호 시작-----------------------------------------------------------
+
 	
 
 	// 원데이 클래스 댓글 리스트 출력

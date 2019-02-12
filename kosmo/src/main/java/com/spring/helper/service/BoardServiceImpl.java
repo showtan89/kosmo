@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
+import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
@@ -770,7 +771,10 @@ public class BoardServiceImpl implements BoardService {
 	// 채팅 글뿌리기
 	@Override
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model) {
-		List<ChattingVO> chat = boardDao.chatting();
+		UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
+		String chattingContry = uservo.getMemberCountry();
+		
+		List<ChattingVO> chat = boardDao.chatting(chattingContry);
 		
 		return chat;
 		
@@ -780,17 +784,48 @@ public class BoardServiceImpl implements BoardService {
 	public Integer chattingWrite(ChattingVO cVO, HttpServletRequest req) {
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
 		String chattingMemberId = userVO.getMemberId();
+		String chattingContry = userVO.getMemberCountry();
 		logger.info("chattingMemberId : " + chattingMemberId);
 		
 		
 		
 		//vo.setChattingRegdate(new Timestamp(System.currentTimeMillis()));
 		cVO.setChattingMemberId(chattingMemberId);
-		
+		cVO.setChattingContry(chattingContry);
 		int chattingWrite =boardDao.chattingWrite(cVO);
 		
 		return chattingWrite;
 	}
+	
+	
+		// 세계 채팅 글뿌리기
+		@Override
+		public List<ChattingAllVO> chattingAll(HttpServletRequest req, Model model) {
+			UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
+			String chattingAllContry = uservo.getMemberCountry();
+			
+			List<ChattingAllVO> chatAll = boardDao.chattingAll(chattingAllContry);
+			
+			return chatAll;
+			
+		}
+		// 세계 채팅 글쓰기
+		@Override
+		public Integer chattingWriteAll(ChattingAllVO cVO, HttpServletRequest req) {
+			
+			UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+			String chattingAllMemberId = userVO.getMemberId();
+			String chattingAllContry = userVO.getMemberCountry();
+			logger.info("chattingMemberId : " + chattingAllMemberId);
+			
+			cVO.setchattingAllMemberId(chattingAllMemberId);
+			cVO.setChattingAllContry(chattingAllContry);
+			int chattingAllWrite =boardDao.chattingWriteAll(cVO);
+			
+			return chattingAllWrite;
+		}
+	
+	
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Repository;
 
+import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
@@ -255,8 +256,8 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 채팅 글뿌리기
 	@Override
-	public List<ChattingVO> chatting(){
-		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.chatting");
+	public List<ChattingVO> chatting(String chattingContry){
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.chatting", chattingContry);
 	}
 	// 채팅 글 쓰기
 	@Override
@@ -264,6 +265,16 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.chattingWrite", vo);
 	}
 	
+	// 세계 채팅 글뿌리기
+	@Override
+	public List<ChattingAllVO> chattingAll(String chattingAllContry) {
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.chattingAll", chattingAllContry);
+	}
+	// 세계 채팅 글쓰기
+	@Override
+	public int chattingWriteAll(ChattingAllVO vo) {
+		return sqlSession.insert("com.spring.helper.dao.BoardDAO.chattingWriteAll", vo);
+	}
 
 	//민석에 메소드 종료+++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -401,7 +412,6 @@ public class BoardDAOImpl implements BoardDAO {
 	public int emergencyCnt() {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
 	}
-
 	
 	// 대호 종료 ==============================================================
 
