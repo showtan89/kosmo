@@ -38,6 +38,7 @@
 	<beans:bean id="songUploadPath" class="java.lang.String">
 		<beans:constructor-arg value='C:\\Users\\panga\\git\\kosmo1\\kosmo\\src\\main\\webapp\\resources\\img\\' />
 	</beans:bean>
+	<!-- 재영 끝 -->
 	
 
 	<!-- mail bean 2019.01.23 SDH -->
