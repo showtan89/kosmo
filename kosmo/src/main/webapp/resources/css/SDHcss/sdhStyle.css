@@ -7,7 +7,7 @@
 
 #memberModify {
 	width: 50%;
-	min-width: 450px;
+	min-width: 360px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -84,93 +84,6 @@
 }
 
 
-/* Pen Title */
-.pen-title {
-  padding: 20px 0;
-  text-align: center;
-  letter-spacing: 2px;
-}
-.pen-title h1 {
-  margin: 0 0 20px;
-  font-size: 40px;
-  font-weight: 300;
-}
-.pen-title span {
-  font-size: 12px;
-}
-.pen-title span .fa {
-  color: #70c745; /* ##70c745 #ed2553*/
-}
-.pen-title span a {
-  color: #70c745;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-/* Rerun */
-.rerun {
-  margin: 0 0 30px;
-  text-align: center;
-}
-.rerun a {
-  cursor: pointer;
-  display: inline-block;
-  background: #70c745;
-  border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  padding: 10px 20px;
-  color: #ffffff;
-  text-decoration: none;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-}
-.rerun a:hover {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-
-/* Scroll To Bottom */
-#codepen, #portfolio {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: #70c745;
-  width: 56px;
-  height: 56px;
-  border-radius: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  color: #ffffff;
-  text-align: center;
-}
-#codepen i, #portfolio i {
-  line-height: 56px;
-}
-#codepen:hover, #portfolio:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-}
-
-/* CodePen */
-#portfolio {
-  bottom: 96px;
-  right: 36px;
-  background: #70c745;
-  width: 44px;
-  height: 44px;
-  -webkit-animation: buttonFadeInUp 1s ease;
-  animation: buttonFadeInUp 1s ease;
-}
-#portfolio i {
-  line-height: 44px;
-}
-
-/* Container */
-.container {
-  position: relative;
-  max-width: 460px;
-  width: 100%;
-  margin: 0 auto 100px;
-}
 .container.active .card:first-child {
   background: #f2f2f2;
   margin: 0 15px;
@@ -182,8 +95,8 @@
 .container.active .card.alt {
   top: 20px;
   right: 0;
-  width: 100%;
-  min-width: 100%;
+  width: 70%;
+  min-width: 70%;
   height: auto;
   border-radius: 5px;
   padding: 60px 0 40px;
@@ -504,16 +417,3 @@
   display: none;
 }
 
-/* Keyframes */
-@-webkit-keyframes buttonFadeInUp {
-  0% {
-    bottom: 30px;
-    opacity: 0;
-  }
-}
-@keyframes buttonFadeInUp {
-  0% {
-    bottom: 30px;
-    opacity: 0;
-  }
-}

@@ -12,7 +12,8 @@ public class ChattingAllVO {
 	    private int chattingAllTemp1;
 	    private String chattingAllTemp2;
 	    private String chattingAllTemp3;
-		public int getChattingAllNumber() {
+		
+	    public int getChattingAllNumber() {
 			return chattingAllNumber;
 		}
 		public void setChattingAllNumber(int chattingAllNumber) {

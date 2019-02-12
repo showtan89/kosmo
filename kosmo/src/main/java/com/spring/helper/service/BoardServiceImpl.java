@@ -767,17 +767,17 @@ public class BoardServiceImpl implements BoardService {
 
 		return sendCnt;
 	}
-	
+
 	// 채팅 글뿌리기
 	@Override
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model) {
 		UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
 		String chattingContry = uservo.getMemberCountry();
-		
+
 		List<ChattingVO> chat = boardDao.chatting(chattingContry);
-		
+
 		return chat;
-		
+
 	}
 	// 채팅 글쓰기
 	@Override
@@ -786,46 +786,44 @@ public class BoardServiceImpl implements BoardService {
 		String chattingMemberId = userVO.getMemberId();
 		String chattingContry = userVO.getMemberCountry();
 		logger.info("chattingMemberId : " + chattingMemberId);
-		
-		
-		
+
 		//vo.setChattingRegdate(new Timestamp(System.currentTimeMillis()));
 		cVO.setChattingMemberId(chattingMemberId);
 		cVO.setChattingContry(chattingContry);
 		int chattingWrite =boardDao.chattingWrite(cVO);
-		
+
 		return chattingWrite;
 	}
-	
-	
-		// 세계 채팅 글뿌리기
-		@Override
-		public List<ChattingAllVO> chattingAll(HttpServletRequest req, Model model) {
-			UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
-			String chattingAllContry = uservo.getMemberCountry();
-			
-			List<ChattingAllVO> chatAll = boardDao.chattingAll(chattingAllContry);
-			
-			return chatAll;
-			
-		}
-		// 세계 채팅 글쓰기
-		@Override
-		public Integer chattingWriteAll(ChattingAllVO cVO, HttpServletRequest req) {
-			
-			UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
-			String chattingAllMemberId = userVO.getMemberId();
-			String chattingAllContry = userVO.getMemberCountry();
-			logger.info("chattingMemberId : " + chattingAllMemberId);
-			
-			cVO.setchattingAllMemberId(chattingAllMemberId);
-			cVO.setChattingAllContry(chattingAllContry);
-			int chattingAllWrite =boardDao.chattingWriteAll(cVO);
-			
-			return chattingAllWrite;
-		}
-	
-	
+
+
+	// 세계 채팅 글뿌리기
+	@Override
+	public List<ChattingAllVO> chattingAll(HttpServletRequest req, Model model) {
+		UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
+		String chattingAllContry = uservo.getMemberCountry();
+		logger.info("세계채팅chattingAllContry : " + chattingAllContry);
+		List<ChattingAllVO> chatAll = boardDao.chattingAll(chattingAllContry);
+		logger.info("eeeeeeeeeeeeeeeeeee : ");
+		return chatAll;
+
+	}
+	// 세계 채팅 글쓰기
+	@Override
+	public Integer chattingWriteAll(ChattingAllVO cVO, HttpServletRequest req) {
+
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		String chattingAllMemberId = userVO.getMemberId();
+		String chattingAllContry = userVO.getMemberCountry();
+		logger.info("chattingAllMemberId : " + chattingAllMemberId);
+
+		cVO.setchattingAllMemberId(chattingAllMemberId);
+		cVO.setChattingAllContry(chattingAllContry);
+		int chattingAllWrite =boardDao.chattingWriteAll(cVO);
+
+		return chattingAllWrite;
+	}
+
+
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------
@@ -1049,7 +1047,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 원데이 클래스 댓글 목록 출력
-/*	@Override
+	/*	@Override
 	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model){
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		return boardDao.getoCommentList(onedayclassNumber);
@@ -1082,8 +1080,8 @@ public class BoardServiceImpl implements BoardService {
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		return boardDao.getoCommentList(onedayclassNumber, 1, 10);
 	}
-	
-/*	@Override
+
+	/*	@Override
 	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end, HttpSession session) {
 		// TODO Auto-generated method stub
 		return null;
@@ -1097,15 +1095,15 @@ public class BoardServiceImpl implements BoardService {
 	public void oCommentCreate(oCommentVO dto) {
 		boardDao.oCommentCreate(dto);
 	}
-/*	@Override
+	/*	@Override
 	public void oCommentUpdate(oCommentVO dto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void oCommentDelete(oCommentVO dto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public oCommentVO oCommentDetail(int onedayclassNumber) {
@@ -1119,11 +1117,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void emergency(HttpServletRequest req, Model model) throws Exception {
 
-		
+
 		List<HospitalVO> hlist = boardDao.emergency();
-		
+
 		int emergencyCnt = boardDao.emergencyCnt();
-		
+
 		model.addAttribute("emergencyCnt", emergencyCnt);
 		model.addAttribute("hlist", hlist);
 

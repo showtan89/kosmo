@@ -18,25 +18,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" type="text/css" href="resources/css/demo.css" />
-<link rel="stylesheet" type="text/css"
-	href="resources/css/component.css" />
 <meta charset="UTF-8">
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!--[if IE]>
-	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+<link rel="stylesheet" href="resources/min/chat.css">
 
-<link rel="stylesheet" href="resources/style.css">
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 
-<!-- 채팅 ajax -->
+<!--세계 채팅 ajax -->
 <script>
-
+// 글쓴후 빈칸
 function emptychattingAllContent(){
 	$('#chattingAllContent').val('');
 }
@@ -49,9 +43,10 @@ function chattingAll() {
 				var str="";
 				$(data).each(
 					function () {
-						var chattingAllRegdate = new Date(chattingAllRegdate);
+						var chattingAllRegdate = new Date(this.chattingAllRegdate);
 						this.chattingAllMemberId
-						str += '<p>'+ this.chattingAllMemberId+' ( ' +this.chattingAllContry+' ) '+ this.chattingAllContent +'</p>'
+						str += '<p>'+ this.chattingAllMemberId+' ( ' +this.chattingAllContry+' ) : '+ this.chattingAllContent +' ('+chattingAllRegdate+') '+'</p>'+ '<br>'
+						
 					}		
 				);
 				
@@ -65,6 +60,7 @@ setInterval("chattingAll();", 6000);//원래 2000, 개발중  60000, 시연때 2
 
 
 
+
 </script>
 <meta charset="UTF-8">
 <title>ChattingAll</title>
@@ -72,32 +68,25 @@ setInterval("chattingAll();", 6000);//원래 2000, 개발중  60000, 시연때 2
 <body onload="chattingAll();">
 	<div>
 		<div id="chattingAllList"></div>
+		<br><br><br>
 	</div>
 </body>
 
-
-	<div align="center">
+	<div align="center" id="write">
 		<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
 		<input type="text" id="chattingAllContent" maxlength="300"
 			style="width: 50%; height: 10%; padding: 5px 5px;"
-			name="chattingAllContent"> <br> <br> <input
-			type="button" id="chattingAllWrite" class="btn btn-success mr-30"
+			name="chattingAllContent"> &nbsp;&nbsp; 
+			<input type="button" id="chattingWriteAll" class="btn btn-success mr-30"
 			value="Enter" style="padding: 1px;">
 		<!-- </form> -->
 	</div>
-	<!-- <script>
-		onclick="chattingWrite();"
-			function chattingWrite(){
-				var chattingContent = $("#chattingContent").val();
-				window.location = 'chatting?chattingContent=' + chattingContent;
-			}
-		</script> -->
 
 
 <script type="text/javascript">
-$("#chattingAllWrite").on("click", function(){
+$("#chattingWriteAll").on("click", function(){
 	var chattingAllContent = $('#chattingAllContent').val();
-	/* alert(chattingContent); */
+	
 	$.ajax({
 		type:'POST',
 		url:'chattingAllContent',
