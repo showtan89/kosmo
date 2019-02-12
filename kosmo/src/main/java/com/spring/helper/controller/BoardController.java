@@ -321,6 +321,16 @@ public class BoardController {
 		return "board/message/chatting";
 	}
 	
+	// 채팅 창 띄우기
+	@RequestMapping("chattingAll")
+	public String chattingAllView(HttpServletRequest req, Model model) throws Exception {
+		logger.info("채팅 호출중 ....");
+		
+		service.chattingAll(req, model);
+		
+		return "board/message/chatting";
+	}
+	
 	// 민석 BoardController 끝++++++++++++++++++++++++++++++++
 	
 

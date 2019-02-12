@@ -37,51 +37,51 @@
 <!-- 채팅 ajax -->
 <script>
 
-function emptychattingContent(){
-	$('#chattingContent').val('');
+function emptychattingAllContent(){
+	$('#chattingAllContent').val('');
 }
 
-function chatting() {
+function chattingAll() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
 		if(${sessionScope.userVO != null}){
-			$.getJSON("chatting", function(data){
+			$.getJSON("chattingAll", function(data){
 				var come="";
 				var str="";
 				$(data).each(
 					function () {
-						var chattingRegdate = new Date(chattingRegdate);
-						this.chattingMemberId
-						str += '<p>'+ this.chattingMemberId+' : ' + this.chattingContent +'</p>'
+						var chattingAllRegdate = new Date(chattingAllRegdate);
+						this.chattingAllMemberId
+						str += '<p>'+ this.chattingAllMemberId+' ( ' +this.chattingAllContry+' ) '+ this.chattingAllContent +'</p>'
 					}		
 				);
 				
-				$('#chattingList').html(str); 
+				$('#chattingAllList').html(str); 
 				
 			}); }
 	}
-chatting();
+chattingAll();
 
-setInterval("chatting();", 6000);//원래 2000, 개발중  60000, 시연때 2000
+setInterval("chattingAll();", 6000);//원래 2000, 개발중  60000, 시연때 2000
 
 
 
 </script>
 <meta charset="UTF-8">
-<title>Chatting</title>
+<title>ChattingAll</title>
 </head>
-<body onload="chatting();">
+<body onload="chattingAll();">
 	<div>
-		<div id="chattingList"></div>
+		<div id="chattingAllList"></div>
 	</div>
 </body>
 
 
 	<div align="center">
 		<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
-		<input type="text" id="chattingContent" maxlength="300"
+		<input type="text" id="chattingAllContent" maxlength="300"
 			style="width: 50%; height: 10%; padding: 5px 5px;"
-			name="chattingContent"> <br> <br> <input
-			type="button" id="chattingWrite" class="btn btn-success mr-30"
+			name="chattingAllContent"> <br> <br> <input
+			type="button" id="chattingAllWrite" class="btn btn-success mr-30"
 			value="Enter" style="padding: 1px;">
 		<!-- </form> -->
 	</div>
@@ -95,26 +95,26 @@ setInterval("chatting();", 6000);//원래 2000, 개발중  60000, 시연때 2000
 
 
 <script type="text/javascript">
-$("#chattingWrite").on("click", function(){
-	var chattingContent = $('#chattingContent').val();
+$("#chattingAllWrite").on("click", function(){
+	var chattingAllContent = $('#chattingAllContent').val();
 	/* alert(chattingContent); */
 	$.ajax({
 		type:'POST',
-		url:'chattingContent',
+		url:'chattingAllContent',
 		headers:{
 			"Content-Type":"application/json",
 			"X-HTTP-Method-Override":"POST"
 		},
 		dataType:"JSON",
-		data:JSON.stringify({chattingContent:chattingContent}), 
+		data:JSON.stringify({chattingAllContent:chattingAllContent}), 
 		success:function(result){
-				chatting();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
-				emptychattingContent();//댓글 입력창 초기화
+				chattingAll();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
+				emptychattingAllContent();//댓글 입력창 초기화
 			},
 		error:function(result){
-			chatting();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
+			chattingAll();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
 			alert('error!');	
-			emptychattingContent();//댓글 입력창 초기화
+			emptychattingAllContent();//댓글 입력창 초기화
 		}
 		
 	});
