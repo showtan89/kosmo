@@ -57,7 +57,7 @@ public class MemberDAOImpl implements MemberDAO {
 			message.setSubject("[Welkome!]Thanks to join us");
 
 			String txt = "<img src='https://i.ibb.co/G75krLG/welkome.png'><br><hr>Welcome to Welkome!<br>Please click the link below to complete email authentication." + "<br>"
-					+ "<a href='192.168.0.73/project/memberEmailConfirmed?emailKey=" + (String)map.get("emailKey") + "'> Click this Link </a>";
+					+ "<a href='http://192.168.0.73/project/memberEmailConfirmed?emailKey=" + (String)map.get("emailKey") + "'> Click this Link </a>";
 
 			message.setText(txt, "UTF-8", "html");
 

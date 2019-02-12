@@ -36,20 +36,19 @@ function getImageInfo() {
 	        });
 			
 			console.log(result);
-			//타입이 label일 경우
-			if(result.type == "label"){
+			//타입이 label or web일 경우
+			if(result.type == "label" || result.type == "web"){
 				var desc = result.desc;
 				var score = result.score;
 				var resultArray;
-				
 				if(result.error==null){
 					for(var i=0; i< desc.length; i++){
 						resultArray = desc.map( function(x, i){ 
 							return {"desc": x, "score": score[i]} }, this);
 					}
 					console.log(resultArray);
-					str += '<div class="col-md-6 mb-6"><img src="resources/img/search/'+result.imgName+
-					'" style="width:100%"></div><div class="col-md-6 mb-6"><ul>';
+					str += '<div class="col-md-6 mb-6"><h4>Image</h4><img src="resources/img/search/'+result.imgName+
+					'" style="width:100%"></div><div class="col-md-6 mb-6"><h4>Search Result</h4><ul>';
 					for(var i=0; i< resultArray.length; i++){
 						str += '<li><b>'+resultArray[i].desc+'</b><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="'+resultArray[i].score+'" aria-valuemin="0" aria-valuemax="1" style="width:'+resultArray[i].score*100+'%;background-color:#70c745">'+resultArray[i].score+'</div></div></li>'
 					}
@@ -57,8 +56,28 @@ function getImageInfo() {
 				}else{
 					str += result.error
 				}
+			}else if(result.type =='text' || result.type =='hand'){
+				var text = result.result;
+				if(result.error==null){
+					str += '<div class="col-md-6 mb-6"><h4>Image</h4><img src="resources/img/search/'+result.imgName+'" style="width:100%"></div><div class="col-md-6 mb-6"><h4>Text Result</h4> ';
+					/*for(var i=0; i< text.length; i++){
+						str += text[i]+'<hr>'
+					}*/
+					str += text[0];
+					str += '</div>';
+				}
+			}else if(result.type == "landmark"){
+				str += '<div class="col-md-6 mb-6"><h4>Image</h4><img src="resources/img/search/'+result.imgName+'" style="width:100%"></div><div class="col-md-6 mb-6"><h4>Text Result</h4> ';
+				if(result.search == 'yes'){
+					var name = result.name;
+					var lat = result.lat;
+					var lng = result.lng;
+					str += "<span>The search results are judged to be "+name+". lat : "+lat+" lng : "+lng+" .</span>"
+				}else{
+					str += "<span>Sorry, there are no recognizable landmark search results.</span>";
+				}
+				str += '</div>';
 			}
-			
 			
 			$('#jsonResult').html(str);
 		}

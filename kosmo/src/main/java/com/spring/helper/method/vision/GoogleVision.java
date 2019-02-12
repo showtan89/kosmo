@@ -5,9 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +28,10 @@ import com.google.cloud.vision.v1.Feature.Type;
 import com.google.cloud.vision.v1.Image;
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.cloud.vision.v1.ImageSource;
+import com.google.cloud.vision.v1.LocationInfo;
+import com.google.cloud.vision.v1.TextAnnotation;
+import com.google.cloud.vision.v1.WebDetection;
+import com.google.cloud.vision.v1.WebDetection.WebEntity;
 import com.google.protobuf.ByteString;
 
 @Component
@@ -67,8 +68,8 @@ public class GoogleVision {
 		imgPathString = imgPathString.replace("C:/Users/panga/git/kosmo1/kosmo/src/main/webapp/", "http://115.91.88.226:2222/project/");
 		return imgPathString;
 	}
-	
-	//이미지 업로더 하구 경로를 리턴
+
+	//이미지 업로드 하구 경로를 리턴
 	public String[] imgUploader(MultipartHttpServletRequest req) throws Exception{
 		String saveDir = req.getSession().getServletContext().getRealPath("/resources/img/search/");
 		String newPath = imgPath +"search\\";
@@ -95,56 +96,8 @@ public class GoogleVision {
 		return arr;
 	}
 
-	//이미지의 전반적인 분석
-	public void gvGetLabel(String imgPath) throws IOException {
-
-		//하위 폴더 설정 해주기
-		//imgPath = imgPath + "newPATH";
-
-		// 구글 VISION 객체 생성
-		try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
-
-			// 이미지의 경로
-			String fileName1 = "C:/demo-image.jpg";
-			String fileName2 = "C:/img1.jpg";
-			String fileName3 = "C:/img2.jpg";
-			String fileName4 = "C:/img3.jpg";
-			String fileName5 = imgPath;
-
-			// 이미지를 메모리에 올림
-			Path path = Paths.get(fileName4);
-			byte[] data = Files.readAllBytes(path);
-			ByteString imgBytes = ByteString.copyFrom(data);
-
-			// 이미지에 대한 분석 요청
-			List<AnnotateImageRequest> requests = new ArrayList<>();
-			Image img = Image.newBuilder().setContent(imgBytes).build();
-			Feature feat = Feature.newBuilder().setType(Type.LABEL_DETECTION).build();
-			AnnotateImageRequest request = AnnotateImageRequest.newBuilder()
-					.addFeatures(feat)
-					.setImage(img)
-					.build();
-			requests.add(request);
-
-			// 이미지 파일의 내용 가져오기
-			BatchAnnotateImagesResponse response = vision.batchAnnotateImages(requests);
-			List<AnnotateImageResponse> responses = response.getResponsesList();
-
-			for (AnnotateImageResponse res : responses) {
-				if (res.hasError()) {
-					System.out.printf("Error: %s\n", res.getError().getMessage());
-					return;
-				}
-				for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
-					annotation.getAllFields().forEach((k, v) ->
-					System.out.printf("%s : %s\n", k, v.toString()));
-				}
-			}
-		}
-	}
-
-	//직접 경로 줘서 이미지 구하기
-	public static void detectLabels(String filePath, PrintStream out) throws Exception, IOException {
+	//로컬 이미지 경로로 LABEL 정보 구하기
+	public static Map<String,Object> detectLabels(String filePath, PrintStream out) throws Exception, IOException {
 		List<AnnotateImageRequest> requests = new ArrayList<>();
 
 		ByteString imgBytes = ByteString.readFrom(new FileInputStream(filePath));
@@ -155,29 +108,37 @@ public class GoogleVision {
 				AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
 		requests.add(request);
 
+		Map<String,Object> map = new HashMap<String,Object>(); //리턴 용 맵 생성
+		String error = "";
+		List<String> desc = new ArrayList<String>();
+		List<Float> score = new ArrayList<Float>();
+
 		try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
 			BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
 			List<AnnotateImageResponse> responses = response.getResponsesList();
-
 			for (AnnotateImageResponse res : responses) {
 				if (res.hasError()) {
 					out.printf("Error: %s\n", res.getError().getMessage());
-					return;
+					error = res.getError().getMessage();
+					map.put("error", error);
+					return map;
 				}
-
 				// For full list of available annotations, see http://g.co/cloud/vision/docs
 				for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
+					desc.add(annotation.getDescription());
+					score.add(annotation.getScore());
 					annotation.getAllFields().forEach((k, v) -> out.printf("%s : %s\n", k, v.toString()));
 				}
+				map.put("desc", desc);
+				map.put("score", score);
 			}
+			return map;
 		}
 	}
 
-	//외부 URL로 이미지 정보 구하기
+	//URL 이미지 경로로 LABEL 정보 구하기
 	public static Map<String,Object> detectLabelsGcs(String imgPath, PrintStream out) throws Exception, IOException {
 		List<AnnotateImageRequest> requests = new ArrayList<>();
-		//이미지 저장이 구글 클라우스 스토리지가 아니라 사용 불가
-		//ImageSource imgSource = ImageSource.newBuilder().setGcsImageUri(gcsPath).build();
 		ImageSource imgSource = ImageSource.newBuilder().setImageUri(imgPath).build();
 		Image img = Image.newBuilder().setSource(imgSource).build();
 		System.out.println("img===>"+img.getSource());
@@ -185,15 +146,15 @@ public class GoogleVision {
 		AnnotateImageRequest request =
 				AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
 		requests.add(request);
-		//System.out.println("request===>"+requests.toString());
+
 		Map<String,Object> map = new HashMap<String,Object>();
+		String error = "";
+		List<String> desc = new ArrayList<String>();
+		List<Float> score = new ArrayList<Float>();
+
 		try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
 			BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
 			List<AnnotateImageResponse> responses = response.getResponsesList();
-			
-			String error = "";
-			List<String> desc = new ArrayList<String>();
-			List<Float> score = new ArrayList<Float>();
 			for (AnnotateImageResponse res : responses) {
 				if (res.hasError()) {
 					out.printf("Error: %s\n", res.getError().getMessage());
@@ -213,5 +174,232 @@ public class GoogleVision {
 			map.put("score", score);
 		}
 		return map;
+	}
+
+	// web 검색 결과 
+	public static Map<String,Object> detectWebDetections(String filePath, PrintStream out) throws Exception,
+	IOException {
+		List<AnnotateImageRequest> requests = new ArrayList<>();
+
+		ByteString imgBytes = ByteString.readFrom(new FileInputStream(filePath));
+
+		Image img = Image.newBuilder().setContent(imgBytes).build();
+		Feature feat = Feature.newBuilder().setType(Type.WEB_DETECTION).build();
+		AnnotateImageRequest request =
+				AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
+		requests.add(request);
+
+		Map<String,Object> map = new HashMap<String,Object>();
+		String error = "";
+		List<String> desc = new ArrayList<String>();
+		List<Float> score = new ArrayList<Float>();
+
+		try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+			BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
+			List<AnnotateImageResponse> responses = response.getResponsesList();
+
+			for (AnnotateImageResponse res : responses) {
+				if (res.hasError()) {
+					out.printf("Error: %s\n", res.getError().getMessage());
+					error = res.getError().getMessage();
+					map.put("error", error);
+					return map;
+				}
+
+				// Search the web for usages of the image. You could use these signals later
+				// for user input moderation or linking external references.
+				// For a full list of available annotations, see http://g.co/cloud/vision/docs
+				WebDetection annotation = res.getWebDetection();
+				out.println("Entity:Id:Score");
+				out.println("===============");
+				for (WebEntity entity : annotation.getWebEntitiesList()) {
+					if(!entity.getDescription().equals("")) {
+						desc.add(entity.getDescription());
+						score.add(entity.getScore());
+					}
+					out.println(entity.getDescription() + " : " + entity.getEntityId() + " : "
+							+ entity.getScore());
+				}
+				map.put("desc", desc);
+				map.put("score", score);
+				// 불필요
+				/*for (WebLabel label : annotation.getBestGuessLabelsList()) {
+					out.format("\nBest guess label: %s", label.getLabel());
+				}
+				out.println("\nPages with matching images: Score\n==");
+				for (WebPage page : annotation.getPagesWithMatchingImagesList()) {
+					out.println(page.getUrl() + " : " + page.getScore());
+				}
+				out.println("\nPages with partially matching images: Score\n==");
+				for (WebImage image : annotation.getPartialMatchingImagesList()) {
+					out.println(image.getUrl() + " : " + image.getScore());
+				}
+				out.println("\nPages with fully matching images: Score\n==");
+				for (WebImage image : annotation.getFullMatchingImagesList()) {
+					out.println(image.getUrl() + " : " + image.getScore());
+				}
+				out.println("\nPages with visually similar images: Score\n==");
+				for (WebImage image : annotation.getVisuallySimilarImagesList()) {
+					out.println(image.getUrl() + " : " + image.getScore());
+				}*/
+			}
+		}
+		return map;
+	}
+
+	// text 인식 # 1
+	public static Map<String,Object> detectText(String filePath, PrintStream out) throws Exception, IOException {
+		List<AnnotateImageRequest> requests = new ArrayList<>();
+
+		ByteString imgBytes = ByteString.readFrom(new FileInputStream(filePath));
+
+		Image img = Image.newBuilder().setContent(imgBytes).build();
+		Feature feat = Feature.newBuilder().setType(Type.TEXT_DETECTION).build();
+		AnnotateImageRequest request =
+				AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
+		requests.add(request);
+
+		Map<String,Object> map = new HashMap<String,Object>();
+		String error = "";
+		List<String> result = new ArrayList<String>();
+
+		try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+			BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
+			List<AnnotateImageResponse> responses = response.getResponsesList();
+
+			for (AnnotateImageResponse res : responses) {
+				if (res.hasError()) {
+					out.printf("Error: %s\n", res.getError().getMessage());
+					error = res.getError().getMessage();
+					map.put("error", error);
+					return map;
+				}
+
+				// For full list of available annotations, see http://g.co/cloud/vision/docs
+				for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
+					result.add(annotation.getDescription());
+					/*out.printf("Text: %s\n", annotation.getDescription());
+					out.printf("Position : %s\n", annotation.getBoundingPoly());*/
+				}
+				map.put("result", result);
+				System.out.println("Map:"+map.toString());
+			}
+		}return map;
+	}
+
+	// text 인식 # 2
+	public static Map<String,Object> detectDocumentText(String filePath, PrintStream out) throws Exception,
+	IOException {
+		List<AnnotateImageRequest> requests = new ArrayList<>();
+
+		ByteString imgBytes = ByteString.readFrom(new FileInputStream(filePath));
+
+		Image img = Image.newBuilder().setContent(imgBytes).build();
+		Feature feat = Feature.newBuilder().setType(Type.DOCUMENT_TEXT_DETECTION).build();
+		AnnotateImageRequest request =
+				AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
+		requests.add(request);
+
+		Map<String,Object> map = new HashMap<String,Object>();
+		String error = "";
+		List<String> result = new ArrayList<String>();
+
+		try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+			BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
+			List<AnnotateImageResponse> responses = response.getResponsesList();
+			client.close();
+
+			for (AnnotateImageResponse res : responses) {
+				if (res.hasError()) {
+					out.printf("Error: %s\n", res.getError().getMessage());
+					error = res.getError().getMessage();
+					map.put("error", error);
+					return map;
+				}
+
+				// For full list of available annotations, see http://g.co/cloud/vision/docs
+				TextAnnotation annotation = res.getFullTextAnnotation();
+				/*for (Page page: annotation.getPagesList()) {
+					String pageText = "";
+					for (Block block : page.getBlocksList()) {
+						String blockText = "";
+						for (Paragraph para : block.getParagraphsList()) {
+							String paraText = "";
+							for (Word word: para.getWordsList()) {
+								String wordText = "";
+								for (Symbol symbol: word.getSymbolsList()) {
+									wordText = wordText + symbol.getText();
+									out.format("Symbol text: %s (confidence: %f)\n", symbol.getText(),
+											symbol.getConfidence());
+								}
+								out.format("Word text: %s (confidence: %f)\n\n", wordText, word.getConfidence());
+								paraText = String.format("%s %s", paraText, wordText);
+							}
+							// Output Example using Paragraph:
+							out.println("\nParagraph: \n" + paraText);
+							out.format("Paragraph Confidence: %f\n", para.getConfidence());
+							blockText = blockText + paraText;
+						}
+						pageText = pageText + blockText;
+					}
+				}*/
+				result.add(annotation.getText());
+				map.put("result", result);
+				out.println(annotation.getText());
+			}
+		}return map;
+	}
+
+	//랜드마크 검색
+	public static Map<String,Object> detectLandmarks(String filePath, PrintStream out) throws Exception,
+	IOException {
+		List<AnnotateImageRequest> requests = new ArrayList<>();
+		ByteString imgBytes = ByteString.readFrom(new FileInputStream(filePath));
+
+		Image img = Image.newBuilder().setContent(imgBytes).build();
+		Feature feat = Feature.newBuilder().setType(Type.LANDMARK_DETECTION).build();
+		AnnotateImageRequest request =
+				AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
+		requests.add(request);
+
+		Map<String,Object> map = new HashMap<String,Object>();
+		String error = "";
+		String name = "";
+		String lat = "";
+		String lng = "";
+		try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+			BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
+			List<AnnotateImageResponse> responses = response.getResponsesList();
+			
+			for (AnnotateImageResponse res : responses) {
+				if (res.hasError()) {
+					out.printf("Error: %s\n", res.getError().getMessage());
+					error = res.getError().getMessage();
+					map.put("error", error);
+					return map;				
+				}
+
+				// For full list of available annotations, see http://g.co/cloud/vision/docs
+				for (EntityAnnotation annotation : res.getLandmarkAnnotationsList()) {
+					LocationInfo info = annotation.getLocationsList().listIterator().next();
+					out.printf("Landmark: %s\n %s\n", annotation.getDescription(), info.getLatLng());
+					name = annotation.getDescription();
+					String temp[] = String.valueOf(info.getLatLng()).split("longitude:");
+					lat = temp[0].replace("latitude: ", "");
+					lng = temp[1].replace(" ","");
+					if(name.length() == 0) {
+						map.put("search", "no");
+						System.out.println("노검색");
+					}else {
+						map.put("search", "yes");
+						System.out.println("예스검색");
+					}
+				}
+			}
+			map.put("name", name);
+			map.put("lat", lat);
+			map.put("lng", lng);
+			System.out.println(map.toString());
+		}return map;
 	}
 }
