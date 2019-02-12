@@ -13,6 +13,7 @@
 
 <head lang="en">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 
@@ -24,11 +25,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<link rel="stylesheet" href="resources/style.css">
 <!--[if IE]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+	<![endif]--!>
 
-<link rel="stylesheet" href="resources/style.css">
+
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 
