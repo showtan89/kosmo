@@ -3,6 +3,8 @@ package com.spring.helper.dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.spring.helper.vo.BoardVO.UserVO;
 
 public interface MemberDAO {
@@ -15,7 +17,7 @@ public interface MemberDAO {
 
 	public int memberIdConfirm(String memberId);
 	
-	public void sendEmailKey(Map<String, Object> map);
+	public void sendEmailKey(Map<String, Object> map, HttpServletRequest req);
 
 	public int memberEmailConfirmed(String emailKey);
 

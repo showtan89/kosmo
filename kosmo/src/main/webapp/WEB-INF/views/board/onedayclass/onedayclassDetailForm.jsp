@@ -317,7 +317,21 @@
 </c:if>
 
 
-
+<%-- <table>
+<c:forEach var="row" items="${getoCommentList}">
+	<tr>
+		<td>${row.oCommentNumber}</td>
+		<td>${row.memberId}</td>
+		<td>${row.oCommentRegdate}</td>
+		<td>${row.oCommentContent}</td>
+		<td>
+			<c:if test="${userVO.memberId == row.memberId}">
+				<input type="button" value="Modify">
+			</c:if>
+		</td>
+	</tr>	
+</c:forEach>
+</table> --%>
 
 <!-- The time line -->
 <ul class="timeline">
@@ -385,7 +399,7 @@ function getoCommentList() {
 		contentType: "application/json",
 		url:"list_json?onedayclassNumber=${dto.onedayclassNumber}",
 		success:function(result){
-			console.log(result);
+			/* console.log(result); */
 			var output="<table>";
 			for(var i in result){
 				output += "<tr>";
@@ -399,8 +413,8 @@ function getoCommentList() {
 				output += "</tr>";
 			}
 			output += "</table>";
-			console.log(output);
-			//$("#getoCommentList").html(output);
+			/* console.log(output); */
+			/* $("#getoCommentList").html(output); */
 			$(output).appendTo("#getoCommentList");
 		}
 	}); 

@@ -62,6 +62,34 @@ public class BoardRestController {
 	@Autowired
 	BoardDAO boardDao;
 	
+	//길찾기 주소정보 가져오기
+	@RequestMapping(value="AddressJson", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public ResponseEntity<String> AddressJson(HttpServletRequest req, Model model) throws Exception{
+		logger.info("AddressJson 로딩 중....");
+				BufferedReader br = null;
+				String x1 = req.getParameter("x1");
+				String y1 = req.getParameter("y1");
+				String x2 = req.getParameter("x2");
+				String y2 = req.getParameter("y2");
+				System.out.println(x1);
+				System.out.println(y1);
+				System.out.println(x2);
+				System.out.println(y2);
+	            String urlstr = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+x1+"&SY="+y1+"&EX="+x2+"&EY="+y2+"&apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0";
+	            URL url = new URL(urlstr);
+	            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+	            urlconnection.setRequestMethod("GET");
+	            br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
+	            String result = "";
+	            String line;
+	            while((line = br.readLine()) != null) {
+	                result = result + line + "\n";
+	                
+	            }
+	            System.out.println(result);
+		return new ResponseEntity<String>(result,HttpStatus.OK);
+	}
+	
 	// 환율정보 가져오기
 	@RequestMapping(value="exchangeratejson", method = RequestMethod.GET, produces = "application/json; charset=utf8")
 	public ResponseEntity<String> exchangeratejson(HttpServletRequest req, Model model) throws Exception{
@@ -397,23 +425,9 @@ public class BoardRestController {
 	}
 	//--------------- 민석 종료 ---------------------------------
 	
+
 	
 	//----------------진호 시작-----------------------------------------------------------
-	// 원데이 클래스 댓글 리스트 출력
-/*	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
-	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{
-		logger.info("oCommentJson - 호출중");
-		ArrayList<oCommentVO> list = service.getoCommentList(req,model);
-		return new ResponseEntity<>(list,HttpStatus.OK);
-	}*/
-	
-/*	@RequestMapping("oCommentInsert")
-	public void oCommentInsert(@ModelAttribute oCommentVO dto, HttpSession session) throws Exception{
-		String memberId = (String)session.getAttribute("memberId");
-		dto.setMemberId(memberId);
-		System.out.println("값들어오니?" + dto.toString());
-		service.oCommentCreate(dto);
-	}*/
 	
 	// 댓글 추가
 	@RequestMapping(value="oCommentInsert", method = RequestMethod.POST)

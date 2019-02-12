@@ -75,6 +75,7 @@ setInterval("chatting();", 6000);//원래 2000, 개발중  60000, 시연때 2000
 </body>
 
 <footer>
+
 	<div align="center">
 		<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
 		<input type="text" id="chattingContent" maxlength="300"

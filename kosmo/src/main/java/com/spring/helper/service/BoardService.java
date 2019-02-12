@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
 
@@ -93,7 +94,6 @@ public interface BoardService {
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model);
 	
 	// 채팅 글 쓰기
-	//public List<ChattingVO> chattingWrite(HttpServletRequest req);
 	public Integer chattingWrite(ChattingVO cVO, HttpServletRequest req);
 
 	//민석이 종료+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

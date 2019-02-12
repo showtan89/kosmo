@@ -37,7 +37,8 @@ public class UtilRestController {
 		if(map.get("imgName").toString().length()==0) {
 			entity = new ResponseEntity<>(map,HttpStatus.BAD_REQUEST);
 		}else {
-			entity = new ResponseEntity<>(map,HttpStatus.OK);
+			entity =
+					new ResponseEntity<>(map,HttpStatus.OK);
 		}
 		return entity;
 	}
