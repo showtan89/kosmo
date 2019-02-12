@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,6 @@ public class HelPerController{
 
 	@Autowired
 	BoardService service;
-
 
 	@RequestMapping("/")
 	public String root(HttpServletResponse res, HttpServletRequest req) throws Exception {
@@ -62,11 +60,11 @@ public class HelPerController{
 
 	//로그인 페이지
 	@RequestMapping("loginPage")
-	public String loginPage() {
+	public String loginPage(Model model) {
 		logger.info("loginPage 로딩 중....");
 		return "login";
 	}
-
+	
 	//권한 없음 페이지 테스트중
 	@RequestMapping("error403")
 	public String error403(HttpServletRequest req) {
