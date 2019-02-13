@@ -13,6 +13,7 @@
 
 <head lang="en">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 
@@ -24,11 +25,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<link rel="stylesheet" href="resources/style.css">
 <!--[if IE]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+	<![endif]--!>
 
-<link rel="stylesheet" href="resources/style.css">
+
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 
@@ -118,9 +120,9 @@
 			<nav>
 				<ul class="tab">
 					<li><a href="#section-1"><span>Comment</span></a></li>
-					<li><a href="#section-2"><span>Receive Message</span></a></li>
+					<li><a href="#section-2"><span>RecMsg</span></a></li>
 					<li><a href="#section-3"><span>Message</span></a></li>
-					<li><a href="#section-4"><span>Send Message</span></a></li>
+					<li><a href="#section-4"><span>SendMsg</span></a></li>
 					<li><a href="#section-5"><span>Chatting</span></a></li>
 				</ul>
 			</nav>
@@ -375,17 +377,18 @@
 					</div>
 				</section>
 				<section id="section-5" align="center">
-					Talk to everyone.<br> Share your travel information.<br>
-					You may ask questions! <br> <br> <input type="button"
-						class="btn btn-success mr-30" value="ChattingRoomEnter"
+						In this chat room, there are people of the same nationality as you.<br>
+						If you are lonely or have difficulty with perfume, <br>
+						try to strengthen friendship and comfort here.<br><br>
+						<input type="button"
+						class="btn alazea-btn mr-30" value="ChattingRoomEnter"
 						style="padding: 1px;" onclick="chatting();">
 						<br><br><hr><br>
 					
-					Talk to everyone in the world. <br>
-					It's going to be a pretty pleasant<br> 
-					chat room with different languages.<br><br>
+					In this chat room, there are all foreigners who use this site.<br>
+					It's a pleasant room that's spoken in each other's language. <br><br>
 					<input type="button"
-						class="btn btn-success mr-30" value="ChattingRoomEnter"
+						class="btn alazea-btn mr-30" value="ChattingRoomEnter"
 						style="padding: 1px;" onclick="chattingAll();">
 				</section>
 			</div>
@@ -513,7 +516,7 @@
 			
 		// 세계 채팅 창 open
 		function chattingAll(){
-			var url = "chattingAll";
+			var url = "chattingWorld";
 			window.open(url, "chattingAll", "menubar=yes, width=800, height=500");
 		}
 		

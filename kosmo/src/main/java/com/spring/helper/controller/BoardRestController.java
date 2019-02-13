@@ -10,20 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-
-import javax.servlet.http.HttpSession;
-
-
-import javax.servlet.http.HttpServletResponse;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,7 +40,6 @@ import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
-import com.spring.helper.vo.jsonVO.news.ExchangerateVO;
 import com.spring.helper.vo.jsonVO.news.jsonlegalinfo;
 
 @RestController
@@ -346,6 +333,8 @@ public class BoardRestController {
 	}
 	// 동욱이 메소드 종료
 	
+	// 재영 시작 ///////////////////////////////////////////////////////////
+	
 	// 부동산 댓글 출력 호출
 	@RequestMapping(value="realestateCommentsJson", method = RequestMethod.GET)
 	public ResponseEntity<List<RealestateCommentsVO>> realestateCommentsJson(HttpServletRequest req, Model model) throws Exception{
@@ -429,16 +418,16 @@ public class BoardRestController {
 	// 세계 채팅글뿌리기
 	@RequestMapping(value="chattingAll", method = RequestMethod.GET)
 	ResponseEntity<List<ChattingAllVO>> chattingAll(HttpServletRequest req, Model model){
-		logger.info("chattingAll 호출");
+		logger.info("chattingAll 호출...");
 		List<ChattingAllVO> chattingAll = service.chattingAll(req, model);
 		return new ResponseEntity<List<ChattingAllVO>>(chattingAll,HttpStatus.OK);
 	}
 
 	// 세계 채팅 글쓰기
 	@RequestMapping(value="chattingAllContent", method = RequestMethod.POST)
-	ResponseEntity<Integer> chattingAllContent(@RequestBody ChattingAllVO cVO, HttpServletRequest req ) throws Exception{
-		logger.info("chattingAllContent 호출" + cVO.getChattingAllContent());
-		Integer chattingWriteAll = service.chattingWriteAll(cVO, req);
+	ResponseEntity<Integer> chattingAllContent(@RequestBody ChattingAllVO caVO, HttpServletRequest req ) throws Exception{
+		logger.info("chattingAllContent 호출" + caVO.getChattingAllContent());
+		Integer chattingWriteAll = service.chattingWriteAll(caVO, req);
 		return new ResponseEntity<Integer>(chattingWriteAll,HttpStatus.OK);
 	}
 	//--------------- 민석 종료 ---------------------------------

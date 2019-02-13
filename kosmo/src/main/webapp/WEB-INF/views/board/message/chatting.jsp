@@ -10,7 +10,10 @@
 <script src="resources/js/jquery/jquery-3.3.1.min.js"></script>
 <script src="resources/js/request.js"></script>
 <script src="resources/js/request2.js"></script>
-
+<link rel="stylesheet" type="text/css" href="resources/css/demo.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/css/component.css" />
+	<link rel="stylesheet" href="resources/style.css">
 <html>
 <title>Helper - Interaction &amp; Help HTML Template</title>
 
@@ -18,19 +21,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" type="text/css" href="resources/css/demo.css" />
-<link rel="stylesheet" type="text/css"
-	href="resources/css/component.css" />
 <meta charset="UTF-8">
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!--[if IE]>
-	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
 
-<link rel="stylesheet" href="resources/style.css">
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 
@@ -49,9 +45,9 @@ function chatting() {
 				var str="";
 				$(data).each(
 					function () {
-						var chattingRegdate = new Date(chattingRegdate);
+						var chattingRegdate = new Date(this.chattingRegdate);
 						this.chattingMemberId
-						str += '<p>'+ this.chattingMemberId+' : ' + this.chattingContent +'</p>'
+						str += '<p>'+ this.chattingMemberId+' : ' + this.chattingContent +'('+chattingRegdate+')'+'</p>'+ '<br>'
 					}		
 				);
 				
@@ -72,15 +68,15 @@ setInterval("chatting();", 6000);//원래 2000, 개발중  60000, 시연때 2000
 <body onload="chatting();">
 	<div>
 		<div id="chattingList"></div>
+		<br>
 	</div>
 </body>
-
-
-	<div align="center">
+<hr><br>
+	<div align="center" id="write">
 		<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
 		<input type="text" id="chattingContent" maxlength="300"
 			style="width: 50%; height: 10%; padding: 5px 5px;"
-			name="chattingContent"> <br> <br> <input
+			name="chattingContent"> &nbsp;&nbsp; <input
 			type="button" id="chattingWrite" class="btn btn-success mr-30"
 			value="Enter" style="padding: 1px;">
 		<!-- </form> -->

@@ -1,11 +1,8 @@
 package com.spring.helper.service;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -767,17 +763,17 @@ public class BoardServiceImpl implements BoardService {
 
 		return sendCnt;
 	}
-	
+
 	// 채팅 글뿌리기
 	@Override
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model) {
 		UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
 		String chattingContry = uservo.getMemberCountry();
-		
+
 		List<ChattingVO> chat = boardDao.chatting(chattingContry);
-		
+
 		return chat;
-		
+
 	}
 	// 채팅 글쓰기
 	@Override
@@ -786,46 +782,44 @@ public class BoardServiceImpl implements BoardService {
 		String chattingMemberId = userVO.getMemberId();
 		String chattingContry = userVO.getMemberCountry();
 		logger.info("chattingMemberId : " + chattingMemberId);
-		
-		
-		
+
 		//vo.setChattingRegdate(new Timestamp(System.currentTimeMillis()));
 		cVO.setChattingMemberId(chattingMemberId);
 		cVO.setChattingContry(chattingContry);
 		int chattingWrite =boardDao.chattingWrite(cVO);
-		
+
 		return chattingWrite;
 	}
-	
-	
-		// 세계 채팅 글뿌리기
-		@Override
-		public List<ChattingAllVO> chattingAll(HttpServletRequest req, Model model) {
-			UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
-			String chattingAllContry = uservo.getMemberCountry();
-			
-			List<ChattingAllVO> chatAll = boardDao.chattingAll(chattingAllContry);
-			
-			return chatAll;
-			
-		}
-		// 세계 채팅 글쓰기
-		@Override
-		public Integer chattingWriteAll(ChattingAllVO cVO, HttpServletRequest req) {
-			
-			UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
-			String chattingAllMemberId = userVO.getMemberId();
-			String chattingAllContry = userVO.getMemberCountry();
-			logger.info("chattingMemberId : " + chattingAllMemberId);
-			
-			cVO.setchattingAllMemberId(chattingAllMemberId);
-			cVO.setChattingAllContry(chattingAllContry);
-			int chattingAllWrite =boardDao.chattingWriteAll(cVO);
-			
-			return chattingAllWrite;
-		}
-	
-	
+
+
+	// 세계 채팅 글뿌리기
+	@Override
+	public List<ChattingAllVO> chattingAll(HttpServletRequest req, Model model) {
+		UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
+		String chattingAllContry = uservo.getMemberCountry();
+		logger.info("세계채팅chattingAllContry : " + chattingAllContry);
+		List<ChattingAllVO> chatAll = boardDao.chattingAll(chattingAllContry);
+		logger.info("eeeeeeeeeeeeeeeeeee : ");
+		return chatAll;
+
+	}
+	// 세계 채팅 글쓰기
+	@Override
+	public Integer chattingWriteAll(ChattingAllVO cVO, HttpServletRequest req) {
+
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		String chattingAllMemberId = userVO.getMemberId();
+		String chattingAllContry = userVO.getMemberCountry();
+		logger.info("chattingAllMemberId : " + chattingAllMemberId);
+
+		cVO.setchattingAllMemberId(chattingAllMemberId);
+		cVO.setChattingAllContry(chattingAllContry);
+		int chattingAllWrite =boardDao.chattingWriteAll(cVO);
+
+		return chattingAllWrite;
+	}
+
+
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------
@@ -1049,6 +1043,36 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 원데이 클래스 댓글 목록 출력
+
+	/*	@Override
+	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model){
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		return boardDao.getoCommentList(onedayclassNumber);
+	}*/
+
+	//부동산 게시판 댓글 달기
+	/*	@Override
+	public Integer realestateCommentPro(RealestateCommentsVO cVO, HttpServletRequest req) {
+		if(req.getSession().getAttribute("userVO")==null) { 
+			return 0;	// 회원ID 가 없는 상태로 요청 받으면 0 리턴
+		}else {
+			UserVO uVO = (UserVO)req.getSession().getAttribute("userVO"); // 있으면 자료 입력 시도
+			logger.info(uVO.toString());
+			cVO.setMemberId(uVO.getMemberId());
+			cVO.setMemberEmail(uVO.getMemberEmail());
+			cVO.setMemberNumber(uVO.getMemberNumber());
+			cVO.setMemberCountry(uVO.getMemberCountry());
+			return boardDao.realestateCommentPro(cVO);
+		}
+	}*/
+
+	//부동산 게시판 댓글 삭제
+	/*	@Override
+	public Integer realestateCommentsDelete(int rCommentNumber) { //전달 받은 댓글 번호 삭제
+		return boardDao.realestateCommentsDelete(rCommentNumber);
+	}*/	
+
+
 	@Override
 	public List<oCommentVO> getoCommentList(HttpServletRequest req, Model model) {
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
@@ -1056,12 +1080,26 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 
+
 	
 	// 원데이 클래스 댓글 추가
+
+	/*	@Override
+	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end, HttpSession session) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int oCommentCount(int oCommentNumber) {
+		// TODO Auto-generated method stub
+		return 0;
+	}*/
+
 	@Override
 	public void oCommentCreate(oCommentVO dto) {
 		boardDao.oCommentCreate(dto);
 	}
+
 	
 	// 수정할 댓글 조회
 	@Override
@@ -1088,6 +1126,22 @@ public class BoardServiceImpl implements BoardService {
 /*	@Override
 	public void deleteComment(oCommentVO vo) {
 		boardDao.deleteComment(vo);
+
+	/*	@Override
+	public void oCommentUpdate(oCommentVO dto) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void oCommentDelete(oCommentVO dto) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public oCommentVO oCommentDetail(int onedayclassNumber) {
+		// TODO Auto-generated method stub
+		return null;
+
 	}*/
 
 	//진호 메소드 종료---------------------------------------------------
@@ -1096,16 +1150,15 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void emergency(HttpServletRequest req, Model model) throws Exception {
 
-		
+
 		List<HospitalVO> hlist = boardDao.emergency();
-		
-		int emergencyCnt = boardDao.emergencyCnt();
-		
-		model.addAttribute("emergencyCnt", emergencyCnt);
+
+		//int emergencyCnt = boardDao.emergencyCnt();
+
+		//model.addAttribute("emergencyCnt", emergencyCnt);
 		model.addAttribute("hlist", hlist);
 
-
-		ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
+		/*ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
 		Process p = pb.start(); // 프로세스 호출
 
 		// 프로세스의 실행결과를 스트림으로 리턴함
@@ -1121,7 +1174,7 @@ public class BoardServiceImpl implements BoardService {
 
 		String originData = sb.toString();
 
-		model.addAttribute("originData", originData);
+		model.addAttribute("originData", originData);*/
 	}
 
 
