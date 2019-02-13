@@ -142,29 +142,6 @@ public class HelPerController{
 	
 	//민석이 끝++++++++++++++++++++++++++++++++
 
-	// 대호 시작 ==================================================================
-	@RequestMapping("getDirections")
-	public String getDirections(HttpServletRequest req,Model model) {
-		logger.info("getDirections 로딩 중.....");
-		
-		return "traffic/getDirections";
-	}
 	
-	@RequestMapping("emergency")
-	public String emergency(HttpServletRequest req,Model model) throws Exception {
-		logger.info("emergency 로딩 중..");
-		
-		service.emergency(req, model);
-		
-		return "traffic/emergency";
-	}
-	
-	//레스토랑 - 대호야 여기가 아니란다! 옮길때 같이 옮기렴
-	@RequestMapping("restaurantlocation")
-	public String restaurantlocation() {
-		return "traffic/restaurantlocation";
-	}
-	
-	// 대호 종료 ==================================================================
 
 }

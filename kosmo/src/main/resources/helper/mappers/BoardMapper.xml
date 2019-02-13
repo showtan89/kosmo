@@ -625,13 +625,17 @@
 	
 	
 	
+		
 	
 	
 	<!-- emergency -->
 	<select id="emergency" resultType="java.util.Map">
+		<![CDATA[
 		SELECT hosNum, hosPhone, hosAddress, hosName, hosLocx, hosLocy, hosKind, hosDetail, rownum
 		  FROM hospitals
+		  where hosnum < 120
 		 ORDER BY rownum ASC
+		 ]]>  
 	</select>
 	
 	<select id="emergencyCnt" resultType="int">

@@ -1,11 +1,8 @@
 package com.spring.helper.service;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1120,13 +1116,12 @@ public class BoardServiceImpl implements BoardService {
 
 		List<HospitalVO> hlist = boardDao.emergency();
 
-		int emergencyCnt = boardDao.emergencyCnt();
+		//int emergencyCnt = boardDao.emergencyCnt();
 
-		model.addAttribute("emergencyCnt", emergencyCnt);
+		//model.addAttribute("emergencyCnt", emergencyCnt);
 		model.addAttribute("hlist", hlist);
 
-
-		ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
+		/*ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
 		Process p = pb.start(); // 프로세스 호출
 
 		// 프로세스의 실행결과를 스트림으로 리턴함
@@ -1142,7 +1137,7 @@ public class BoardServiceImpl implements BoardService {
 
 		String originData = sb.toString();
 
-		model.addAttribute("originData", originData);
+		model.addAttribute("originData", originData);*/
 	}
 
 
