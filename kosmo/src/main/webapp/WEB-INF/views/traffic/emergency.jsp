@@ -166,7 +166,7 @@
 			src="resources/js/plugins/hospitalData.js"></script>
 		<script>
 			var map = new naver.maps.Map("map", {
-				zoom : 3,
+				zoom : 2,
 				center : new naver.maps.LatLng(36.2253017, 127.6460516),
 				zoomControl : true,
 				zoomControlOptions : {
@@ -192,6 +192,7 @@
 
 			for (var i = 0, ii = data.length; i < ii; i++) {
 				var hosdata = data[i]
+				
 				var geocoder = new daum.maps.services.Geocoder(), // 좌표계 변환 객체를 생성합니다
 				wtmX = hosdata.hosx, // 변환할 WTM X 좌표 입니다
 				wtmY = hosdata.hosy; // 변환할 WTM Y 좌표 입니다
@@ -244,6 +245,33 @@
 				}
 			});
 			console.log(markerClustering);
+			
+
+			var infowindow = new naver.maps.InfoWindow();
+			
+			function onSuccessGeolocation(position) {
+			    var location = new naver.maps.LatLng(position.coords.latitude,
+			                                         position.coords.longitude);
+
+			    map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
+			    map.setZoom(5); // 지도의 줌 레벨을 변경합니다.
+
+			    infowindow.setContent('<div style="padding:20px;">' + 'Geolocation' + '</div>');
+
+			    infowindow.open(map, location);
+			    console.log('Coordinates: ' + location.toString());
+			}
+
+			function onErrorGeolocation() {
+			    var center = map.getCenter();
+			    infowindow.setContent('<div style="padding:20px;">' +
+			        '<h5 style="margin-bottom:5px;color:#f00;">Geolocation failed!</h5>'+ "latitude: "+ center.lat() +"<br />longitude: "+ center.lng() +'</div>');
+			    infowindow.open(map, center);
+			}
+			
+			
+			
+		
 		</script>
 		<!-- 재영 끝-->
 
@@ -342,5 +370,18 @@
 		<br> <br> <br>
 	</div>
 	<%@ include file="../setting/footer01.jsp"%>
+	<script>
+
+	$(window).on("load", function() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
+	    } else {
+	        var center = map.getCenter();
+	        infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>');
+	        infowindow.open(map, center);
+	    }
+	});
+	
+	</script>
 </body>
 </html>
