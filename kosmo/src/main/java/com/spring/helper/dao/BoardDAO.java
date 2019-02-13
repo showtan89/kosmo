@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
@@ -110,10 +110,16 @@ public interface BoardDAO {
 	public int sendMessage(Map<String, Object> map);
 	
 	// 채팅 글뿌리기
-	public List<ChattingVO> chatting();
+	public List<ChattingVO> chatting(String chattingContry);
 	
 	//채팅 글쓰기
 	public int chattingWrite(ChattingVO vo);
+	
+	//세계 채팅 글뿌리기
+	public List<ChattingAllVO> chattingAll(String chattingAllContry);
+		
+	//세계 채팅 글쓰기
+	public int chattingWriteAll(ChattingAllVO vo);
 
 	//민석이 메소드 종료+++++++++++++++++++++++++++++++
 
@@ -149,19 +155,17 @@ public interface BoardDAO {
 	// 댓글 목록
 	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end);
 
-	/*public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end);*/
-	// 댓글 갯수
-	/*public int oCommentCount(int oCommentNumber);*/
 	// 댓글 쓰기
 	public void oCommentCreate(oCommentVO dto);
+
+	// 댓글 하나 조회
+	public oCommentVO readOneComment(int oCommentNumber);
+
 	// 댓글 수정
-	/*public void oCommentUpdate(oCommentVO dto);*/
+	public int updateComment(oCommentVO vo);
+	
 	// 댓글 삭제
-	/*public void oCommentDelete(oCommentVO dto);*/
-	// 댓글 상세
-	/*public oCommentVO oCommentDetail(int onedayclassNumber);*/
-
-
+	/*public void deleteComment(oCommentVO vo);*/
 
 	// 진호 메소드 종료--------------------------------------
 

@@ -36,7 +36,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -44,6 +47,7 @@ import org.w3c.dom.NodeList;
 
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.service.BoardService;
+import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
@@ -406,8 +410,6 @@ public class BoardRestController {
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
 	}
 
-	// 쪽지 시작
-
 	//채팅글뿌리기
 	@RequestMapping(value="chatting", method = RequestMethod.GET)
 	ResponseEntity<List<ChattingVO>> chatting(HttpServletRequest req, Model model){
@@ -423,8 +425,24 @@ public class BoardRestController {
 		Integer chattingWrite = service.chattingWrite(cVO, req);
 		return new ResponseEntity<Integer>(chattingWrite,HttpStatus.OK);
 	}
-	//--------------- 민석 종료 ---------------------------------
 	
+	// 세계 채팅글뿌리기
+	@RequestMapping(value="chattingAll", method = RequestMethod.GET)
+	ResponseEntity<List<ChattingAllVO>> chattingAll(HttpServletRequest req, Model model){
+		logger.info("chattingAll 호출");
+		List<ChattingAllVO> chattingAll = service.chattingAll(req, model);
+		return new ResponseEntity<List<ChattingAllVO>>(chattingAll,HttpStatus.OK);
+	}
+
+	// 세계 채팅 글쓰기
+	@RequestMapping(value="chattingAllContent", method = RequestMethod.POST)
+	ResponseEntity<Integer> chattingAllContent(@RequestBody ChattingAllVO cVO, HttpServletRequest req ) throws Exception{
+		logger.info("chattingAllContent 호출" + cVO.getChattingAllContent());
+		Integer chattingWriteAll = service.chattingWriteAll(cVO, req);
+		return new ResponseEntity<Integer>(chattingWriteAll,HttpStatus.OK);
+	}
+	//--------------- 민석 종료 ---------------------------------
+
 
 	
 	//----------------진호 시작-----------------------------------------------------------
@@ -443,12 +461,54 @@ public class BoardRestController {
 	public ResponseEntity<List<oCommentVO>> list_json(HttpServletRequest req, Model model) throws Exception{
 		logger.info("댓글리스트 호출중");
 		
-		/*return service.getoCommentList(oCommentNumber, 1, 10, session);*/
-		
 		List<oCommentVO> list = service.getoCommentList(req,model); //댓글 리스트 가져오기
 		return new ResponseEntity<>(list,HttpStatus.OK);
 	}
 	
+	// 수정할 댓글 조회
+	@RequestMapping(value="readOneComment", method = RequestMethod.GET)
+	public ModelAndView readOneComment(HttpServletRequest req) throws Exception {
+		logger.info("수정할 댓글 조회");
+	 
+		oCommentVO vo = service.readOneComment(req); 
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/board/onedayclass/oCommentModifyForm"); // 뷰의 이름
+	    mv.addObject("vo", vo); // 뷰로 보낼 데이터 값
+
+		return mv;
+	}
+	
+	//댓글 수정처리
+	@RequestMapping(value="updateComment", method = RequestMethod.PUT)
+	public ResponseEntity<Integer> updateComment(@RequestBody oCommentVO vo) throws Exception {
+		logger.info("댓글 수정중");
+		logger.info("dddddd" + vo.toString());
+		
+		int result = service.updateComment(vo);
+		return new ResponseEntity<Integer>(result,HttpStatus.OK);
+	}
+	
+	// 댓글 삭제
+/*	@RequestMapping(value="deleteComment", method = RequestMethod.POST)
+	public String deleteComment(oCommentVO vo, RedirectAttributes rttr) throws Exception {
+		logger.info("댓글 삭제중");
+	 
+		service.deleteComment(vo);
+		rttr.addAttribute("oCommentNumber", vo.getoCommentNumber());
+		return "redirect:/board/onedayclass/onedayclassDetailForm";
+	}*/
+
+	// 댓글 삭제
+/*	@RequestMapping(value="deleteComment", method = RequestMethod.POST)
+	public String deleteComment(oCommentVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+		logger.info("댓글 삭제중");
+	 
+		service.deleteComment(vo);
+		rttr.addAttribute("oCommentNumber", vo.getoCommentNumber());
+		return "redirect:/board/onedayclass/onedayclassDetailForm";
+	}*/
+
 	//----------------진호 끝----------------------------------------------------------
 	
 }

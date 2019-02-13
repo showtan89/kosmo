@@ -10,7 +10,7 @@ public class oCommentVO {
 	private String memberEmail;				// 이메일
 	private String memberId;				// 아이디
 	private String oCommentContent;			// 댓글내용
-	private Timestamp onedayclassRegdate;   // 댓글발생일
+	private Timestamp oCommentRegdate;   // 댓글발생일
 	private String oCommentTemp1;			// 댓글컬럼1
 	private String oCommentTemp2;			// 댓글컬럼2
 	private int oCommentTemp3;				// 댓글컬럼3
@@ -21,7 +21,7 @@ public class oCommentVO {
 	public String toString() {
 		return "oCommentVO [oCommentNumber=" + oCommentNumber + ", onedayclassNumber=" + onedayclassNumber
 				+ ", boardCode=" + boardCode + ", memberEmail=" + memberEmail + ", memberId=" + memberId
-				+ ", oCommentContent=" + oCommentContent + ", onedayclassRegdate=" + onedayclassRegdate
+				+ ", oCommentContent=" + oCommentContent + ", onedayclassRegdate=" + oCommentRegdate
 				+ ", oCommentTemp1=" + oCommentTemp1 + ", oCommentTemp2=" + oCommentTemp2 + ", oCommentTemp3="
 				+ oCommentTemp3 + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
 				+ super.toString() + "]";
@@ -75,12 +75,12 @@ public class oCommentVO {
 		this.oCommentContent = oCommentContent;
 	}
 
-	public Timestamp getOnedayclassRegdate() {
-		return onedayclassRegdate;
+	public Timestamp getoCommentRegdate() {
+		return oCommentRegdate;
 	}
 
-	public void setOnedayclassRegdate(Timestamp onedayclassRegdate) {
-		this.onedayclassRegdate = onedayclassRegdate;
+	public void setoCommentRegdate(Timestamp oCommentRegdate) {
+		this.oCommentRegdate = oCommentRegdate;
 	}
 
 	public String getoCommentTemp1() {
