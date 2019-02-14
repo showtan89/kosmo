@@ -168,9 +168,14 @@
 								<span>Back</span>
 							</button>
 						</div>
-						<div class="footer">
-							<a href="#">Forgot your password?</a>
-						</div>
+						<!-- 재영 추가 - 구글 oAuth 적용중 -->
+						<%-- <div class="footer button-container">
+							<a href="">
+							<button type="button">
+								<span>Google Id Login</span>
+							</button></a>
+						</div> --%>
+						<!-- 재영 추가 - 구글 oAuth 적용중 -->
 					</form>
 				</div>
 				<div class="card alt">
@@ -445,6 +450,12 @@
 				$('.container').stop().removeClass('active');
 			});
 		});
+		
+		/* 재영 추가 */
+		function googleLogin() {
+			
+		}
+		
 		
 	</script>
 </body>

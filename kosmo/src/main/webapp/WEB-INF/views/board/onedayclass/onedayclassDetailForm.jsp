@@ -23,7 +23,7 @@
 
 <!-- Core Stylesheet -->
 <link rel="stylesheet" href="resources/style.css">
-
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 </head>
 <div class="preloader d-flex align-items-center justify-content-center">
 	<div class="preloader-circle"></div>
@@ -57,16 +57,6 @@
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-
-</script>
-
-
-
-
-
-
 
 	<section class="about-us-area">
         <div class="container">
@@ -296,49 +286,51 @@
 </c:if>
 
 <c:if test="${userVO.memberId != null}">
-<div class="row">
-	<div class="col-12 col-lg-4">
-		<div class="box box-success">
+<!-- <div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="box box-success"> -->
 			<div class="box-header">
-				<h3 class="box-title">댓글 추가</h3>
+				<h3 class="box-title" style="text-align:center">댓글 추가</h3>
 			</div>
-			<div class="box-body">
-				<p>${userVO.memberId}님</p>
-				<label for="oCommentContent">댓글을 남겨주세요</label>
-				<input class="form-control" type="text" placeholder="REPLY TEXT" id="oCommentContent">
+			<div class="box-body" style="text-align:center">
+				<p>${userVO.memberId}님 댓글을 남겨주세요</p>
+				<!-- <label for="oCommentContent">댓글을 남겨주세요</label> -->
+				<input class="form-control" type="text" placeholder="REPLY TEXT" id="oCommentContent" style="width:700px; margin-left:auto; margin-right:auto";>
 			</div>
 			<!-- /.box-body -->
-			<div class="box-footer">
+			<div class="box-footer" style="text-align:center">
 				<button type="button" class="btn btn-primary" id="submitFunction" onClick="submitFunction()">ADD REPLY</button>
 			</div>
-		</div>
+<!-- 		</div>
 	</div>
-</div>
+</div> -->
 </c:if>
 
-<!-- 댓글 목록을 출력할 영역 -->
-<div class="bg-green" id="getoCommentList">
-	<table style="width:1000px;">
-		<c:forEach var="row" items="${getoCommentList}">
-			<tr>
-				<td>${row.oCommentNumber}</td>
-				<td>${row.memberId}</td>
-				<td>${row.oCommentContent}</td>
-				<td>(<fmt:formatDate value="${row.oCommentRegdate}"
-				       pattern="yyyy-mm-dd a HH:mm:ss" /> )
-				</td>
-				<td>
-					<c:if test="${userVO.memberId == row.memberId}">
-						<input type="button" value="Modify">
-					</c:if>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
+<div class="container"  style="width:500px; margin-left:auto; margin-right:auto;"> 
+<div id ="getoCommentList" >
+</div>
 </div>
 
+<%-- <div id ="getoCommentList">
+<table>
+<c:forEach var="row" items="${getoCommentList}">
+	<tr>
+		<td>${row.oCommentNumber}</td>
+		<td>${row.memberId}</td>
+		<td>${row.oCommentRegdate}</td>
+		<td>${row.oCommentContent}</td>
+		<td>
+			<c:if test="${userVO.memberId == row.memberId}">
+				<input type="button" value="Modify">
+			</c:if>
+		</td>
+	</tr>	
+</c:forEach>
+</table>
+</div> --%>
+
 <!-- The time line -->
-<ul class="timeline">
+<ul class="text-center">
 	<!-- timeline time label -->
 	<li class="time-label" id="repliesDiv">
 		<span class="bg-green">Replies List</span>
@@ -382,7 +374,6 @@ function submitFunction() {
 		success: function(result) {
 			if(result == 1) {
 				alert('전송에 성공했습니다.');
-				getoCommentList();
 			} else if(result == 0) {
 				alert('내용을 정확히 입력하세요');
 			} else {
@@ -391,8 +382,13 @@ function submitFunction() {
 		}
 	});
 	$('#oCommentContent').val('');
+	setTimeout(function(){
+		getoCommentList();
+    }, 4000);
 }
 
+/* 댓글 목록을 출력할 영역 */
+/* var oComm = ""; */
 function getoCommentList() {
 	/* alert("댓글떳2222음!!!!!!!") */
 	 $.ajax({
@@ -400,25 +396,71 @@ function getoCommentList() {
 		contentType: "application/json",
 		url:"list_json?onedayclassNumber=${dto.onedayclassNumber}",
 		success:function(result){
-			/* console.log(result); */
+			console.log(result);
+			
 			var output="<table>";
 			for(var i in result){
 				output += "<tr>";
 				output += "<td>"+result[i].oCommentNumber + "</td>";
 				output += "<td>"+result[i].memberId + "</td>";
-				output += "<td>"+result[i].oCommentRegdate + "</td>";
+				output += "<td>"+changeDate(result[i].oCommentRegdate) + "</td>";
 				output += "<td>"+result[i].oCommentContent + "</td>";
-				output += "<td></td>";
+				if("${userVO.memberId}" == result[i].memberId){
+					var oComm = result[i].oCommentNumber;
+					output += "<td><input type='button' value='Modify' onclick='updateOpen("+oComm+")'></td>";
+				}				
 				output += "</tr>";
 			}
 			output += "</table>";
-			$("#getoCommentList").html(output);
+			console.log(output);
+			$("#getoCommentList").html(output); 
+			/* $(output).appendTo("#getoCommentList"); */
+			/* $('table').append("#getoCommentList"); */
 		}
-	}); 
+	})
 }
 
+/* 댓글 수정창 */
+function updateOpen(data){
+	/* alert("진짜넘어온다.." + oComm); */
+	window.name = "parentForm";  // 부모창 이름
+	window.open("readOneComment?oCommentNumber=" + data,
+				"childForm", "width=570, height=350, resizable = no, scrollbars = no");// 자식창 이름
+	
+}
 
+/* function getoCommentListOne() {
+	 $.ajax({
+		type: "get",
+		contentType: "application/json",
+		url:"list_json?oCommentNumber=${vo.oCommentNumber}",
+		success:function(result){
+			console.log(result);
+			
+			var output="<table>";
+			output += "<tr>";
+			output += "<td>"+result.oCommentNumber + "</td>";
+			output += "<td>"+result.memberId + "</td>";
+			output += "<td>"+changeDate(result.oCommentRegdate) + "</td>";
+			output += "<td>"+result.oCommentContent + "</td>";			
+			output += "</tr>";
+			output += "</table>";
+			console.log(output);
+			 $("#getoCommentListOne").html(output); 
+		}
+	}); 
+} */
 
+/* window.self.close(); */
+
+function changeDate(date) {
+date = new Date(parseInt(date));
+year = date.getFullYear();
+month = date.getMonth();
+day = date.getDate();
+strDate = year+ "-" +month+ "-" +day;
+return strDate;
+}
 
 $(function(){
 	/* alert("댓글떳음!!!!!!!") */
