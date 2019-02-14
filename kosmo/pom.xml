@@ -223,6 +223,14 @@
 			<version>1.49.0</version>
 		</dependency> 
 		<!-- 구글 비전 -->
+		
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20160810</version>
+		</dependency>
+		
  		
  		<!-- 메일 Send API 시작 -->
  		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->

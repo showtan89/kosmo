@@ -198,11 +198,11 @@
 				wtmY = hosdata.hosy; // 변환할 WTM Y 좌표 입니다
 				var coords = new daum.maps.Coords(wtmX * 2.5, wtmY * 2.5); // wtm * 2.5 필요
 				var coordChange = coords.toLatLng(); // 변환
-				var spot = data[i], latlng = new naver.maps.LatLng(coordChange
-						.getLat(), coordChange.getLng()), marker = new naver.maps.Marker(
-						{
+				var spot = data[i]
+				var latlng = new naver.maps.LatLng(coordChange.getLat(), coordChange.getLng())
+				var marker = new naver.maps.Marker({
 							position : latlng,
-							draggable : true
+							draggable : false
 						});
 				markers.push(marker);
 			}
@@ -244,10 +244,15 @@
 							count);
 				}
 			});
+			console.log(map);
 			console.log(markerClustering);
-			
+			console.log(markerClustering.markers);
 
-			var infowindow = new naver.maps.InfoWindow();
+			naver.maps.Event.addListener(markerClustering, 'click', function(e) {
+			    console.log(e);
+			});
+			
+			/* var infowindow = new naver.maps.InfoWindow();
 			
 			function onSuccessGeolocation(position) {
 			    var location = new naver.maps.LatLng(position.coords.latitude,
@@ -268,7 +273,7 @@
 			        '<h5 style="margin-bottom:5px;color:#f00;">Geolocation failed!</h5>'+ "latitude: "+ center.lat() +"<br />longitude: "+ center.lng() +'</div>');
 			    infowindow.open(map, center);
 			}
-			
+			 */
 			
 			
 		
@@ -366,13 +371,12 @@
 		getLocation();
 	</script> -->
 
-
 		<br> <br> <br>
 	</div>
 	<%@ include file="../setting/footer01.jsp"%>
 	<script>
 
-	$(window).on("load", function() {
+	/* $(window).on("load", function() {
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 	    } else {
@@ -380,7 +384,7 @@
 	        infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>');
 	        infowindow.open(map, center);
 	    }
-	});
+	}); */
 	
 	</script>
 </body>

@@ -223,7 +223,19 @@ function imageModal(contenttypeid,itemNumber) {
 		}
 		console.log(items.directions);
 		str+= "<hr>";
-		$('#modal-content').html(str);
+		var mapx = items.mapx;
+		var mapy = items.mapy;
+		var mapStr = "<div id='map' style='max-width:1080px; height:300px;'></div><script>var map = new naver.maps.Map('map', {center: new naver.maps.LatLng("+mapy+", "+mapx+"),zoom: 10});var marker = new naver.maps.Marker({position: new naver.maps.LatLng("+mapy+", "+mapx+"), map: map});</script>"
+		$('#modal-content').html(str+mapStr);
+		console.log(str+mapStr);
 		$('#detailModal').show();
+		map.setSize(getMapSize());
 	});
+};
+
+function getMapSize() {[[]]
+	var width = $("#modal-content").width();
+    var size = new naver.maps.Size(width, 300);
+    console.log("실행:"+width)
+    return size;
 };
