@@ -16,6 +16,13 @@
 
 <jsp:include page="../../setting/header01.jsp" flush="false" />
 
+<div class="preloader d-flex align-items-center justify-content-center">
+	<div class="preloader-circle"></div>
+	<div class="preloader-img">
+		<img src="resources/img/core-img/leaf.png" alt="">
+	</div>
+</div>
+
 <div class="breadcrumb-area">
 	<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 		style="background-image: url(resources/img/bg-img/image5.jpg);">
