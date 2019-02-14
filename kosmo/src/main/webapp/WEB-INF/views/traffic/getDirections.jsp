@@ -15,6 +15,7 @@
 	font-weight: bold;
 }
 </style>
+
 </head>
 <body>
 	<div class="preloader d-flex align-items-center justify-content-center">
@@ -36,29 +37,30 @@
 	</div>
 	<!-- ##### Breadcrumb Area End ##### -->
 
-	<div class="row" style="margin: 20px 0; display: block;" align="right">
-		<div class="col-12 col-md-3 col-lg-3"
-			style="margin: 30px 0; float: left;" align="center">
-			<div align="center" style="display: block;">
-				<input type="text" placeholder="Please enter an address."
-					id="ehddnr" style="height: 50px; width: 100%;"><br>
-				<br> <input type="button" class='btn alazea-btn'
-					onclick="initGeocoder();" style="width: 100%;" value="From address"><br>
-				<br> <input type="text" placeholder="Please enter an address."
-					id="ehddnr2" style="height: 50px; width: 100%;"><br>
-				<br> <input type="button" class='btn alazea-btn'
-					onclick="initGeocoder2();" style="width: 100%;"
-					value="Arrival address"><br>
-				<br> <input type="button" class='btn alazea-btn'
-					onclick="searchjido();" style="width: 100%;" value="Get Directions">
-				<input type="hidden" value="" id="x1"> <input type="hidden"
-					value="" id="y1"> <input type="hidden" value="" id="x2">
-				<input type="hidden" value="" id="y2">
+	<div class="row" style="margin: 20px 0;">
+		<div class="col-12 col-md-3 col-lg-3" style="display:inline-block;margin: 30px 0;">
+			<div class="row">
+				<div align="center" style="display: block;" class="col-12 col-md-12 col-lg-12">
+					<input type="text" placeholder="Please enter an address."
+						id="ehddnr" style="height: 50px; width: 100%;"><br>
+					<br> <input type="button" class='btn alazea-btn'
+						onclick="initGeocoder();" style="width: 100%;" value="From address"><br>
+					<br> <input type="text" placeholder="Please enter an address."
+						id="ehddnr2" style="height: 50px; width: 100%;"><br>
+					<br> <input type="button" class='btn alazea-btn'
+						onclick="initGeocoder2();" style="width: 100%;"
+						value="Arrival address"><br>
+					<br> <input type="button" class='btn alazea-btn'
+						onclick="searchjido();" style="width: 100%;" value="Get Directions">
+					<input type="hidden" value="" id="x1"> <input type="hidden"
+						value="" id="y1"> <input type="hidden" value="" id="x2">
+					<input type="hidden" value="" id="y2">
+				</div>
+				<div class="col-12 col-md-12 col-lg-12" id="searchjson" align="center" style="margin-top: 20px; height: 400px;" >
+				</div>
 			</div>
-			<div id="searchjson" align="center"
-				style="margin-top: 20px; height: 400px;"></div>
 		</div>
-		<div class="col-12 col-md-9 col-lg-9" style="margin: 0;">
+		<div class="col-12 col-md-9 col-lg-9" style="display:inline-block;margin: 0;" >
 			<div id="map2" style="width: 100%; height: 800px;"></div>
 		</div>
 	</div>
@@ -68,7 +70,20 @@
 
 	<script type="text/javascript"
 		src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=u91vrld6gw&submodules=geocoder"></script>
-	<script type="text/javascript">
+	<!-- // 길찾기기능-======================================================================= -->
+	<script type="text/javascript"
+		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5YhdM97rzIO5e2jM_nEK"></script>
+	<script>
+	
+	
+		/* 네이버 지도 열기 시작 */
+		var mapOptions = {
+			center : new naver.maps.LatLng(37.3595704, 127.105399),
+			zoom : 10
+		};
+		var map = new naver.maps.Map('map2', mapOptions);
+
+		
 		var startx, starty, endx2, endy2;
 		var marker = new naver.maps.Marker;
 		var marker2 = new naver.maps.Marker;
@@ -105,63 +120,62 @@
 								});
 							});
 		}
+		
+		naver.maps.onJSContentLoaded = initGeocoder;
+		naver.maps.onJSContentLoaded = initGeocoder2;
+		
 		function initGeocoder() {
 			var address2 = document.getElementById("ehddnr").value;
 			searchAddressToCoordinate(address2);
 		}
-		naver.maps.onJSContentLoaded = initGeocoder;
-
-		function searchAddressToCoordinate2(address) {
-			marker2.setMap(null);
-			naver.maps.Service
-					.geocode(
-							{
-								address : address
-							},
-							function(status, response) {
-								if (status === naver.maps.Service.Status.ERROR) {
-									return alert('Something Wrong!');
-								}
-								var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
-										: '[지번 주소]', point = new naver.maps.Point(
-										item.point.x, item.point.y);
-								endx2 = item.point.x;
-								endy2 = item.point.y;
-								document.getElementById("x2").value = endx2;
-								document.getElementById("y2").value = endy2;
-
-								var end = new naver.maps.Point(endx2, endy2);
-								map.setCenter(end);
-
-								marker2 = new naver.maps.Marker({
-									position : new naver.maps.Point(endx2,
-											endy2),
-									map : map
-								});
-							});
-		}
-
+		
 		function initGeocoder2() {
 			var address3 = document.getElementById("ehddnr2").value;
 			searchAddressToCoordinate2(address3);
 		}
-		naver.maps.onJSContentLoaded = initGeocoder2;
-	</script>
+		
+		
 
+		function searchAddressToCoordinate2(address) {
+			marker2.setMap(null);
+			naver.maps.Service
+				.geocode(
+					{
+						address : address
+					},
+					function(status, response) {
+						if (status === naver.maps.Service.Status.ERROR) {
+							return alert('Something Wrong!');
+						}
+						var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
+								: '[지번 주소]', point = new naver.maps.Point(
+								item.point.x, item.point.y);
+						endx2 = item.point.x;
+						endy2 = item.point.y;
+						document.getElementById("x2").value = endx2;
+						document.getElementById("y2").value = endy2;
 
+						var end = new naver.maps.Point(endx2, endy2);
+						map.setCenter(end);
 
+						marker2 = new naver.maps.Marker({
+							position : new naver.maps.Point(endx2,
+									endy2),
+							map : map
+						});
+					});
+		}
+		
+		
+		
+		$(document).on('keydown', function(e) {
+		    if (e.which === 27) {  // ESC 키
+		        polyline.setMap(null);
+		        polyline = null;
 
-	<!-- // 길찾기기능-======================================================================= -->
-	<script type="text/javascript"
-		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5YhdM97rzIO5e2jM_nEK"></script>
-	<script>
-		/* 네이버 지도 열기 시작 */
-		var mapOptions = {
-			center : new naver.maps.LatLng(37.3595704, 127.105399),
-			zoom : 10
-		};
-		var map = new naver.maps.Map('map2', mapOptions);
-
+		        // marker 의 목록을 순회하면서 setMap(null) 호출하여 제거
+		    }
+		});
 		/* 네이버 지도 열기 종료 */
 		var mapObjArray = new Array();
 		//길찾기 API 호출===========================================================
@@ -230,8 +244,7 @@
 				var y2 = document.getElementById("y2").value;
 				var url2 = 'AddressJson?x1=' + x1 + '&y1=' + y1 + '&x2=' + x2
 						+ '&y2=' + y2;
-				$
-						.ajax({
+				$.ajax({
 							url : url2,
 							type : 'GET',
 							dataType : 'json',
@@ -263,17 +276,17 @@
 									mapObjArray[i] = info.mapObj;
 									if (info.totalDistance > 1000) {
 										totalDistance = parseInt(info.totalDistance / 1000);
-										str += '<div onclick="gkatnzmfflr('+i+');">';
+										str += '<div >';
 										str += '<li style="margin-top:10px;border-top:1px solid black;padding-top:5px;display:inline;position:relative;">';
 
-										str += '<p style="width:100%;margin:0;" align="left"><span style="border:1px solid black;width:25%;color:blue;padding:0 5px;"align="left">Route'
+										str += '<p onclick="gidokilsearch('+i+');"style="width:100%;margin:0;" align="left"><span style="border:1px solid black;width:25%;color:blue;padding:0 5px;"align="left">Route'
 												+ (i + 1)
-												+ '</span><span style="width:50%;color:red;font-size:20px;margin-left:60px;">&nbsp;&nbsp;About ';
+												+ '</span><span style="width:50%;color:red;font-size:20px;margin-left:30px;">&nbsp;&nbsp;About ';
 										if (a > 0) {
 											str += a + ' Hours '
 										}
 										str += b
-												+ ' Minute&nbsp;&nbsp;</span><span style="width:20%;color:black;font-size:18px; float:right" padding-right:20px;>'
+												+ ' Minute&nbsp;&nbsp;</span><span style="width:25%;color:black;font-size:18px; float:right" padding-right:30px;>'
 												+ info.payment + '원</span></p>';
 										str += '<div style="border:1px solid black;position:absolute;top:-35px;right:-205px;"><a  id="styleblock'
 												+ i
@@ -403,7 +416,7 @@
 													} else {
 														ca = 'Walk About '
 																+ subPath[p].distance
-																+ 'M';
+																+ 'M ';
 													}
 
 												} else if (pnewNum == 2) {
@@ -646,13 +659,7 @@
 			}
 		}
 
-		// 지도위 마커 표시해주는 함수
-		function drawNaverMarker(x, y) {
-			var marker = new naver.maps.Marker({
-				position : new naver.maps.LatLng(y, x),
-				map : map
-			});
-		}
+		
 
 		/* 노선그래픽 데이터 호출 시작 */
 
@@ -699,11 +706,10 @@
 		
 		function drawNaverPolyLine(data) {
 			var lineArray;
-			console.log("KKPPK");
+			lineArray = null;
+			lineArray = new Array();
 			for (var i = 0; i < data.result.lane.length; i++) {
 				for (var j = 0; j < data.result.lane[i].section.length; j++) {
-					lineArray = null;
-					lineArray = new Array();
 					for (var k = 0; k < data.result.lane[i].section[j].graphPos.length; k++) {
 						lineArray.push(new naver.maps.LatLng(
 								data.result.lane[i].section[j].graphPos[k].y,
@@ -713,7 +719,7 @@
 								data.result.lane[i].section[j].graphPos[k].x));
 					}
 					//지하철결과의 경우 노선에 따른 라인색상 지정하는 부분 (1,2호선의 경우만 예로 들음)
-					if (data.result.lane[i].type == 1) {
+					/* if (data.result.lane[i].type == 1) {
 						polyline = new naver.maps.Polyline({
 							map : map,
 							path : lineArray,
@@ -733,20 +739,20 @@
 							path : lineArray,
 							strokeWeight : 3
 						});
-					}
+					} */
 				}
 			}
+				polyline = new naver.maps.Polyline({
+					map : map,
+					path : lineArray, 
+					strokeWeight : 3,
+					strokeColor : '#003499'
+				});
 		}
 		
-		function gkatnzmfflr(answkdufe){
-			polyline = new naver.maps.Polyline({
-				map : map,
-				path : oldlineArray,
-				strokeWeight : 3,
-				strokeColor : '#37b42d',
-				visible : false 
-			});
-			var mapnameObj = mapObjArray[answkdufe];
+		function gidokilsearch(mapobjnum){
+			polyline.setMap(null);
+			var mapnameObj = mapObjArray[mapobjnum];
 			callMapObjApiAJAX(mapnameObj);
 		} 
 		
