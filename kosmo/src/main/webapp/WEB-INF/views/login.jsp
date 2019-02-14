@@ -19,6 +19,47 @@
 <!-- Core Stylesheet -->
 <link rel="stylesheet" href="resources/style.css">
 <link rel="stylesheet" href="resources/css/login.css">
+<style type="text/css">
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  z-index: 999;
+  background-color: #fefefe;
+  margin: 45% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 200px; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <div class="preloader d-flex align-items-center justify-content-center">
@@ -31,22 +72,7 @@
 <!-- 대호 회원가입 스크립트 시작 -->
 <script type="text/javascript">
 
-	function EmailCheck() {
-		
-		var email = document.memberInputForm.memberEmail.value;
-		
-		if (!email) {
-			alert("Please input your Email");
-			return false;
-		} else if (email.indexOf("@") < 0) {
-			alert("Please input your Email correctly")
-			return false;
-		} else {
-			var url = "memberConfirmidForm?email=" + email;
-			var popup = window.open(url, "", "width=600, height=400, toolba=no");
-			popup.moveTo(0, 0);
-		}
-	}
+	
 	
 	function nameConfirmCheck() {
 		
@@ -102,7 +128,10 @@
 		document.memberInputForm.nameConfirmChk.value = 0;
 	}
 	
+	
+	
 </script>
+
 
 <!-- 회원가입 스트립트 종료 -->
 
@@ -139,9 +168,14 @@
 								<span>Back</span>
 							</button>
 						</div>
-						<div class="footer">
-							<a href="#">Forgot your password?</a>
-						</div>
+						<!-- 재영 추가 - 구글 oAuth 적용중 -->
+						<%-- <div class="footer button-container">
+							<a href="">
+							<button type="button">
+								<span>Google Id Login</span>
+							</button></a>
+						</div> --%>
+						<!-- 재영 추가 - 구글 oAuth 적용중 -->
 					</form>
 				</div>
 				<div class="card alt">
@@ -180,8 +214,96 @@
 							<div class="bar"></div>
 						</div>
 						
+						<!-- The Modal -->
+						<div id="myModal" class="modal">
+							<!-- Modal content -->
+							<div class="modal-content">
+								<h5 id="innerModal" align='center'></h5><br>
+								<a><button type="button" id="closeModal" class='btn alazea-btn'>CLOSE</button></a>
+							</div>
+						</div>
+						
+					<script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
+					<script>
+					
+						function EmailCheck() {
+	
+								var modal = document.getElementById('myModal');
+								var btn = document.getElementById("cnfEmail");
+								var span = document.getElementById("closeModal");
+								var email = $('#memberEmail').val();
+								
+								if (!email) {
+									
+									$('#innerModal').html("You must write Email");
+									
+									modal.style.display = "block";
+									
+									span.onclick = function() {
+										modal.style.display = "none";
+									}
+									window.onclick = function(event) {
+										if (event.target == modal) {
+											modal.style.display = "none";
+										}
+									} 
+									
+									return false;
+								} else {
+									
+									$.ajax({
+										url : 'memberConfirmidForm',
+										data : 'email=' + email,
+										type : 'POST',
+										success : function(selectCnt) {
+											
+											if (selectCnt == 0) {
+												
+													$('#innerModal').html(email + " is available.");
+													$('#confirmChk').val("1");
+													
+													modal.style.display = "block";
+													
+													span.onclick = function() {
+														modal.style.display = "none";
+													}
+													window.onclick = function(event) {
+														if (event.target == modal) {
+															modal.style.display = "none";
+														}
+													}
+													
+													
+											
+											} else if (selectCnt > 0) {
+												$('#innerModal').html(email + " is not available");
+												
+												modal.style.display = "block";
+												
+												span.onclick = function() {
+													modal.style.display = "none";
+												}
+												window.onclick = function(event) {
+													if (event.target == modal) {
+														modal.style.display = "none";
+													}
+												}
+											}
+										},
+										error : function() {
+											alert('오류');
+										}
+									});
+								
+								}
+							}
+								
+						
+					
+					</script>
+						
 						<div class="button-container">
-							<button type="button" onclick="return EmailCheck();">
+							<button type="button" id="cnfEmail" onclick="return EmailCheck();">
 								<span>
 									Confirm Email
 								</span>
@@ -209,8 +331,88 @@
 						
 						<input type="hidden" id="nameConfirmChk" name="nameConfirmChk" value="0">
 						
+						<script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
+					<script>
+					
+						function nameConfirmCheck() {
+	
+								var modal = document.getElementById('myModal');
+								var btn = document.getElementById("nameCheckButton");
+								var span = document.getElementById("closeModal");
+								var name = $('#memberId').val();
+								
+								if (!name) {
+									
+									$('#innerModal').html("You must write name");
+									
+									modal.style.display = "block";
+									
+									span.onclick = function() {
+										modal.style.display = "none";
+									}
+									window.onclick = function(event) {
+										if (event.target == modal) {
+											modal.style.display = "none";
+										}
+									} 
+									
+									return false;
+									
+								} else {
+									
+									$.ajax({
+										url : 'memberIdConfirm',
+										data : 'memberId=' + name,
+										type : 'POST',
+										success : function(selectCnt) {
+											
+											if (selectCnt == 0) {
+												
+													$('#innerModal').html(name + " is available.");
+													$('#nameConfirmChk').val("1");
+													
+													modal.style.display = "block";
+													
+													span.onclick = function() {
+														modal.style.display = "none";
+													}
+													window.onclick = function(event) {
+														if (event.target == modal) {
+															modal.style.display = "none";
+														}
+													}
+													
+													
+											
+											} else if (selectCnt > 0) {
+												$('#innerModal').html(name + " is not available");
+												
+												modal.style.display = "block";
+												
+												span.onclick = function() {
+													modal.style.display = "none";
+												}
+												window.onclick = function(event) {
+													if (event.target == modal) {
+														modal.style.display = "none";
+													}
+												}
+											}
+										},
+										error : function() {
+											alert('오류');
+										}
+									});
+								
+								}
+							}
+								
+						
+					
+					</script>
+						
 						<div class="button-container">
-								<button type="button" onclick="return nameConfirmCheck();">
+								<button type="button" id="nameCheckButton" onclick="return nameConfirmCheck();">
 									<span>Confirm Name</span>
 								</button>
 							<br>
@@ -227,6 +429,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<!-- jQuery-2.2.4 js -->
 	<script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
@@ -247,6 +450,12 @@
 				$('.container').stop().removeClass('active');
 			});
 		});
+		
+		/* 재영 추가 */
+		function googleLogin() {
+			
+		}
+		
 		
 	</script>
 </body>

@@ -14,7 +14,9 @@ public interface UtilService {
 
 	//재영 서비스 시작
 	
-	public Map<String,Object> imageSearchPro(MultipartHttpServletRequest req, Model model) throws Exception;
+	public Map<String,Object> imageSearchLocalPro(MultipartHttpServletRequest req, Model model) throws Exception;
+	
+	public Map<String,Object> imageSearchURLPro(MultipartHttpServletRequest req, Model model) throws Exception;
 	
 	//재영 서비스 끝
 

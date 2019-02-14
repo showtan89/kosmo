@@ -8,6 +8,7 @@ public class ChattingVO {
     private String chattingMemberId;
     private String chattingContent;
     private Timestamp chattingRegdate;
+    private String chattingContry;
     private int chattingTemp1;
     private String chattingTemp2;
     private String chattingTemp3;
@@ -31,6 +32,19 @@ public class ChattingVO {
 	public void setChattingRegdate(Timestamp chattingRegdate) {
 		this.chattingRegdate = chattingRegdate;
 	}
+	
+	public int getChattingNumber() {
+		return chattingNumber;
+	}
+	public void setChattingNumber(int chattingNumber) {
+		this.chattingNumber = chattingNumber;
+	}
+	public String getChattingContry() {
+		return chattingContry;
+	}
+	public void setChattingContry(String chattingContry) {
+		this.chattingContry = chattingContry;
+	}
 	public int getChattingTemp1() {
 		return chattingTemp1;
 	}
@@ -49,12 +63,13 @@ public class ChattingVO {
 	public void setChattingTemp3(String chattingTemp3) {
 		this.chattingTemp3 = chattingTemp3;
 	}
-	
 	@Override
 	public String toString() {
 		return "ChattingVO [chattingNumber=" + chattingNumber + ", chattingMemberId=" + chattingMemberId
-				+ ", chattingContent=" + chattingContent + ", chattingRegdate=" + chattingRegdate + ", chattingTemp1="
-				+ chattingTemp1 + ", chattingTemp2=" + chattingTemp2 + ", chattingTemp3=" + chattingTemp3 + "]";
+				+ ", chattingContent=" + chattingContent + ", chattingRegdate=" + chattingRegdate + ", chattingCountry="
+				+ chattingContry + ", chattingTemp1=" + chattingTemp1 + ", chattingTemp2=" + chattingTemp2
+				+ ", chattingTemp3=" + chattingTemp3 + "]";
 	}
-    
+	
+	
 }

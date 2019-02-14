@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMessage.RecipientType;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	// 이메일 키 메일로 전송
 	@Override
-	public void sendEmailKey(Map<String, Object> map) {
+	public void sendEmailKey(Map<String, Object> map, HttpServletRequest req) {
 
 		try {
 
@@ -56,7 +57,7 @@ public class MemberDAOImpl implements MemberDAO {
 			message.setSubject("[Welkome!]Thanks to join us");
 
 			String txt = "<img src='https://i.ibb.co/G75krLG/welkome.png'><br><hr>Welcome to Welkome!<br>Please click the link below to complete email authentication." + "<br>"
-					+ "<a href='http://localhost/project/memberEmailConfirmed?emailKey=" + (String)map.get("emailKey") + "'> Click this Link </a>";
+					+ "<a href='http://115.91.88.226:2223/project/memberEmailConfirmed?emailKey=" + (String)map.get("emailKey") + "'> Click this Link </a>";
 
 			message.setText(txt, "UTF-8", "html");
 

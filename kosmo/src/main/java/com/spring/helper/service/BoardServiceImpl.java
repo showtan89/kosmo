@@ -1,11 +1,8 @@
 package com.spring.helper.service;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
+import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
@@ -766,31 +763,63 @@ public class BoardServiceImpl implements BoardService {
 
 		return sendCnt;
 	}
-	
+
 	// 채팅 글뿌리기
 	@Override
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model) {
-		List<ChattingVO> chat = boardDao.chatting();
-		
+		UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
+		String chattingContry = uservo.getMemberCountry();
+
+		List<ChattingVO> chat = boardDao.chatting(chattingContry);
+
 		return chat;
-		
+
 	}
 	// 채팅 글쓰기
 	@Override
 	public Integer chattingWrite(ChattingVO cVO, HttpServletRequest req) {
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
 		String chattingMemberId = userVO.getMemberId();
+		String chattingContry = userVO.getMemberCountry();
 		logger.info("chattingMemberId : " + chattingMemberId);
-		
-		
-		
+
 		//vo.setChattingRegdate(new Timestamp(System.currentTimeMillis()));
 		cVO.setChattingMemberId(chattingMemberId);
-		
+		cVO.setChattingContry(chattingContry);
 		int chattingWrite =boardDao.chattingWrite(cVO);
-		
+
 		return chattingWrite;
 	}
+
+
+	// 세계 채팅 글뿌리기
+	@Override
+	public List<ChattingAllVO> chattingAll(HttpServletRequest req, Model model) {
+		UserVO uservo = (UserVO)req.getSession().getAttribute("userVO");
+		String chattingAllContry = uservo.getMemberCountry();
+		logger.info("세계채팅chattingAllContry : " + chattingAllContry);
+		List<ChattingAllVO> chatAll = boardDao.chattingAll(chattingAllContry);
+		logger.info("eeeeeeeeeeeeeeeeeee : ");
+		return chatAll;
+
+	}
+	// 세계 채팅 글쓰기
+	@Override
+	public Integer chattingWriteAll(ChattingAllVO cVO, HttpServletRequest req) {
+
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
+		String chattingAllMemberId = userVO.getMemberId();
+		String chattingAllContry = userVO.getMemberCountry();
+		logger.info("chattingAllMemberId : " + chattingAllMemberId);
+
+		cVO.setchattingAllMemberId(chattingAllMemberId);
+		cVO.setChattingAllContry(chattingAllContry);
+		int chattingAllWrite =boardDao.chattingWriteAll(cVO);
+
+		return chattingAllWrite;
+	}
+
+
 	//민석이 메소드 종료++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//진호 메소드 시작---------------------------------------------------
@@ -1014,7 +1043,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 원데이 클래스 댓글 목록 출력
-/*	@Override
+
+	/*	@Override
 	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model){
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		return boardDao.getoCommentList(onedayclassNumber);
@@ -1042,13 +1072,19 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.realestateCommentsDelete(rCommentNumber);
 	}*/	
 
+
 	@Override
 	public List<oCommentVO> getoCommentList(HttpServletRequest req, Model model) {
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		return boardDao.getoCommentList(onedayclassNumber, 1, 10);
 	}
+
+
+
 	
-/*	@Override
+	// 원데이 클래스 댓글 추가
+
+	/*	@Override
 	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end, HttpSession session) {
 		// TODO Auto-generated method stub
 		return null;
@@ -1058,24 +1094,54 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}*/
+
 	@Override
 	public void oCommentCreate(oCommentVO dto) {
 		boardDao.oCommentCreate(dto);
 	}
+
+	
+	// 수정할 댓글 조회
+	@Override
+	public oCommentVO readOneComment(HttpServletRequest req) {
+		int oCommentNumber = Integer.parseInt(req.getParameter("oCommentNumber"));
+		oCommentVO vo = boardDao.readOneComment(oCommentNumber);
+
+		return vo;
+	}
+	
+/*	// 댓글 수정
+	@Override
+	public oCommentVO readOneComment(int oCommentNumber) {
+
+		return boardDao.readOneComment(oCommentNumber);
+	}*/
+	// 댓글 수정
+	@Override
+	public int updateComment(oCommentVO vo) {
+		int updateCnt = boardDao.updateComment(vo);
+		return updateCnt;
+	}
+	// 댓글 삭제
 /*	@Override
+	public void deleteComment(oCommentVO vo) {
+		boardDao.deleteComment(vo);
+
+	/*	@Override
 	public void oCommentUpdate(oCommentVO dto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void oCommentDelete(oCommentVO dto) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public oCommentVO oCommentDetail(int onedayclassNumber) {
 		// TODO Auto-generated method stub
 		return null;
+
 	}*/
 
 	//진호 메소드 종료---------------------------------------------------
@@ -1084,16 +1150,15 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void emergency(HttpServletRequest req, Model model) throws Exception {
 
-		
+
 		List<HospitalVO> hlist = boardDao.emergency();
-		
-		int emergencyCnt = boardDao.emergencyCnt();
-		
-		model.addAttribute("emergencyCnt", emergencyCnt);
+
+		//int emergencyCnt = boardDao.emergencyCnt();
+
+		//model.addAttribute("emergencyCnt", emergencyCnt);
 		model.addAttribute("hlist", hlist);
 
-
-		ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
+		/*ProcessBuilder pb = new ProcessBuilder("python", "E:/DEV-43/python/data/hosValue.py");
 		Process p = pb.start(); // 프로세스 호출
 
 		// 프로세스의 실행결과를 스트림으로 리턴함
@@ -1109,8 +1174,9 @@ public class BoardServiceImpl implements BoardService {
 
 		String originData = sb.toString();
 
-		model.addAttribute("originData", originData);
+		model.addAttribute("originData", originData);*/
 	}
+
 
 
 	// 대호 끝 =================================

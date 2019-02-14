@@ -75,7 +75,7 @@ public class MemberServiceImpl implements MemberService {
 		int insertCnt = memberdao.memberInputPro(map);
 
 		if (insertCnt == 1) {
-			memberdao.sendEmailKey(map);
+			memberdao.sendEmailKey(map, req);
 		}
 
 		model.addAttribute("insertCnt", insertCnt);
@@ -100,7 +100,6 @@ public class MemberServiceImpl implements MemberService {
 		int selectCnt = memberdao.memberIdConfirm(memberId);
 		
 		model.addAttribute("selectCnt", selectCnt);
-		model.addAttribute("memberId", memberId);
 	}
 
 	// 회원정보 수정
@@ -171,7 +170,7 @@ public class MemberServiceImpl implements MemberService {
 		if(pageNum== null) {
 			pageNum = "1"; // 첫페이지를 1로 주겠다.
 		}
-
+		
 		// 글 30건 기준
 		currentPage = Integer.parseInt(pageNum); // 현재 페이지
 		// 페이지 갯수 6 = (30 / 5 ) + (0)
