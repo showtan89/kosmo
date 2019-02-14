@@ -56,7 +56,7 @@
 		</div>
 		<div class="col-md-4 mb-4">
 			<label for="inputFile" style="color: white" id='inputFileLabel'>Image
-				Search Type</label> <input type="file" id="inputFile" name="inputImageFile">
+				Search Type</label> <input type="file" id="inputFile" name="inputImageFile" accept="image/*">
 		</div>
 		<!-- 서치 버튼 -->
 		<div class="col-md-4 mb-4">
