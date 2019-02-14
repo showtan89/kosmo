@@ -591,10 +591,7 @@
 		DELETE onedayclass WHERE onedayclassNumber=#{onedayclassNumber}
 	</delete>
 	
-	<!-- 원데이 게시판 댓글 리스트 -->
-<!-- 	<select id="getoCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
-		SELECT * from oComment WHERE oCommentRegdate >= #{now Time} ORDER BY oCommentRegdate
-	</select> -->
+	
 	<!-- 원데이 게시판 댓글 리스트 -->
 	<select id="getoCommentList" parameterType="java.util.Map" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
 		SELECT oCommentNumber, onedayclassNumber, boardCode, memberEmail, memberId, oCommentContent, oCommentRegdate
@@ -603,12 +600,30 @@
 		order by oCommentNumber
 	</select>
 	
-	
 	<!-- 원데이 게시판 댓글 추가 -->
 	<insert id="oCommentCreate">
 		insert into oComment (oCommentNumber, onedayclassNumber, boardCode, memberEmail, memberId, oCommentContent, oCommentRegdate)
 		values(oCommentSeq.nextval, #{onedayclassNumber}, '31', #{memberEmail}, #{memberId}, #{oCommentContent}, sysdate)
 	</insert>
+	
+	<!-- 댓글 하나 조회 -->
+	<select id="readOneComment" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
+		SELECT oCommentNumber, onedayclassNumber, memberId, oCommentContent, oCommentRegdate
+		FROM oComment
+		WHERE oCommentNumber=#{oCommentNumber}
+	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment">
+		UPDATE oComment SET oCommentContent=#{oCommentContent}
+		WHERE oCommentNumber=#{oCommentNumber}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+<!-- 	<delete id="deleteComment">
+		DELETE FROM oComment
+		WHERE oCommentNumber=#{oCommentNumber}
+	</delete> -->
 	
 	
 	

@@ -1043,6 +1043,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 원데이 클래스 댓글 목록 출력
+
 	/*	@Override
 	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model){
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
@@ -1071,11 +1072,17 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.realestateCommentsDelete(rCommentNumber);
 	}*/	
 
+
 	@Override
 	public List<oCommentVO> getoCommentList(HttpServletRequest req, Model model) {
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		return boardDao.getoCommentList(onedayclassNumber, 1, 10);
 	}
+
+
+
+	
+	// 원데이 클래스 댓글 추가
 
 	/*	@Override
 	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end, HttpSession session) {
@@ -1087,10 +1094,39 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}*/
+
 	@Override
 	public void oCommentCreate(oCommentVO dto) {
 		boardDao.oCommentCreate(dto);
 	}
+
+	
+	// 수정할 댓글 조회
+	@Override
+	public oCommentVO readOneComment(HttpServletRequest req) {
+		int oCommentNumber = Integer.parseInt(req.getParameter("oCommentNumber"));
+		oCommentVO vo = boardDao.readOneComment(oCommentNumber);
+
+		return vo;
+	}
+	
+/*	// 댓글 수정
+	@Override
+	public oCommentVO readOneComment(int oCommentNumber) {
+
+		return boardDao.readOneComment(oCommentNumber);
+	}*/
+	// 댓글 수정
+	@Override
+	public int updateComment(oCommentVO vo) {
+		int updateCnt = boardDao.updateComment(vo);
+		return updateCnt;
+	}
+	// 댓글 삭제
+/*	@Override
+	public void deleteComment(oCommentVO vo) {
+		boardDao.deleteComment(vo);
+
 	/*	@Override
 	public void oCommentUpdate(oCommentVO dto) {
 		// TODO Auto-generated method stub
@@ -1105,6 +1141,7 @@ public class BoardServiceImpl implements BoardService {
 	public oCommentVO oCommentDetail(int onedayclassNumber) {
 		// TODO Auto-generated method stub
 		return null;
+
 	}*/
 
 	//진호 메소드 종료---------------------------------------------------
@@ -1139,6 +1176,7 @@ public class BoardServiceImpl implements BoardService {
 
 		model.addAttribute("originData", originData);*/
 	}
+
 
 
 	// 대호 끝 =================================

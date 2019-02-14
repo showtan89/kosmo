@@ -161,7 +161,208 @@
 		<div id="map" style="width: 100%; height: 400px;"></div>
 
 		<!-- 재영 시작 -->
+<script>
+var map = new naver.maps.Map('map', mapOptions);
 
+
+
+var infoWindow = new naver.maps.InfoWindow({
+    anchorSkew: true
+});
+
+map.setCursor('pointer');
+//search by tm128 coordinate
+function searchCoordinateToAddress(latlng) {
+    var tm128 = naver.maps.TransCoord.fromLatLngToTM128(latlng);
+
+    infoWindow.close();
+
+    naver.maps.Service.reverseGeocode({
+        location: tm128,
+        coordType: naver.maps.Service.CoordType.TM128
+    }, function(status, response) {
+        if (status === naver.maps.Service.Status.ERROR) {
+            return alert('Something Wrong!');
+        }
+
+        var items = response.result.items,
+            htmlAddresses = [];
+
+        for (var i=0, ii=items.length, item, addrType; i<ii; i++) {
+            item = items[i];
+            addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]';
+
+            htmlAddresses.push((i+1) +'. '+ addrType +' '+ item.address);
+        }
+
+        infoWindow.setContent([
+                '<div style="padding:10px;min-width:200px;line-height:150%;">',
+                '<h4 style="margin-top:5px;">검색 좌표</h4><br />',
+                htmlAddresses.join('<br />'),
+                '</div>'
+            ].join('\n'));
+
+        infoWindow.open(map, latlng);
+    });
+}
+
+// result by latlng coordinate
+function searchAddressToCoordinate(address) {
+    naver.maps.Service.geocode({
+        address: address
+    }, function(status, response) {
+        if (status === naver.maps.Service.Status.ERROR) {
+            return alert('Something Wrong!');
+        }
+
+        var item = response.result.items[0],
+            addrType = item.isRoadAddress ? '[도로명 주소]' : '[지번 주소]',
+            point = new naver.maps.Point(item.point.x, item.point.y);
+
+        infoWindow.setContent([
+                '<div style="padding:10px;min-width:200px;line-height:150%;">',
+                '<h4 style="margin-top:5px;">검색 주소 : '+ response.result.userquery +'</h4><br />',
+                addrType +' '+ item.address +'<br />',
+                '</div>'
+            ].join('\n'));
+
+
+        map.setCenter(point);
+        infoWindow.open(map, point);
+    });
+}
+
+function initGeocoder() {
+    map.addListener('click', function(e) {
+        searchCoordinateToAddress(e.coord);
+    });
+
+    $('#address').on('keydown', function(e) {
+        var keyCode = e.which;
+
+        if (keyCode === 13) { // Enter Key
+            searchAddressToCoordinate($('#address').val());
+        }
+    });
+
+    $('#submit').on('click', function(e) {
+        e.preventDefault();
+
+        searchAddressToCoordinate($('#address').val());
+    });
+
+    searchAddressToCoordinate('정자동 178-1');
+}
+
+naver.maps.onJSContentLoaded = initGeocoder;
+
+
+/* 
+var mapOptions = {
+		center: new naver.maps.LatLng(37.3595704, 127.105399),
+		zoom: 10
+	};
+
+	var map = new naver.maps.Map('map', mapOptions);
+	
+	var sx = 126.93737555322481;
+	var sy = 37.55525165729346;
+	var ex = 126.88265238619182;
+	var ey = 37.481440035175375;
+	
+	function searchPubTransPathAJAX() {
+		var xhr = new XMLHttpRequest();
+		//ODsay apiKey 입력
+		var url = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+sx+"&SY="+sy+"&EX="+ex+"&EY="+ey+"&apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0";
+		xhr.open("GET", url, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+			console.log( JSON.parse(xhr.responseText) ); // <- xhr.responseText 로 결과를 가져올 수 있음
+			//노선그래픽 데이터 호출
+			callMapObjApiAJAX((JSON.parse(xhr.responseText))["result"]["path"][0].info.mapObj);
+			}
+		}
+	}
+	
+	//길찾기 API 호출
+	searchPubTransPathAJAX();
+	
+	function callMapObjApiAJAX(mabObj){
+		var xhr = new XMLHttpRequest();
+		//ODsay apiKey 입력
+		var url = "https://api.odsay.com/v1/api/loadLane?mapObject=0:0@"+mabObj+"&apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0";
+		xhr.open("GET", url, true);
+		xhr.send();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				var resultJsonData = JSON.parse(xhr.responseText);
+				drawNaverMarker(sx,sy);					// 출발지 마커 표시
+				drawNaverMarker(ex,ey);					// 도착지 마커 표시
+				drawNaverPolyLine(resultJsonData);		// 노선그래픽데이터 지도위 표시
+				// boundary 데이터가 있을경우, 해당 boundary로 지도이동
+				if(resultJsonData.result.boundary){
+						var boundary = new naver.maps.LatLngBounds(
+				                new naver.maps.LatLng(resultJsonData.result.boundary.top, resultJsonData.result.boundary.left),
+				                new naver.maps.LatLng(resultJsonData.result.boundary.bottom, resultJsonData.result.boundary.right)
+				                );
+						map.panToBounds(boundary);
+				}
+			}
+		}
+	}
+	
+	// 지도위 마커 표시해주는 함수
+	function drawNaverMarker(x,y){
+		var marker = new naver.maps.Marker({
+		    position: new naver.maps.LatLng(y, x),
+		    map: map
+		});
+	}
+	
+	// 노선그래픽 데이터를 이용하여 지도위 폴리라인 그려주는 함수
+	function drawNaverPolyLine(data){
+		var lineArray;
+		
+		for(var i = 0 ; i < data.result.lane.length; i++){
+			for(var j=0 ; j <data.result.lane[i].section.length; j++){
+				lineArray = null;
+				lineArray = new Array();
+				for(var k=0 ; k < data.result.lane[i].section[j].graphPos.length; k++){
+					lineArray.push(new naver.maps.LatLng(data.result.lane[i].section[j].graphPos[k].y, data.result.lane[i].section[j].graphPos[k].x));
+				}
+				
+			//지하철결과의 경우 노선에 따른 라인색상 지정하는 부분 (1,2호선의 경우만 예로 들음)
+				if(data.result.lane[i].type == 1){
+					var polyline = new naver.maps.Polyline({
+					    map: map,
+					    path: lineArray,
+					    strokeWeight: 3,
+					    strokeColor: '#003499'
+					});
+				}else if(data.result.lane[i].type == 2){
+					var polyline = new naver.maps.Polyline({
+					    map: map,
+					    path: lineArray,
+					    strokeWeight: 3,
+					    strokeColor: '#37b42d'
+					});
+				}else{
+					var polyline = new naver.maps.Polyline({
+					    map: map,
+					    path: lineArray,
+					    strokeWeight: 3
+					});
+				}
+			}
+		}
+	} */
+</script>
+	
+<!-- 
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=37c2e71a114ce757eb2a4b922679624c&libraries=services"></script>
+<script>
 		<script type="text/javascript"
 			src="resources/js/plugins/hospitalData.js"></script>
 		<script>

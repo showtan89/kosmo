@@ -23,7 +23,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -58,11 +62,8 @@ public class BoardRestController {
 				String y1 = req.getParameter("y1");
 				String x2 = req.getParameter("x2");
 				String y2 = req.getParameter("y2");
-				System.out.println(x1);
-				System.out.println(y1);
-				System.out.println(x2);
-				System.out.println(y2);
 	            String urlstr = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+x1+"&SY="+y1+"&EX="+x2+"&EY="+y2+"&apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0";
+	            System.out.println(urlstr);
 	            URL url = new URL(urlstr);
 	            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 	            urlconnection.setRequestMethod("GET");
@@ -71,7 +72,7 @@ public class BoardRestController {
 	            String line;
 	            while((line = br.readLine()) != null) {
 	                result = result + line + "\n";
-	                
+
 	            }
 	            System.out.println(result);
 		return new ResponseEntity<String>(result,HttpStatus.OK);
@@ -394,7 +395,6 @@ public class BoardRestController {
 		Integer alarmServiceCnt = service.alarmServiceCnt(req); 
 		return new ResponseEntity<Integer>(alarmServiceCnt,HttpStatus.OK);
 	}
-	
 
 	//채팅글뿌리기
 	@RequestMapping(value="chatting", method = RequestMethod.GET)
@@ -428,26 +428,10 @@ public class BoardRestController {
 		return new ResponseEntity<Integer>(chattingWriteAll,HttpStatus.OK);
 	}
 	//--------------- 민석 종료 ---------------------------------
+
+
 	
 	//----------------진호 시작-----------------------------------------------------------
-
-	
-
-	// 원데이 클래스 댓글 리스트 출력
-/*	@RequestMapping(value="oCommentJson", method = RequestMethod.POST)
-	public ResponseEntity<List<oCommentVO>> oCommentJson(HttpServletRequest req, Model model) throws Exception{
-		logger.info("oCommentJson - 호출중");
-		ArrayList<oCommentVO> list = service.getoCommentList(req,model);
-		return new ResponseEntity<>(list,HttpStatus.OK);
-	}*/
-	
-/*	@RequestMapping("oCommentInsert")
-	public void oCommentInsert(@ModelAttribute oCommentVO dto, HttpSession session) throws Exception{
-		String memberId = (String)session.getAttribute("memberId");
-		dto.setMemberId(memberId);
-		System.out.println("값들어오니?" + dto.toString());
-		service.oCommentCreate(dto);
-	}*/
 	
 	// 댓글 추가
 	@RequestMapping(value="oCommentInsert", method = RequestMethod.POST)
@@ -463,12 +447,54 @@ public class BoardRestController {
 	public ResponseEntity<List<oCommentVO>> list_json(HttpServletRequest req, Model model) throws Exception{
 		logger.info("댓글리스트 호출중");
 		
-		/*return service.getoCommentList(oCommentNumber, 1, 10, session);*/
-		
 		List<oCommentVO> list = service.getoCommentList(req,model); //댓글 리스트 가져오기
 		return new ResponseEntity<>(list,HttpStatus.OK);
 	}
 	
+	// 수정할 댓글 조회
+	@RequestMapping(value="readOneComment", method = RequestMethod.GET)
+	public ModelAndView readOneComment(HttpServletRequest req) throws Exception {
+		logger.info("수정할 댓글 조회");
+	 
+		oCommentVO vo = service.readOneComment(req); 
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/board/onedayclass/oCommentModifyForm"); // 뷰의 이름
+	    mv.addObject("vo", vo); // 뷰로 보낼 데이터 값
+
+		return mv;
+	}
+	
+	//댓글 수정처리
+	@RequestMapping(value="updateComment", method = RequestMethod.PUT)
+	public ResponseEntity<Integer> updateComment(@RequestBody oCommentVO vo) throws Exception {
+		logger.info("댓글 수정중");
+		logger.info("dddddd" + vo.toString());
+		
+		int result = service.updateComment(vo);
+		return new ResponseEntity<Integer>(result,HttpStatus.OK);
+	}
+	
+	// 댓글 삭제
+/*	@RequestMapping(value="deleteComment", method = RequestMethod.POST)
+	public String deleteComment(oCommentVO vo, RedirectAttributes rttr) throws Exception {
+		logger.info("댓글 삭제중");
+	 
+		service.deleteComment(vo);
+		rttr.addAttribute("oCommentNumber", vo.getoCommentNumber());
+		return "redirect:/board/onedayclass/onedayclassDetailForm";
+	}*/
+
+	// 댓글 삭제
+/*	@RequestMapping(value="deleteComment", method = RequestMethod.POST)
+	public String deleteComment(oCommentVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+		logger.info("댓글 삭제중");
+	 
+		service.deleteComment(vo);
+		rttr.addAttribute("oCommentNumber", vo.getoCommentNumber());
+		return "redirect:/board/onedayclass/onedayclassDetailForm";
+	}*/
+
 	//----------------진호 끝----------------------------------------------------------
 	
 }

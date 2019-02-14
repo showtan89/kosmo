@@ -2,15 +2,49 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="description" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="X-Content-Type-Options" content="nosniff" />
+	
 <title>Mypage</title>
 
-<link rel="stylesheet" href="resources/css/style.css">
-<link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
+
+
+<link rel="stylesheet" href="resources/css/SDHcss/sdhStyle.css">
+<link rel="stylesheet" href="resources/css/style.css">
+
+</head>
+<body>
+
+
+<jsp:include page="../setting/header01.jsp" flush="false" />
+
+<div class="preloader d-flex align-items-center justify-content-center">
+	<div class="preloader-circle"></div>
+	<div class="preloader-img">
+		<img src="resources/img/core-img/leaf.png" alt="">
+	</div>
+</div>
+
+
+
+<!-- ##### Breadcrumb Area Start ##### -->
+<div class="breadcrumb-area">
+	<!-- Top Breadcrumb Area -->
+	<div
+		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
+		style="background-image: url(resources/img/member/usermain.jpg);">
+		<h2>${sessionScope.userVO.memberId}'s  MyPage</h2>
+	</div>
+</div>
+
 <!-- jQuery-2.2.4 js -->
 <script src="resources/js/jquery/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">
@@ -24,10 +58,9 @@ $(document).ready(function(){
 	    }
 	  });
 	});
-</script>
-
-<script type="text/javascript">
-
+	
+	
+	
 function modifyCheck() {
 	
 	if (document.memberModifyForm.password.value != document.memberModifyForm.Repeat_password.value) {
@@ -38,29 +71,7 @@ function modifyCheck() {
 function memberDeleteForm() {
 	window.location.href = "memberDeleteForm";
 }
-
-	
 </script>
-</head>
-<body>
-<div class="preloader d-flex align-items-center justify-content-center">
-	<div class="preloader-circle"></div>
-	<div class="preloader-img">
-		<img src="resources/img/core-img/leaf.png" alt="">
-	</div>
-</div>
-
-<%@ include file = "../setting/header01.jsp" %>
-
-<!-- ##### Breadcrumb Area Start ##### -->
-<div class="breadcrumb-area">
-	<!-- Top Breadcrumb Area -->
-	<div
-		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
-		style="background-image: url(resources/img/member/usermain.jpg);">
-		<h2>${sessionScope.userVO.memberId}'s  MyPage</h2>
-	</div>
-</div>
 <!-- ##### Breadcrumb Area End ##### -->
 
 <br>
@@ -69,7 +80,10 @@ function memberDeleteForm() {
 		<div class="row">
 		
 
-<div id="memberModify"> 
+<div id="memberModify" style="width: 50%;
+							min-width: 360px;
+							margin-left: auto;
+							margin-right: auto;"> 
 
 	<H2 style="margin-bottom: 50px">I N F O</H2>
 		
@@ -143,8 +157,7 @@ function memberDeleteForm() {
 </div>
 
 
-	
-<%@ include file = "../setting/footer01.jsp" %>
+<jsp:include page="../setting/footer01.jsp" flush="false" />
 
 </body>
 </html>
