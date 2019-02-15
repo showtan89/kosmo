@@ -21,6 +21,27 @@ public class TrafficController {
 
 	private static final Logger logger = LoggerFactory.getLogger(TrafficController.class);
 	
+	// 동욱 시작
+	@RequestMapping("getDirections")
+	public String getDirections(HttpServletRequest req,Model model) {
+		logger.info("getDirections 로딩 중.....");
+		return "traffic/getDirections";
+	}
+	
+	@RequestMapping("dkssudehddnr")
+	public String test(HttpServletRequest req,Model model) {
+		logger.info("test 로딩 중.....");
+		return "traffic/test";
+	}
+	@RequestMapping("dkssudehddnr2")
+	public String test2(HttpServletRequest req,Model model) {
+		logger.info("test 로딩 중.....");
+		return "traffic/test2";
+	}
+	
+	// 동욱 종료
+	
+	
 	// 다문화 외국인 취업정보 게시판
 	@RequestMapping("getAddresspop")
 	public String ehfhaudwnth(HttpServletRequest req, Model model) throws Exception {
@@ -37,11 +58,7 @@ public class TrafficController {
 	
 	
 	// 대호 시작 ==================================================================
-		@RequestMapping("getDirections")
-		public String getDirections(HttpServletRequest req,Model model) {
-			logger.info("getDirections 로딩 중.....");
-			return "traffic/getDirections";
-		}
+		
 		
 		@RequestMapping("emergency")
 		public String emergency(HttpServletRequest req,Model model) throws Exception {

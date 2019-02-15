@@ -26,35 +26,49 @@
 <div class="breadcrumb-area">
 	<div
 		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
-		style="background-image: url();">
-		<h2>BLANK</h2>
+		style="background-image: url(resources/img/travel/weather/weather.png);">
+		<h2>Weather Info</h2>
 	</div>
 	<br><br>
 </div>
 
 <div class="container" style="margin-bottom: 50px;">
-	<div class="row">
-		<div class="col-12">
-			<div class="shop-sorting-data d-flex flex-wrap align-items-center justify-content-between">
-				<div class="shop-page-count"></div>
-				<div class="search_by_terms">
-					<button type="button" class='btn alazea-btn' onclick="getNewsJson()">Search</button>
-				</div>
-			</div>
+	<h5>Weather Info Search</h5>
+	<hr>
+	<div class="row ">
+		<!-- 카테1 -->
+		<div class="col-md-6 mb-6">
+			<label for="search">Search Type</label> 
+			<select class="custom-select d-block w-100" id="searchType" name="searchType">
+				<option style="display: none;" value="">Select Type</option>
+				<option value="radar">Radar Map</option>
+				<option value="76&cat1=A02">Culture/Art/History</option>
+				<option value="75&cat1=A03">Leisure/Sports</option>
+				<option value="79&cat1=A04">Shopping</option>
+				<option value="82&cat1=A05">Cuisine</option>
+				<option value="77&cat1=B01">Transportation</option>
+				<option value="80&cat1=B02">Accommodation</option>
+			</select>
+		</div>
+		<div class="col-md-6 mb-6">
+		<label for="searchButton">&nbsp;</label>
+			<button type="button" class="btn alazea-btn form-control btn-custom" id="searchButton" onclick="return getWeatherData();">Search</button>
 		</div>
 	</div>
-
+	<hr>
 	<div class="shop-products-area">
 		<div class="row">
 			<div class="col-12">
-				<div class="card flex-md-row mb-4 shadow-sm h-md-250"
-					id="jsonResult">여기는 빈페이지입니다. 나가주시죠.</div>
+				<div class="card flex-md-row mb-4 shadow-sm h-md-250" id="imageResult">
+				</div>
+				<div id="buttonArea">
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
-
+<script src="resources/js/weather.js"></script>
 </body>
 </html>
