@@ -489,9 +489,14 @@
 		 delete from commentalarm where commentnumber = #{commentnumber}
 	</delete>
 	
-	<!-- 쪽지 알람 삭제 -->
+	<!-- 받은 쪽지 삭제 -->
 	<delete id="messageDelete" parameterType="int">
-		 delete from message where messagenumber = #{messagenumber}
+		 delete from message where messageNumber = #{messageNumber}
+	</delete>
+	
+	<!-- 보낸쪽지 삭제 -->
+	<delete id="fmessageDelete" parameterType="int">
+		delete from frommessage where fMessageNumber = #{fMessageNumber}
 	</delete>
 	
 	<!-- ajax 댓글 알람 갯수 -->
@@ -502,25 +507,32 @@
 	<select id="messageCnt" resultType="int" parameterType="String">
 		SELECT COUNT(*) cnt FROM  message WHERE messageSendId = #{memberId} AND messagealarm = 1
 	</select>
-	<!--  쪽지 보내기 -->
+	<!--  쪽지 보내기 받는사람 -->
 	<insert id="sendMessage" parameterType="java.util.Map">
 		INSERT INTO message VALUES
 		( #{userVO.memberEmail}, #{userVO.memberId}, #{messageSendId}, messageseq.nextval, #{messageContent}, sysdate, 1, 0, '0', '0' )	
 	</insert>
+	<!--  쪽지 보내기 보내는 사람 -->
+	<insert id="fromMessage" parameterType="java.util.Map">
+		INSERT INTO frommessage VALUES
+		( #{userVO.memberEmail}, #{userVO.memberId}, #{messageSendId}, fmessageseq.nextval, #{messageContent}, sysdate, 1, 0, '0', '0' )	
+	</insert>
 	
 	<!-- 보낸 쪽지 갯수 -->
 	<select id="messageSendListCnt" resultType="int" parameterType="String">
-		select count(*) cnt from  message WHERE messageFromId = #{memberId}
+		select count(*) cnt from frommessage WHERE fmessageFromId = #{memberId}
 	</select>
 	
 	<!-- 보낸 쪽지 리스트 -->
-	<select id="messageSendList" resultType="com.spring.helper.vo.BoardVO.MessageVO" parameterType="java.util.Map">
+	<select id="messageSendList" resultType="com.spring.helper.vo.BoardVO.FromMessageVO" parameterType="java.util.Map">
 		<![CDATA[
-			SELECT * FROM (SELECT messageNumber, memberEmail, messageFromId, messageSendId, messageContent, messageRegdate, messageAlarm, rownum rNum 
-			FROM ( SELECT * FROM message WHERE messagealarm != 0  AND messageFromId = #{userVO.memberId} ORDER BY messageregdate DESC ))
+			SELECT * FROM (SELECT fmessageNumber, fmemberEmail, fmessageFromId, fmessageSendId, fmessageContent, fmessageRegdate, fmessageAlarm, rownum rNum 
+			FROM ( SELECT * FROM frommessage WHERE fmessagealarm != 0  AND fmessageFromId = #{userVO.memberId} ORDER BY fmessageregdate DESC ))
 			WHERE rNum >= #{start} AND rNum <= #{end}
 		]]>
 	</select>
+	
+	<!-- 보낸쪽지 삭제 -->
 	
 	
 	<!-- 채팅 글 뿌리기-->

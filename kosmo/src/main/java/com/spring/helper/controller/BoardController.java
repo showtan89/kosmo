@@ -311,6 +311,27 @@ public class BoardController {
 		return "board/message/messageSend";
 	}
 	
+	
+	//받은 쪽지 삭제
+	@RequestMapping("messageDelete")
+	public String messageDelete(HttpServletRequest req, Model model) throws Exception {
+		logger.info("쪽지 삭제 처리 호출중 ....");
+		
+		service.messageDelete(req, model);
+		
+		return "board/message/messageDelete";
+	}
+	
+	//보낸 쪽지 삭제
+	@RequestMapping("fmessageDelete")
+	public String fmessageDelete(HttpServletRequest req, Model model) throws Exception {
+		logger.info("쪽지 삭제 처리 호출중 ....");
+		
+		service.fMessageDelete(req, model);
+		
+		return "board/message/messageDelete";
+	}
+	
 	// 채팅 창 띄우기
 	@RequestMapping("chattingstart")
 	public String chattingView(HttpServletRequest req, Model model) throws Exception {

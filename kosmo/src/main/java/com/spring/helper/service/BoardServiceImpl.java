@@ -24,6 +24,7 @@ import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.FromMessageVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -694,19 +695,36 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("deleteCnt", deleteCnt);
 		model.addAttribute("pageNum", pageNum);
 	}
-	// 쪽지 알람 삭제
+	// 받은 쪽지 알람 삭제
 	@Override
 	public void messageDelete(HttpServletRequest req, Model model) {
 
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int messageNumber = Integer.parseInt(req.getParameter("messagenumber"));
-		System.out.println("messagenumber : " + messageNumber);
+
+
 		int deleteCnt = 0;
 
-		if(messageNumber != 0) {
-			messageNumber = boardDao.messageDelete(messageNumber);
-			deleteCnt=messageNumber;
-		}
+		messageNumber = boardDao.messageDelete(messageNumber);
+		deleteCnt=messageNumber;
+
+		model.addAttribute("deleteCnt", deleteCnt);
+		model.addAttribute("pageNum", pageNum);
+
+	}
+
+	// 보낸 쪽지  삭제
+	@Override
+	public void fMessageDelete(HttpServletRequest req, Model model) {
+
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		int fMessageNumber = Integer.parseInt(req.getParameter("fmessagenumber"));
+		logger.info("fMessageNumber : " + fMessageNumber);
+
+		int deleteCnt = 0;
+
+		fMessageNumber = boardDao.fMessageDelete(fMessageNumber);
+		deleteCnt=fMessageNumber;
 
 		model.addAttribute("deleteCnt", deleteCnt);
 		model.addAttribute("pageNum", pageNum);
@@ -747,7 +765,13 @@ public class BoardServiceImpl implements BoardService {
 		String messageFromId = userVO.getMemberId();
 		String messageSendId = req.getParameter("messageSendId");
 		logger.info("messageSendId : " + messageSendId);
-		String messageContent = req.getParameter("messageContent");
+		
+		String messageContent = req.getParameter("messageContent1");
+		messageContent = req.getParameter("messageContent1");
+		
+		if(messageContent==null) {
+			messageContent = req.getParameter("messageContent2");
+		}
 		logger.info("messageContent : " + messageContent);
 
 		int sendCnt = 0;
@@ -830,7 +854,7 @@ public class BoardServiceImpl implements BoardService {
 			map.put("userVO", userVO);
 
 			//5-2. 게시글 목록 조회
-			List<MessageVO> sml =boardDao.messageSendList(map);
+			List<FromMessageVO> sml =boardDao.messageSendList(map);
 
 			// 큰바구니 : 게시글 목록 cf)작은 바구니 : 게시글 1건
 			req.setAttribute("sml", sml);
