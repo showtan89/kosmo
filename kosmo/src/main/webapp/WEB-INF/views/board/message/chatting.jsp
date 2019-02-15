@@ -73,26 +73,18 @@ setInterval("chatting();", 6000);//원래 2000, 개발중  60000, 시연때 2000
 </body>
 <hr><br>
 	<div align="center" id="write">
-		<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
 		<input type="text" id="chattingContent" maxlength="300"
 			style="width: 50%; height: 10%; padding: 5px 5px;"
 			name="chattingContent"> &nbsp;&nbsp; <input
 			type="button" id="chattingWrite" class="btn btn-success mr-30"
 			value="Enter" style="padding: 1px;">
-		<!-- </form> -->
 	</div>
-	<!-- <script>
-		onclick="chattingWrite();"
-			function chattingWrite(){
-				var chattingContent = $("#chattingContent").val();
-				window.location = 'chatting?chattingContent=' + chattingContent;
-			}
-		</script> -->
 
 
 <script type="text/javascript">
 $("#chattingWrite").on("click", function(){
 	var chattingContent = $('#chattingContent').val();
+	
 	$.ajax({
 		type:'POST',
 		url:'chattingContent',
@@ -114,5 +106,7 @@ $("#chattingWrite").on("click", function(){
 		
 	});
 });
+
+
 </script>
 </html>
