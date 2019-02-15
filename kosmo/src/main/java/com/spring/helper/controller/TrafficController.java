@@ -27,16 +27,16 @@ public class TrafficController {
 		logger.info("getDirections 로딩 중.....");
 		return "traffic/getDirections";
 	}
-	
-	@RequestMapping("dkssudehddnr")
-	public String test(HttpServletRequest req,Model model) {
-		logger.info("test 로딩 중.....");
-		return "traffic/test";
-	}
-	@RequestMapping("dkssudehddnr2")
+
+	@RequestMapping("popStartAddress")
 	public String test2(HttpServletRequest req,Model model) {
 		logger.info("test 로딩 중.....");
-		return "traffic/test2";
+		return "traffic/popStartAddress";
+	}
+	@RequestMapping("popEndAddress")
+	public String test3(HttpServletRequest req,Model model) {
+		logger.info("test 로딩 중.....");
+		return "traffic/popEndAddress";
 	}
 	
 	// 동욱 종료
