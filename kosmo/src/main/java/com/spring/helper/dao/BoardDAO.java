@@ -91,7 +91,7 @@ public interface BoardDAO {
 
 	// 쪽지 리스트
 	public List<MessageVO> messageReadList(Map<String, Object> map);
-
+	
 	// 채팅알람 리스트
 	public List<CommentAlarmVO> commentReadList(Map<String, Object> map);
 
@@ -108,6 +108,12 @@ public interface BoardDAO {
 
 	// 쪽지 보내기
 	public int sendMessage(Map<String, Object> map);
+	
+	// 보낸 쪽지 갯수
+	public int messageSendListCnt(String memberId);
+	
+	// 보낸 쪽지 리스트
+	public List<MessageVO> messageSendList(Map<String, Object> map);
 	
 	// 채팅 글뿌리기
 	public List<ChattingVO> chatting(String chattingContry);

@@ -91,6 +91,9 @@ public interface BoardService {
 	// 쪽지 보내기
 	public Integer sendMessage(HttpServletRequest req, Model model);
 	
+	// 보낸 쪽지 보기
+	public void messageSendList(HttpServletRequest req, Model model);
+	
 	// 채팅 글뿌리기
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model);
 	
