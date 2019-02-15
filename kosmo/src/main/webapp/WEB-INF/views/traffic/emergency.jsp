@@ -152,86 +152,100 @@
 		<script type="text/javascript"
 			src="resources/js/plugins/hospitalData.js"></script>
 		<script>
-			var map = new naver.maps.Map("map", {
-				zoom : 2,
-				center : new naver.maps.LatLng(36.2253017, 127.6460516),
-				zoomControl : true,
-				zoomControlOptions : {
-					position : naver.maps.Position.TOP_LEFT,
-					style : naver.maps.ZoomControlStyle.SMALL
-				}
-			});
-			var markers = [];
-			/* 
-			{ JSON 형태
-			   "num": 5696,
-			   "tel": "233-6000",
-			   "add": "충청북도 청주시 서원구 남이면 남석로 316-26",
-			   "name": "서원요양병원",
-			   "type": "요양병원(일반요양병원)",
-			   "hosx": 238379.9797,
-			   "hosy": 342411.8897,
-			   "content": "신경과, 재활의학과, 가정의학과"
-				 }, */
-			var data = hospitalData.searchResult.hospital;
-			for (var i = 0, ii = data.length; i < ii; i++) {
-				var hosdata = data[i]
+		
+		
+		if (navigator.geolocation) { // GPS를 지원하면
+		    navigator.geolocation.getCurrentPosition(function(position) {
+		    	
+				var map = new naver.maps.Map("map", {
+					zoom : 11,
+					center : new naver.maps.LatLng(position.coords.latitude, position.coords.longitude),
+					zoomControl : true,
+					zoomControlOptions : {
+						position : naver.maps.Position.TOP_LEFT,
+						style : naver.maps.ZoomControlStyle.SMALL
+					}
+				});
 				
-				var geocoder = new daum.maps.services.Geocoder(), // 좌표계 변환 객체를 생성합니다
-				wtmX = hosdata.hosx, // 변환할 WTM X 좌표 입니다
-				wtmY = hosdata.hosy; // 변환할 WTM Y 좌표 입니다
-				var coords = new daum.maps.Coords(wtmX * 2.5, wtmY * 2.5); // wtm * 2.5 필요
-				var coordChange = coords.toLatLng(); // 변환
-				var spot = data[i]
-				var latlng = new naver.maps.LatLng(coordChange.getLat(), coordChange.getLng())
-				var marker = new naver.maps.Marker({
-							position : latlng,
-							draggable : false
-						});
-				markers.push(marker);
-			}
-			var htmlMarker1 = {
-				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-1.png);background-size:contain;"></div>',
-				size : N.Size(40, 40),
-				anchor : N.Point(20, 20)
-			}, htmlMarker2 = {
-				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-2.png);background-size:contain;"></div>',
-				size : N.Size(40, 40),
-				anchor : N.Point(20, 20)
-			}, htmlMarker3 = {
-				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-3.png);background-size:contain;"></div>',
-				size : N.Size(40, 40),
-				anchor : N.Point(20, 20)
-			}, htmlMarker4 = {
-				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-4.png);background-size:contain;"></div>',
-				size : N.Size(40, 40),
-				anchor : N.Point(20, 20)
-			}, htmlMarker5 = {
-				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-5.png);background-size:contain;"></div>',
-				size : N.Size(40, 40),
-				anchor : N.Point(20, 20)
-			};
-			var markerClustering = new MarkerClustering({
-				minClusterSize : 2,
-				maxZoom : 8,
-				map : map,
-				markers : markers,
-				disableClickZoom : false,
-				gridSize : 120,
-				icons : [ htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4,
-						htmlMarker5 ],
-				indexGenerator : [ 10, 100, 200, 500, 1000 ],
-				stylingFunction : function(clusterMarker, count) {
-					$(clusterMarker.getElement()).find('div:first-child').text(
-							count);
+				var markers = [];
+				/* 
+				{ JSON 형태
+				   "num": 5696,
+				   "tel": "233-6000",
+				   "add": "충청북도 청주시 서원구 남이면 남석로 316-26",
+				   "name": "서원요양병원",
+				   "type": "요양병원(일반요양병원)",
+				   "hosx": 238379.9797,
+				   "hosy": 342411.8897,
+				   "content": "신경과, 재활의학과, 가정의학과"
+					 }, */
+				var data = hospitalData.searchResult.hospital;
+				for (var i = 0, ii = data.length; i < ii; i++) {
+					var hosdata = data[i]
+					
+					var geocoder = new daum.maps.services.Geocoder(), // 좌표계 변환 객체를 생성합니다
+					wtmX = hosdata.hosx, // 변환할 WTM X 좌표 입니다
+					wtmY = hosdata.hosy; // 변환할 WTM Y 좌표 입니다
+					var coords = new daum.maps.Coords(wtmX * 2.5, wtmY * 2.5); // wtm * 2.5 필요
+					var coordChange = coords.toLatLng(); // 변환
+					var spot = data[i]
+					var latlng = new naver.maps.LatLng(coordChange.getLat(), coordChange.getLng())
+					var marker = new naver.maps.Marker({
+								position : latlng,
+								draggable : false
+							});
+					markers.push(marker);
 				}
-			});
-			console.log(map);
-			console.log(markerClustering);
-			console.log(markerClustering.markers);
-			naver.maps.Event.addListener(markerClustering, 'click', function(e) {
-			    console.log(e);
-			});
+				var htmlMarker1 = {
+					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-1.png);background-size:contain;"></div>',
+					size : N.Size(40, 40),
+					anchor : N.Point(20, 20)
+				}, htmlMarker2 = {
+					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-2.png);background-size:contain;"></div>',
+					size : N.Size(40, 40),
+					anchor : N.Point(20, 20)
+				}, htmlMarker3 = {
+					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-3.png);background-size:contain;"></div>',
+					size : N.Size(40, 40),
+					anchor : N.Point(20, 20)
+				}, htmlMarker4 = {
+					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-4.png);background-size:contain;"></div>',
+					size : N.Size(40, 40),
+					anchor : N.Point(20, 20)
+				}, htmlMarker5 = {
+					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-5.png);background-size:contain;"></div>',
+					size : N.Size(40, 40),
+					anchor : N.Point(20, 20)
+				};
+				var markerClustering = new MarkerClustering({
+					minClusterSize : 2,
+					maxZoom : 8,
+					map : map,
+					markers : markers,
+					disableClickZoom : false,
+					gridSize : 120,
+					icons : [ htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4,
+							htmlMarker5 ],
+					indexGenerator : [ 10, 100, 200, 500, 1000 ],
+					stylingFunction : function(clusterMarker, count) {
+						$(clusterMarker.getElement()).find('div:first-child').text(
+								count);
+					}
+				});
+				console.log(map);
+				console.log(markerClustering);
+				console.log(markerClustering.markers);
+				naver.maps.Event.addListener(markerClustering, 'click', function(e) {
+				    console.log(e);
+				});
+				
+		    });
+		    
+		} else {
+				
+			alert("에러");
+	
+		}
 			
 			/* var infowindow = new naver.maps.InfoWindow();
 			
@@ -258,95 +272,12 @@
 		<!-- 재영 끝-->
 
 
-		<!-- <script>
-		var map = new naver.maps.Map('map', {
-			center : new naver.maps.LatLng(37.5666805, 126.9784147),
-			zoom : 5,
-			mapTypeId : naver.maps.MapTypeId.NORMAL
-		});
-		<c:forEach var="hvo" items="${hlist}">
-		var geocoder = new daum.maps.services.Geocoder(), // 좌표계 변환 객체를 생성합니다
-		wtmX = "${hvo.HOSLOCX}", // 변환할 WTM X 좌표 입니다
-		wtmY = "${hvo.HOSLOCY}"; // 변환할 WTM Y 좌표 입니다
-		// WTM 좌표를 WGS84 좌표계의 좌표로 변환합니다
-		geocoder.transCoord(wtmX, wtmY, transCoordCB, {
-			input_coord : daum.maps.services.Coords.WTM, // 변환을 위해 입력한 좌표계 입니다
-			output_coord : daum.maps.services.Coords.WGS84, // 변환 결과로 받을 좌표계 입니다 
-		});
-		var marker = new naver.maps.Marker({
-			position : new naver.maps.LatLng(wtmX, wtmY),
-			map : map
-		});
-		</c:forEach>
-	</script> -->
-
-		<!-- <script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=37c2e71a114ce757eb2a4b922679624c&libraries=services"></script>
-	<script>
-		function getLocation() {
-			if (navigator.geolocation) { // GPS를 지원하면
-				navigator.geolocation.getCurrentPosition(function(position) {
-					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-					mapOption = {
-						center : new daum.maps.LatLng(position.coords.latitude,
-								position.coords.longitude), // 지도의 중심좌표
-						level : 3
-					// 지도의 확대 레벨
-					};
-					console.log("cetner" + mapOption.center)
-					// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-					var map = new daum.maps.Map(mapContainer, mapOption);
-					<c:forEach var="hvo" items="${hlist}">
-					var geocoder = new daum.maps.services.Geocoder(), // 좌표계 변환 객체를 생성합니다
-					wtmX = "${hvo.HOSLOCX}", // 변환할 WTM X 좌표 입니다
-					wtmY = "${hvo.HOSLOCY}"; // 변환할 WTM Y 좌표 입니다
-					// WTM 좌표를 WGS84 좌표계의 좌표로 변환합니다
-					geocoder.transCoord(wtmX, wtmY, transCoordCB, {
-						input_coord : daum.maps.services.Coords.WTM, // 변환을 위해 입력한 좌표계 입니다
-						output_coord : daum.maps.services.Coords.WGS84, // 변환 결과로 받을 좌표계 입니다 
-					});
-					</c:forEach>
-					// 좌표 변환 결과를 받아서 처리할 콜백함수 입니다.
-					function transCoordCB(result, status) {
-						// 정상적으로 검색이 완료됐으면 
-						if (status === daum.maps.services.Status.OK) {
-							// 마커를 변환된 위치에 표시합니다
-							var marker = new daum.maps.Marker({
-								position : new daum.maps.LatLng(result[0].y,
-										result[0].x), // 마커를 표시할 위치입니다
-								map : map
-							// 마커를 표시할 지도객체입니다
-							})
-						}
-					}
-				},
-				function(error) {
-					console.error(error);
-				}, {
-					enableHighAccuracy : false,
-					maximumAge : 0,
-					timeout : Infinity
-				});
-			} else {
-				alert('GPS를 지원하지 않습니다');
-			}
-		}
-		getLocation();
-	</script> -->
+		
 
 		<br> <br> <br>
 	</div>
 	<%@ include file="../setting/footer01.jsp"%>
 	<script>
-	/* $(window).on("load", function() {
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
-	    } else {
-	        var center = map.getCenter();
-	        infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>');
-	        infowindow.open(map, center);
-	    }
-	}); */
 	
 	</script>
 </body>

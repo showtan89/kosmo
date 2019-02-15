@@ -39,7 +39,7 @@
 .modal-content {
   z-index: 999;
   background-color: #fefefe;
-  margin: 45% auto; /* 15% from the top and centered */
+  margin: 300px auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 200px; /* Could be more or less, depending on screen size */
