@@ -82,9 +82,11 @@ public interface BoardService {
 	// 댓글 알람 지우기
 	public void commentAlarmDelete(HttpServletRequest req, Model model);
 
-	// 채팅알람 지우기
+	//받은 쪽지 지우기
 	public void messageDelete(HttpServletRequest req, Model model);
-
+	
+	// 보낸쪽지 삭제
+	public void fMessageDelete(HttpServletRequest req, Model model);
 	//ajax 댓글 알람
 	public Integer alarmServiceCnt(HttpServletRequest req);
 	
@@ -93,6 +95,9 @@ public interface BoardService {
 	
 	// 보낸 쪽지 보기
 	public void messageSendList(HttpServletRequest req, Model model);
+	
+	
+	
 	
 	// 채팅 글뿌리기
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model);
