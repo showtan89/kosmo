@@ -380,7 +380,7 @@
 										<td>${sml.fMessageRegdate}</td>
 										<td><input type="button" class="btn btn-success mr-30"
 											value="delete"
-											onclick="window.location='messageDelete?messageNumber=${sml.fMessageNumber}&pageNum=${pageNum}';"></td>
+											onclick="window.location='fMessageDelete?fMessageNumber=${sml.fMessageNumber}&pageNum=${pageNum}';"></td>
 									</tr>
 								</c:if>
 							</c:forEach>

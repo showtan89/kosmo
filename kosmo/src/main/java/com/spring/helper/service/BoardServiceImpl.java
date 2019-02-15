@@ -700,7 +700,10 @@ public class BoardServiceImpl implements BoardService {
 	public void messageDelete(HttpServletRequest req, Model model) {
 
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-		int messageNumber = Integer.parseInt(req.getParameter("messagenumber"));
+		int messageNumber = Integer.parseInt(req.getParameter("messageNumber"));
+		logger.info("messagenumber : "+messageNumber);
+		
+	
 
 
 		int deleteCnt = 0;
@@ -718,7 +721,7 @@ public class BoardServiceImpl implements BoardService {
 	public void fMessageDelete(HttpServletRequest req, Model model) {
 
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-		int fMessageNumber = Integer.parseInt(req.getParameter("fmessagenumber"));
+		int fMessageNumber = Integer.parseInt(req.getParameter("fMessageNumber"));
 		logger.info("fMessageNumber : " + fMessageNumber);
 
 		int deleteCnt = 0;

@@ -323,7 +323,7 @@ public class BoardController {
 	}
 	
 	//보낸 쪽지 삭제
-	@RequestMapping("fmessageDelete")
+	@RequestMapping("fMessageDelete")
 	public String fmessageDelete(HttpServletRequest req, Model model) throws Exception {
 		logger.info("쪽지 삭제 처리 호출중 ....");
 		

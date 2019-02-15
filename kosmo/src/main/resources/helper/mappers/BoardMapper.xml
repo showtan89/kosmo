@@ -495,7 +495,7 @@
 	</delete>
 	
 	<!-- 보낸쪽지 삭제 -->
-	<delete id="fmessageDelete" parameterType="int">
+	<delete id="fMessageDelete" parameterType="int">
 		delete from frommessage where fMessageNumber = #{fMessageNumber}
 	</delete>
 	
