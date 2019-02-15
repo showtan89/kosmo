@@ -764,6 +764,112 @@ public class BoardServiceImpl implements BoardService {
 		return sendCnt;
 	}
 
+	// 보낸쪽지 확인
+	@Override
+	public void messageSendList(HttpServletRequest req, Model model) {
+		// 페이징
+		int pageSize = 20; 		// 한페이지당 출력할 글 갯수
+		int pageBlock = 5; 		// 한 블럭당 페이지 갯수
+
+		int cnt = 0; 			// 글갯수
+		int start = 0; 			// 현재 페이지 시작 글번호
+		int end = 0; 			// 현재 페이지 마지막 글번호
+		int number = 0; 		// 출력용 글번호
+		String pageNum = "";	// 페이지 번호
+		int currentPage=0;		// 현재페이지
+
+		int pageCount = 0;		// 페이지 갯수
+		int startPage = 0;		// 시작 페이지
+		int endPage = 0;		// 마지막 페이지
+
+		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO"); 
+		String memberId = userVO.getMemberId();
+		logger.info("memberId : " + memberId);
+		//5단계 글갯수 구하기
+		cnt = boardDao.messageSendListCnt(memberId);
+		System.out.println("글 갯수cnt ===============: "+cnt);
+
+		pageNum = req.getParameter("pageNum");
+
+		if(pageNum == null) {
+			pageNum = "1"; //첫페이지를 1페이지로 지정
+		}
+
+		// 글 30건 기준
+		currentPage = Integer.parseInt(pageNum);//현재 페이지 : 1
+		System.out.println("쪽수 구하기currentPage : "+currentPage);
+
+		// 페이지 갯수 6 = (30 / 5)+(0)
+		pageCount = (cnt / pageSize) + (cnt % pageSize > 0 ? 1 : 0); //페이지 갯수 + 나머지가 있으면 1
+
+		// 현재 페이지 시작 글번호1 (페이지별)
+		// 1 = (1-1) * 5 + 1
+		start = (currentPage -1) * pageSize +1;
+
+		// 현재 페이지 마지막 글번호(페이지별)
+		// 5 = 1 + 5 -1;
+		end = start + pageSize - 1 ;
+
+		System.out.println("start : " + start);
+		System.out.println("end : " + end);
+		System.out.println("cnt : " + cnt);
+
+		if(end > cnt) end = cnt;
+
+		// 출력용 글번호
+		// 30 = 30 -(1 - 1) * 5
+		number = cnt - (currentPage -1) * pageSize;  // 출력용 글번호
+		System.out.println("number : " + number);
+		System.out.println("pageSize : " + pageSize);
+
+		if(cnt > 0) {
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("start", start);
+			map.put("end", end);
+			map.put("userVO", userVO);
+
+			//5-2. 게시글 목록 조회
+			List<MessageVO> sml =boardDao.messageSendList(map);
+
+			// 큰바구니 : 게시글 목록 cf)작은 바구니 : 게시글 1건
+			req.setAttribute("sml", sml);
+
+		}
+		//6단계. request나 session에 처리 겨로가를 저장(jsp에 전달하기 위함)
+
+		// 시작페이지
+		//1=(1 / 3) * 3 + 1;
+		startPage = (currentPage / pageBlock) * pageBlock + 1;
+		if(currentPage % pageBlock ==0) startPage -= pageBlock;
+		System.out.println("startPage : " + startPage);			
+
+
+		// 마지막 페이지
+		// 3 = 1 + 3 - 1;
+		endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount) endPage=pageCount;
+		System.out.println("endPage : " + endPage);
+		System.out.println("=======================");
+
+		req.setAttribute("cnt", cnt);// 글갯수
+		req.setAttribute("number", number); // 출력용 글번호
+		req.setAttribute("pageNum", pageNum); // 페이지 번호
+
+		if(cnt > 0) {
+			req.setAttribute("startPage", startPage); // 시작 페이지
+			req.setAttribute("endPage", endPage); // 마지막 페이지
+			req.setAttribute("pageBlock", pageBlock); // 출력할 페이지 갯수
+			req.setAttribute("pageCount", pageCount); // 페이지 갯수
+			req.setAttribute("currentPage", currentPage); // 현재페이지
+		}
+		System.out.println("1");
+		System.out.println("pageNum : "+pageNum);
+		System.out.println("글목록");
+
+	}
+
+
 	// 채팅 글뿌리기
 	@Override
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model) {
@@ -1081,7 +1187,7 @@ public class BoardServiceImpl implements BoardService {
 
 
 
-	
+
 	// 원데이 클래스 댓글 추가
 
 	/*	@Override
@@ -1100,7 +1206,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.oCommentCreate(dto);
 	}
 
-	
+
 	// 수정할 댓글 조회
 	@Override
 	public oCommentVO readOneComment(HttpServletRequest req) {
@@ -1109,8 +1215,8 @@ public class BoardServiceImpl implements BoardService {
 
 		return vo;
 	}
-	
-/*	// 댓글 수정
+
+	/*	// 댓글 수정
 	@Override
 	public oCommentVO readOneComment(int oCommentNumber) {
 
@@ -1123,7 +1229,7 @@ public class BoardServiceImpl implements BoardService {
 		return updateCnt;
 	}
 	// 댓글 삭제
-/*	@Override
+	/*	@Override
 	public void deleteComment(oCommentVO vo) {
 		boardDao.deleteComment(vo);
 
@@ -1176,8 +1282,6 @@ public class BoardServiceImpl implements BoardService {
 
 		model.addAttribute("originData", originData);*/
 	}
-
-
 
 	// 대호 끝 =================================
 

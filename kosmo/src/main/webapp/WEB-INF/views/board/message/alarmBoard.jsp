@@ -251,6 +251,60 @@
 										value="delete"
 										onclick="window.location='messageDelete?messageNumber=${mos.messageNumber}&pageNum=${pageNum}';"></td>
 								</tr>
+<!-- <div id="id01" class="w3-modal">
+		<div class="w3-modal-content">
+			<div class="w3-container">
+
+				sender :
+				<p id="msgfromId"></p>
+				<hr>
+				content :
+				<p id="msgContent"></p>
+				<hr>
+				sent date :
+				<p id="msgRegdate"></p>
+				<input type="hidden" id="hiddenId">
+				<p>
+					<span
+						onclick="document.getElementById('id01').style.display='none'"
+						class="btn btn-success mr-30" value="close">close</span>
+					&nbsp; &nbsp;
+					
+					<input type="button" id="reply"
+										class="btn btn-success mr-30" value="reply"
+										onclick="reply('');">
+				</p>
+			</div>
+		</div>
+	</div>
+	-->							
+<div id="id02" class="w3-modal">
+		<div class="w3-modal-content">
+			<div class="w3-container">
+				<form action="messageSend" method="post">
+				
+				<p>Message receiving ID :&nbsp;<input type="text" id="messageSendId" name="messageSendId" value="${mos.messageFromId}"></p> 
+				 
+				
+				 <!-- 
+				<input type="text" name="messageSendId" id="messageSendId"
+						style="padding: 1px; border: 1px solid #333;"> -->
+				<hr>
+				<b>CONTENT</b> <br> <br>
+					<textarea class="content" name="messageContent" id="messageContent"
+					maxlength="600" style="width: 80%; height: 20%; padding: 5px 5px;"></textarea>
+				<hr>
+				<p>
+					<span
+						onclick="document.getElementById('id02').style.display='none'"
+						class="btn btn-success mr-30" value="close">close</span>
+					&nbsp; &nbsp;
+					<input type="submit" class="btn btn-success mr-30" value="reply" name="sendMessage">
+				</p>
+				</form>
+		</div>
+	</div>
+</div> 
 
 							</c:forEach>
 							<tr>
@@ -314,23 +368,19 @@
 								<th>Receiver</th>
 								<th>Contents</th>
 								<th>Sending time</th>
-								<th>Checked message</th>
 								<th>Delete</th>
 							</tr>
-							<c:forEach var="mos" items="${mos}">
-								<c:if
-									test="${sessionScope.userVO.memberId.equals(mos.messageFromId)}">
+							<c:forEach var="sml" items="${sml}">
+								
+								<c:if test="${sessionScope.userVO.memberId eq sml.messageFromId}">
 									<tr>
-										<!-- ${!sessionScope.userVO.memberId.equals(cos.memberid)} -->
-										<td>${mos.messageSendId}</td>
-										<!-- align="center" -->
+										<td>${sml.messageSendId}</td>
 
-										<td><a onclick="messageContent();">${mos.messageContent}</a></td>
-										<td>${mos.messageRegdate}</td>
-										<td>checked</td>
+										<td><a onclick="messageContent();">${sml.messageContent}</a></td>
+										<td>${sml.messageRegdate}</td>
 										<td><input type="button" class="btn btn-success mr-30"
 											value="delete"
-											onclick="window.location='messageDelete?messageNumber=${mos.messageNumber}&pageNum=${pageNum}';"></td>
+											onclick="window.location='messageDelete?messageNumber=${sml.messageNumber}&pageNum=${pageNum}';"></td>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -426,19 +476,16 @@
 		</div>
 	</div>
 
-<div id="id02" class="w3-modal">
+<!-- <div id="id02" class="w3-modal">
 		<div class="w3-modal-content">
 			<div class="w3-container">
 				<form action="messageSend" method="post">
 				<b>
-				Message receiving ID :&nbsp;
+				Message receiving ID :
 				</b> 
-				<p id="messageSendId">
 				
-				</p>
-				 
-				<!-- <input type="text" name="messageSendId" id="messageSendId"
-						style="padding: 1px; border: 1px solid #333;"> -->
+				<input type="text" name="messageSendId" id="messageSendId"
+						value="" style="padding: 1px; border: 1px solid #333;">
 				<hr>
 				<b>CONTENT</b> <br> <br>
 					<textarea class="content" name="messageContent" id="messageContent"
@@ -449,13 +496,13 @@
 						onclick="document.getElementById('id02').style.display='none'"
 						class="btn btn-success mr-30" value="close">close</span>
 					&nbsp; &nbsp;
-					<input type="submit" class="btn btn-success mr-30" value="reply" name="sendMessage">
+					<input type="" class="btn btn-success mr-30" value="reply" name="sendMessage">
 				</p>
 				</form>
 		</div>
 	</div>
-</div>
-
+</div> 
+ -->
 	
 	
 </body>
@@ -484,7 +531,7 @@
 			$('#msgRegdate').html(regdate)
 			document.getElementById('id01').style.display='block';
 			
-			$('#hiddenId').val(id);
+	
 			
 			
 		}
@@ -498,6 +545,15 @@
 			
 			$('#messageContent').html()
 			document.getElementById('id02').style.display='block';
+			
+			$('#msgfromId').html(id)
+			document.getElementById('id01').style.display='none';
+			
+			$('#msgContent').html(content)
+			document.getElementById('id01').style.display='none';
+			
+			$('#msgRegdate').html(regdate)
+			document.getElementById('id01').style.display='none';
 		}
 			
 			/* $('#section-2').one(function(){

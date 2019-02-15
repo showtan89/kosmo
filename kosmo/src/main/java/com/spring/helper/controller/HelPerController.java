@@ -128,6 +128,7 @@ public class HelPerController{
 
 		service.commentAlarmBoard(req, model);
 		service.messageAlarmBoard(req, model);
+		service.messageSendList(req, model);
 		return "board/message/alarmBoard";
 	}
 	// 댓글 알람 삭제

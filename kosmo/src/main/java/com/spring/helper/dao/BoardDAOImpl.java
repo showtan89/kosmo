@@ -253,6 +253,18 @@ public class BoardDAOImpl implements BoardDAO {
 	public int sendMessage(Map<String, Object> map) {
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", map);
 	}
+	// 보낸 쪽지 갯수
+	@Override
+	public int messageSendListCnt(String memberId) {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageSendListCnt", memberId);
+	}
+	
+	//보낸 쪽지 리스트
+	@Override
+	public List<MessageVO> messageSendList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.messageSendList", map);
+	}
+
 	
 	// 채팅 글뿌리기
 	@Override
@@ -406,8 +418,6 @@ public class BoardDAOImpl implements BoardDAO {
 	public int emergencyCnt() {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
 	}
-
-
 	
 	// 대호 종료 ==============================================================
 
