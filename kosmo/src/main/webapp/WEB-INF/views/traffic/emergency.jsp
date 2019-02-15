@@ -125,7 +125,7 @@
 		<!-- Top Breadcrumb Area -->
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
-			style="background-image: url(resources/img/ehddnr2.jpg);">
+			style="background-image: url(resources/img/traffic/eme/amb.png);">
 			<h2>Emergency facility</h2>
 		</div>
 	</div>

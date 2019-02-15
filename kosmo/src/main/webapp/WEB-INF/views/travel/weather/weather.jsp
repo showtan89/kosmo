@@ -42,12 +42,12 @@
 			<select class="custom-select d-block w-100" id="searchType" name="searchType">
 				<option style="display: none;" value="">Select Type</option>
 				<option value="radar">Radar Map</option>
-				<option value="76&cat1=A02">Culture/Art/History</option>
-				<option value="75&cat1=A03">Leisure/Sports</option>
+				<option value="earth">Earthquake Notification</option>
+			<!-- 	<option value="75&cat1=A03">Leisure/Sports</option>
 				<option value="79&cat1=A04">Shopping</option>
 				<option value="82&cat1=A05">Cuisine</option>
 				<option value="77&cat1=B01">Transportation</option>
-				<option value="80&cat1=B02">Accommodation</option>
+				<option value="80&cat1=B02">Accommodation</option> -->
 			</select>
 		</div>
 		<div class="col-md-6 mb-6">
@@ -61,6 +61,7 @@
 			<div class="col-12">
 				<div class="card flex-md-row mb-4 shadow-sm h-md-250" id="imageResult">
 				</div>
+				<!-- <span id="imgAddress"></span><br> -->
 				<div id="buttonArea">
 				</div>
 			</div>
