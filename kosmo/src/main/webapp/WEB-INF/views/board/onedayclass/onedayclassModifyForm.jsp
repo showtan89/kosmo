@@ -157,7 +157,8 @@
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
                                  <h5>오픈날짜</h5>
-                                 <p><input class="input" type="datetime-local" name="onedayclassOpendate" value="${dto.onedayclassOpendate}" style="width:190px"></p>
+                                 <p><input class="input" type="date" name="onedayclassOpendate" value="${dto.onedayclassOpendate}" style="width:190px"></p>
+                             	 <%-- <p><input class="input" type="datetime-local" name="onedayclassOpendate" value="${dto.onedayclassOpendate}" style="width:190px"></p> --%>
                              </div>
                          </div>
                          
@@ -174,7 +175,7 @@
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconRecruitment.jpeg" style="width:100px">
-                                 <h5>누적인원</h5>
+                                 <h5>참여인원</h5>
                                  <p>${dto.onedayclassTotalpeople}</p>
                              </div>
                          </div>

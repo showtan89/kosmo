@@ -566,6 +566,13 @@
 		SElECT * FROM onedayclass WHERE onedayclassNumber=#{onedayclassNumber}
 	</select>
 	
+	<!-- 종료 표시처리-->
+	<select id="onedayclassEndCheck" parameterType="int" resultType="int">
+		SELECT to_date(onedayclassOpendate, 'YYYY-MM-DD') - to_date(sysdate, 'YYYY-MM-DD') 
+		FROM onedayclass
+ 		WHERE onedayclassnumber=#{onedayclassNumber}
+	</select>
+	
 	<!-- 원데이 수정 처리 , onedayclassImg2=#{onedayclassImg2}, onedayclassImg3=#{onedayclassImg3}-->
 	<update id="onedayclassModifyUpdate" parameterType="com.spring.helper.vo.BoardVO.onedayclassVO">
 		UPDATE onedayclass SET onedayclassSubject=#{onedayclassSubject}, onedayclassLocation=#{onedayclassLocation}
@@ -606,25 +613,32 @@
 		values(oCommentSeq.nextval, #{onedayclassNumber}, '31', #{memberEmail}, #{memberId}, #{oCommentContent}, sysdate)
 	</insert>
 	
-	<!-- 댓글 하나 조회 -->
+	<!-- 원데이 게시판 댓글 하나 조회 -->
 	<select id="readOneComment" resultType="com.spring.helper.vo.BoardVO.oCommentVO">
 		SELECT oCommentNumber, onedayclassNumber, memberId, oCommentContent, oCommentRegdate
 		FROM oComment
 		WHERE oCommentNumber=#{oCommentNumber}
 	</select>
 	
-	<!-- 댓글 수정 -->
+	<!-- 원데이 게시판 댓글 수정 -->
 	<update id="updateComment">
 		UPDATE oComment SET oCommentContent=#{oCommentContent}
 		WHERE oCommentNumber=#{oCommentNumber}
 	</update>
 	
-	<!-- 댓글 삭제 -->
-<!-- 	<delete id="deleteComment">
+	<!-- 원데이 게시판 댓글 삭제 -->
+ 	<delete id="deleteComment" parameterType="int">
 		DELETE FROM oComment
 		WHERE oCommentNumber=#{oCommentNumber}
-	</delete> -->
+	</delete>
 	
+	<!-- 인원 수 변경 -->
+	<update id="peopleUpdate">
+		<![CDATA[
+		UPDATE onedayclass SET onedayclassTotalpeople=#{onedayclassTotalpeople} + 1, onedayclassRecruitment=#{onedayclassRecruitment} - 1
+		WHERE onedayclassNumber=#{onedayclassNumber}
+		]]>
+	</update>
 	
 	
 	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->

@@ -40,6 +40,7 @@ import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
+import com.spring.helper.vo.BoardVO.onedayclassVO;
 import com.spring.helper.vo.jsonVO.news.jsonlegalinfo;
 
 @RestController
@@ -441,7 +442,6 @@ public class BoardRestController {
 	public void oCommentInsert(@RequestBody oCommentVO dto, HttpServletRequest req, Model model) throws Exception{
 		logger.info("댓글 추가 호출중");
 		
-		System.out.println("ajax stress" + dto.toString());
 		service.oCommentCreate(dto);
 	}
 	
@@ -472,31 +472,29 @@ public class BoardRestController {
 	@RequestMapping(value="updateComment", method = RequestMethod.PUT)
 	public ResponseEntity<Integer> updateComment(@RequestBody oCommentVO vo) throws Exception {
 		logger.info("댓글 수정중");
-		logger.info("dddddd" + vo.toString());
 		
 		int result = service.updateComment(vo);
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
 	}
 	
 	// 댓글 삭제
-/*	@RequestMapping(value="deleteComment", method = RequestMethod.POST)
-	public String deleteComment(oCommentVO vo, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value="deleteComment", method = {RequestMethod.PUT, RequestMethod.GET})
+	public ResponseEntity<Integer> deleteComment(@RequestBody int oCommentNumber, HttpServletRequest req, Model model) throws Exception {
 		logger.info("댓글 삭제중");
 	 
-		service.deleteComment(vo);
-		rttr.addAttribute("oCommentNumber", vo.getoCommentNumber());
-		return "redirect:/board/onedayclass/onedayclassDetailForm";
-	}*/
+		int result = service.deleteComment(oCommentNumber);
+		return new ResponseEntity<Integer>(result,HttpStatus.OK);
+	}
+	
+	// 인원 수 변경
+	@RequestMapping(value="peopleUpdate", method = RequestMethod.PUT)
+	public ResponseEntity<Integer> peopleUpdate(@RequestBody onedayclassVO vo) throws Exception {
+		logger.info("인원 수 변경");
+		
+		int result = service.peopleUpdate(vo);
+		return new ResponseEntity<Integer>(result,HttpStatus.OK);
+	}
 
-	// 댓글 삭제
-/*	@RequestMapping(value="deleteComment", method = RequestMethod.POST)
-	public String deleteComment(oCommentVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
-		logger.info("댓글 삭제중");
-	 
-		service.deleteComment(vo);
-		rttr.addAttribute("oCommentNumber", vo.getoCommentNumber());
-		return "redirect:/board/onedayclass/onedayclassDetailForm";
-	}*/
 
 	//----------------진호 끝----------------------------------------------------------
 	
