@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.FromMessageVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
@@ -232,10 +233,16 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.delete("com.spring.helper.dao.BoardDAO.commentDelete", commentnumber);
 	}
 
-	//채팅 알람 삭제
+	//받은 쪽지 삭제
 	@Override
-	public int messageDelete(int messagenumber) {
-		return sqlSession.delete("com.spring.helper.dao.BoardDAO.messageDelete", messagenumber);
+	public int messageDelete(int messageNumber) {
+		return sqlSession.delete("com.spring.helper.dao.BoardDAO.messageDelete", messageNumber);
+	}
+	
+	// 보낸 쪽지 삭제
+	@Override
+	public int fMessageDelete(int fMessageNumber) {
+		return sqlSession.delete("com.spring.helper.dao.BoardDAO.fMessageDelete", fMessageNumber);
 	}
 	//댓글 알람 갯수
 	@Override
@@ -251,8 +258,21 @@ public class BoardDAOImpl implements BoardDAO {
 	// 쪽지 보내기 처리
 	@Override
 	public int sendMessage(Map<String, Object> map) {
+		sqlSession.insert("com.spring.helper.dao.BoardDAO.fromMessage", map);
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", map);
 	}
+	// 보낸 쪽지 갯수
+	@Override
+	public int messageSendListCnt(String memberId) {
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.messageSendListCnt", memberId);
+	}
+	
+	//보낸 쪽지 리스트
+	@Override
+	public List<FromMessageVO> messageSendList(Map<String, Object> map) {
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.messageSendList", map);
+	}
+
 	
 	// 채팅 글뿌리기
 	@Override
@@ -422,9 +442,6 @@ public class BoardDAOImpl implements BoardDAO {
 	public int emergencyCnt() {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
 	}
-
-
-
 
 
 	

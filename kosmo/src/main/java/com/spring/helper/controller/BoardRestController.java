@@ -63,11 +63,8 @@ public class BoardRestController {
 				String y1 = req.getParameter("y1");
 				String x2 = req.getParameter("x2");
 				String y2 = req.getParameter("y2");
-				System.out.println(x1);
-				System.out.println(y1);
-				System.out.println(x2);
-				System.out.println(y2);
 	            String urlstr = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+x1+"&SY="+y1+"&EX="+x2+"&EY="+y2+"&apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0";
+	            System.out.println(urlstr);
 	            URL url = new URL(urlstr);
 	            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 	            urlconnection.setRequestMethod("GET");
@@ -76,7 +73,7 @@ public class BoardRestController {
 	            String line;
 	            while((line = br.readLine()) != null) {
 	                result = result + line + "\n";
-	                
+
 	            }
 	            System.out.println(result);
 		return new ResponseEntity<String>(result,HttpStatus.OK);

@@ -1,5 +1,6 @@
 package com.spring.helper.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public class MemberDAOImpl implements MemberDAO {
 			message.setSubject("[Welkome!]Thanks to join us");
 
 			String txt = "<img src='https://i.ibb.co/G75krLG/welkome.png'><br><hr>Welcome to Welkome!<br>Please click the link below to complete email authentication." + "<br>"
-					+ "<a href='http://115.91.88.226:2223/project/memberEmailConfirmed?emailKey=" + (String)map.get("emailKey") + "'> Click this Link </a>";
+					+ "<a href='http://115.91.88.226:2222/project/memberEmailConfirmed?emailKey=" + (String)map.get("emailKey") + "'> Click this Link </a>";
 
 			message.setText(txt, "UTF-8", "html");
 
@@ -117,7 +118,18 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int applyAuthority(String memberEmail) {
-		return sqlSession.update("com.spring.helper.dao.MemberDAO.applyAuthority", memberEmail);
+		int updateResult = sqlSession.update("com.spring.helper.dao.MemberDAO.applyAuthority", memberEmail);
+		if(updateResult != 0) {
+			//아씁 아이디도 필요하네..조인하기시렁
+			String memberId = sqlSession.selectOne("com.spring.helper.dao.MemberDAO.getId", memberEmail);
+			System.out.println("아이디"+memberId);
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("memberId", memberId);
+			map.put("memberEmail", memberEmail);
+			System.out.println("맵"+map.toString());
+			sqlSession.insert("com.spring.helper.dao.MemberDAO.applyMsgSend", map);
+		}
+		return updateResult;
 	}
 
 	@Override

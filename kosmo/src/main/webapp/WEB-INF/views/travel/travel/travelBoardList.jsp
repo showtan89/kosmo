@@ -19,7 +19,14 @@
 	opacity: 0.8;
 	border-color: #70c745;
 }
-
+ @media only screen and (max-width: 800px) {
+	.page-link{
+		width:22px !important;
+		margin-left:3px !important;
+		margin-right:3px !important;
+		font-size:small !important;
+	}
+}
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -43,7 +50,7 @@
   margin-top:10%;
   padding: 20px;
   border: 1px solid #888;
-  width: 70%;
+  width: 100%;
   max-width:1080px;
   max-height:600px;
   overflow-y: auto;
@@ -169,7 +176,7 @@
 		<div id="pageResult"></div>
 		<br>
 	</div>
-	
+	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=u91vrld6gw"></script>
 	<div class="section-heading text-center">
 		<p>The information used on this page is "공공누리 제 1유형" and used the data provided <a href="http://api.visitkorea.or.kr/">VisitKorea</a></p>
      </div>

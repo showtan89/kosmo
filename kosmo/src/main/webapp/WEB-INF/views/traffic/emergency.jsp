@@ -21,12 +21,10 @@
 	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
 	line-height: 1.5;
 }
-
 .wrap * {
 	padding: 0;
 	margin: 0;
 }
-
 .wrap .info {
 	width: 286px;
 	height: 120px;
@@ -36,12 +34,10 @@
 	overflow: hidden;
 	background: #fff;
 }
-
 .wrap .info:nth-child(1) {
 	border: 0;
 	box-shadow: 0px 1px 2px #888;
 }
-
 .info .title {
 	padding: 5px 0 0 10px;
 	height: 30px;
@@ -50,7 +46,6 @@
 	font-size: 18px;
 	font-weight: bold;
 }
-
 .info .close {
 	position: absolute;
 	top: 10px;
@@ -61,34 +56,28 @@
 	background:
 		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
 }
-
 .info .close:hover {
 	cursor: pointer;
 }
-
 .info .body {
 	position: relative;
 	overflow: hidden;
 }
-
 .info .desc {
 	position: relative;
 	margin: 13px 0 0 90px;
 	height: 75px;
 }
-
 .desc .ellipsis {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-
 .desc .jibun {
 	font-size: 11px;
 	color: #888;
 	margin-top: -2px;
 }
-
 .info .img {
 	position: absolute;
 	top: 6px;
@@ -99,7 +88,6 @@
 	color: #888;
 	overflow: hidden;
 }
-
 .info:after {
 	content: '';
 	position: absolute;
@@ -111,7 +99,6 @@
 	background:
 		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
-
 .info .link {
 	color: #5085BB;
 }
@@ -138,7 +125,7 @@
 		<!-- Top Breadcrumb Area -->
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
-			style="background-image: url(resources/img/ehddnr2.jpg);">
+			style="background-image: url(resources/img/traffic/eme/amb.png);">
 			<h2>Emergency facility</h2>
 		</div>
 	</div>
@@ -175,7 +162,6 @@
 				}
 			});
 			var markers = [];
-
 			/* 
 			{ JSON 형태
 			   "num": 5696,
@@ -187,9 +173,7 @@
 			   "hosy": 342411.8897,
 			   "content": "신경과, 재활의학과, 가정의학과"
 				 }, */
-
 			var data = hospitalData.searchResult.hospital;
-
 			for (var i = 0, ii = data.length; i < ii; i++) {
 				var hosdata = data[i]
 				
@@ -198,15 +182,14 @@
 				wtmY = hosdata.hosy; // 변환할 WTM Y 좌표 입니다
 				var coords = new daum.maps.Coords(wtmX * 2.5, wtmY * 2.5); // wtm * 2.5 필요
 				var coordChange = coords.toLatLng(); // 변환
-				var spot = data[i], latlng = new naver.maps.LatLng(coordChange
-						.getLat(), coordChange.getLng()), marker = new naver.maps.Marker(
-						{
+				var spot = data[i]
+				var latlng = new naver.maps.LatLng(coordChange.getLat(), coordChange.getLng())
+				var marker = new naver.maps.Marker({
 							position : latlng,
-							draggable : true
+							draggable : false
 						});
 				markers.push(marker);
 			}
-
 			var htmlMarker1 = {
 				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-1.png);background-size:contain;"></div>',
 				size : N.Size(40, 40),
@@ -228,7 +211,6 @@
 				size : N.Size(40, 40),
 				anchor : N.Point(20, 20)
 			};
-
 			var markerClustering = new MarkerClustering({
 				minClusterSize : 2,
 				maxZoom : 8,
@@ -244,31 +226,31 @@
 							count);
 				}
 			});
+			console.log(map);
 			console.log(markerClustering);
+			console.log(markerClustering.markers);
+			naver.maps.Event.addListener(markerClustering, 'click', function(e) {
+			    console.log(e);
+			});
 			
-
-			var infowindow = new naver.maps.InfoWindow();
+			/* var infowindow = new naver.maps.InfoWindow();
 			
 			function onSuccessGeolocation(position) {
 			    var location = new naver.maps.LatLng(position.coords.latitude,
 			                                         position.coords.longitude);
-
 			    map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
 			    map.setZoom(5); // 지도의 줌 레벨을 변경합니다.
-
 			    infowindow.setContent('<div style="padding:20px;">' + 'Geolocation' + '</div>');
-
 			    infowindow.open(map, location);
 			    console.log('Coordinates: ' + location.toString());
 			}
-
 			function onErrorGeolocation() {
 			    var center = map.getCenter();
 			    infowindow.setContent('<div style="padding:20px;">' +
 			        '<h5 style="margin-bottom:5px;color:#f00;">Geolocation failed!</h5>'+ "latitude: "+ center.lat() +"<br />longitude: "+ center.lng() +'</div>');
 			    infowindow.open(map, center);
 			}
-			
+			 */
 			
 			
 		
@@ -282,13 +264,10 @@
 			zoom : 5,
 			mapTypeId : naver.maps.MapTypeId.NORMAL
 		});
-
 		<c:forEach var="hvo" items="${hlist}">
-
 		var geocoder = new daum.maps.services.Geocoder(), // 좌표계 변환 객체를 생성합니다
 		wtmX = "${hvo.HOSLOCX}", // 변환할 WTM X 좌표 입니다
 		wtmY = "${hvo.HOSLOCY}"; // 변환할 WTM Y 좌표 입니다
-
 		// WTM 좌표를 WGS84 좌표계의 좌표로 변환합니다
 		geocoder.transCoord(wtmX, wtmY, transCoordCB, {
 			input_coord : daum.maps.services.Coords.WTM, // 변환을 위해 입력한 좌표계 입니다
@@ -298,7 +277,6 @@
 			position : new naver.maps.LatLng(wtmX, wtmY),
 			map : map
 		});
-
 		</c:forEach>
 	</script> -->
 
@@ -315,33 +293,25 @@
 						level : 3
 					// 지도의 확대 레벨
 					};
-
 					console.log("cetner" + mapOption.center)
-
 					// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 					var map = new daum.maps.Map(mapContainer, mapOption);
-
 					<c:forEach var="hvo" items="${hlist}">
 					var geocoder = new daum.maps.services.Geocoder(), // 좌표계 변환 객체를 생성합니다
 					wtmX = "${hvo.HOSLOCX}", // 변환할 WTM X 좌표 입니다
 					wtmY = "${hvo.HOSLOCY}"; // 변환할 WTM Y 좌표 입니다
-
 					// WTM 좌표를 WGS84 좌표계의 좌표로 변환합니다
 					geocoder.transCoord(wtmX, wtmY, transCoordCB, {
 						input_coord : daum.maps.services.Coords.WTM, // 변환을 위해 입력한 좌표계 입니다
 						output_coord : daum.maps.services.Coords.WGS84, // 변환 결과로 받을 좌표계 입니다 
 					});
 					</c:forEach>
-
 					// 좌표 변환 결과를 받아서 처리할 콜백함수 입니다.
 					function transCoordCB(result, status) {
-
 						// 정상적으로 검색이 완료됐으면 
 						if (status === daum.maps.services.Status.OK) {
-
 							// 마커를 변환된 위치에 표시합니다
 							var marker = new daum.maps.Marker({
-
 								position : new daum.maps.LatLng(result[0].y,
 										result[0].x), // 마커를 표시할 위치입니다
 								map : map
@@ -350,7 +320,6 @@
 						}
 					}
 				},
-
 				function(error) {
 					console.error(error);
 				}, {
@@ -358,7 +327,6 @@
 					maximumAge : 0,
 					timeout : Infinity
 				});
-
 			} else {
 				alert('GPS를 지원하지 않습니다');
 			}
@@ -366,13 +334,11 @@
 		getLocation();
 	</script> -->
 
-
 		<br> <br> <br>
 	</div>
 	<%@ include file="../setting/footer01.jsp"%>
 	<script>
-
-	$(window).on("load", function() {
+	/* $(window).on("load", function() {
 	    if (navigator.geolocation) {
 	        navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 	    } else {
@@ -380,7 +346,7 @@
 	        infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>');
 	        infowindow.open(map, center);
 	    }
-	});
+	}); */
 	
 	</script>
 </body>

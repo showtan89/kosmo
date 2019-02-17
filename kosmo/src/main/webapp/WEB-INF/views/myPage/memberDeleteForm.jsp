@@ -51,7 +51,7 @@
 					</div>
 					
 					<div class="button-container">
-						<button type="button" onclick="window.history.back();">
+						<button type="button" onclick="window.location.href='myPage'">
 							<span> BACK to info </span>
 						</button>
 					</div>

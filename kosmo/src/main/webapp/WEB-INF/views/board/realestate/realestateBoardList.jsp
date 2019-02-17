@@ -14,6 +14,14 @@
 	max-width: 200px;
 	min-height: 150px;
 }
+ @media only screen and (max-width: 800px) {
+	.page-link{
+		width:22px !important;
+		margin-left:3px !important;
+		margin-right:3px !important;
+		font-size:small !important;
+	}
+}
 </style>
 </head>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

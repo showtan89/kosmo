@@ -7,6 +7,22 @@
 <mapper namespace="com.spring.helper.dao.UtilDAO">
 
 	<!-- 재영 시작 ======================================================================== -->
+	<select id="earthQuakeDupCheck" resultType="Integer" parameterType="Integer">
+		select count(*) from earthQuakeCheck where tmSeq = #{eqNum}
+	</select>
+	
+	<insert id="insertEarthQuake" parameterType="com.spring.helper.vo.jsonVO.weather.EarthQuakeVO">
+		insert into earthQuakeCheck(eqnum, fcTp, img, lat, lon, loc, mt, rem, tmEqk, tmFc, tmSeq) values(
+		eqseq.nextVal, #{fcTp}, #{img}, #{lat}, #{lon}, #{loc}, #{mt}, #{rem}, #{tmEqk}, #{tmFc}, #{tmSeq})
+	</insert>
+	
+	<select id="selectEarthQuakePara" parameterType="Integer" resultType="com.spring.helper.vo.jsonVO.weather.EarthQuakeVO">
+		select * from (select * from earthQuakeCheck where tmSeq = #{tmSeq} order by eqnum desc) where ROWNUM = 1
+	</select>
+	
+	<select id="selectEarthQuake" resultType="com.spring.helper.vo.jsonVO.weather.EarthQuakeVO">
+		select * from (select * from earthQuakeCheck order by eqnum desc) where ROWNUM = 1
+	</select>
 	
 	<!-- 재영 끝 ========================================================================= -->
 

@@ -25,7 +25,7 @@
 						MEMBERPOINT, MEMBERRECOMMEND, AUTHORITY, 
 						ENABLED, EmailConfirm, EmailKey)
 		VALUES (USERSSEQ.nextVal, #{memberEmail}, #{memberId}, #{password}, 
-				#{memberCountry}, sysdate, 0, 0, 'ROLE_GUEST', 
+				#{memberCountry}, sysdate, 500, 0, 'ROLE_GUEST', 
 				1, 0, #{emailKey})
 	</insert>
 	
@@ -96,6 +96,16 @@
 		   SET membertemp1 = '2'
 		 WHERE memberEmail = #{memberEmail}
 	</update>
+	
+	<select id="getId" parameterType="String" resultType="String">
+		select memberid from users where memberemail = #{memberEmail}
+	</select>
+	
+	<!-- 신청 완료 되면 쪽지 보내주기 -->
+	<insert id="applyMsgSend" parameterType="java.util.Map">
+		INSERT INTO message VALUES
+		( #{memberEmail}, 'welkome', #{memberId}, messageseq.nextval, 'Your permission request approved.', sysdate, 1, 0, '0', '0' )	
+	</insert>
 	
 	<select id="getSearchCnt" parameterType="String" resultType="int">
 		SELECT COUNT(*)
