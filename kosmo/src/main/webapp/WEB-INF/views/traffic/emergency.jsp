@@ -126,7 +126,7 @@
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 			style="background-image: url(resources/img/traffic/eme/amb.png);">
-			<h2>Emergency facility</h2>
+			<h2>Emergency Facility</h2>
 		</div>
 	</div>
 	<!-- ##### Breadcrumb Area End ##### -->
@@ -145,7 +145,7 @@
 
 	<div class="container">
 
-		<div id="map" style="width: 100%; height: 400px;"></div>
+		<div id="map" style="width: 100%; height: 500px;"></div>
 
 		<!-- 재영 시작 -->
 
@@ -178,6 +178,7 @@
 				   "hosy": 342411.8897,
 				   "content": "신경과, 재활의학과, 가정의학과"
 					 }, */
+					 
 				var data = hospitalData.searchResult.hospital;
 				for (var i = 0, ii = data.length; i < ii; i++) {
 					var hosdata = data[i]
@@ -210,7 +211,7 @@
 				        '   <p>' + add + '<br />',
 				        '       <br />',
 				        '       ' + tel + ' | ' + content + '<br />',
-				        '   </p>',
+				        '		<a href=#>도착지로 지정</a>',	
 				        '</div>'
 				    ].join('');
 					
@@ -355,7 +356,6 @@
 			 */
 		</script>
 		<!-- 재영 끝-->
-
 
 		
 
