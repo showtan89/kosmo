@@ -34,13 +34,13 @@ function getknowledgelistJsonData(){
 					str +='<p style="margin: 0;" onclick="knowledgeDetailForm('+this.knowledgeNumber+'");><span style="background-color: #ffff00 !important; color: black !important">'+this.knowledgeReward+'</span> &nbsp; &nbsp; <span><ahref="#">';
 					str +='<strong	class="d-inline-block mb-2 text-success" style="font-size: 23px; margin: 0;">'+this.knowledgeSubject+'</strong></a></span>';
 					if(loginId==this.memberId){
-						str +='<span style="float: right; margin-right: 3px;"><a href="knowledgeDeleteForm?knowledgeNumber='+this.knowledgeNumber+'&pageNum='+this.pageNum+'&btn_select='+this.btn_select+'">삭제</a></span>';
-						str +='<span style="float: right; margin-right: 20px;"><a href="knowledgeModifyForm?knowledgeNumber='+this.knowledgeNumber+'&pageNum='+this.pageNum+'&btn_select='+this.btn_select+'">수정</a></span>';
+						str +='<span style="float: right; margin-right: 3px;"><a href="knowledgeDeleteForm?knowledgeNumber='+this.knowledgeNumber+'&pageNum='+this.pageNum+'&btn_select='+this.btn_select+'">Delete</a></span>';
+						str +='<span style="float: right; margin-right: 20px;"><a href="knowledgeModifyForm?knowledgeNumber='+this.knowledgeNumber+'&pageNum='+this.pageNum+'&btn_select='+this.btn_select+'">Modified</a></span>';
 					}
 					str +='</p><p style="margin: 0 0 8px 0; line-height: 18px;"onclick="knowledgeDetailForm('+this.knowledgeNumber+');">';
-					str +='<span>'+this.knowledgeContent+' </span></p><p style="margin: 2px 0 0 0"><span>답변</span> <span>'+arr[i]+'</span>';
+					str +='<span>'+this.knowledgeContent+' </span></p><p style="margin: 2px 0 0 0"><span>Comment</span> <span>'+arr[i]+'</span>';
 					str +='<span style="margin-left: 20px;"class="knowledgeup">'+this.knowledgeCategory+'</span>&nbsp;&nbsp;<span style="margin-left: 20px;">'+this.knowledgeRegdate+'</span>';
-					str +='<span style="float: right; margin-right: 3px;">조회수&nbsp;'+this.knowledgeLookup+'</span></p></td></tr></table></div></div>';
+					str +='<span style="float: right; margin-right: 3px;">Hits&nbsp;'+this.knowledgeLookup+'</span></p></td></tr></table></div></div>';
 					i = i+1;
 				});
 		var pagestr = "";
@@ -53,7 +53,7 @@ function getknowledgelistJsonData(){
 		var pageNum = data.pageNum;
 		
 			if(cnt==0){
-				pagestr+='<p align="center">질문을 등록해 주세요.</p>';
+				pagestr+='<p align="center">Please Register Your Question.</p>';
 			} else {
 				pagestr+='<ul class="pagination" align="center" style="margin: auto auto;">';
 				if(startPage > pageBlock){

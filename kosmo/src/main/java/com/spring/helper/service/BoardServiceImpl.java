@@ -189,7 +189,8 @@ public class BoardServiceImpl implements BoardService {
 		Knowledge.setKnowledgeCategory(knowledgeCategory);
 		int insertcnt = boardDao.knowledgeInsertArticle(Knowledge);
 		model.addAttribute("insertcnt",insertcnt);
-
+		userVO.setMemberPoint((userVO.getMemberPoint()-knowledgeReward));
+		req.getSession().setAttribute("userVO", userVO);
 	}
 	// 질문수정 폼 이동
 	@Override

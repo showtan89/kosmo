@@ -59,7 +59,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 			style="background-image: url(resources/img/ehddnr2.jpg);">
-			<h2>Emergency facility</h2>
+			<h2>Get Directions</h2>
 		</div>
 	</div>
 	<!-- ##### Breadcrumb Area End ##### -->
@@ -103,7 +103,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 	<script type="text/javascript"
 		src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5YhdM97rzIO5e2jM_nEK"></script>
 	<script>
-	
+	var pointArray = new Array();
 	
 		/* 네이버 지도 열기 시작 */
 		var mapOptions = {
@@ -137,10 +137,12 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 
 								startx = item.point.x;
 								starty = item.point.y;
+								
+								
 								document.getElementById("x1").value = startx;
 								document.getElementById("y1").value = starty;
-
-								var start = new naver.maps.Point(startx, starty);
+								
+								var start = new naver.maps.LatLng(startx, starty);
 								map.setCenter(start);
 								marker = new naver.maps.Marker({
 									position : new naver.maps.Point(startx,
@@ -177,8 +179,11 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 						var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
 								: '[지번 주소]', point = new naver.maps.Point(
 								item.point.x, item.point.y);
+						
 						endx2 = item.point.x;
 						endy2 = item.point.y;
+				
+						
 						document.getElementById("x2").value = endx2;
 						document.getElementById("y2").value = endy2;
 
@@ -272,16 +277,18 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 										totalDistance = parseInt(info.totalDistance / 1000);
 										str += '<div >';
 										str += '<li style="margin-top:10px;border-top:1px solid black;padding-top:5px;display:inline;position:relative;">';
-
 										str += '<p onclick="gidokilsearch('+i+');"style="width:100%;margin:0;" align="left"><span style="border:1px solid black;width:25%;color:blue;padding:0 5px;"align="left">Route'
 												+ (i + 1)
-												+ '</span><span style="width:50%;color:red;font-size:20px;margin-left:25px;">&nbsp;&nbsp;About ';
+												+ '</span><span style="width:50%;color:red;font-size:20px;margin-left:5px;">&nbsp;&nbsp;About ';
 										if (a > 0) {
 											str += a + ' Hours '
 										}
-										str += b
-												+ ' Minute&nbsp;&nbsp;</span><span style="width:25%;color:black;font-size:18px; float:right" padding-right:30px;>'
-												+ info.payment + '원</span></p>';
+										str += b+ ' Minute&nbsp;&nbsp;</span><span style="width:30%;color:black;font-size:18px;margin-left:5px;">';
+										if(info.payment==0){		
+											str +=	'Unidentified</span></p>';
+										} else{
+											str += info.payment + '원</span></p>';
+										}
 										str += '<div style="border:1px solid black;position:absolute;top:-35px;right:-195px;"><a  id="styleblock'+ i
 												+ '" onclick="Detail(Detailedpath'+ i+ ',stylenone'+ i+ ',styleblock'+ i+ ');">&nbsp;<img style="width:25px;height:25px;" src="resources/img/gido/gidosearch.png"></a></div>';
 										str += '<div style="border:1px solid black;position:absolute;top:-35px;right:-195px;"><a id="stylenone'
@@ -306,16 +313,16 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 											if (subPath[j].trafficType == 2) {
 												var lane = subPath[j].lane;
 												var Type = parseInt(lane[0].type);
-												str += busType[Type] + ' No.'
+												str += 'Bus' + 'No.'
 														+ lane[0].busNo + '('
 														+ subPath[j].startName
-														+ ') ';
+														+ ')   ';
 											} else if (subPath[j].trafficType == 1) {
 												var lane = subPath[j].lane;
 												var Type = parseInt(lane[0].subwayCode);
 												str += subwayType[Type] + '('
 														+ subPath[j].startName
-														+ 'station) ';
+														+ 'station)   ';
 											}
 											if (subPath[j].trafficType != 3) {
 												if ((j + 2) != subPath.length)
@@ -327,32 +334,32 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 										str += '<li style="width:100%;border-buttom:1px solid black;"><p style="margin:0;" align="left">';
 										if (path[i].pathType == 2) {
 											str += info.busTransitCount
-													+ 'buses&nbsp;&nbsp;&nbsp;Total distance : '
+													+ 'buses&nbsp;&nbsp;&nbsp;Total distance   :   '
 													+ totalDistance;
 											if (info.totalDistance > 1000) {
-												str += "Km";
+												str += "Km   ";
 											} else {
-												str += "M";
+												str += "M   ";
 											}
 										} else if (path[i].pathType == 1) {
 											str += info.subwayTransitCount
 													+ 'subways&nbsp;&nbsp;&nbsp;Total distance : '
 													+ totalDistance;
 											if (info.totalDistance > 1000) {
-												str += "Km";
+												str += "Km   ";
 											} else {
-												str += "M";
+												str += "M   ";
 											}
 										} else {
 											str += info.busTransitCount
-													+ ' buses&nbsp;  + &nbsp; '
+													+ '   buses&nbsp;  + &nbsp; '
 													+ info.subwayTransitCount
-													+ ' subways&nbsp;&nbsp;&nbsp;Total distance : '
+													+ '   subways&nbsp;&nbsp;&nbsp;Total distance : '
 													+ totalDistance;
 											if (info.totalDistance > 1000) {
-												str += "Km";
+												str += "Km   ";
 											} else {
-												str += "M";
+												str += "M   ";
 											}
 										}
 										str += '</p></li>';
@@ -376,14 +383,14 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 															var pNum = subPath[p].distance / 1000;
 															pNum = Number(pNum)
 																	.toFixed(2);
-															str += 'Walk About '
+															str += 'Walk About   '
 																	+ pNum
-																	+ 'Km '
+																	+ 'Km   '
 																	+ EndAddress;
 														} else {
-															str += 'Walk About '
+															str += 'Walk About   '
 																	+ subPath[p].distance
-																	+ 'M '
+																	+ 'M   '
 																	+ EndAddress;
 														}
 													}
@@ -391,37 +398,37 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 														var pNum = subPath[p].distance / 1000;
 														pNum = Number(pNum)
 																.toFixed(2);
-														ca = 'Walk About '
-																+ pNum + 'Km ';
+														ca = 'Walk About   '
+																+ pNum + 'Km   ';
 													} else {
 														ca = 'Walk About '
 																+ subPath[p].distance
-																+ 'M ';
+																+ 'M   ';
 													}
 
 												} else if (pnewNum == 2) {
 													var lane = subPath[p].lane;
 													var Type = parseInt(lane[0].type);
 													str += '<p>'
-															+ busType[Type]
-															+ ' No.'
+															+ 'Bus'
+															+ 'No.'
 															+ lane[0].busNo
 															+ '('
 															+ subPath[p].startName
-															+ ') After boarding, ';
+															+ ')   After boarding,   ';
 													str += subPath[p].endName
-															+ ' Get off at the stop';
+															+ '   Get off at the stop   ';
 													pOldNum = pnewNum;
 												} else {
 													var lane = subPath[p].lane;
 													var Type = parseInt(lane[0].subwayCode);
 													str += '<p>'
 															+ subwayType[Type]
-															+ ''
+															+ '   '
 															+ subPath[p].startName
-															+ ' station After boarding '
+															+ '   station After boarding   '
 															+ subPath[p].endName
-															+ ' Get off at the stop ';
+															+ '   Get off at the stop   ';
 													pOldNum = pnewNum;
 												}
 											} else {
@@ -434,17 +441,17 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 															str += '<p>'
 																	+ ca
 																	+ subwayType[Type]
-																	+ ''
+																	+ '   '
 																	+ subPath[p].startName
-																	+ ' station </p>';
+																	+ '   station   </p>';
 														}
 														str += '<p>'
 																+ subwayType[Type]
-																+ ''
+																+ '   '
 																+ subPath[p].startName
-																+ ' station After boarding '
+																+ '   station After boarding   '
 																+ subPath[p].endName
-																+ ' Get off at the stop </p>';
+																+ '   Get off at the stop   </p>';
 														pOldNum = pnewNum;
 													} else {
 														var lane = subPath[p].lane;
@@ -453,17 +460,17 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 															str += '<p>'
 																	+ ca
 																	+ subPath[p].startName
-																	+ ' Bus Stop </p>';
+																	+ '   Bus Stop   </p>';
 														}
 														str += '<p>'
-																+ busType[Type]
-																+ ' No.'
+																+ 'Bus'
+																+ 'No.'
 																+ lane[0].busNo
 																+ '('
 																+ subPath[p].startName
-																+ ') After boarding, ';
+																+ ')   After boarding,   ';
 														str += subPath[p].endName
-																+ ' Get off at the stop</p>';
+																+ '   Get off at the stop</p>   ';
 														pOldNum = pnewNum;
 													}
 												} else if (pOldNum == 2
@@ -475,17 +482,17 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 															str += '<p>'
 																	+ ca
 																	+ subwayType[Type]
-																	+ ''
+																	+ '   '
 																	+ subPath[p].startName
-																	+ ' station </p>';
+																	+ '   station   </p>';
 														}
 														str += '<p>'
 																+ subwayType[Type]
-																+ ''
+																+ '   '
 																+ subPath[p].startName
-																+ ' station After boarding '
+																+ '   station After boarding   '
 																+ subPath[p].endName
-																+ ' Get off at the stop ';
+																+ '   Get off at the stop   ';
 														pOldNum = pnewNum;
 													}
 												} else if (pnewNum == 2) {
@@ -495,17 +502,17 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 														str += '<p>'
 																+ ca
 																+ subPath[p].startName
-																+ ' Bus Stop</p>';
+																+ '   Bus Stop   </p>';
 													}
 													str += '<p>'
-															+ busType[Type]
-															+ ' No.'
+															+ 'Bus'
+															+ 'No.'
 															+ lane[0].busNo
 															+ '('
 															+ subPath[p].startName
-															+ ') After boarding, ';
+															+ ')   After boarding,   ';
 													str += subPath[p].endName
-															+ ' Get off at the stop';
+															+ '   Get off at the stop   ';
 													pOldNum = pnewNum;
 												} else if (pOldNum == 1
 														&& pnewNum != 3) {
@@ -516,17 +523,17 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 															str += '<p>'
 																	+ ca
 																	+ subwayType[Type]
-																	+ ''
+																	+ '   '
 																	+ subPath[p].startName
-																	+ ' station </p>';
+																	+ '   station   </p>';
 														}
 														str += '<p>'
 																+ subwayType[Type]
-																+ ''
+																+ '   '
 																+ subPath[p].startName
-																+ ' station After boarding '
+																+ '   station After boarding   '
 																+ subPath[p].endName
-																+ ' Get off at the stop ';
+																+ '   Get off at the stop   ';
 														pOldNum = pnewNum;
 													} else if (pnewNum == 2) {
 														var lane = subPath[p].lane;
@@ -535,17 +542,17 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 															str += '<p>'
 																	+ ca
 																	+ subPath[p].startName
-																	+ ' Bus Stop </p>';
+																	+ '   Bus Stop </p>';
 														}
 														str += '<p>'
-																+ busType[Type]
-																+ ' No.'
+																+ 'Bus'
+																+ 'No.'
 																+ lane[0].busNo
 																+ '('
 																+ subPath[p].startName
-																+ ') After boarding,';
+																+ ')   After boarding,   ';
 														str += subPath[p].endName
-																+ ' Get off at the stop';
+																+ '   Get off at the stop   ';
 														pOldNum = pnewNum;
 													}
 												} else if (pnewNum == 3
@@ -556,15 +563,15 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 															var pNum = subPath[p].distance / 1000;
 															pNum = Number(pNum)
 																	.toFixed(2);
-															str += '<p>Walk About '
+															str += '<p>Walk   About   '
 																	+ pNum
-																	+ 'Km '
+																	+ 'Km   '
 																	+ EndAddress
 																	+ '</p>';
 														} else {
-															str += '<p>Walk About '
+															str += '<p>Walk   About   '
 																	+ subPath[p].distance
-																	+ 'M '
+																	+ 'M   '
 																	+ EndAddress
 																	+ '</p>';
 														}
@@ -573,12 +580,12 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 														var pNum = subPath[p].distance / 1000;
 														pNum = Number(pNum)
 																.toFixed(2);
-														ca = 'Walk About '
-																+ pNum + 'Km ';
+														ca = 'Walk   About   '
+																+ pNum + 'Km   ';
 													} else {
-														ca = 'Walk About '
+														ca = 'Walk   About '
 																+ subPath[p].distance
-																+ 'M';
+																+ 'M   ';
 													}
 												}
 
@@ -586,7 +593,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 											// subPath for문 길찾기 노선 바뀌는 구간 표시 종료
 
 										}
-										str += '<p>' + 'End : ' + EndAddress
+										str += '<p>' + 'Arrive : ' + EndAddress
 												+ '</p>';
 										str += '</li>';
 									}
@@ -651,14 +658,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 			var sy = document.getElementById("y1").value;
 			var ex = document.getElementById("x2").value;
 			var ey = document.getElementById("y2").value;
-			var url = "https://api.odsay.com/v1/api/searchPubTransPath?SX="
-					+ sx
-					+ "&SY="
-					+ sy
-					+ "&EX="
-					+ ex
-					+ "&EY="
-					+ ey
+			var url = "https://api.odsay.com/v1/api/searchPubTransPath?SX="+ sx+ "&SY="+ sy+ "&EX="+ ex+ "&EY="+ ey
 					+ "&apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0";
 			xhr.open("GET", url, true);
 			xhr.send();
@@ -698,28 +698,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 								data.result.lane[i].section[j].graphPos[k].y,
 								data.result.lane[i].section[j].graphPos[k].x));
 					}
-					//지하철결과의 경우 노선에 따른 라인색상 지정하는 부분 (1,2호선의 경우만 예로 들음)
-					/* if (data.result.lane[i].type == 1) {
-						polyline = new naver.maps.Polyline({
-							map : map,
-							path : lineArray,
-							strokeWeight : 3,
-							strokeColor : '#003499'
-						});
-					} else if (data.result.lane[i].type == 2) {
-						polyline = new naver.maps.Polyline({
-							map : map,
-							path : lineArray,
-							strokeWeight : 3,
-							strokeColor : '#37b42d'
-						});
-					} else {
-						polyline = new naver.maps.Polyline({
-							map : map,
-							path : lineArray,
-							strokeWeight : 3
-						});
-					} */
+					
 				}
 			}
 				polyline = new naver.maps.Polyline({
@@ -752,6 +731,9 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 			$(style2).css('display', 'none');
 			$(Detailid).css('display', 'none');
 		}
+		
+		
 	</script>
+	
 </body>
 </html>
