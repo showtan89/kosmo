@@ -291,7 +291,7 @@
 						style="padding: 1px; border: 1px solid #333;"> -->
 				<hr>
 				<b>CONTENT</b> <br> <br>
-					<textarea class="content" name="messageContent" id="messageContent"
+					<textarea class="content" name="messageContent2" id="messageContent2"
 					maxlength="600" style="width: 80%; height: 20%; padding: 5px 5px;"></textarea>
 				<hr>
 				<p>
@@ -353,7 +353,7 @@
 						name="messageSendId" id="messageSendId"
 						style="padding: 1px; border: 1px solid #333;"> <br> <br>
 					<b>CONTENT</b> <br> <br>
-					<textarea class="content" name="messageContent" id="messageContent"
+					<textarea class="content" name="messageContent1" id="messageContent1"
 						maxlength="600" style="width: 80%; height: 20%; padding: 5px 5px;"></textarea>
 					<br> <br> <input type="button"
 						class="btn btn-success mr-30" value="send message"
@@ -372,15 +372,15 @@
 							</tr>
 							<c:forEach var="sml" items="${sml}">
 								
-								<c:if test="${sessionScope.userVO.memberId eq sml.messageFromId}">
+								<c:if test="${sessionScope.userVO.memberId eq sml.fMessageFromid}">
 									<tr>
-										<td>${sml.messageSendId}</td>
+										<td>${sml.fMessageSendid}</td>
 
-										<td><a onclick="messageContent();">${sml.messageContent}</a></td>
-										<td>${sml.messageRegdate}</td>
+										<td><a>${sml.fMessageContent}</a></td>
+										<td>${sml.fMessageRegdate}</td>
 										<td><input type="button" class="btn btn-success mr-30"
 											value="delete"
-											onclick="window.location='messageDelete?messageNumber=${sml.messageNumber}&pageNum=${pageNum}';"></td>
+											onclick="window.location='fMessageDelete?fMessageNumber=${sml.fMessageNumber}&pageNum=${pageNum}';"></td>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -514,9 +514,10 @@
 		// 메세지 보내기 값
 		function sendMessage() {
 			var messageSendId = $("#messageSendId").val();
-			var messageContent = $("#messageContent").val();
+			var messageContent1 = $("#messageContent1").val();
+			var messageContent2 = $("#messageContent2").val();
 			window.location = 'messageSend?messageSendId=' + messageSendId
-					+ '&messageContent=' + messageContent;
+					+ '&messageContent1=' + messageContent1+ '&messageContent2=' + messageContent2;
 		}
 		
 		//메세지 상세보기 팝업창

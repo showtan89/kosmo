@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.FromMessageVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
@@ -232,10 +233,16 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.delete("com.spring.helper.dao.BoardDAO.commentDelete", commentnumber);
 	}
 
-	//채팅 알람 삭제
+	//받은 쪽지 삭제
 	@Override
-	public int messageDelete(int messagenumber) {
-		return sqlSession.delete("com.spring.helper.dao.BoardDAO.messageDelete", messagenumber);
+	public int messageDelete(int messageNumber) {
+		return sqlSession.delete("com.spring.helper.dao.BoardDAO.messageDelete", messageNumber);
+	}
+	
+	// 보낸 쪽지 삭제
+	@Override
+	public int fMessageDelete(int fMessageNumber) {
+		return sqlSession.delete("com.spring.helper.dao.BoardDAO.fMessageDelete", fMessageNumber);
 	}
 	//댓글 알람 갯수
 	@Override
@@ -251,6 +258,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 쪽지 보내기 처리
 	@Override
 	public int sendMessage(Map<String, Object> map) {
+		sqlSession.insert("com.spring.helper.dao.BoardDAO.fromMessage", map);
 		return sqlSession.insert("com.spring.helper.dao.BoardDAO.sendMessage", map);
 	}
 	// 보낸 쪽지 갯수
@@ -261,7 +269,7 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	//보낸 쪽지 리스트
 	@Override
-	public List<MessageVO> messageSendList(Map<String, Object> map) {
+	public List<FromMessageVO> messageSendList(Map<String, Object> map) {
 		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.messageSendList", map);
 	}
 
@@ -329,6 +337,13 @@ public class BoardDAOImpl implements BoardDAO {
 		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
 		return boardDao.onedayclassGetArticle(onedayclassNumber);
 	}
+	
+	// 종료여부 메퍼에서 확인해서 리턴
+	@Override
+	public int onedayclassEndCheck(int onedayclassNumber) {
+		
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.onedayclassEndCheck", onedayclassNumber);
+	}
 
 	// 수정 처리
 	@Override
@@ -386,11 +401,6 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.readOneComment", oCommentNumber);
 	}
-/*	@Override
-	public void updateComment(oCommentVO vo) {
-		// TODO Auto-generated method stub
-		
-	}*/
 	
 	// 댓글 수정 처리
 	@Override
@@ -401,10 +411,24 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 댓글 삭제
 /*	@Override
-	public void deleteComment(oCommentVO vo) {
-		sqlSession.delete("com.spring.helper.dao.BoardDAO.deleteComment", vo);
+	public void deleteComment(int oCommentNumber) {
+		
+		sqlSession.delete("com.spring.helper.dao.BoardDAO.deleteComment", oCommentNumber);
 	}*/
+	
+	// 댓글 삭제
+	@Override
+	public Integer deleteComment(int oCommentNumber) {
+		
+		return sqlSession.getMapper(BoardDAO.class).deleteComment(oCommentNumber);
+	}
 
+	// 인원 수 변경
+	@Override
+	public int peopleUpdate(onedayclassVO vo) {
+		
+		return sqlSession.update("com.spring.helper.dao.BoardDAO.peopleUpdate", vo);
+	}
 
 	// 진호 메소드 종료------------------------------------------------
 
@@ -418,6 +442,8 @@ public class BoardDAOImpl implements BoardDAO {
 	public int emergencyCnt() {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
 	}
+
+
 	
 	// 대호 종료 ==============================================================
 

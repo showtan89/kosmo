@@ -24,6 +24,7 @@ import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.FromMessageVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
@@ -694,19 +695,39 @@ public class BoardServiceImpl implements BoardService {
 		model.addAttribute("deleteCnt", deleteCnt);
 		model.addAttribute("pageNum", pageNum);
 	}
-	// 쪽지 알람 삭제
+	// 받은 쪽지 알람 삭제
 	@Override
 	public void messageDelete(HttpServletRequest req, Model model) {
 
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
-		int messageNumber = Integer.parseInt(req.getParameter("messagenumber"));
-		System.out.println("messagenumber : " + messageNumber);
+		int messageNumber = Integer.parseInt(req.getParameter("messageNumber"));
+		logger.info("messagenumber : "+messageNumber);
+		
+	
+
+
 		int deleteCnt = 0;
 
-		if(messageNumber != 0) {
-			messageNumber = boardDao.messageDelete(messageNumber);
-			deleteCnt=messageNumber;
-		}
+		messageNumber = boardDao.messageDelete(messageNumber);
+		deleteCnt=messageNumber;
+
+		model.addAttribute("deleteCnt", deleteCnt);
+		model.addAttribute("pageNum", pageNum);
+
+	}
+
+	// 보낸 쪽지  삭제
+	@Override
+	public void fMessageDelete(HttpServletRequest req, Model model) {
+
+		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		int fMessageNumber = Integer.parseInt(req.getParameter("fMessageNumber"));
+		logger.info("fMessageNumber : " + fMessageNumber);
+
+		int deleteCnt = 0;
+
+		fMessageNumber = boardDao.fMessageDelete(fMessageNumber);
+		deleteCnt=fMessageNumber;
 
 		model.addAttribute("deleteCnt", deleteCnt);
 		model.addAttribute("pageNum", pageNum);
@@ -747,7 +768,13 @@ public class BoardServiceImpl implements BoardService {
 		String messageFromId = userVO.getMemberId();
 		String messageSendId = req.getParameter("messageSendId");
 		logger.info("messageSendId : " + messageSendId);
-		String messageContent = req.getParameter("messageContent");
+		
+		String messageContent = req.getParameter("messageContent1");
+		messageContent = req.getParameter("messageContent1");
+		
+		if(messageContent==null) {
+			messageContent = req.getParameter("messageContent2");
+		}
 		logger.info("messageContent : " + messageContent);
 
 		int sendCnt = 0;
@@ -830,7 +857,7 @@ public class BoardServiceImpl implements BoardService {
 			map.put("userVO", userVO);
 
 			//5-2. 게시글 목록 조회
-			List<MessageVO> sml =boardDao.messageSendList(map);
+			List<FromMessageVO> sml =boardDao.messageSendList(map);
 
 			// 큰바구니 : 게시글 목록 cf)작은 바구니 : 게시글 1건
 			req.setAttribute("sml", sml);
@@ -1035,13 +1062,17 @@ public class BoardServiceImpl implements BoardService {
 		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
-
+		
 		boardDao.onedayclassAddReadCnt(onedayclassNumber);
 		onedayclassVO vo = boardDao.onedayclassGetArticle(onedayclassNumber);
 
+
+		int endDate = boardDao.onedayclassEndCheck(onedayclassNumber);
+		
 		model.addAttribute("dto", vo);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
+		model.addAttribute("endDate", endDate);
 	}
 
 	// 수정 상세 페이지
@@ -1149,36 +1180,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 원데이 클래스 댓글 목록 출력
-
-	/*	@Override
-	public ArrayList<oCommentVO> getoCommentList(HttpServletRequest req, Model model){
-		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
-		return boardDao.getoCommentList(onedayclassNumber);
-	}*/
-
-	//부동산 게시판 댓글 달기
-	/*	@Override
-	public Integer realestateCommentPro(RealestateCommentsVO cVO, HttpServletRequest req) {
-		if(req.getSession().getAttribute("userVO")==null) { 
-			return 0;	// 회원ID 가 없는 상태로 요청 받으면 0 리턴
-		}else {
-			UserVO uVO = (UserVO)req.getSession().getAttribute("userVO"); // 있으면 자료 입력 시도
-			logger.info(uVO.toString());
-			cVO.setMemberId(uVO.getMemberId());
-			cVO.setMemberEmail(uVO.getMemberEmail());
-			cVO.setMemberNumber(uVO.getMemberNumber());
-			cVO.setMemberCountry(uVO.getMemberCountry());
-			return boardDao.realestateCommentPro(cVO);
-		}
-	}*/
-
-	//부동산 게시판 댓글 삭제
-	/*	@Override
-	public Integer realestateCommentsDelete(int rCommentNumber) { //전달 받은 댓글 번호 삭제
-		return boardDao.realestateCommentsDelete(rCommentNumber);
-	}*/	
-
-
 	@Override
 	public List<oCommentVO> getoCommentList(HttpServletRequest req, Model model) {
 		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
@@ -1186,21 +1187,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 
-
-
 	// 원데이 클래스 댓글 추가
-
-	/*	@Override
-	public List<oCommentVO> getoCommentList(int onedayclassNumber, int start, int end, HttpSession session) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public int oCommentCount(int oCommentNumber) {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
-
 	@Override
 	public void oCommentCreate(oCommentVO dto) {
 		boardDao.oCommentCreate(dto);
@@ -1216,42 +1203,40 @@ public class BoardServiceImpl implements BoardService {
 		return vo;
 	}
 
-	/*	// 댓글 수정
-	@Override
-	public oCommentVO readOneComment(int oCommentNumber) {
-
-		return boardDao.readOneComment(oCommentNumber);
-	}*/
 	// 댓글 수정
 	@Override
 	public int updateComment(oCommentVO vo) {
 		int updateCnt = boardDao.updateComment(vo);
 		return updateCnt;
 	}
+	
 	// 댓글 삭제
-	/*	@Override
-	public void deleteComment(oCommentVO vo) {
-		boardDao.deleteComment(vo);
-
-	/*	@Override
-	public void oCommentUpdate(oCommentVO dto) {
-		// TODO Auto-generated method stub
-
-	}
+/*	@Override
+	public void deleteComment(HttpServletRequest req, Model model) {
+		boardDao.deleteComment(oCommentNumber);
+		
+		model.addAttribute("deleteComment", deleteComment);
+*/
+	
+	// 댓글 삭제
 	@Override
-	public void oCommentDelete(oCommentVO dto) {
-		// TODO Auto-generated method stub
-
+	public Integer deleteComment(int oCommentNumber) {
+		return boardDao.deleteComment(oCommentNumber);
+		
 	}
+	
+	// 인원 수 변경
 	@Override
-	public oCommentVO oCommentDetail(int onedayclassNumber) {
-		// TODO Auto-generated method stub
-		return null;
-
-	}*/
-
+	public int peopleUpdate(onedayclassVO vo) {
+		
+		return boardDao.peopleUpdate(vo);
+	}
+	
 	//진호 메소드 종료---------------------------------------------------
-
+ 
+	
+	
+	/*
 	// 대호 시작 ================================
 	@Override
 	public void emergency(HttpServletRequest req, Model model) throws Exception {
@@ -1280,10 +1265,14 @@ public class BoardServiceImpl implements BoardService {
 
 		String originData = sb.toString();
 
-		model.addAttribute("originData", originData);*/
+		model.addAttribute("originData", originData);
+	}*/
+
+	@Override
+	public void emergency(HttpServletRequest req, Model model) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 	// 대호 끝 =================================
-
-
 }
