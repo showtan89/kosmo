@@ -285,7 +285,7 @@
 	<!-- 답변등록 처리시 알림 처리 -->
 	<insert id="realestateCommentPro2" parameterType="com.spring.helper.vo.BoardVO.RealestateCommentsVO">
 		INSERT INTO commentAlarm
-		VALUES(commentAlarmSeq.nextval,#{memberNumber},'20',#{rCommentTemp1},#{memberId},#{memberCountry},#{realestateNumber},realestateseq.currval,'댓글이 작성되었습니다.',1,sysdate,'N','N',0)
+		VALUES(commentAlarmSeq.nextval,#{memberNumber},'20',#{rCommentTemp1},#{memberId},#{memberCountry},#{realestateNumber},realestateseq.currval,'There is a comment on the article you posted',1,sysdate,'N','N',0)
 	</insert>
 	<!-- 부동산 게시글 댓글 삭제 -->
 	<delete id="realestateCommentsDelete">

@@ -1,3 +1,90 @@
+function goPopup(){
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrEngUrl.do)를 호출하게 됩니다.
+	var pop = window.open("popStartAddress","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+}
+
+function jusoCallBack(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, admCd, rnMgtSn
+		, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, korAddr){
+	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+	daumMapJuso(roadAddr,siNm,korAddr)
+}
+
+//검색 된 주소 받아서 카테고리 변경하고 지도에 띄움
+function daumMapJuso(roadAddr,siNm,korAddr) {
+	var addr = roadAddr; 
+	var sido = siNm;
+	var korAddr = korAddr;
+	switch(sido){
+	case 'Seoul': $('#realestateCategory1').val("seoul");
+		$("#realestateCategory1Real").val("seoul");
+		break;
+	case 'Busan': $('#realestateCategory1').val("busan");
+		$("#realestateCategory1Real").val("busan");
+		break;
+	case 'Incheon': $('#realestateCategory1').val("incheon");
+		$("#realestateCategory1Real").val("incheon");
+		break;
+	case 'Gwangju': $('#realestateCategory1').val("gwangju");
+		$("#realestateCategory1Real").val("gwangju");
+		break;
+	case 'Daejeon': $('#realestateCategory1').val("daejeon");
+		$("#realestateCategory1Real").val("daejeon");
+		break;
+	case 'Sejong-si': $('#realestateCategory1').val("sejong");
+		$("#realestateCategory1Real").val("sejong");
+		break;
+	case 'Daegu': $('#realestateCategory1').val("daegu");
+		$("#realestateCategory1Real").val("daegu");
+		break;
+	case 'Ulsan': $('#realestateCategory1').val("ulsan");
+		$("#realestateCategory1Real").val("ulsan");
+		break;
+	case 'Gyeonggi-do': $('#realestateCategory1').val("gyeonggi");
+		$("#realestateCategory1Real").val("gyeonggi");
+		break;
+	case 'Gangwon-do': $('#realestateCategory1').val("gangwon");
+		$("#realestateCategory1Real").val("gangwon");
+		break;
+	case 'Chungcheongbuk-do': $('#realestateCategory1').val("chungcheongbuk");
+		$("#realestateCategory1Real").val("chungcheongbuk");
+		break;
+	case 'Chungcheongnam-do': $('#realestateCategory1').val("chungcheongnam");
+		$("#realestateCategory1Real").val("chungcheongnam");
+		break;
+	case 'Gyeongsangbuk-do': $('#realestateCategory1').val("gyeongsangbuk");
+		$("#realestateCategory1Real").val("gyeongsangbuk");
+		break;
+	case 'Gyeongsangnam-do': $('#realestateCategory1').val("gyeongsangnam");
+		$("#realestateCategory1Real").val("gyeongsangnam");
+		break;
+	case 'Jeollabuk-do': $('#realestateCategory1').val("jeollabuk");
+		$("#realestateCategory1Real").val("jeollabuk");
+		break;
+	case 'Jeollanam-do': $('#realestateCategory1').val("jeollanam");
+		$("#realestateCategory1Real").val("jeollanam");
+		break;
+	case 'Jeju-do': $('#realestateCategory1').val("jeju");
+		$("#realestateCategory1Real").val("jeju");
+		break;	
+	}
+	document.getElementById("realestateLocation").value = addr;
+	document.getElementById("realestateLocationReal").value = addr;
+	document.getElementById("realestateTemp2").value = korAddr;
+
+	geocoder.addressSearch(korAddr, function(results, status) {
+		if (status === daum.maps.services.Status.OK) {
+			var result = results[0]; 
+			var coords = new daum.maps.LatLng(result.y, result.x);
+			mapContainer.style.display = "block";
+			mapContainer.style.height = '300px'; 
+			map.relayout();
+			map.setCenter(coords);
+			marker.setPosition(coords)
+		}
+	});
+
+}
+
 
 //부동산 댓글 가져오기
 function getJsonData(){

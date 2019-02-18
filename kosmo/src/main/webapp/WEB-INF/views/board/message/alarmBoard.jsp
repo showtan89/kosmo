@@ -140,8 +140,7 @@
 								<th>Delete</th>
 							</tr>
 							<c:forEach var="cos" items="${cos}">
-								<c:if
-									test="${!sessionScope.userVO.memberId.equals(cos.memberid)}">
+								<c:if test="${sessionScope.userVO.memberEmail.equals(cos.memberemail)}">
 									<tr>
 										<td>${cos.memberid}</td>
 										<!-- align="center" -->
@@ -167,6 +166,13 @@
 											<c:when test="${code==31}">
 												<td><a
 													href="onedayclassDetailForm?onedayclassNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
+											</c:when>
+										</c:choose>
+										
+										<c:choose>
+											<c:when test="${code==69}">
+												<td><a
+													href="weather?type=earthquake">${cos.commentsubject}</a></td>
 											</c:when>
 										</c:choose>
 
