@@ -140,8 +140,7 @@
 								<th>Delete</th>
 							</tr>
 							<c:forEach var="cos" items="${cos}">
-								<c:if
-									test="${!sessionScope.userVO.memberId.equals(cos.memberid)}">
+								<c:if test="${sessionScope.userVO.memberEmail.equals(cos.memberemail)}">
 									<tr>
 										<td>${cos.memberid}</td>
 										<!-- align="center" -->
@@ -167,6 +166,13 @@
 											<c:when test="${code==31}">
 												<td><a
 													href="onedayclassDetailForm?onedayclassNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
+											</c:when>
+										</c:choose>
+										
+										<c:choose>
+											<c:when test="${code==69}">
+												<td><a
+													href="weather?type=earthquake">${cos.commentsubject}</a></td>
 											</c:when>
 										</c:choose>
 
@@ -232,7 +238,7 @@
 								<th>Delete</th>
 							</tr>
 							<c:forEach var="mos" items="${mos}">
-								<%-- <c:if test="${!sessionScope.userVO.memberId.equals(mos.messageSendId)}"> --%>
+								<c:if test="${sessionScope.userVO.memberId.equals(mos.messageSendId)}">
 								<tr>
 									<td id="messageFromIdR">${mos.messageFromId}</td>
 									<!-- align="center" -->
@@ -251,6 +257,7 @@
 										value="delete"
 										onclick="window.location='messageDelete?messageNumber=${mos.messageNumber}&pageNum=${pageNum}';"></td>
 								</tr>
+								</c:if>
 <!-- <div id="id01" class="w3-modal">
 		<div class="w3-modal-content">
 			<div class="w3-container">
@@ -431,14 +438,14 @@
 						If you are lonely or have difficulty with perfume, <br>
 						try to strengthen friendship and comfort here.<br><br>
 						<input type="button"
-						class="btn alazea-btn mr-30" value="ChattingRoomEnter"
+						class="btn alazea-btn mr-30" value="ChattingRoom Enter"
 						style="padding: 1px;" onclick="chatting();">
 						<br><br><hr><br>
 					
 					In this chat room, there are all foreigners who use this site.<br>
 					It's a pleasant room that's spoken in each other's language. <br><br>
 					<input type="button"
-						class="btn alazea-btn mr-30" value="ChattingRoomEnter"
+						class="btn alazea-btn mr-30" value="ChattingRoom Enter"
 						style="padding: 1px;" onclick="chattingAll();">
 				</section>
 			</div>

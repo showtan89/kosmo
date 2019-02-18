@@ -24,6 +24,28 @@
 		select * from (select * from earthQuakeCheck order by eqnum desc) where ROWNUM = 1
 	</select>
 	
+	<select id="getUserList" resultType="java.util.Map">
+		select membernumber, memberemail from users where enabled=1 and authority = 'ROLE_USER'
+	</select>
+	
+	<insert id="earthQuakeAlarmSend" parameterType="java.util.ArrayList">
+		<selectKey keyProperty="commentseq" resultType="int" order="BEFORE">
+    		select commentAlarmseq.nextval FROM DUAL
+  		</selectKey>
+      <!--   <foreach collection="list" item="item" index="index"  open="INSERT ALL " separator=" " close="SELECT * FROM DUAL" > 
+			into message(memberemail, messagefromid, messagesendid, messagenumber, messagecontent, messageregdate,messagealarm,messagetemp1,messagetemp2,messagetemp3)
+        	values(#{item.MEMBEREMAIL}, 'welkome', #{item.MEMBERID}, #{messageseq}+#{index}, 'Earthquake warning!', SYSDATE, 1, 0, '0', '0')
+        </foreach> -->
+         <foreach collection="list" item="item" index="index"  open="INSERT ALL " separator=" " close="SELECT * FROM DUAL" > 
+			into commentAlarm
+        	values(#{commentseq}+#{index},10000,'69',#{item.MEMBEREMAIL},'admin','AD',0 , 0, 'Earthquake warning!',1,sysdate,'N','N',0)
+        </foreach>
+    </insert>
+    
+    <select id="msgSequenceChange" parameterType="Integer" resultType="Integer">
+    	alter sequence commentalarmseq increment by #{sqlString}
+    </select>
+	
 	<!-- 재영 끝 ========================================================================= -->
 
 </mapper>

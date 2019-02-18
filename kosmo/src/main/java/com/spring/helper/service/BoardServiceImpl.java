@@ -704,9 +704,6 @@ public class BoardServiceImpl implements BoardService {
 		int messageNumber = Integer.parseInt(req.getParameter("messageNumber"));
 		logger.info("messagenumber : "+messageNumber);
 		
-	
-
-
 		int deleteCnt = 0;
 
 		messageNumber = boardDao.messageDelete(messageNumber);

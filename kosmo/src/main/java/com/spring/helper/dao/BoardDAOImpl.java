@@ -277,6 +277,7 @@ public class BoardDAOImpl implements BoardDAO {
 	// 채팅 글뿌리기
 	@Override
 	public List<ChattingVO> chatting(String chattingContry){
+		/*sqlSession.selectOne("com.spring.helper.dao.BoardDAO.chattingDate", chattingContry);*/
 		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.chatting", chattingContry);
 	}
 	// 채팅 글 쓰기

@@ -33,9 +33,17 @@
 <!-- 채팅 ajax -->
 <script>
 
+
+if (!("autofocus" in document.createElement("input"))) {
+    document.getElementById("chattingContent").focus();
+    chattingScroll();
+  }
+
 function emptychattingContent(){
 	$('#chattingContent').val('');
+	chattingScroll();
 }
+
 
 function chatting() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
@@ -45,54 +53,88 @@ function chatting() {
 				var str="";
 				$(data).each(
 					function () {
-						var chattingRegdate = new Date(this.chattingRegdate);
+						/* var chattingRegdate = new Date(this.chattingRegdate); +'('+chattingRegdate+')'*/
 						this.chattingMemberId
-						str += '<p>'+ this.chattingMemberId+' : ' + this.chattingContent +'('+chattingRegdate+')'+'</p>'+ '<br>'
+						this.chattingRegdate
+							str += 
+							'<div style="margin-left:10px;">'+
+							'<p>'+ this.chattingMemberId+' : ' + this.chattingContent 
+							+'<br>'
+							+'('+changeDate(this.chattingRegdate)+')' +'</p>'+ '<br>'+'</div>';
+							
+							/* str += '<div align="right">'+
+							'<p>'+ this.chattingMemberId+' : ' + this.chattingContent 
+							+'<br>'
+							+'('+changeDate(this.chattingRegdate)+')' +'</p>'+ '<br>'+'</div>'; */
 					}		
 				);
-				
-				$('#chattingList').html(str); 
-				
+				$('#chattingList').html(str);
+				chattingScroll();
 			}); }
 	}
+	
+function enterKey(){
+    if (window.event.keyCode == 13) {
+   	 // 엔터키가 눌렸을 때 실행할 내용
+   	 chattingScroll();
+   	 document.getElementById('chattingWrite').click();
+   }
+}
+
+function changeDate(date){
+    date = new Date(parseInt(date));
+    year = date.getFullYear();
+    month = date.getMonth();
+    day = date.getDate(); 
+    hour = date.getHours();
+    minute = date.getMinutes();
+    second = date.getSeconds();
+    strDate =year+"-"+month+"-"+day+"&nbsp;&nbsp;&nbsp;"+hour+":"+minute+":"+second;
+    return strDate;
+}
+
 chatting();
 
 setInterval("chatting();", 6000);//원래 2000, 개발중  60000, 시연때 2000
 
+function chattingScroll(){
+	$('#chattingView')[0].scrollIntoView(false);
+	
+}
 
+$("#chattingView").load(function(){ chattingScroll(); });
 
 </script>
+<style>
+
+</style>
 <meta charset="UTF-8">
 <title>Chatting</title>
 </head>
+
 <body onload="chatting();">
-	<div>
-		<div id="chattingList"></div>
+<div id="chattingView" class="chattingView">
+		
+		<div id="chattingList" class="chattingList">
+			strDate
 		<br>
-	</div>
-</body>
+		</div>
+</div>
 <hr><br>
 	<div align="center" id="write">
-		<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
 		<input type="text" id="chattingContent" maxlength="300"
-			style="width: 50%; height: 10%; padding: 5px 5px;"
-			name="chattingContent"> &nbsp;&nbsp; <input
-			type="button" id="chattingWrite" class="btn btn-success mr-30"
+			style="width: 50%; height: 10%; padding: 5px 5px; margin-bottom:20px;" onkeyup="enterKey();"
+			name="chattingContent" autofocus="autofocus"> &nbsp;&nbsp;
+			
+		<input type="button" id="chattingWrite" class="btn btn-success mr-30"
 			value="Enter" style="padding: 1px;">
-		<!-- </form> -->
 	</div>
-	<!-- <script>
-		onclick="chattingWrite();"
-			function chattingWrite(){
-				var chattingContent = $("#chattingContent").val();
-				window.location = 'chatting?chattingContent=' + chattingContent;
-			}
-		</script> -->
+</body>
+<script>
 
-
-<script type="text/javascript">
 $("#chattingWrite").on("click", function(){
 	var chattingContent = $('#chattingContent').val();
+	
 	$.ajax({
 		type:'POST',
 		url:'chattingContent',
@@ -114,5 +156,7 @@ $("#chattingWrite").on("click", function(){
 		
 	});
 });
+
+
 </script>
 </html>
