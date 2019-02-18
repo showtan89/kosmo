@@ -165,7 +165,7 @@
             <div class="col-12 col-lg-6">
                <div class="alazea-video-area bg-overlay mb-100">
                   <img src="resources/img/bg-img/lovelyz.jpg" alt=""> <a
-                     href="https://www.youtube.com/watch?v=ZIEvVu6LECc"
+                     href="https://www.youtube.com/watch?v=eeV3xhIpcmo"
                      class="video-icon"> <i class="fa fa-play" aria-hidden="true"></i>
                   </a>
                </div>
