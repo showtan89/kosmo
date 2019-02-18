@@ -126,7 +126,7 @@
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 			style="background-image: url(resources/img/traffic/eme/amb.png);">
-			<h2>Emergency facility51719</h2>
+			<h2>Emergency facility</h2>
 		</div>
 	</div>
 	<!-- ##### Breadcrumb Area End ##### -->
@@ -205,7 +205,7 @@
 					var tel = hosdata.tel;
 					
 					var contentString = [
-				        '<div class="iw_inner">',
+				        '<div class="iw_inner" style="padding: 10px;">',
 				        '   <h3>' + name + '</h3>',
 				        '   <p>' + add + '<br />',
 				        '       <br />',
@@ -218,10 +218,9 @@
 					var infoWindow = new naver.maps.InfoWindow({
 					    content: contentString,
 					    maxWidth: 250,
-					    padding : 5,
 					    backgroundColor: "#eee",
 					    borderColor: "#2db400",
-					    borderWidth: 4,
+					    borderWidth: 2,
 					    anchorSize: new naver.maps.Size(30, 30),
 					    anchorSkew: true,
 					    anchorColor: "#eee",
