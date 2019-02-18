@@ -238,7 +238,7 @@
 								<th>Delete</th>
 							</tr>
 							<c:forEach var="mos" items="${mos}">
-								<c:if test="${sessionScope.userVO.memberId.equals(mos.messageFromId)}">
+								<c:if test="${sessionScope.userVO.memberId.equals(mos.messageSendId)}">
 								<tr>
 									<td id="messageFromIdR">${mos.messageFromId}</td>
 									<!-- align="center" -->

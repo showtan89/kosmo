@@ -56,7 +56,6 @@ function chatting() {
 						/* var chattingRegdate = new Date(this.chattingRegdate); +'('+chattingRegdate+')'*/
 						this.chattingMemberId
 						this.chattingRegdate
-						
 							str += 
 							'<div style="margin-left:10px;">'+
 							'<p>'+ this.chattingMemberId+' : ' + this.chattingContent 
@@ -70,7 +69,7 @@ function chatting() {
 					}		
 				);
 				$('#chattingList').html(str);
-				
+				chattingScroll();
 			}); }
 	}
 	
@@ -120,7 +119,7 @@ $("#chattingView").load(function(){ chattingScroll(); });
 			strDate
 		<br>
 		</div>
-		
+</div>
 <hr><br>
 	<div align="center" id="write">
 		<input type="text" id="chattingContent" maxlength="300"
@@ -129,10 +128,7 @@ $("#chattingView").load(function(){ chattingScroll(); });
 			
 		<input type="button" id="chattingWrite" class="btn btn-success mr-30"
 			value="Enter" style="padding: 1px;">
-		
 	</div>
-</div>	
-	
 </body>
 <script>
 
@@ -149,7 +145,6 @@ $("#chattingWrite").on("click", function(){
 		dataType:"JSON",
 		data:JSON.stringify({chattingContent:chattingContent}), 
 		success:function(result){
-				
 				chatting();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
 				emptychattingContent();//댓글 입력창 초기화
 			},
