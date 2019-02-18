@@ -40,7 +40,7 @@ public class BoardController {
 	@RequestMapping("test")
 	public String test() throws Exception {
 		logger.info("test 로딩 중....");
-		return "test";
+		return "traffic/test";
 	}
 	
 	@RequestMapping("imagesupload")

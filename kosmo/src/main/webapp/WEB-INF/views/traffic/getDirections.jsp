@@ -116,7 +116,9 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		var startx, starty, endx2, endy2;
 		var marker = new naver.maps.Marker;
 		var marker2 = new naver.maps.Marker;
-
+		
+		var nStartArray = new Array();
+		var nEndArray = new Array();
 		// 지도생성
 
 		function initGeocoder() {
@@ -128,6 +130,9 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 			var address3 = document.getElementById("ehddnr2").value;
 			searchAddressToCoordinate2(address3);
 		}
+		
+		naver.maps.onJSContentLoaded = initGeocoder;
+		naver.maps.onJSContentLoaded = initGeocoder2;
 		
 		// result by latlng coordinate
 		function searchAddressToCoordinate(address) {
@@ -153,6 +158,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 								document.getElementById("y1").value = starty;
 								
 								var start = new naver.maps.Point(startx, starty);
+								nStartArray.push(new naver.maps.Point(startx,starty));
 								map.setCenter(start);
 								marker = new naver.maps.Marker({
 									position : new naver.maps.Point(startx,
@@ -161,10 +167,6 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 								});
 							});
 		}
-		
-		naver.maps.onJSContentLoaded = initGeocoder;
-		naver.maps.onJSContentLoaded = initGeocoder2;
-		
 
 		function searchAddressToCoordinate2(address) {
 			marker2.setMap(null);
@@ -188,6 +190,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 						document.getElementById("y2").value = endy2;
 
 						var end = new naver.maps.Point(endx2, endy2);
+						nEndArray.push(new naver.maps.Point(endx2, endy2));
 						map.setCenter(end);
 
 						marker2 = new naver.maps.Marker({
@@ -199,16 +202,14 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		}
 		
 		
-		
 		$(document).on('keydown', function(e) {
 		    if (e.which === 27) {  // ESC 키
 		        polyline.setMap(null);
 		        polyline = null;
-
+		       
 		        // marker 의 목록을 순회하면서 setMap(null) 호출하여 제거
 		    }
 		});
-		/* 네이버 지도 열기 종료 */
 		var mapObjArray = new Array();
 		
 		
@@ -266,12 +267,25 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 								var c_num = 0;
 								str = '<ul style="padding:10px;width:100%;" >';
 								for (var i = 0; i < path.length; i++) {
-									
 									var info = path[i].info;
 									var subPath = path[i].subPath;
 									var a = parseInt(info.totalTime / 60);
 									var b = parseInt(info.totalTime % 60);
 									var totalDistance = 0;
+									
+									 for(var np = 0; np<subPath.length;np++){
+										if(subPath[np].trafficType==1 || subPath[np].trafficType==2 ){
+											if(np==(subPath.length-2)){
+												var passStop = subPath[np].passStopList;
+												var stat = passStop.stations; 	
+												 nEndArray.push(new naver.maps.Point(stat[(stat.length-1)].x,stat[(stat.length-1)].y));
+											} else if(nStartArray[(i+1)] == null){
+												var passStop = subPath[np].passStopList;
+												var stat = passStop.stations; 
+												nStartArray.push(new naver.maps.Point(stat[0].x,stat[0].y));
+											}  
+										}
+									}   
 									mapObjArray[i] = info.mapObj;
 									if (info.totalDistance > 1000) {
 										totalDistance = parseInt(info.totalDistance / 1000);
@@ -309,6 +323,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 												oldnum += oldnum + 1;
 											}
 										}
+										
 										for (var j = 0; j < subPath.length; j++) {
 											if (subPath[j].trafficType == 2) {
 												var lane = subPath[j].lane;
@@ -672,7 +687,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		}
 		/* 노선그래픽 데이터 호출 종료 */
 		
-		var polyline=null;
+	
 		
 		
 		// 상세보기 클릭시 폴리레인 다시 표시
@@ -682,9 +697,25 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		
 		// 노선그래픽 데이터를 이용하여 지도위 폴리라인 그려주는 함수
 		var oldlineArray = new Array();
+		var polyline=null;
+		var polyline2 = null;
+		var polyline3 = null;
+		var PoNum = 1;
 		
+		
+		function gidokilsearch(mapobjnum){
+			polyline.setMap(null);
+			polyline2.setMap(null);
+			polyline3.setMap(null);
+			var nym = parseInt(mapobjnum+1);
+			PoNum = nym;
+			var mapnameObj = mapObjArray[mapobjnum];
+			callMapObjApiAJAX(mapnameObj);
+			
+		} 
 		
 		function drawNaverPolyLine(data) {
+			
 			var lineArray;
 			lineArray = null;
 			lineArray = new Array();
@@ -694,26 +725,35 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 						lineArray.push(new naver.maps.LatLng(
 								data.result.lane[i].section[j].graphPos[k].y,
 								data.result.lane[i].section[j].graphPos[k].x));
-						oldlineArray.push(new naver.maps.LatLng(
-								data.result.lane[i].section[j].graphPos[k].y,
-								data.result.lane[i].section[j].graphPos[k].x));
 					}
 					
 				}
 			}
-				polyline = new naver.maps.Polyline({
+					polyline = new naver.maps.Polyline({
 					map : map,
 					path : lineArray, 
 					strokeWeight : 3,
 					strokeColor : '#003499'
 				});
+					polyline2 = new naver.maps.Polyline({
+						map : map,
+						path : [nStartArray[0],nStartArray[PoNum]], 
+						strokeWeight : 3,
+						strokeStyle : 'shortdash',
+						strokeColor : '#003499'
+					});
+					polyline3 = new naver.maps.Polyline({
+						map : map,
+						path : [nEndArray[0],nEndArray[PoNum]], 
+						strokeWeight : 3,
+						strokeStyle : 'shortdash',
+						strokeColor : '#003499'
+					});
+					
 		}
 		
-		function gidokilsearch(mapobjnum){
-			polyline.setMap(null);
-			var mapnameObj = mapObjArray[mapobjnum];
-			callMapObjApiAJAX(mapnameObj);
-		} 
+		
+	
 		
 		
 		
@@ -731,8 +771,6 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 			$(style2).css('display', 'none');
 			$(Detailid).css('display', 'none');
 		}
-		
-		
 	</script>
 	
 </body>
