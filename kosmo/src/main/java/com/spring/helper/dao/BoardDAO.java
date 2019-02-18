@@ -7,6 +7,7 @@ import java.util.Map;
 import com.spring.helper.vo.BoardVO.ChattingAllVO;
 import com.spring.helper.vo.BoardVO.ChattingVO;
 import com.spring.helper.vo.BoardVO.CommentAlarmVO;
+import com.spring.helper.vo.BoardVO.FromMessageVO;
 import com.spring.helper.vo.BoardVO.HospitalVO;
 import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.MessageAlarmVO;
@@ -91,15 +92,18 @@ public interface BoardDAO {
 
 	// 쪽지 리스트
 	public List<MessageVO> messageReadList(Map<String, Object> map);
-
+	
 	// 채팅알람 리스트
 	public List<CommentAlarmVO> commentReadList(Map<String, Object> map);
 
 	// 댓글 알람 지우기
 	public int commentDelete (int commentnumber);
 
-	// 채팅 알람 지우기
-	public int messageDelete (int messagenumber);
+	// 받은 쪽지  지우기
+	public int messageDelete (int messageNumber);
+	
+	// 보낸 쪽지 지우기
+	public int fMessageDelete (int fMessageNumber);
 
 	// ajax 알람 갯수 
 	public int commentAlarmCnt(String memEmail);
@@ -108,6 +112,12 @@ public interface BoardDAO {
 
 	// 쪽지 보내기
 	public int sendMessage(Map<String, Object> map);
+	
+	// 보낸 쪽지 갯수
+	public int messageSendListCnt(String memberId);
+	
+	// 보낸 쪽지 리스트
+	public List<FromMessageVO> messageSendList(Map<String, Object> map);
 	
 	// 채팅 글뿌리기
 	public List<ChattingVO> chatting(String chattingContry);
@@ -138,6 +148,9 @@ public interface BoardDAO {
 
 	// 게시글 상세 페이지, 수정을 위한 상세페이지
 	public onedayclassVO onedayclassGetArticle(int onedayclassNumber);
+	
+	// 종료여부 메퍼에서 확인해서 리턴
+	public int onedayclassEndCheck(int onedayclassNumber);
 
 	// 게시글 수정 처리
 	public int onedayclassModifyUpdate(onedayclassVO vo);
@@ -165,7 +178,13 @@ public interface BoardDAO {
 	public int updateComment(oCommentVO vo);
 	
 	// 댓글 삭제
-	/*public void deleteComment(oCommentVO vo);*/
+	/*public void deleteComment(int oCommentNumber);*/
+	
+	// 댓글 삭제
+	public Integer deleteComment(int oCommentNumber);
+	
+	// 인원 수 변경
+	public int peopleUpdate(onedayclassVO vo);
 
 	// 진호 메소드 종료--------------------------------------
 
@@ -174,6 +193,9 @@ public interface BoardDAO {
 	
 	public int emergencyCnt();
 	// 대호 종료 ============================================
+	
+	
+
 
 
 }

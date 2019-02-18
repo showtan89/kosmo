@@ -50,7 +50,7 @@
   margin-top:10%;
   padding: 20px;
   border: 1px solid #888;
-  width: 70%;
+  width: 100%;
   max-width:1080px;
   max-height:600px;
   overflow-y: auto;

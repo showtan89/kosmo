@@ -1,25 +1,21 @@
 package com.spring.helper.service;
 
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-
-
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.dao.UtilDAO;
 import com.spring.helper.method.vision.GoogleVision;
+import com.spring.helper.vo.jsonVO.weather.EarthQuakeVO;
 
 @Service
 public class UtilServiceImpl implements UtilService {
@@ -34,7 +30,7 @@ public class UtilServiceImpl implements UtilService {
 	//재영 서비스 시작
 	
 	//이미지 검색 ----------- 이미지 업로드 부분이라 경로 통일이 필요함   - URL 방식 
-	public Map<String,Object> imageSearchURLPro(MultipartHttpServletRequest req, Model model) throws Exception {
+	public Map<String,Object> imageSearchURLPro(MultipartHttpServletRequest req) throws Exception {
 		logger.info("URL 검색");
 		String urlPath ="";
 		//이미지가 업로드 되는 실제 위치 경로 구하기 (깃 working tree 경로)
@@ -53,7 +49,7 @@ public class UtilServiceImpl implements UtilService {
 		return result;
 	}
 	//이미지 검색 -- 로컬 검색
-	public Map<String,Object> imageSearchLocalPro(MultipartHttpServletRequest req, Model model) throws Exception {
+	public Map<String,Object> imageSearchLocalPro(MultipartHttpServletRequest req) throws Exception {
 		logger.info("Local 검색");
 		//이미지가 업로드 되는 실제 위치 경로 구하기 (깃 working tree 경로) - 로컬 경로
 		String[] imgArray = gv.imgUploader(req);
@@ -81,6 +77,16 @@ public class UtilServiceImpl implements UtilService {
 		result.put("imgName", imgName);
 		result.put("type", searchType);
 		return result;
+	}
+	
+	//지진 정보 가져오기 
+	public EarthQuakeVO earthQuakeView(HttpServletRequest req) throws Exception{
+		if(req.getParameter("tmSeq") !=null) {
+			int tmSeq = Integer.parseInt(req.getParameter("tmSeq"));
+			return utilDAO.selectEarthQuake(tmSeq);
+		}else {
+			return utilDAO.selectEarthQuake();
+		}
 	}
 	
 	//재영 서비스 끝

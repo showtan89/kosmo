@@ -93,7 +93,6 @@ setInterval("chatting();", 6000);//원래 2000, 개발중  60000, 시연때 2000
 <script type="text/javascript">
 $("#chattingWrite").on("click", function(){
 	var chattingContent = $('#chattingContent').val();
-	/* alert(chattingContent); */
 	$.ajax({
 		type:'POST',
 		url:'chattingContent',

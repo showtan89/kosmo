@@ -58,6 +58,15 @@
 	</div>
 </div>
 
+<!-- <script type="text/javascript">
+var curDate = new Date();
+
+var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" 
++ curDate.getDate() + " " + curDate.getHours() + ":" 
++ curDate.getMinutes() + ":" + curDate.getSeconds();
+
+</script> -->
+
 	<section class="about-us-area">
         <div class="container">
             <div class="row">
@@ -168,7 +177,7 @@
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconRecruitment.jpeg" style="width:100px">
-                                 <h5>누적인원</h5>
+                                 <h5>참여인원</h5>
                                  <p>${dto.onedayclassTotalpeople}</p>
                              </div>
                          </div>
@@ -196,50 +205,20 @@
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconMoney.jpeg" style="width:110px">
                                  <h5>종료여부</h5>
-                                 <p>${dto.onedayclassEndCheck}</p>
+									<c:choose>
+									  <c:when test="${endDate gt 0}">
+									        ${endDate} 일 전
+									  </c:when>
+									  <c:when test="${endDate eq 0}">
+									     	마지막날
+									  </c:when>
+									  <c:otherwise>
+									     	종료
+									  </c:otherwise>
+									</c:choose>
                              </div>
                          </div>
-<!-- public void setKnowledgeRegdate(Timestamp knowledgeRegdate) {
-         Date today = new Date();
-       String date = new SimpleDateFormat("yyyy-MM-dd").format(today);
-       String time = new SimpleDateFormat("HH:mm:ss").format(today);
-       String test = new SimpleDateFormat("yyyy-MM-dd").format(knowledgeRegdate);
-       String test2 = new SimpleDateFormat("HH:mm:ss").format(knowledgeRegdate);
-         String to1 = time.substring(0,2);
-         String to2 = time.substring(3,5);
-         String to3 = time.substring(6);
-         
-         String te1 = test2.substring(0,2);
-         String te2 = test2.substring(3,5);
-         String te3 = test2.substring(6); 
-         System.out.println(to1+" "+to2+" "+to3);
-         System.out.println(te1+" "+te2+" "+te3);
-      if(test.equals(date)) {
-         if(to1.equals(te1)) {
-            System.out.println("2");
-            if(to2.equals(te2)) {
-               int c = Integer.parseInt(to3);
-               int d = Integer.parseInt(te3);
-               int sub = c-d;
-               test = "방금";
-            } else {
-               int c = Integer.parseInt(to2);
-               int d = Integer.parseInt(te2);
-               int sub = c-d;
-               test = String.valueOf(sub)+" 분 전";
-            }
-         } else {
-            int c = Integer.parseInt(to1);
-            int d = Integer.parseInt(te1);
-            int sub = c-d;
-            test = String.valueOf(sub)+" 시간 전";
-         }
-      } else {
-         test = new SimpleDateFormat("yyyy-MM-dd").format(knowledgeRegdate);
-      }
-       
-      this.knowledgeRegdate = test;
-   } -->
+
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
@@ -254,7 +233,15 @@
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconLocation.jpeg" style="width:100px">
                                  <h5>예약</h5>
-                                 <p>${dto.onedayclassReservation}</p>
+                                 <%-- <p>${dto.onedayclassReservation}</p> --%>
+                                 <fmt:parseNumber value = "${dto.onedayclassRecruitment}" var = "Recruitment" />
+	                             <c:if test="${Recruitment - dto.onedayclassTotalpeople ge 0}">
+                                 	<c:if test="${dto.onedayclassDeadlineCheck ne '마감'}">
+                                 		<c:if test="${endDate gt 0}">
+                                 			<button type="button" class="btn btn-primary" id="reservationFunction" onClick="reservationFunction();">Reservation</button>	
+                                 		</c:if>
+                                 	</c:if>
+                                 </c:if>
                              </div>
                          </div>
 
@@ -271,7 +258,6 @@
              </div>
          </div>
     </section>
-
 
 
 <c:if test="${userVO.memberId eq dto.memberId}">
@@ -345,9 +331,41 @@
 
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
 <!-- ##### Footer Area End ##### -->
+
+
 <script type="text/javascript">
 
+/* 예약 */
+function reservationFunction() {
+	var onedayclassTotalpeople = "${dto.onedayclassTotalpeople}";
+	var onedayclassRecruitment = "${dto.onedayclassRecruitment}";
+	var onedayclassNumber = "${dto.onedayclassNumber}";
+	
+	$.ajax({
+		type : "PUT",
+		url : "peopleUpdate",
+		data: JSON.stringify({
+			onedayclassTotalpeople : onedayclassTotalpeople,
+			onedayclassRecruitment : onedayclassRecruitment,
+			onedayclassNumber : onedayclassNumber
+		}),
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		success: function(result) {
+			if(result == 1) {
+				alert('전송에 성공했습니다.');
+			} else if(result == 0) {
+				alert('내용을 정확히 입력하세요');
+			} else {
+				alert('데이터베이스 오류가 발생했습니다.');
+			}
+		}
+	});
+}
 
+/* 댓글 추가 */
 function submitFunction() {
 	var oCommentNumber = "${oCommentNumber}";
 	var onedayclassNumber = "${dto.onedayclassNumber}";
@@ -384,11 +402,10 @@ function submitFunction() {
 	$('#oCommentContent').val('');
 	setTimeout(function(){
 		getoCommentList();
-    }, 4000);
+    }, 3000);
 }
 
 /* 댓글 목록을 출력할 영역 */
-/* var oComm = ""; */
 function getoCommentList() {
 	/* alert("댓글떳2222음!!!!!!!") */
 	 $.ajax({
@@ -408,7 +425,11 @@ function getoCommentList() {
 				if("${userVO.memberId}" == result[i].memberId){
 					var oComm = result[i].oCommentNumber;
 					output += "<td><input type='button' value='Modify' onclick='updateOpen("+oComm+")'></td>";
-				}				
+				}
+				if("${userVO.memberId}" == result[i].memberId){
+					var oComm = result[i].oCommentNumber;
+					output += "<td><input type='button' value='Delete' onclick='deleteOpen("+oComm+")'></td>";
+				}	
 				output += "</tr>";
 			}
 			output += "</table>";
@@ -420,47 +441,68 @@ function getoCommentList() {
 	})
 }
 
+/* 날짜 포맷 바꾸는 함수 */
+function changeDate(date) {
+	date = new Date(parseInt(date));
+	year = date.getFullYear();
+	month = date.getMonth();
+	day = date.getDate();
+	strDate = year+ "-" +month+ "-" +day;
+	return strDate;
+	}
+
 /* 댓글 수정창 */
-function updateOpen(data){
+function updateOpen(data2){
 	/* alert("진짜넘어온다.." + oComm); */
 	window.name = "parentForm";  // 부모창 이름
-	window.open("readOneComment?oCommentNumber=" + data,
+	window.open("readOneComment?oCommentNumber=" + data2,
 				"childForm", "width=570, height=350, resizable = no, scrollbars = no");// 자식창 이름
 	
 }
 
-/* function getoCommentListOne() {
-	 $.ajax({
-		type: "get",
-		contentType: "application/json",
-		url:"list_json?oCommentNumber=${vo.oCommentNumber}",
-		success:function(result){
-			console.log(result);
-			
-			var output="<table>";
-			output += "<tr>";
-			output += "<td>"+result.oCommentNumber + "</td>";
-			output += "<td>"+result.memberId + "</td>";
-			output += "<td>"+changeDate(result.oCommentRegdate) + "</td>";
-			output += "<td>"+result.oCommentContent + "</td>";			
-			output += "</tr>";
-			output += "</table>";
-			console.log(output);
-			 $("#getoCommentListOne").html(output); 
-		}
-	}); 
-} */
-
-/* window.self.close(); */
-
-function changeDate(date) {
-date = new Date(parseInt(date));
-year = date.getFullYear();
-month = date.getMonth();
-day = date.getDate();
-strDate = year+ "-" +month+ "-" +day;
-return strDate;
+/* 댓글 삭제 확인창 */
+function deleteOpen(data2) {
+	var msg = confirm("댓글을 삭제합니다.");
+	if(msg == true) {//확인을 누를경우
+		deleteComment(data2);	
+	}
+	else {
+		return false; //삭제취소
+	}
 }
+
+
+
+/* 댓글 삭제 */
+function deleteComment(data2){
+	var oCommentNumber = data2;
+	/* alert("삭제값 넘어오나?" + data2); */
+	$.ajax({
+		type : "PUT",
+		url: "deleteComment",
+		data: JSON.stringify({
+			oCommentNumber: oCommentNumber,
+		}),
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		success: function(result) {
+			if(result == 1) {
+				alert('전송에 성공했습니다.');
+			} else if(result == 0) {
+				alert('내용을 정확히 입력하세요');
+			} else {
+				alert('데이터베이스 오류가 발생했습니다.');
+			}
+		}
+	});
+	setTimeout(function(){
+		getoCommentList();
+    }, 4000);
+}
+
+
 
 $(function(){
 	/* alert("댓글떳음!!!!!!!") */

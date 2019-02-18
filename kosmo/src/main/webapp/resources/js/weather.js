@@ -3,11 +3,14 @@ var count;
 
 function getWeatherData() {
 	var searchType = $("#searchType").val();
-	var url = "weatherRadarSearch";
 	if(searchType == 'Select Type'){
 		return false;
 	}else{
+		var preloader = '<div class="preloader trans-preloader d-flex align-items-center justify-content-center"><div class="preloader-circle"></div><div class="preloader-img"><img src="resources/img/core-img/leaf.png" alt=""></div></div>';
+		$('#imageResult').html(preloader); 
+		
 		if(searchType == "radar"){
+			var url = "weatherRadarSearch";
 			$.getJSON(url, function(data) {
 				console.log(data);
 				var resultMsg = data.response.header.resultMsg;
@@ -25,10 +28,35 @@ function getWeatherData() {
 					$("#buttonArea").html(buttonStr);
 				}
 			});
+		}else if(searchType == "earth"){
+			var url = "earthQuakeView";
+			$.getJSON(url, function(data) {
+				console.log(data);
+				var fcTp;
+				switch(data.fcTp){
+					case 2 : fcTp = 'Overseas Earthquake Info';
+						break;
+					case 3 : fcTp = "Domestic Earthquake Info";
+						break;
+					case 5 : fcTp = "Domestic EQ Info Update";
+						break;
+					case 11 : fcTp = "Domestic EQ Early-warning";
+						break;
+					case 12 : fcTp = "Overseas EQ Early-warning";
+						break;
+					case 13 : fcTp = "EQ Precision Analysis";
+						break;
+					case 14 : fcTp= "Earthquake Newsflash";
+						break;	
+				}
+				var str = '<table class="table"><tr><td colspan="4"><img src="'+data.img+'"></td></tr><tr><td>Notification type</td><td>'+fcTp+'</td><td>Intensity</td><td>'+data.mt+'</td></tr><tr><td>Location</td><td colspan="3">'+data.loc+'</td></tr><tr><td>Cause</td><td colspan="3">'+data.rem+'</td></tr><tr><td>Date of occurrence</td><td>'+data.tmEqk+'</td><td>Notification date</td><td>'+data.tmFc+'</td></tr></table>'
+				$("#imageResult").html(str);
+			});
 		}
 	}
 }
 
+//이미지 순차 재생용
 Array.prototype.delayedForEach = function(callback, timeout, thisArg){
 	  var i = 0,
 	    l = this.length,
@@ -39,10 +67,11 @@ Array.prototype.delayedForEach = function(callback, timeout, thisArg){
 	    };
 	  caller();
 	};
+	
 //이미지 재생
 function playImage() {
 	items.delayedForEach(function(img){
 		$("#sourceImage").attr("src",img);
-		console.log(""+img);
+		console.log("11"+img);
 		}, 50);
 }

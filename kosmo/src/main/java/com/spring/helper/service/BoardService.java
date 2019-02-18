@@ -15,6 +15,7 @@ import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
+import com.spring.helper.vo.BoardVO.onedayclassVO;
 
 public interface BoardService {
 
@@ -82,14 +83,22 @@ public interface BoardService {
 	// 댓글 알람 지우기
 	public void commentAlarmDelete(HttpServletRequest req, Model model);
 
-	// 채팅알람 지우기
+	//받은 쪽지 지우기
 	public void messageDelete(HttpServletRequest req, Model model);
-
+	
+	// 보낸쪽지 삭제
+	public void fMessageDelete(HttpServletRequest req, Model model);
 	//ajax 댓글 알람
 	public Integer alarmServiceCnt(HttpServletRequest req);
 	
 	// 쪽지 보내기
 	public Integer sendMessage(HttpServletRequest req, Model model);
+	
+	// 보낸 쪽지 보기
+	public void messageSendList(HttpServletRequest req, Model model);
+	
+	
+	
 	
 	// 채팅 글뿌리기
 	public List<ChattingVO> chatting(HttpServletRequest req, Model model);
@@ -143,14 +152,20 @@ public interface BoardService {
 	public int updateComment(oCommentVO vo);
 	
 	// 댓글 삭제
-	/*public void deleteComment(oCommentVO vo);*/
+	/*public void deleteComment(HttpServletRequest req, Model model);*/
+	
+	// 댓글 삭제
+	public Integer deleteComment(int oCommentNumber);
+	
+	// 인원 수 변경
+	public int peopleUpdate(onedayclassVO vo);
 
 	//진호 끝-----------------------------------------------------------
 
 	// 대호 시작 =================
 
-	public void emergency(HttpServletRequest req, Model model) throws Exception;
 
+	public void emergency(HttpServletRequest req, Model model) throws Exception;
 	
 
 	// 대호 끝 ==================

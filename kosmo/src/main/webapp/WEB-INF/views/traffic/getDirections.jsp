@@ -119,6 +119,16 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 
 		// 지도생성
 
+		function initGeocoder() {
+			var address2 = document.getElementById("ehddnr").value;
+			searchAddressToCoordinate(address2);
+		}
+		
+		function initGeocoder2() {
+			var address3 = document.getElementById("ehddnr2").value;
+			searchAddressToCoordinate2(address3);
+		}
+		
 		// result by latlng coordinate
 		function searchAddressToCoordinate(address) {
 			marker.setMap(null);
@@ -142,7 +152,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 								document.getElementById("x1").value = startx;
 								document.getElementById("y1").value = starty;
 								
-								var start = new naver.maps.LatLng(startx, starty);
+								var start = new naver.maps.Point(startx, starty);
 								map.setCenter(start);
 								marker = new naver.maps.Marker({
 									position : new naver.maps.Point(startx,
@@ -155,15 +165,6 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		naver.maps.onJSContentLoaded = initGeocoder;
 		naver.maps.onJSContentLoaded = initGeocoder2;
 		
-		function initGeocoder() {
-			var address2 = document.getElementById("ehddnr").value;
-			searchAddressToCoordinate(address2);
-		}
-		
-		function initGeocoder2() {
-			var address3 = document.getElementById("ehddnr2").value;
-			searchAddressToCoordinate2(address3);
-		}
 
 		function searchAddressToCoordinate2(address) {
 			marker2.setMap(null);
@@ -182,7 +183,6 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 						
 						endx2 = item.point.x;
 						endy2 = item.point.y;
-				
 						
 						document.getElementById("x2").value = endx2;
 						document.getElementById("y2").value = endy2;
