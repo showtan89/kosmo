@@ -532,9 +532,6 @@
 		]]>
 	</select>
 	
-	<!-- 보낸쪽지 삭제 -->
-	
-	
 	<!-- 채팅 글 뿌리기-->
 	<select id="chatting" resultType="com.spring.helper.vo.BoardVO.ChattingVO" parameterType="String">
 		SELECT * FROM chatting WHERE chattingcontry=#{chattingContry} ORDER BY chattingRegdate ASC
