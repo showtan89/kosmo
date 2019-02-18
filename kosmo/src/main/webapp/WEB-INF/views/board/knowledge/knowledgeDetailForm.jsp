@@ -45,7 +45,6 @@
 <!-- ##### Header Area End ##### -->
 <div class="container" style="margin-bottom: 50px; margin-top: 30px;">
 	<div style="width: 800px; margin: auto;" class="col-12 col-md-9 col-lg-10">
-
 		<!-- 동욱이 css -->
 		<link rel="stylesheet" href="resources/ehddnr.css">
 		<ul>
@@ -53,8 +52,7 @@
 				<p>
 					<img src="resources/img/knowledgeDetailForm.png"> <span>&nbsp;${dtos.knowledgeReward}&nbsp;</span>
 					<span style="font-size: 20px; font-weight: bold;">${dtos.knowledgeSubject}</span>
-					<span style="float: right;"><input type="button"
-						class="knowledgeWriteForm_button3" value="신고하기" onclick=""></span>
+					
 				</p>
 			</li>
 			<li style="max-width: 100%; word-break: break-all; margin: 0 0 20px 0;">
@@ -62,24 +60,24 @@
 			<li><c:if test="${dtos.knowledgeOpenCheck=='Y'}">
 					<span style="margin-right: 50px;">${dtos.memberId}</span>
 				</c:if> <c:if test="${dto.sknowledgeOpenCheck=='N'}">
-					<span style="margin-right: 50px;">비공개</span>
+					<span style="margin-right: 50px;">Private</span>
 				</c:if> <span >${dtos.knowledgeCategory}</span> <span
 				style="margin-left: 50px;">${dtos.knowledgeRegdate}</span></li>
 		</ul>
 	</div>
 </div>
-<div align="center" style="background-color: #c0c0c0; padding: 30px 0">
+<div align="center" style="background-color: #c0c0c0; padding: 30px 0" >
 	<sec:authorize access="isAuthenticated()">
 	<c:if test="${emailcheck == 0 && userVO.memberId !=dtos.memberId}">
-		<div style="width: 800px; background-color: #fff;">
+		<div style="width: 800px; background-color: #fff;" class="col-12 col-md-12 col-lg-12">
 			<form action="knowledgeCommentPro" method="post"
 				name="knowledgeCommentForm"
 				onsubmit="return knowledgeCommentFormchk()">
 				<ul class="col-12 col-md-9 col-lg-10">
 					<li style="border-bottom: 1px solid black;">
-						<p align="left" style="padding: 10px 50px 0 50px;">
-							<span style="font-size: 18px;">${userVO.memberId}님,
-								답변해주세요!</span><br> <span>답변하시면 포인트 10점을 드립니다.</span>
+						<p align="left" style="padding: 10px 0 0 0;">
+							<span style="font-size: 18px;">${userVO.memberId} ,
+								Please Answer.</span><br> <span>If You Answer, I Will Give You 10 Points.</span>
 						</p>
 					</li>
 					<li style="max-width: 100%; word-break: break-all; height: 300px; margin: 0 0 0 0;">
@@ -89,19 +87,19 @@
 					<li align="center"
 						style="padding: 30px 0; border-top: 1.5px solid black;">
 						<p align="left">
-							<input style="margin-left: 30px;"
+							<input 
 								class="knowledgeDetailForm_button3" type="button"
-								value="ID 공개여부"> <input type="radio"
-								name="kCommentTemp1" value="Y" checked="checked">공개 <input
-								type="radio" name="kCommentTemp1" value="N">비공개
+								value="ID" ><input type="radio" style="margin-left:10px;"
+								name="kCommentTemp1" value="Y" checked="checked">OPEN <input
+								style="margin-left:10px;" type="radio" name="kCommentTemp1" value="N">CLOSE
 						</p> <input type="hidden" name="knowledgeNumber"
 						value="${dtos.knowledgeNumber}"> 
 						
 						<input type="hidden"
 						name="knowledgememberId" value="${dtos.memberEmail}"> <input
-						class="knowledgeDetailForm_button2" type="submit" value="답변등록">
+						class="knowledgeDetailForm_button2" type="submit" value="WRITE">
 						<input class="knowledgeDetailForm_button2" type="button"
-						value="목록보기" onclick="window.location='knowledgeBoardList'">
+						value="BACK" onclick="window.location='knowledgeBoardList'">
 					</li>
 				</ul>
 			</form>
@@ -110,18 +108,17 @@
 	</sec:authorize>
 	<sec:authorize access="isAnonymous()">
 		<div
-			style="width: 800px; height: 60px; margin: auto auto; background-color: #fff;">
+			style="width: 800px; height: 60px; margin: auto auto; background-color: #fff;" class="col-12 col-md-9 col-lg-10">
 			<ul>
 				<li style="padding: 13px 10px 0 0; display: inline-block;"><span
-					style="font-size: 20px;"> 답변하시면 포인트 10점을 드립니다.</span></li>
+					style="font-size: 20px;">If You Answer, I Will Give You 10 Points.</span></li>
 				<li style="display: inline; padding-top: 2.5px;"><input
 					class="knowledgeDetailForm_button2"
 					style="font-weight: bold; display: inline; font-size: 15px;"
-					type="button" value="답변등록" onclick="window.location='loginCheck'">
+					type="button" value="WRITE" onclick="window.location='loginCheck'">
 				</li>
 			</ul>
 		</div>
-	
 	</sec:authorize>
 
 	<c:if test="${kCommentVO != null}">
@@ -129,33 +126,32 @@
 			<!-- Ajax 넣는 곳 시작 -->
 			<c:forEach var="kc" items="${kCommentVO}">
 				<ul align="left" style="padding: 0; margin: 0">
-					<li><c:if test="${kc.kCommentTemp1=='N'}"><span>비공개</span></c:if>
+					<li><c:if test="${kc.kCommentTemp1=='N'}"><span>Private</span></c:if>
 					    <c:if test="${kc.kCommentTemp1=='Y'}"><span>${kc.memberId}</span></c:if>
 					    <c:if test="${dtos.memberId==userVO.memberId && kc.memberId!=userVO.memberId}">
 						<c:if test="${dtos.knowledgeReply != 'Y'}"><span style="float: right; margin-left: 10px;">
-						<input type="button" class="knowledgeDetailForm_button4" onclick="window.location='knowledgeSelectComent?kCommentmemberId=${kc.memberId}&knowledgeReward=${dtos.knowledgeReward}&knowledgeNumber=${kc.knowledgeNumber}';" value="채택"></span></c:if></c:if>
+						<input type="button" class="knowledgeDetailForm_button4" onclick="window.location='knowledgeSelectComent?kCommentmemberId=${kc.memberId}&knowledgeReward=${dtos.knowledgeReward}&knowledgeNumber=${kc.knowledgeNumber}';" value="Selection"></span></c:if></c:if>
 						<c:if test="${kc.memberId==userVO.memberId}"><span style="float: right; margin-left: 10px;">
-						<input type="button" class="knowledgeDetailForm_button4" onclick="window.location='kCommentdelete?kCommentNumber=${kc.kCommentNumber}&knowledgeNumber=${kc.knowledgeNumber}';" value="삭제"></span>
+						<input type="button" class="knowledgeDetailForm_button4" onclick="window.location='kCommentdelete?kCommentNumber=${kc.kCommentNumber}&knowledgeNumber=${kc.knowledgeNumber}';" value="Delete"></span>
 						<span style="float: right; margin-left: 10px;">
-						<input type="button" class="knowledgeDetailForm_button4" onclick="displayblock(${kc.kCommentNumber});" value="수정"></span></c:if></li>
+						<input type="button" class="knowledgeDetailForm_button4" onclick="displayblock(${kc.kCommentNumber});" value="Modified"></span></c:if></li>
 					<li><span>${kc.kCommentContent}</span></li>
 					<li><span>${kc.kCommentRegdate}</span></li></ul>
 				<div class="kCommentModifyUpdate" id="${kc.kCommentNumber}">
 					<form action="kCommentModifyUpdate" method="post" onsubmit="return knowledgeCommentFormchk2();">
 						<ul>
 							<li style="border-bottom: 1px solid black;">
-								<p align="left" style="padding: 10px 50px 0 50px;">
-									<span style="font-size: 18px;">${userVO.memberId}님,	수정해주세요!</span><br><span>답변하시면 포인트 10점을 드립니다.</span></p></li>
+							</li>
 							<li style="width: 100%; height: 300px; margin: 0 0 0 0;"><textarea	style="border: none; width: 100%; height: 100%; padding: 3px 10px; margin: 0; border-top: 1px solid black;"	name="kCommentContent" class="kCommentContent2">${kc.kCommentContent}</textarea></li>
 							<li align="center"	style="padding: 30px 0; border-top: 1.5px solid black;">
 								<p align="left">
-									<input style="margin-left: 30px;" class="knowledgeDetailForm_button3" type="button"	value="ID 공개여부"> 
-									<input type="radio"	name="kCommentTemp2" id="kCommentTemp2" value="Y">공개
-									<input type="radio" name="kCommentTemp2" id="kCommentTemp2"	value="N">비공개
+									<input style="margin-left: 30px;" class="knowledgeDetailForm_button3" type="button"	value="ID"> 
+									<input type="radio"	name="kCommentTemp2" id="kCommentTemp2" value="Y">OPEN
+									<input type="radio" name="kCommentTemp2" id="kCommentTemp2"	value="N">CLOSE
 									<input type="hidden" name="knowledgeNumber" value="${dtos.knowledgeNumber}">	
 									<input type="hidden" name="kCommentNumber" value="${kc.kCommentNumber}"></p>
-								 <input class="knowledgeDetailForm_button2" type="submit" value="답변수정"> 
-								 <input class="knowledgeDetailForm_button2"	type="button" value="취소"onclick="displaynone(${kc.kCommentNumber});">
+								 <input class="knowledgeDetailForm_button2" type="submit" value="Modified"> 
+								 <input class="knowledgeDetailForm_button2"	type="button" value="BACK"onclick="displaynone(${kc.kCommentNumber});">
 							</li></ul></form></div><hr style="margin:3px 0;">
 			</c:forEach>
 			<!-- Ajax 넣는 곳 종료 -->
@@ -171,7 +167,7 @@
 	function knowledgeCommentFormchk(){
 		if(!$('#kCommentContent').val()){
 			$('#kCommentContent').focus();
-			$('#kCommentContent').attr('placeholder',"내용을 입력하세요.");
+			$('#kCommentContent').attr('placeholder',"Please enter your content.");
 			$('#kCommentContent').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 			return false;
 		}	
@@ -180,12 +176,12 @@
 	function knowledgeCommentFormchk2(){
 		if(!$('.kCommentContent2').val()){
 			$('.kCommentContent2').focus();
-			$('.kCommentContent2').attr('placeholder',"내용을 입력하세요.");
+			$('.kCommentContent2').attr('placeholder',"Please enter your content.");
 			$('.kCommentContent2').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 			return false;
 		}	
 		if($(':radio[name="kCommentTemp2"]:checked').length < 1){
-		    alert('ID 공개여부를 체크해주세요.');                        
+		    alert('ID Please check if it is public.');                        
 		    return false;
 		}
 	}
@@ -236,11 +232,11 @@
 			if(!$.isNumeric(addReward)){
 				$('#addReward').focus();
 				$('#addReward').val(null);
-				$('#addReward').attr('placeholder',"숫자를 입력하세요.");
+				$('#addReward').attr('placeholder',"Please enter a number.");
 				$('#addReward').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 				return false;
 			} 
-			$('p.class_addReward').text('포인트 '+addReward+'을 채택자에게 드립니다.');
+			$('p.class_addReward').text('I will give you Point  '+addReward);
 			$('.knowledgeWriteForm_Reward').css('display', 'none');
 		}
 		

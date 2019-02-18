@@ -109,18 +109,18 @@ public class KnowledgeVO {
 					int c = Integer.parseInt(to3);
 					int d = Integer.parseInt(te3);
 					int sub = c-d;
-					test = "방금";
+					test = "Just Now";
 				} else {
 					int c = Integer.parseInt(to2);
 					int d = Integer.parseInt(te2);
 					int sub = c-d;
-					test = String.valueOf(sub)+" 분 전";
+					test = String.valueOf(sub)+" Minutes ago";
 				}
 			} else {
 				int c = Integer.parseInt(to1);
 				int d = Integer.parseInt(te1);
 				int sub = c-d;
-				test = String.valueOf(sub)+" 시간 전";
+				test = String.valueOf(sub)+" Hour ago";
 			}
 		} else {
 			test = new SimpleDateFormat("yyyy-MM-dd").format(knowledgeRegdate);
