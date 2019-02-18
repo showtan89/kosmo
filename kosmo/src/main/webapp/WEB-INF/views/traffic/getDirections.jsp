@@ -6,14 +6,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Emergency facility</title>
+<title>Get Directions</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
 <style>
+
 .Routeinformation p {
    margin: 0 0 3px 0;
    font-weight: bold;
 }
+
 </style>
 <script language="javascript">
 function goPopup(){

@@ -126,7 +126,7 @@
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 			style="background-image: url(resources/img/traffic/eme/amb.png);">
-			<h2>Emergency facility</h2>
+			<h2>Emergency facility51719</h2>
 		</div>
 	</div>
 	<!-- ##### Breadcrumb Area End ##### -->
@@ -165,6 +165,8 @@
 				});
 				
 				var markers = [];
+				var infoWindows = [];
+				
 				/* 
 				{ JSON 형태
 				   "num": 5696,
@@ -183,60 +185,157 @@
 					var geocoder = new daum.maps.services.Geocoder(), // 좌표계 변환 객체를 생성합니다
 					wtmX = hosdata.hosx, // 변환할 WTM X 좌표 입니다
 					wtmY = hosdata.hosy; // 변환할 WTM Y 좌표 입니다
-					var coords = new daum.maps.Coords(wtmX * 2.5, wtmY * 2.5); // wtm * 2.5 필요
+					var coords = new daum.maps.Coords(wtmX * 2.5009, wtmY * 2.50171); // wtm * 2.5 필요
 					var coordChange = coords.toLatLng(); // 변환
+					
 					var spot = data[i]
+					
 					var latlng = new naver.maps.LatLng(coordChange.getLat(), coordChange.getLng())
 					var marker = new naver.maps.Marker({
 								position : latlng,
 								draggable : false
 							});
+					
 					markers.push(marker);
+					
+					var name = hosdata.name;
+					var add = hosdata.add;
+					var type = hosdata.type;
+					var content = hosdata.content;
+					var tel = hosdata.tel;
+					
+					var contentString = [
+				        '<div class="iw_inner">',
+				        '   <h3>' + name + '</h3>',
+				        '   <p>' + add + '<br />',
+				        '       <br />',
+				        '       ' + tel + ' | ' + content + '<br />',
+				        '   </p>',
+				        '</div>'
+				    ].join('');
+					
+					
+					var infoWindow = new naver.maps.InfoWindow({
+					    content: contentString,
+					    maxWidth: 250,
+					    padding : 5,
+					    backgroundColor: "#eee",
+					    borderColor: "#2db400",
+					    borderWidth: 4,
+					    anchorSize: new naver.maps.Size(30, 30),
+					    anchorSkew: true,
+					    anchorColor: "#eee",
+					    pixelOffset: new naver.maps.Point(20, -20)
+					});
+					
+					infoWindows.push(infoWindow);
 				}
-				var htmlMarker1 = {
-					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-1.png);background-size:contain;"></div>',
-					size : N.Size(40, 40),
-					anchor : N.Point(20, 20)
-				}, htmlMarker2 = {
-					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-2.png);background-size:contain;"></div>',
-					size : N.Size(40, 40),
-					anchor : N.Point(20, 20)
-				}, htmlMarker3 = {
-					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-3.png);background-size:contain;"></div>',
-					size : N.Size(40, 40),
-					anchor : N.Point(20, 20)
-				}, htmlMarker4 = {
-					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-4.png);background-size:contain;"></div>',
-					size : N.Size(40, 40),
-					anchor : N.Point(20, 20)
-				}, htmlMarker5 = {
-					content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-5.png);background-size:contain;"></div>',
-					size : N.Size(40, 40),
-					anchor : N.Point(20, 20)
-				};
-				var markerClustering = new MarkerClustering({
-					minClusterSize : 2,
-					maxZoom : 8,
-					map : map,
-					markers : markers,
-					disableClickZoom : false,
-					gridSize : 120,
-					icons : [ htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4,
-							htmlMarker5 ],
-					indexGenerator : [ 10, 100, 200, 500, 1000 ],
-					stylingFunction : function(clusterMarker, count) {
-						$(clusterMarker.getElement()).find('div:first-child').text(
-								count);
-					}
-				});
-				console.log(map);
-				console.log(markerClustering);
-				console.log(markerClustering.markers);
-				naver.maps.Event.addListener(markerClustering, 'click', function(e) {
-				    console.log(e);
-				});
 				
-			
+				
+			naver.maps.Event.addListener(map, 'idle', function() {
+				updateMarkers(map, markers);
+			});
+
+			function updateMarkers(map, markers) {
+
+				var bounds = map.getBounds(), southWest = bounds.getSW(), northEast = bounds
+						.getNE(), lngSpan = northEast.lng() - southWest.lng(), latSpan = northEast
+						.lat()
+						- southWest.lat();
+
+				var mapBounds = map.getBounds();
+				var marker, position;
+
+				for (var i = 0; i < markers.length; i++) {
+
+					marker = markers[i]
+					position = marker.getPosition();
+
+					if (mapBounds.hasLatLng(position)) {
+						showMarker(map, marker);
+					} else {
+						hideMarker(map, marker);
+					}
+				}
+			}
+
+			function showMarker(map, marker) {
+
+				if (marker.setMap())
+					return;
+				marker.setMap(map);
+			}
+
+			function hideMarker(map, marker) {
+
+				if (!marker.setMap())
+					return;
+				marker.setMap(null);
+			}
+
+			function getClickHandler(seq) {
+				return function(e) {
+					var marker = markers[seq], infoWindow = infoWindows[seq];
+
+					if (infoWindow.getMap()) {
+						infoWindow.close();
+					} else {
+						infoWindow.open(map, marker);
+					}
+				}
+			}
+
+			for (var i = 0, ii = markers.length; i < ii; i++) {
+				naver.maps.Event.addListener(markers[i], 'click',
+						getClickHandler(i));
+			}
+
+			var htmlMarker1 = {
+				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-1.png);background-size:contain;"></div>',
+				size : N.Size(40, 40),
+				anchor : N.Point(20, 20)
+			}, htmlMarker2 = {
+				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-2.png);background-size:contain;"></div>',
+				size : N.Size(40, 40),
+				anchor : N.Point(20, 20)
+			}, htmlMarker3 = {
+				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-3.png);background-size:contain;"></div>',
+				size : N.Size(40, 40),
+				anchor : N.Point(20, 20)
+			}, htmlMarker4 = {
+				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-4.png);background-size:contain;"></div>',
+				size : N.Size(40, 40),
+				anchor : N.Point(20, 20)
+			}, htmlMarker5 = {
+				content : '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(${mapImg}cluster-marker-5.png);background-size:contain;"></div>',
+				size : N.Size(40, 40),
+				anchor : N.Point(20, 20)
+			};
+
+			var markerClustering = new MarkerClustering({
+				minClusterSize : 2,
+				maxZoom : 8,
+				map : map,
+				markers : markers,
+				disableClickZoom : false,
+				gridSize : 120,
+				icons : [ htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4,
+						htmlMarker5 ],
+				indexGenerator : [ 10, 100, 200, 500, 1000 ],
+				stylingFunction : function(clusterMarker, count) {
+					$(clusterMarker.getElement()).find('div:first-child').text(
+							count);
+				}
+			});
+
+			console.log(map);
+			console.log(markerClustering);
+			console.log(markerClustering.markers);
+			naver.maps.Event.addListener(markerClustering, 'click',
+					function(e) {
+						console.log(e);
+					});
+
 			/* var infowindow = new naver.maps.InfoWindow();
 			
 			function onSuccessGeolocation(position) {
@@ -255,9 +354,6 @@
 			    infowindow.open(map, center);
 			}
 			 */
-			
-			
-		
 		</script>
 		<!-- 재영 끝-->
 
