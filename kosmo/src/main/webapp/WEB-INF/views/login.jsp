@@ -45,7 +45,7 @@
   width: 200px; /* Could be more or less, depending on screen size */
 }
 
-/* The Close Button */
+/* The Close Button */ 
 .close {
   color: #aaa;
   float: right;

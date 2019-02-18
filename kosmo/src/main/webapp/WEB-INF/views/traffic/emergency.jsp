@@ -154,12 +154,9 @@
 		<script>
 		
 		
-		if (navigator.geolocation) { // GPS를 지원하면
-		    navigator.geolocation.getCurrentPosition(function(position) {
-		    	
 				var map = new naver.maps.Map("map", {
 					zoom : 11,
-					center : new naver.maps.LatLng(position.coords.latitude, position.coords.longitude),
+					center : new naver.maps.LatLng(37.475382, 126.880625),
 					zoomControl : true,
 					zoomControlOptions : {
 						position : naver.maps.Position.TOP_LEFT,
@@ -239,13 +236,6 @@
 				    console.log(e);
 				});
 				
-		    });
-		    
-		} else {
-				
-			alert("에러");
-	
-		}
 			
 			/* var infowindow = new naver.maps.InfoWindow();
 			
