@@ -15,6 +15,7 @@ import com.spring.helper.vo.BoardVO.CommentAlarmVO;
 import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
+import com.spring.helper.vo.BoardVO.onedayclassVO;
 
 public interface BoardService {
 
@@ -151,14 +152,20 @@ public interface BoardService {
 	public int updateComment(oCommentVO vo);
 	
 	// 댓글 삭제
-	/*public void deleteComment(oCommentVO vo);*/
+	/*public void deleteComment(HttpServletRequest req, Model model);*/
+	
+	// 댓글 삭제
+	public Integer deleteComment(int oCommentNumber);
+	
+	// 인원 수 변경
+	public int peopleUpdate(onedayclassVO vo);
 
 	//진호 끝-----------------------------------------------------------
 
 	// 대호 시작 =================
 
-	public void emergency(HttpServletRequest req, Model model) throws Exception;
 
+	public void emergency(HttpServletRequest req, Model model) throws Exception;
 	
 
 	// 대호 끝 ==================

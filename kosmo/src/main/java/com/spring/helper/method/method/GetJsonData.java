@@ -5,7 +5,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -41,11 +42,11 @@ public class GetJsonData {
 	}
 	
 	//지진 정보 얻기
-	public JSONObject getQuakeInfo() throws IOException, ParseException, URISyntaxException {
+	public JSONObject getQuakeInfo() throws IOException, ParseException, URISyntaxException, java.text.ParseException {
 		Calendar calendar = Calendar.getInstance();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		String date = dateFormat.format(calendar.getTime());
-		//String date = "20190213";
+		//String date = "20190216";
 		String url = "http://newsky2.kma.go.kr/service/ErthqkInfoService/EarthquakeReport?numOfRows=1&pageNo=1&serviceKey="+enKey+"&fromTmFc="+date+"&toTmFc="+date;
 		RestTemplate restTemplate = new RestTemplate();
 		URI uri = new URI(url);
@@ -67,16 +68,28 @@ public class GetJsonData {
 			    String loc = item.getString("loc"); // varchar2(200), --위치
 			    String mt = String.valueOf(item.getDouble("mt")); // varchar2(20), -- 크기
 			    String rem = item.getString("rem"); //varchar2(200), --분석내용
-			    String tmEqk = String.valueOf(item.getBigDecimal("tmEqk")); // number, --발생시간
-			    String tmFc = String.valueOf(item.getBigDecimal("tmFc")); // number, -- 발표시간
+			    String tempTmEqk = String.valueOf(item.getBigDecimal("tmEqk")); // number, --발생시간
+			    String tempTmFc = String.valueOf(item.getBigDecimal("tmFc")); // number, -- 발표시간
+			    SimpleDateFormat originalFormat1 = new SimpleDateFormat("yyyyMMddHHmmss"); //20190218053310
+			    Date date1 = originalFormat1.parse(tempTmEqk.toString());
+			    SimpleDateFormat newFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			    String tmEqk = newFormat1.format(date1);
+			    SimpleDateFormat originalFormat2 = new SimpleDateFormat("yyyyMMddHHmm");//201902180536
+			    Date date2 = originalFormat2.parse(tempTmFc.toString());
+			    SimpleDateFormat newFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			    String tmFc = newFormat2.format(date2);
 			    int tmSeq = item.getInt("tmSeq"); // number --월별순번
 				EarthQuakeVO eVO = new EarthQuakeVO(0,fcTp,img,lat,lon,loc,mt,rem,tmEqk,tmFc,tmSeq);
 				int insertResult = utilDAO.insertEarthQuake(eVO);
 				System.out.println(eVO.toString());
 				if(insertResult != 0) {
 					System.out.println("earthQuake 신규 경보 등록 : "+item.getInt("tmSeq"));
-					//알람 등록하게 만들고
-					//화면에 들어가면 지진 데이터 보여주는 화면 만들기
+					List<Map<String,String>> list = utilDAO.getUserList();
+					System.out.println(list.toString());
+					System.out.println("시작");
+					utilDAO.earthQuakeAlarmSend(list);
+					utilDAO.msgSequenceChange(list.size());
+					System.out.println("종료");
 				}
 			}else {
 				System.out.println("earthQuake 신규 등록 취소 : "+item.getInt("tmSeq"));

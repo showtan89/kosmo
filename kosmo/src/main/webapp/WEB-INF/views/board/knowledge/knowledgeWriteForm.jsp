@@ -50,12 +50,12 @@
 	function onsubmitcheck(){
 		if(!$('#knowledgeSubject').val()){
 			$('#knowledgeSubject').focus();
-			$('#knowledgeSubject').attr('placeholder',"제목을 입력하세요.");
+			$('#knowledgeSubject').attr('placeholder',"Please enter a title.");
 			$('#knowledgeSubject').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 			return false;
 		} else if(!$('#knowledgeContent').val()){
 			$('#knowledgeContent').focus();
-			$('#knowledgeContent').attr('placeholder',"내용을 입력하세요.");
+			$('#knowledgeContent').attr('placeholder',"Please enter your content.");
 			$('#knowledgeContent').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 			return false;
 		} 
@@ -101,25 +101,26 @@
 			$('#addReward').val('0');
 		}
 		function knowledgeWriteForm_addReward(){
-			var addReward = $('#addReward').val();
-			var point = $('#memberPoint').val();
+			var addReward = parseInt($('#addReward').val());
+			var point = parseInt($('#memberPoint').val());
 			
 			if(!$.isNumeric(addReward)){
 				$('#addReward').focus();
 				$('#addReward').val(null);
-				$('#addReward').attr('placeholder',"숫자를 입력하세요.");
+				$('#addReward').attr('placeholder',"Please enter a number.");
 				$('#addReward').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 				return false;
+				
 			} else if(addReward>point){
-				alert("보유한 포인트보다 많습니다.");
+				alert("More points than you have.");
 				$('#addReward').focus();
 				$('#addReward').val(null);
 				return false;
 			} else if(addReward != '0'){
-				$('p.class_addReward').text('포인트 '+addReward+'을 채택자에게 드립니다.');
+				$('p.class_addReward').text('I will give you Point  '+addReward);
 				$('.knowledgeWriteForm_Reward').css('display', 'none');
 			} else {
-				$('p.class_addReward').text('채택한 답변자에게 포인트를 드립니다.');
+				$('p.class_addReward').text('Please select a point.');
 				$('.knowledgeWriteForm_Reward').css('display', 'none');
 			}
 		}
@@ -127,9 +128,11 @@
 	<div style="width:800px; margin:auto;" class="col-12 col-md-9 col-lg-10">
 	<form action="knowledgeWritePro" method="post" name="knowledgeForm" onsubmit="return onsubmitcheck();">
 		<ul>
+			<li align="center">
+			<span style="font-size:40px;">QUESTION</span>
+			</li>
 			<li>
 				<p align="center">
-				 <img src="resources/img/ehddnr.gif" style="margin:0 0 10px 0;"> 
 				 <input type="text"  maxlength="100" name="knowledgeSubject" id="knowledgeSubject" style="width:100%;padding:0 5px;">
 				</p>
 			</li>
@@ -142,8 +145,7 @@
 			<li style="position: relative; display:inline;">
 					<input class="knowledgeWriteForm_button3" type="button" value="POINT OPTION"
 						onclick="knowledgeWriteForm_Reward_block();" style="display:inline-block;">
-						&nbsp;<p class="class_addReward" style="display:inline-block;">채택한
-					답변자에게 포인트를 드립니다.
+						&nbsp;<p class="class_addReward" style="display:inline-block;">Please select a point.
 				</p>
 				<div class="knowledgeWriteForm_Reward">
 					<table>

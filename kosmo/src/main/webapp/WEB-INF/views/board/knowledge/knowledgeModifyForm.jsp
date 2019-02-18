@@ -53,12 +53,12 @@
 	function onsubmitcheck(){
 		if(!$('#knowledgeSubject').val()){
 			$('#knowledgeSubject').focus();
-			$('#knowledgeSubject').attr('placeholder',"제목을 입력하세요.");
+			$('#knowledgeSubject').attr('placeholder',"Please enter a title.");
 			$('#knowledgeSubject').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 			return false;
 		} else if(!$('#knowledgeContent').val()){
 			$('#knowledgeContent').focus();
-			$('#knowledgeContent').attr('placeholder',"내용을 입력하세요.");
+			$('#knowledgeContent').attr('placeholder',"Please enter your content.");
 			$('#knowledgeContent').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 			return false;
 		} 
@@ -133,9 +133,9 @@
 				$('#knowledgeOpenCheck2').prop("checked", true);
 			}
 			if('<%=Knowledge.getKnowledgeReward()%>'!='0'){
-				$('p.class_addReward').text('포인트 '+<%=Knowledge.getKnowledgeReward()%>+'을 채택자에게 드립니다.');
+				$('p.class_addReward').text('I will give you Point  '+<%=Knowledge.getKnowledgeReward()%>);
 			} else {
-				$('p.class_addReward').text('채택한 답변자에게 포인트를 드리며, 질문자에게도 포인트의 50%(최대100점)을 돌려드립니다.');
+				$('p.class_addReward').text('Points to the selected answerer.');
 			}
 		});
 		function knowledgeWriteForm_addReward(){
@@ -143,14 +143,14 @@
 			if(!$.isNumeric(addReward)){
 				$('#addReward').focus();
 				$('#addReward').val(null);
-				$('#addReward').attr('placeholder',"숫자를 입력하세요.");
+				$('#addReward').attr('placeholder',"Please enter a number.");
 				$('#addReward').focus().fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 				return false;
 			} else if(addReward != '0'){
-				$('p.class_addReward').text('포인트 '+addReward+'을 채택자에게 드립니다.');
+				$('p.class_addReward').text('I will give you Point  '+addReward);
 				$('.knowledgeWriteForm_Reward').css('display', 'none');
 			} else {
-				$('p.class_addReward').text('채택한 답변자에게 포인트를 드리며, 질문자에게도 포인트의 50%(최대100점)을 돌려드립니다.');
+				$('p.class_addReward').text('Points to the selected answerer.');
 				$('.knowledgeWriteForm_Reward').css('display', 'none');
 			}
 		}
@@ -171,8 +171,7 @@
 			<li style="position: relative; display:inline;">
 					<input class="knowledgeWriteForm_button3" type="button" value="POINT OPTION"
 						onclick="knowledgeWriteForm_Reward_block();" style="display:inline-block;">
-						&nbsp;<p class="class_addReward" style="display:inline-block;">채택한
-					답변자에게 포인트를 드리며, 질문자에게도 포인트의 50%(최대100점)을 돌려드립니다.
+						&nbsp;<p class="class_addReward" style="display:inline-block;">
 				</p>
 				<div class="knowledgeWriteForm_Reward">
 					<table>

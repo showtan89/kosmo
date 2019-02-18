@@ -168,6 +168,13 @@
 													href="onedayclassDetailForm?onedayclassNumber=${cos.commentoriginalnumber}#${cos.commentcommentnumber}">${cos.commentsubject}</a></td>
 											</c:when>
 										</c:choose>
+										
+										<c:choose>
+											<c:when test="${code==69}">
+												<td><a
+													href="weather?type=earthquake">${cos.commentsubject}</a></td>
+											</c:when>
+										</c:choose>
 
 										<td>${cos.commentregdate}</td>
 										<td>checked</td>

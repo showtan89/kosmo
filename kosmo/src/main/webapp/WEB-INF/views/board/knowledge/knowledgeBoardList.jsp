@@ -164,11 +164,11 @@ function knowledgeDetailForm(knowledgeNumber){
 						<div style="margin: 15px 0;"class="search_by_terms">
 							<span style="float: left"><select class="btn_select custom-select d-block w-100"
 								name="btn_select" id="btn_select">
-									<option value="10" selected>10개 보기</option>
-									<option value="20">20개 보기</option>
-									<option value="30">30개 보기</option>
-									<option value="40">40개 보기</option>
-									<option value="50">50개 보기</option>
+									<option value="10" selected>10 Views</option>
+									<option value="20">20 Views</option>
+									<option value="30">30 Views</option>
+									<option value="40">40 Views</option>
+									<option value="50">50 Views</option>
 							</select></span>
 								<div class='search_by_terms' style="float:right;">
 								<button type="button" class='btn alazea-btn' onclick="knowledgeWriteForm();">QUESTION WRITE</button>

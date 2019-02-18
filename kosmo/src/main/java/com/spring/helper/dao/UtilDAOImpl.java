@@ -1,5 +1,8 @@
 package com.spring.helper.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,5 +36,17 @@ public class UtilDAOImpl implements UtilDAO{
 	
 	public EarthQuakeVO selectEarthQuake() {
 		return sqlSession.selectOne("com.spring.helper.dao.UtilDAO.selectEarthQuake");
+	}
+	
+	public List<Map<String,String>> getUserList(){
+		return sqlSession.getMapper(UtilDAO.class).getUserList();
+	}
+	
+	public void msgSequenceChange(int sqlString) {
+		sqlSession.getMapper(UtilDAO.class).msgSequenceChange(sqlString);
+	}
+	
+	public void earthQuakeAlarmSend(List<Map<String,String>> list) {
+		sqlSession.getMapper(UtilDAO.class).earthQuakeAlarmSend(list);
 	}
 }
