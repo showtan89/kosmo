@@ -59,15 +59,43 @@ function chatting() {
 						this.chattingRegdate
 							
 							if(loginId == this.chattingMemberId){
-								str += '<div style="text-align:right; margin-right:10px;">'+
-								'<p>'+ this.chattingMemberId+' : ' + this.chattingContent 
-								+'<br>'
-								+'('+changeDate(this.chattingRegdate)+')' +'</p>'+ '<br>'+'</div>';
-							} else{
+								str += '<div style="float:right; margin-right:10px;">'+
+								'<table widht="600" border="1" style="font-size:15px;">'+
+									'<tr>'+
+										'<td align="left">'+ this.chattingContent + 
+										'</td>'+ 
+										'<td align="right">'+
+											' : ' + this.chattingMemberId+
+										'</td>'+
+									'</tr>'+
+									'<tr>'+
+										'<td>'+
+										'</td>'+
+										'<td rowspan="2" align="right">'+
+											'<span>'+'<a font-size="9">'+'('+changeDate(this.chattingRegdate)+')' +'</a>'+'</span>'+
+										'</td>'+
+									'</tr>'+
+								'</table>'+
+								'</div>'+'<br>'+'<br>';
+							} else {
 								str += '<div style="margin-left:10px;">'+
-								'<p>'+ this.chattingMemberId+' : ' + this.chattingContent 
-								+'<br>'
-								+'('+changeDate(this.chattingRegdate)+')' +'</p>'+ '<br>'+'</div>';
+								'<table widht="600" border="1">'+
+									'<tr>'+
+										'<td align="left">'+ this.chattingMemberId+
+										'</td>'+
+										'<td align="left">'+' : '+ this.chattingContent +
+										'</td>'+
+									'</tr>'+
+									'<tr>'+
+										'<td align="left" rowspan="2">'+
+										'<span>'+'<a font-size="9">'+
+										'('+changeDate(this.chattingRegdate)+')'+'</a>'+'</span>'+
+										'</td>'+
+										'<td>'+'<br>'+
+										'</td>'+
+									'</tr>'+
+								'</table>'+
+								'</div>'+'<br>';
 							}
 							
 						}
@@ -116,7 +144,7 @@ $("#chattingView").load(function(){ chattingScroll(); });
 <title>Chatting</title>
 </head>
 
-<body onload="chatting();">
+<body onload="chatting();" style="background-image:">
 <div id="chattingView" class="chattingView">
 		
 		<div id="chattingList" class="chattingList">
