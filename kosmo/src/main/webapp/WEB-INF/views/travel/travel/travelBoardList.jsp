@@ -173,7 +173,6 @@
 			<label for="searchText">Search Text</label>
 			<input type="text" class="form-control"	id="final_span">
 			<input type="text" class="form-control"	id="interim_span">
-			<audio id="audio" src="resources/audio/ending.mp3"></audio>
 			<!-- <input type="text" class="form-control"	id="result"> -->
 		</div>
 		
