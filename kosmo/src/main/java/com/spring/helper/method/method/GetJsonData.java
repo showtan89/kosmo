@@ -41,6 +41,22 @@ public class GetJsonData {
 		return JSONObj;
 	}
 	
+	//예보 정보 얻기
+	public JSONObject getForeInfo() throws IOException, ParseException, URISyntaxException {
+		//Calendar calendar = Calendar.getInstance();
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		//String date = dateFormat.format(calendar.getTime());
+		String url = "http://newsky2.kma.go.kr/service/VilageFrcstDspthDocInfoService/WidGeneralWeatherCondition?stnId=108&numOfRows=1&pageNo=1&serviceKey="+enKey;
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = new URI(url);
+		System.out.println("요청주소"+uri);
+		String response = restTemplate.getForObject(uri, String.class);
+		org.json.JSONObject JSONObj = XML.toJSONObject(response);
+		System.out.println(response);
+		System.out.println(JSONObj.toString());
+		return JSONObj;
+	}
+	
 	//지진 정보 얻기
 	public JSONObject getQuakeInfo() throws IOException, ParseException, URISyntaxException, java.text.ParseException {
 		Calendar calendar = Calendar.getInstance();
