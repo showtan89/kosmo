@@ -76,7 +76,7 @@
             <div class="row justify-content-between">
                 <div class="col-12">
                     <!-- Section Heading -->
-                    <p>글 내용 <pre><textarea class="input" rows="100" cols="130" name="onedayclassContent" placeholder="글내용을 입력하세요" word-break:break-all></textarea></p>
+                    <p>글 내용 <pre><textarea class="input" rows="7" cols="130" name="onedayclassContent" placeholder="글내용을 입력하세요" word-break:break-all></textarea></p>
                     
 			    <!-- ##### Testimonial Area Start ##### -->
 	               
@@ -155,7 +155,7 @@
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
                                  <h5>오픈날짜</h5>
-                                 <p><input class="input" type="date" name="onedayclassOpendate" placeholder="yyyy-MM-dd" style="width:190px"></p>
+                                 <p><input class="input" type="datetime" name="onedayclassOpendate" placeholder="YYYY-MM-DD hh24:mm:ss" style="width:190px"></p>
                                  <!-- <p><input class="input" type="datetime-local" name="onedayclassOpendate" placeholder="yyyy-MM-dd" style="width:190px"></p> -->
                              </div>
                          </div>

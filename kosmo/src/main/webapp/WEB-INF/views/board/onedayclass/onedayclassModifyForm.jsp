@@ -157,7 +157,7 @@
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
                                  <h5>오픈날짜</h5>
-                                 <p><input class="input" type="date" name="onedayclassOpendate" value="${dto.onedayclassOpendate}" style="width:190px"></p>
+                                 <p><input class="input" type="datetime" name="onedayclassOpendate" placeholder="YYYY-MM-DD hh24:mm:ss" value="${dto.onedayclassOpendate}" style="width:190px"></p>
                              	 <%-- <p><input class="input" type="datetime-local" name="onedayclassOpendate" value="${dto.onedayclassOpendate}" style="width:190px"></p> --%>
                              </div>
                          </div>

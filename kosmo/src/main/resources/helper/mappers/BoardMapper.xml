@@ -594,10 +594,13 @@
 	</select>
 	
 	<!-- 종료 표시처리-->
-	<select id="onedayclassEndCheck" parameterType="int" resultType="int">
-		SELECT to_date(onedayclassOpendate, 'YYYY-MM-DD') - to_date(sysdate, 'YYYY-MM-DD') 
-		FROM onedayclass
- 		WHERE onedayclassnumber=#{onedayclassNumber}
+	<select id="onedayclassEndCheck" parameterType="int" resultType="java.util.Map">
+		SELECT extract( day from diff ) days,
+				extract( hour from diff ) hours,
+				extract( minute from diff ) minutes
+		from (select onedayclassOpendate - SYSTIMESTAMP diff 
+			  From onedayclass
+ 			  WHERE onedayclassnumber=#{onedayclassNumber})
 	</select>
 	
 	<!-- 원데이 수정 처리 , onedayclassImg2=#{onedayclassImg2}, onedayclassImg3=#{onedayclassImg3}-->
@@ -612,11 +615,11 @@
 	<insert id="onedayclassInsertBoard" parameterType="com.spring.helper.vo.BoardVO.onedayclassVO">
 		INSERT INTO onedayclass(onedayclassNumber, memberNumber, boardCode, memberEmail, memberId, onedayclassSubject, onedayclassContent
 		, onedayclassRegdate, onedayclassAccountNumber, onedayclassCategory, onedayclassOpendate, onedayclassLocation, onedayclassRecruitment
-		, onedayclassPrice, onedayclassReservation, onedayclassPay, onedayclassEndCheck, onedayclassDeadlineCheck
+		, onedayclassPrice, onedayclassReservation, onedayclassPay, onedayclassDeadlineCheck
 		, onedayclassImg1, onedayclassImg2, onedayclassImg3)
 		VALUES(onedayclassSeq.nextval, 10007, '30', 'chae@gmail.com','chae', #{onedayclassSubject}, #{onedayclassContent}
-		, sysdate, 'aa', #{onedayclassCategory}, #{onedayclassOpendate}, #{onedayclassLocation}, #{onedayclassRecruitment} 
-		, #{onedayclassPrice}, 'aa', 'aa', 'aa', #{onedayclassDeadlineCheck}
+		, systimestamp, 'aa', #{onedayclassCategory}, #{onedayclassOpendate}, #{onedayclassLocation}, #{onedayclassRecruitment} 
+		, #{onedayclassPrice}, 'aa', 'aa', #{onedayclassDeadlineCheck}
 		, 'aa', 'aa', 'aa')
 	</insert>
 	
@@ -666,6 +669,13 @@
 		WHERE onedayclassNumber=#{onedayclassNumber}
 		]]>
 	</update>
+	
+	<!-- 인원 수 가져오기 -->
+	<select id="getPeopleChange" resultType="java.util.Map" parameterType="int">
+		SELECT onedayclassRecruitment, onedayclassTotalpeople
+		FROM onedayclass
+		WHERE  onedayclassNumber=#{onedayclassNumber}
+	</select>
 	
 	
 	<!-- 진호 끝ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ -->

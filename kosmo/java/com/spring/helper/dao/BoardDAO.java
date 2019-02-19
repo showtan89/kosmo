@@ -1,5 +1,6 @@
 package com.spring.helper.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -150,7 +151,7 @@ public interface BoardDAO {
 	public onedayclassVO onedayclassGetArticle(int onedayclassNumber);
 	
 	// 종료여부 메퍼에서 확인해서 리턴
-	public int onedayclassEndCheck(int onedayclassNumber);
+	public Map<String, Object> onedayclassEndCheck(int onedayclassNumber);
 
 	// 게시글 수정 처리
 	public int onedayclassModifyUpdate(onedayclassVO vo);
@@ -186,6 +187,9 @@ public interface BoardDAO {
 	// 인원 수 변경
 	public int peopleUpdate(onedayclassVO vo);
 
+	// 인원 수 가져오기
+	public Map<String, Object> getPeopleChange(int onedayclassNumber);
+	
 	// 진호 메소드 종료--------------------------------------
 
 	// 대호 시작 ============================================

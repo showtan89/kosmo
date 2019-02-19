@@ -3,6 +3,7 @@ package com.spring.helper.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.api.client.util.DateTime;
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingAllVO;
@@ -1067,8 +1069,8 @@ public class BoardServiceImpl implements BoardService {
 		onedayclassVO vo = boardDao.onedayclassGetArticle(onedayclassNumber);
 
 
-		int endDate = boardDao.onedayclassEndCheck(onedayclassNumber);
-		
+		Map<String, Object> endDate = boardDao.onedayclassEndCheck(onedayclassNumber);
+		System.out.println("잘담겼나?" + endDate.toString());
 		model.addAttribute("dto", vo);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
@@ -1097,7 +1099,7 @@ public class BoardServiceImpl implements BoardService {
 		vo.setOnedayclassNumber(onedayclassNumber);
 		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
 		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
-		vo.setOnedayclassRecruitment(req.getParameter("onedayclassRecruitment"));
+		vo.setOnedayclassRecruitment(Integer.parseInt(req.getParameter("onedayclassRecruitment")));
 		vo.setOnedayclassPrice(Integer.parseInt(req.getParameter("onedayclassPrice")));
 		vo.setOnedayclassCategory(req.getParameter("onedayclassCategory"));
 		vo.setOnedayclassContent(req.getParameter("onedayclassContent"));
@@ -1116,10 +1118,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void onedayclassWriteForm(HttpServletRequest req, Model model) {
 
-		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
+		/*int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));*/
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 
-		model.addAttribute("onedayclassNumber", onedayclassNumber);
+		/*model.addAttribute("onedayclassNumber", onedayclassNumber);*/
 		model.addAttribute("pageNum", pageNum);
 	}
 
@@ -1134,10 +1136,23 @@ public class BoardServiceImpl implements BoardService {
 		/*vo.setOnedayclassNumber(Integer.parseInt(req.getParameter("onedayclassNumber")));*/
 
 		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
-		vo.setOnedayclassOpendate(Timestamp.valueOf("onedayclassOpendate".replace('T',' ')));
-		System.out.println("값나오나?" + "onedayclassOpendate".replace("T"," "));
+		/*System.out.println("값나오나?2" + req.getParameter("onedayclassOpendate"));*/
+		/*vo.setOnedayclassOpendate(new SimpleDateFormat("YYYY-MM-DD").parse("onedayclassOpendate"));*/
+		
+/*		String date = String.valueOf(req.getParameter("onedayclassOpendate"));
+		System.out.println("데이트 : " + date);
+		Date date2 = Date.valueOf(date);
+		System.out.println("데이트 2 : " + date2);
+		vo.setOnedayclassOpendate(date2);*/
+			/*System.out.println("값나오나?" + Date.valueOf("onedayclassOpendate"));*/
+		/*vo.setOnedayclassOpendate(Date.valueOf(req.getParameter("onedayclassOpendate")));*/
+			System.out.println("값나오나?2" + (req.getParameter("onedayclassOpendate")));
+			System.out.println("값나오나?3" + ("onedayclassOpendate".replace("T"," ")));
+			System.out.println("값나오나?4" + Timestamp.valueOf(req.getParameter("onedayclassOpendate".replace('T',' '))));
+		vo.setOnedayclassOpendate(Timestamp.valueOf(req.getParameter("onedayclassOpendate".replace('T',' ')))); //가령2019-04-26T01:01 에서 T빼고 빈공간 채워넣기
+			
 		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
-		vo.setOnedayclassRecruitment(req.getParameter("onedayclassRecruitment"));
+		vo.setOnedayclassRecruitment(Integer.parseInt(req.getParameter("onedayclassRecruitment")));
 		vo.setOnedayclassPrice(Integer.parseInt(req.getParameter("onedayclassPrice")));
 		vo.setOnedayclassCategory(req.getParameter("onedayclassCategory"));
 		vo.setOnedayclassContent(req.getParameter("onedayclassContent"));

@@ -142,7 +142,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconRecruitment.jpeg" style="width:100px">
                                  <h5>모집인원</h5>
-                                 <p>${dto.onedayclassRecruitment}</p>
+                                 <p id="recruitment">${dto.onedayclassRecruitment}</p>
                              </div>
                          </div>
 
@@ -178,7 +178,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconRecruitment.jpeg" style="width:100px">
                                  <h5>참여인원</h5>
-                                 <p>${dto.onedayclassTotalpeople}</p>
+                                 <p id="totalpeople">${dto.onedayclassTotalpeople}</p>
                              </div>
                          </div>
 
@@ -206,11 +206,37 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                                  <img src="resources/img/board/onedayclass/iconMoney.jpeg" style="width:110px">
                                  <h5>종료여부</h5>
 									<c:choose>
-									  <c:when test="${endDate gt 0}">
-									        ${endDate} 일 전
+									  <c:when test="${endDate.DAYS gt 0}">
+									  		남은시간 ${endDate.DAYS} 일
+									  		<c:choose>
+									  			<c:when test="${endDate.HOURS gt 0}">
+									  				${endDate.HOURS} 시간
+									  					<c:choose>
+									  						<c:when test="${endDate.MINUTES gt 0}">
+									  							${endDate.MINUTES} 분
+									  						</c:when>
+												        </c:choose>
+									  			</c:when>
+									  			<c:when test="${endDate.HOURS eq 0}">
+									  					<c:choose>
+									  						<c:when test="${endDate.MINUTES gt 0}">
+									  							${endDate.MINUTES} 분
+									  						</c:when>
+												        </c:choose>
+									  			</c:when>	
+									        </c:choose>	
 									  </c:when>
-									  <c:when test="${endDate eq 0}">
-									     	마지막날
+									  <c:when test="${endDate.DAYS eq 0}">
+									     	<c:choose>
+									  			<c:when test="${endDate.HOURS gt 0}">
+									  				${endDate.HOURS} 시간
+									  					<c:choose>
+									  						<c:when test="${endDate.MINUTES gt 0}">
+									  							${endDate.MINUTES} 분
+									  						</c:when>
+												        </c:choose>
+									  			</c:when>
+									  		</c:choose>	
 									  </c:when>
 									  <c:otherwise>
 									     	종료
@@ -237,7 +263,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                                  <fmt:parseNumber value = "${dto.onedayclassRecruitment}" var = "Recruitment" />
 	                             <c:if test="${Recruitment - dto.onedayclassTotalpeople ge 0}">
                                  	<c:if test="${dto.onedayclassDeadlineCheck ne '마감'}">
-                                 		<c:if test="${endDate gt 0}">
+                                 		<c:if test="${endDate.DAYS ge 0 && endDate.HOURS ge 0 && endDate.MINUTES ge 0}">
                                  			<button type="button" class="btn btn-primary" id="reservationFunction" onClick="reservationFunction();">Reservation</button>	
                                  		</c:if>
                                  	</c:if>
@@ -335,6 +361,8 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
 
 <script type="text/javascript">
 
+
+
 /* 예약 */
 function reservationFunction() {
 	var onedayclassTotalpeople = "${dto.onedayclassTotalpeople}";
@@ -353,15 +381,12 @@ function reservationFunction() {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},
-		success: function(result) {
-			if(result == 1) {
-				alert('전송에 성공했습니다.');
-			} else if(result == 0) {
-				alert('내용을 정확히 입력하세요');
-			} else {
-				alert('데이터베이스 오류가 발생했습니다.');
-			}
-		}
+		success: function(map) {
+				var onedayclassTotalpeople = map.ONEDAYCLASSTOTALPEOPLE;
+				var onedayclassRecruitment = map.ONEDAYCLASSRECRUITMENT;
+				$("#totalpeople").html(onedayclassTotalpeople);
+				$("#recruitment").html(onedayclassRecruitment);
+		}		
 	});
 }
 
@@ -390,19 +415,13 @@ function submitFunction() {
 			'Content-Type': 'application/json'
 		},
 		success: function(result) {
-			if(result == 1) {
-				alert('전송에 성공했습니다.');
-			} else if(result == 0) {
-				alert('내용을 정확히 입력하세요');
-			} else {
-				alert('데이터베이스 오류가 발생했습니다.');
-			}
+			getoCommentList();
 		}
 	});
 	$('#oCommentContent').val('');
-	setTimeout(function(){
+/* 	setTimeout(function(){
 		getoCommentList();
-    }, 3000);
+    }, 3000); */
 }
 
 /* 댓글 목록을 출력할 영역 */
@@ -478,28 +497,22 @@ function deleteComment(data2){
 	var oCommentNumber = data2;
 	/* alert("삭제값 넘어오나?" + data2); */
 	$.ajax({
-		type : "PUT",
+		type : "DELETE",
 		url: "deleteComment",
 		data: JSON.stringify({
-			oCommentNumber: oCommentNumber,
+			"oCommentNumber": oCommentNumber,
 		}),
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},
 		success: function(result) {
-			if(result == 1) {
-				alert('전송에 성공했습니다.');
-			} else if(result == 0) {
-				alert('내용을 정확히 입력하세요');
-			} else {
-				alert('데이터베이스 오류가 발생했습니다.');
-			}
+			getoCommentList();
 		}
 	});
-	setTimeout(function(){
+/* 	setTimeout(function(){
 		getoCommentList();
-    }, 4000);
+    }, 4000); */
 }
 
 

@@ -70,7 +70,7 @@
 
 	<!-- 글추가 성공 -->
 	<c:if test="${onedayclassInsertCnt != 0}">
-		<c:redirect url="onedayclassBoardList" /> <!-- 추가 -->	
+		<c:redirect url="/project/onedayclassBoardList" /> <!-- 추가 -->	
 	</c:if>
 
 

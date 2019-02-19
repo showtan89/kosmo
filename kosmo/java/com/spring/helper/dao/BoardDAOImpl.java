@@ -1,5 +1,6 @@
 package com.spring.helper.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -340,7 +341,7 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	// 종료여부 메퍼에서 확인해서 리턴
 	@Override
-	public int onedayclassEndCheck(int onedayclassNumber) {
+	public Map<String, Object> onedayclassEndCheck(int onedayclassNumber) {
 		
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.onedayclassEndCheck", onedayclassNumber);
 	}
@@ -429,6 +430,13 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return sqlSession.update("com.spring.helper.dao.BoardDAO.peopleUpdate", vo);
 	}
+	
+	// 인원 수 가져오기
+	@Override
+	public Map<String, Object> getPeopleChange(int onedayclassNumber) {
+
+		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.getPeopleChange", onedayclassNumber);
+	}
 
 	// 진호 메소드 종료------------------------------------------------
 
@@ -442,6 +450,7 @@ public class BoardDAOImpl implements BoardDAO {
 	public int emergencyCnt() {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
 	}
+
 
 
 	

@@ -63,15 +63,20 @@
 									alert("숫자계산?" + ${openDate});
 									</script>
 
+		// 메세지 보내기 값
+		function sendMessage() {
+			var messageSendId = $("#messageSendId").val();
+			var messageContent1 = $("#messageContent1").val();
+			var messageContent2 = $("#messageContent2").val();
+			window.location = 'messageSend?messageSendId=' + messageSendId
+					+ '&messageContent1=' + messageContent1+ '&messageContent2=' + messageContent2;
+		}
 
-function changeDate(date) {
-date = new Date(parseInt(date));
-year = date.getFullYear();
-month = date.getMonth();
-day = date.getDate();
-strDate = year+ "-" +month+ "-" +day;
-return strDate;
-}
+
+setTimeout(function(){
+            sendRequest(); //this will send request again and again;
+        }, 4000);
+    }
 
 // **날짜 변환 함수 작성
     function changeDate(date){

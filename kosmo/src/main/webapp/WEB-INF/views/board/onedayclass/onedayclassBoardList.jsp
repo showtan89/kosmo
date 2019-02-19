@@ -156,7 +156,7 @@
 								<h6 class="widget-title"><a href="onedayclassAuthorityForm?memberId=${userVO.memberId}&onedayclassNumber=${dtos.get(0).onedayclassNumber}">클래스개설 권한신청</a></h6>
 							</c:if>
 							<c:if test="${userVO.memberTemp1 eq '2'}">						
-								<h6 class="widget-title"><a href="onedayclassWriteForm?onedayclassNumber=${dtos.get(0).onedayclassNumber}&pageNum=${pageNum}">클래스개설 새글쓰기</a></h6>						
+								<h6 class="widget-title"><a href="onedayclassWriteForm?pageNum=${pageNum}">클래스개설 새글쓰기</a></h6>						
 							</c:if>
 						</div>
                     </div>
@@ -178,55 +178,55 @@
                                         <a href="onedayclassDetailForm?onedayclassNumber=${dto.onedayclassNumber}&pageNum=${pageNum}&number=${number+1}">
                                         	
                                         	<!-- 깃에 이미지 추가 부분 해결되면 하나로 만들것임 -->
-                                        	<c:if test="${dto.onedayclassNumber eq 29}">
+                                        	<c:if test="${dto.onedayclassNumber eq 1}">
                                         		<img src="resources/img/board/onedayclass/odc1.jpg" alt="">
                                         	</c:if>
-                                        	<c:if test="${dto.onedayclassNumber eq 28}">
+                                        	<c:if test="${dto.onedayclassNumber eq 2}">
                                         		<img src="resources/img/board/onedayclass/odc2.jpg" alt="">
                                         	</c:if>	
-                                        	<c:if test="${dto.onedayclassNumber eq 27}">
+                                        	<c:if test="${dto.onedayclassNumber eq 3}">
                                         		<img src="resources/img/board/onedayclass/odc3.jpg" alt="">
                                         	</c:if>	
-                                        	<c:if test="${dto.onedayclassNumber eq 25}">
+                                        	<c:if test="${dto.onedayclassNumber eq 4}">
                                         		<img src="resources/img/board/onedayclass/odc5.jpg" alt="">
                                         	</c:if>	
-                                        	<c:if test="${dto.onedayclassNumber eq 52}">
+                                        	<c:if test="${dto.onedayclassNumber eq 5}">
                                         		<img src="resources/img/board/onedayclass/odc6.jpg" alt="">
                                         	</c:if>	
-                                        	<c:if test="${dto.onedayclassNumber eq 51}">
+                                        	<c:if test="${dto.onedayclassNumber eq 6}">
                                         		<img src="resources/img/board/onedayclass/odc7.jpg" alt="">
                                         	</c:if>	
-                                        	<c:if test="${dto.onedayclassNumber eq 50}">
+                                        	<c:if test="${dto.onedayclassNumber eq 7}">
                                         		<img src="resources/img/board/onedayclass/odc8.jpg" alt="">
                                         	</c:if>
-                                        	<c:if test="${dto.onedayclassNumber eq 49}">
+                                        	<c:if test="${dto.onedayclassNumber eq 8}">
                                         		<img src="resources/img/board/onedayclass/odc9.jpg" alt="">
                                         	</c:if>	
-                                        	<c:if test="${dto.onedayclassNumber eq 48}">
+                                        	<c:if test="${dto.onedayclassNumber eq 9}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>	
-                                        	<c:if test="${dto.onedayclassNumber eq 53}">
+                                        	<c:if test="${dto.onedayclassNumber eq 10}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>
-                                        	<c:if test="${dto.onedayclassNumber eq 54}">
+                                        	<c:if test="${dto.onedayclassNumber eq 11}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>	
-                                        	<c:if test="${dto.onedayclassNumber eq 55}">
+                                        	<c:if test="${dto.onedayclassNumber eq 12}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>
-                                        	<c:if test="${dto.onedayclassNumber eq 61}">
+                                        	<c:if test="${dto.onedayclassNumber eq 13}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>
-                                        	<c:if test="${dto.onedayclassNumber eq 62}">
+                                        	<c:if test="${dto.onedayclassNumber eq 14}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>
-                                        	<c:if test="${dto.onedayclassNumber eq 63}">
+                                        	<c:if test="${dto.onedayclassNumber eq 15}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>
-                                        	<c:if test="${dto.onedayclassNumber eq 64}">
+                                        	<c:if test="${dto.onedayclassNumber eq 16}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>
-                                        	<c:if test="${dto.onedayclassNumber eq 65}">
+                                        	<c:if test="${dto.onedayclassNumber eq 17}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>
                                         	<!-- 깃에 이미지 추가 부분 해결되면 하나로 만들것임 -->				
