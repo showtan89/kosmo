@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.helper.service.BoardService;
+import com.spring.helper.vo.BoardVO.oCommentVO;
 
 //import com.spring.helper.service.InfoService;
 
@@ -41,6 +44,22 @@ public class TrafficController {
 	
 	// 동욱 종료
 	
+	// 재영 시작
+	@RequestMapping(value="findDirectionHospital", method = RequestMethod.POST)
+	public ModelAndView readOneComment(HttpServletRequest req) throws Exception {
+		logger.info("findDirectionHospital 로딩 중.....");
+		ModelAndView mv = new ModelAndView();
+		String startPoint = "";
+		startPoint = req.getParameter("startPoint");
+		String endPoint = "";
+		endPoint = req.getParameter("endPoint");
+		mv.setViewName("traffic/getDirections"); 
+	    mv.addObject("startPoint", startPoint); 
+	    mv.addObject("endPoint", endPoint); 
+	    System.out.println(startPoint+"/"+endPoint);
+		return mv;
+	}
+	// 재영 끝
 	
 	// 다문화 외국인 취업정보 게시판
 	@RequestMapping("getAddresspop")

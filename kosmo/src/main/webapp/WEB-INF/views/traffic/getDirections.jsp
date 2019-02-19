@@ -44,6 +44,18 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 	$('#ehddnr2').val(korAddr);
 	initGeocoder2();
 }
+
+function findDirection(start,end){
+	$('#roadAddr_StartAddress').val(start);
+	$('#ehddnr').val(start);
+	initGeocoder();
+	$('#roadAddr_EndAddress').val(end);
+	$('#ehddnr2').val(end);
+	initGeocoder2();
+	console.log(start,end);
+}
+
+
 </script>
 </head>
 <body>
@@ -921,6 +933,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 					
 		}
 	</script>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<script>
 		function Detail(Detailid, style, style2) {
 			var name = Detailid;
@@ -934,6 +947,17 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 			$(style2).css('display', 'none');
 			$(Detailid).css('display', 'none');
 		}
+		
+		
+		
+		$(function(){
+			<c:if test="${fn:length(startPoint) >0 && fn:length(endPoint) >0}">
+				var start = "${startPoint}";
+				var end = "${endPoint}";
+				findDirection(start,end);
+			</c:if>
+		})
+		
 	</script>
 	
 </body>

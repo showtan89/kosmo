@@ -438,14 +438,14 @@
 						If you are lonely or have difficulty with perfume, <br>
 						try to strengthen friendship and comfort here.<br><br>
 						<input type="button"
-						class="btn alazea-btn mr-30" value="ChattingRoom Enter"
+						class="btn alazea-btn mr-30" value="My Contry"
 						style="padding: 1px;" onclick="chatting();">
 						<br><br><hr><br>
 					
 					In this chat room, there are all foreigners who use this site.<br>
 					It's a pleasant room that's spoken in each other's language. <br><br>
 					<input type="button"
-						class="btn alazea-btn mr-30" value="ChattingRoom Enter"
+						class="btn alazea-btn mr-30" value="World"
 						style="padding: 1px;" onclick="chattingAll();">
 				</section>
 			</div>

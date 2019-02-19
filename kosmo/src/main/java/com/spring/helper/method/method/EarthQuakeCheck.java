@@ -17,7 +17,7 @@ public class EarthQuakeCheck {
 	private static final Logger logger = LoggerFactory.getLogger(EarthQuakeCheck.class);
 	
 	//지진 결과 조회
-	@Scheduled(fixedDelay = 6000)
+	@Scheduled(fixedDelay = 600000)
 	public void earthQuakeCheck() throws Exception{
 		logger.info("earthQuakeCheck 스케쥴러 실행");
 		jsonData.getQuakeInfo();
