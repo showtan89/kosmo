@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="description" content="">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -166,6 +167,21 @@
 			<button type="button" class="btn alazea-btn form-control btn-custom"
 				id="searchButton" onclick="getJsonData();">Search</button>
 		</div>
+		
+		<!-- 검색 기능 -->
+		<div class="col-md-8 mb-8" id = "result">
+			<label for="searchText">Search Text</label>
+			<input type="text" class="form-control"	id="final_span">
+			<input type="text" class="form-control"	id="interim_span">
+			<!-- <input type="text" class="form-control"	id="result"> -->
+		</div>
+		
+		<!-- 음성인식 버튼 -->
+		<div class="col-md-4 mb-4">
+			<label for="voiceButton">&nbsp;</label>
+			<button type="button" class="btn alazea-btn form-control btn-custom"
+				id="voiceButton" onclick="">Voice Search</button>
+		</div>
 	</div>
 	<hr>
 	<!-- 데이터가 뿌려지는 공간 -->
@@ -198,6 +214,7 @@
 	getJsonData();
 })
 </script>
-
+<!-- 음성인식 자바 스크립트 -->
+<script src="resources/js/voice.js"></script>
 </body>
 </html>

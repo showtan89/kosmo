@@ -53,9 +53,22 @@ function chattingAll() {
 				var str="";
 				$(data).each(
 					function () {
-						var chattingAllRegdate = new Date(this.chattingAllRegdate);
+						var loginId = "${sessionScope.userVO.memberId}";
 						this.chattingAllMemberId
-						str += '<p>'+'<b>'+ this.chattingAllMemberId+'</b>'+' ( ' +this.chattingAllContry+' ) : '+this.chattingAllContent+'<br>'+'('+changeDate(this.chattingAllRegdate)+') '+'</p>'+ '<br>';
+						if(loginId == this.chattingMemberId){
+							str += 
+								'<div style="text-align:right; margin-right:10px;">'+
+								'<p>'+'<b>'+ this.chattingAllMemberId+'</b>'+
+								' ( ' +this.chattingAllContry+' ) : '+this.chattingAllContent+'<br>'+
+								'('+changeDate(this.chattingAllRegdate)+') '+'</p>'+ '<br>'+'</div>';
+						}
+						else{
+							str +=
+								'<div style="margin-left:10px;">'+
+								'<p>'+'<b>'+ this.chattingAllMemberId+'</b>'+' ( ' +this.chattingAllContry+' ) : '
+								+this.chattingAllContent+'<br>'+
+								'('+changeDate(this.chattingAllRegdate)+') '+'</p>'+ '<br>'+'</div>';
+						}
 						
 					}		
 				);

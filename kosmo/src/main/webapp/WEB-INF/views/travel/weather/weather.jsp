@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="">
@@ -10,6 +10,30 @@
 <title>Helper - blank</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
+<style>
+.imageDiv{
+	max-width:675px;
+}
+
+.imageDiv .centerBtn{
+	vertical-align: middle !important;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+}
+.imageDiv .centerBtn:hover{
+	vertical-align: middle !important;
+	background-color:#bbb;
+	color:#70c745;
+}
+</style>
+
 </head>
 
 <!-- 프리로더 이미지 -->
@@ -33,21 +57,16 @@
 </div>
 
 <div class="container" style="margin-bottom: 50px;">
-	<h5>Weather Info Search</h5>
+	<h5>Weather / Area Info</h5>
 	<hr>
 	<div class="row ">
 		<!-- 카테1 -->
 		<div class="col-md-6 mb-6">
-			<label for="search">Search Type</label> 
+			<label for="search">Information Type</label> 
 			<select class="custom-select d-block w-100" id="searchType" name="searchType">
 				<option style="display: none;" value="">Select Type</option>
-				<option value="radar">Radar Map</option>
+				<option value="radar">Weather Information</option>
 				<option value="earth">Earthquake Notification</option>
-			<!-- 	<option value="75&cat1=A03">Leisure/Sports</option>
-				<option value="79&cat1=A04">Shopping</option>
-				<option value="82&cat1=A05">Cuisine</option>
-				<option value="77&cat1=B01">Transportation</option>
-				<option value="80&cat1=B02">Accommodation</option> -->
 			</select>
 		</div>
 		<div class="col-md-6 mb-6">
@@ -59,11 +78,8 @@
 	<div class="shop-products-area">
 		<div class="row">
 			<div class="col-12">
-				<div class="card flex-md-row mb-4 shadow-sm h-md-250" id="imageResult">
-				</div>
-				<!-- <span id="imgAddress"></span><br> -->
-				<div id="buttonArea">
-				</div>
+				<div class="card flex-md-row mb-4 shadow-sm h-md-250 imageDiv" id="imageResult" style="display:none"></div>
+				<div class="card flex-md-row mb-4 shadow-sm h-md-250" id="textResult" style="padding-left:20px;padding-top:20px;display:none"></div>
 			</div>
 		</div>
 	</div>
@@ -71,5 +87,17 @@
 
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
 <script src="resources/js/weather.js"></script>
+<script>
+$(function() {
+	<c:if test="${param.type eq 'earthquake'}">
+		$("#searchType").val("earth");
+		getWeatherData();
+	</c:if>
+	<c:if test="${param.type eq null}">
+	$("#searchType").val("radar");
+		getWeatherData();
+</c:if>
+})
+</script>
 </body>
 </html>
