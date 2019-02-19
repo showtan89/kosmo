@@ -44,6 +44,18 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 	$('#ehddnr2').val(korAddr);
 	initGeocoder2();
 }
+
+function findDirection(start,end){
+	$('#roadAddr_StartAddress').val(start);
+	$('#ehddnr').val(start);
+	initGeocoder();
+	$('#roadAddr_EndAddress').val(end);
+	$('#ehddnr2').val(end);
+	initGeocoder2();
+	console.log(start,end);
+}
+
+
 </script>
 </head>
 <body>
@@ -70,13 +82,13 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		<div class="col-12 col-md-3 col-lg-3" style="display:inline-block;margin: 30px 0;">
 			<div class="row">
 				<div align="center" style="display: block;" class="col-12 col-md-12 col-lg-12">
-					<input type="text" placeholder="Please enter an address."
-						id="roadAddr_StartAddress" style="height: 50px; width: 100%;"><br><br> 
+					<input type="text" placeholder="Please enter an Startaddress."
+						id="roadAddr_StartAddress" style="padding:0 5px;height: 50px; width: 100%;"><br><br> 
 					<input type="hidden" id="ehddnr" value="">
 					<input type="button" class='btn alazea-btn'
 						onclick="goPopup();" style="width: 100%;" value="Start Address Search"><br><br> 
-					<input type="text" placeholder="Please enter an address."
-						id="roadAddr_EndAddress" style="height: 50px; width: 100%;"><br><br>
+					<input type="text" placeholder="Please enter an Endaddress."
+						id="roadAddr_EndAddress" style="padding:0 5px;height: 50px; width: 100%;"><br><br>
 					<input type="hidden" id="ehddnr2" value=""> 
 					<input type="button" class='btn alazea-btn'
 						onclick="goPopup2();" style="width: 100%;"
@@ -110,17 +122,25 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		/* 네이버 지도 열기 시작 */
 		var mapOptions = {
 			center : new naver.maps.LatLng(37.3595704, 127.105399),
-			zoom : 10
+			zoom : 10,
+			zoomControl : true,
+			zoomControlOptions : {
+				position : naver.maps.Position.TOP_LEFT,
+				style : naver.maps.ZoomControlStyle.SMALL
+			}
 		};
 		var map = new naver.maps.Map('map2', mapOptions);
 
-		
+		var markers = [];
+		var infoWindows = [];
 		var startx, starty, endx2, endy2;
 		var marker = new naver.maps.Marker;
 		var marker2 = new naver.maps.Marker;
-		
+		var mapObjArray = new Array();
 		var nStartArray = new Array();
 		var nEndArray = new Array();
+		var markerArray = new Array();
+		
 		// 지도생성
 
 		function initGeocoder() {
@@ -165,11 +185,36 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 								marker = new naver.maps.Marker({
 									position : new naver.maps.Point(startx,
 											starty),
-									map : map
+									map : map,
+									draggable : false
 								});
+								markers.push(marker);
+								var addres = document.getElementById("roadAddr_StartAddress").value;
+								var contentString = [
+									  '<div class="iw_inner" style="padding: 10px;">',
+								        '   <h4 align="center">Start Address</h2>',
+								        '   <p>'+addres+'</p>',
+								        '</div>'
+							    ].join('');
+								
+								var infoWindow = new naver.maps.InfoWindow({
+								    content: contentString,
+								    maxWidth: 300,
+								    backgroundColor: "#eee",
+								    borderColor: "#2db400",
+								    borderWidth: 2,
+								    anchorSize: new naver.maps.Size(30, 30),
+								    anchorSkew: true,
+								    anchorColor: "#eee",
+								    pixelOffset: new naver.maps.Point(20, -20)
+								});
+								
+								infoWindows.push(infoWindow);
+								
+								
 							});
 		}
-
+		
 		function searchAddressToCoordinate2(address) {
 			marker2.setMap(null);
 			naver.maps.Service
@@ -198,26 +243,95 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 						marker2 = new naver.maps.Marker({
 							position : new naver.maps.Point(endx2,
 									endy2),
-							map : map
+							map : map,
+							draggable : false
 						});
+						
+						markers.push(marker2);
+						var addres = document.getElementById("roadAddr_EndAddress").value;
+
+						var contentString = [
+					        '<div class="iw_inner" style="padding: 10px;">',
+					        '   <h4 align="center">End Address</h2>',
+					        '   <p>'+addres+'</p>',
+					        '</div>'
+					    ].join('');
+						
+						var infoWindow = new naver.maps.InfoWindow({
+						    content: contentString,
+						    maxWidth: 300,
+						    backgroundColor: "#eee",
+						    borderColor: "#2db400",
+						    borderWidth: 2,
+						    anchorSize: new naver.maps.Size(30, 30),
+						    anchorSkew: true,
+						    anchorColor: "#eee",
+						    pixelOffset: new naver.maps.Point(20, -20)
+						});
+						
+						infoWindows.push(infoWindow);
 					});
+			
 		}
 		
 		
-		$(document).on('keydown', function(e) {
-		    if (e.which === 27) {  // ESC 키
-		        polyline.setMap(null);
-		        polyline = null;
-		       
-		        // marker 의 목록을 순회하면서 setMap(null) 호출하여 제거
-		    }
-		});
-		var mapObjArray = new Array();
 		
 		
 //===============길찾기 API 호출===========================================================================
 		function searchjido() {
-			
+	
+			naver.maps.Event.addListener(map, 'idle', function() {
+			    updateMarkers(map, markers);
+			});
+
+			function updateMarkers(map, markers) {
+
+			    var mapBounds = map.getBounds();
+			    var marker3, position;
+
+			    for (var i = 0; i < markers.length; i++) {
+
+			        marker3 = markers[i];
+			        position = marker3.getPosition();
+
+			        if (mapBounds.hasLatLng(position)) {
+			            showMarker(map, marker3);
+			        } else {
+			            hideMarker(map, marker3);
+			        }
+			    }
+			}
+
+			function showMarker(map, marker) {
+
+			    if (marker.setMap()) return;
+			    marker.setMap(map);
+			}
+
+			function hideMarker(map, marker) {
+
+			    if (!marker.setMap()) return;
+			    marker.setMap(null);
+			}
+
+			// 해당 마커의 인덱스를 seq라는 클로저 변수로 저장하는 이벤트 핸들러를 반환합니다.
+			function getClickHandler(seq) {
+			    return function(e) {
+			        var marker3 = markers[seq],
+			            infoWindow = infoWindows[seq];
+
+			        if (infoWindow.getMap()) {
+			            infoWindow.close();
+			        } else {
+			            infoWindow.open(map, marker3);
+			        }
+			    }
+			}
+
+			for (var i=0, ii=markers.length; i<ii; i++) {
+			    naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
+			}
+	
 			$('#searchjson').css('overflow', 'auto');
 			var busType = new Array(); 
 			busType[1] = '일반'; 	busType[2] = '좌석'; 	busType[3] = '마을'; busType[4] = '직행좌석'; 	busType[5] = '공항';
@@ -274,7 +388,16 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 									var a = parseInt(info.totalTime / 60);
 									var b = parseInt(info.totalTime % 60);
 									var totalDistance = 0;
-									
+									var markerArrayposition = new Array();
+									 for(var np = 0; np<subPath.length;np++){
+											if(subPath[np].trafficType==1 || subPath[np].trafficType==2 ){
+												var passStop = subPath[np].passStopList;
+												var stat = passStop.stations; 
+												markerArrayposition.push(new naver.maps.Point(stat[0].x,stat[0].y));
+											}
+									}   
+									 markerArray.push(markerArrayposition);
+									 
 									 for(var np = 0; np<subPath.length;np++){
 										if(subPath[np].trafficType==1 || subPath[np].trafficType==2 ){
 											if(np==(subPath.length-2)){
@@ -285,6 +408,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 												var passStop = subPath[np].passStopList;
 												var stat = passStop.stations; 
 												nStartArray.push(new naver.maps.Point(stat[0].x,stat[0].y));
+												
 											}  
 										}
 									}   
@@ -610,7 +734,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 											// subPath for문 길찾기 노선 바뀌는 구간 표시 종료
 
 										}
-										str += '<p>' + 'Arrive : ' + EndAddress
+										str += '<p>' + 'End: ' + EndAddress
 												+ '</p>';
 										str += '</li>';
 									}
@@ -689,23 +813,23 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		}
 		/* 노선그래픽 데이터 호출 종료 */
 		
-	
 		
-		
-		// 상세보기 클릭시 폴리레인 다시 표시
-	
-		
-		
-		
-		// 노선그래픽 데이터를 이용하여 지도위 폴리라인 그려주는 함수
+
 		var oldlineArray = new Array();
 		var polyline=null;
 		var polyline2 = null;
 		var polyline3 = null;
 		var PoNum = 1;
-		
-		
+		var marker4 = null;
+		var pMarkers = [];
+		// 상세보기 클릭시 폴리레인 다시 표시
 		function gidokilsearch(mapobjnum){
+			
+			for(pM = 0; pM<pMarkers.length; pM++){
+				var pMarker = pMarkers[pM];
+				pMarker.setMap(null);
+			}
+			
 			polyline.setMap(null);
 			polyline2.setMap(null);
 			polyline3.setMap(null);
@@ -716,6 +840,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 			
 		} 
 		
+		// 노선그래픽 데이터를 이용하여 지도위 폴리라인 그려주는 함수
 		function drawNaverPolyLine(data) {
 			
 			var lineArray;
@@ -751,15 +876,21 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 						strokeStyle : 'shortdash',
 						strokeColor : '#003499'
 					});
+					var pos = markerArray[(PoNum-1)];
+					pMarkers = [];
+					for(var po=0; po<pos.length;po++){
+						marker4 = new naver.maps.Marker({
+							position : new naver.maps.Point(pos[po].x,
+							pos[po].y),
+							map : map,
+						});
+						pMarkers.push(marker4);
+					}
+					
 					
 		}
-		
-		
-	
-		
-		
-		
 	</script>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 	<script>
 		function Detail(Detailid, style, style2) {
 			var name = Detailid;
@@ -773,6 +904,17 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 			$(style2).css('display', 'none');
 			$(Detailid).css('display', 'none');
 		}
+		
+		
+		
+		$(function(){
+			<c:if test="${fn:length(startPoint) >0 && fn:length(endPoint) >0}">
+				var start = "${startPoint}";
+				var end = "${endPoint}";
+				findDirection(start,end);
+			</c:if>
+		})
+		
 	</script>
 	
 </body>

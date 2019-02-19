@@ -22,14 +22,13 @@ var polylineoptions={
 
 var da = new Array();
 var df = new Array();
-df.push(da[0]);
-df.push(da[1]);
 da.push(new naver.maps.Point(127.209133, 37.009633));
 da.push(new naver.maps.Point(127.120768, 36.990134));
-
+df.push(da);
+var ff = df[0];
 var polyline = new naver.maps.Polyline({
     map: map,
-    path: [df[0],df[1]],
+    path: ff,
     strokeColor: '#5347AA',
     strokeWeight: 2
 });
