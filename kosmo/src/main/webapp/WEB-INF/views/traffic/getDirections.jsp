@@ -109,7 +109,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 	
 		/* 네이버 지도 열기 시작 */
 		var mapOptions = {
-			center : new naver.maps.LatLng(37.3595704, 127.105399),
+			center : new naver.maps.LatLng(37.475382, 126.880625),
 			zoom : 10,
 			zoomControl : true,
 			zoomControlOptions : {
@@ -128,7 +128,13 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		var nStartArray = new Array();
 		var nEndArray = new Array();
 		var markerArray = new Array();
-		
+		var infoWindowArray = new Array();
+		var polyline = null;
+		var polyline2 = null;
+		var polyline3 = null;
+		var PoNum = 1;
+		var marker4 = null;
+		var pMarkers = [];
 		// 지도생성
 
 		function initGeocoder() {
@@ -168,7 +174,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 								document.getElementById("y1").value = starty;
 								
 								var start = new naver.maps.Point(startx, starty);
-								nStartArray.push(new naver.maps.Point(startx,starty));
+								nStartArray[0] = new naver.maps.Point(startx,starty);
 								map.setCenter(start);
 								marker = new naver.maps.Marker({
 									position : new naver.maps.Point(startx,
@@ -176,7 +182,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 									map : map,
 									draggable : false
 								});
-								markers.push(marker);
+								markers[0] = marker;
 								var addres = document.getElementById("roadAddr_StartAddress").value;
 								var contentString = [
 									  '<div class="iw_inner" style="padding: 10px;">',
@@ -197,7 +203,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 								    pixelOffset: new naver.maps.Point(20, -20)
 								});
 								
-								infoWindows.push(infoWindow);
+								infoWindows[0] = infoWindow;
 								
 								
 							});
@@ -225,7 +231,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 						document.getElementById("y2").value = endy2;
 
 						var end = new naver.maps.Point(endx2, endy2);
-						nEndArray.push(new naver.maps.Point(endx2, endy2));
+						nEndArray[0] = new naver.maps.Point(endx2, endy2);
 						map.setCenter(end);
 
 						marker2 = new naver.maps.Marker({
@@ -235,7 +241,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 							draggable : false
 						});
 						
-						markers.push(marker2);
+						markers[1] = marker2;
 						var addres = document.getElementById("roadAddr_EndAddress").value;
 
 						var contentString = [
@@ -257,7 +263,7 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 						    pixelOffset: new naver.maps.Point(20, -20)
 						});
 						
-						infoWindows.push(infoWindow);
+						infoWindows[1] = infoWindow;
 					});
 			
 		}
@@ -267,7 +273,17 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		
 //===============길찾기 API 호출===========================================================================
 		function searchjido() {
-	
+			if(polyline != null){
+				for(pM = 0; pM<pMarkers.length; pM++){
+					var pMarker = pMarkers[pM];
+					pMarker.setMap(null);
+				}
+				
+				polyline.setMap(null);
+				polyline2.setMap(null);
+				polyline3.setMap(null);
+			} 
+			
 			naver.maps.Event.addListener(map, 'idle', function() {
 			    updateMarkers(map, markers);
 			});
@@ -377,15 +393,49 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 									var b = parseInt(info.totalTime % 60);
 									var totalDistance = 0;
 									var markerArrayposition = new Array();
+									var infoWindowArrayposition = new Array();
 									 for(var np = 0; np<subPath.length;np++){
 											if(subPath[np].trafficType==1 || subPath[np].trafficType==2 ){
 												var passStop = subPath[np].passStopList;
 												var stat = passStop.stations; 
+												
+												
+										
 												markerArrayposition.push(new naver.maps.Point(stat[0].x,stat[0].y));
+												if(subPath[np].trafficType==1){
+													var lane2 = subPath[np].lane;
+													var Type2 = parseInt(lane2[0].subwayCode);
+													
+													var contentString = [
+														  '<div class="iw_inner" style="padding: 10px;">',
+													        '  <p>'+subwayType[Type2]+'('+ subPath[np].startName+'station)</p></div>'
+												    ].join('');
+												} else{
+													var lane2 = subPath[np].lane;
+													var Type2 = parseInt(lane2[0].type);
+													var contentString = [
+														  '<div class="iw_inner" style="padding: 10px;">',
+													        '  <p>Bus' + 'No.'+ lane2[0].busNo+'('+subPath[np].startName+')</p></div>'
+												    ].join('');
+												}
+												var infoWindow = new naver.maps.InfoWindow({
+												    content: contentString,
+												    maxWidth: 300,
+												    backgroundColor: "#eee",
+												    borderColor: "#2db400",
+												    borderWidth: 2,
+												    anchorSize: new naver.maps.Size(30, 30),
+												    anchorSkew: true,
+												    anchorColor: "#eee",
+												    pixelOffset: new naver.maps.Point(20, -20)
+												});
+												
+												infoWindowArrayposition.push(infoWindow);
+												
 											}
 									}   
 									 markerArray.push(markerArrayposition);
-									 
+									 infoWindowArray.push(infoWindowArrayposition);
 									 for(var np = 0; np<subPath.length;np++){
 										if(subPath[np].trafficType==1 || subPath[np].trafficType==2 ){
 											if(np==(subPath.length-2)){
@@ -803,16 +853,9 @@ function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, adm
 		
 		
 
-		var oldlineArray = new Array();
-		var polyline=null;
-		var polyline2 = null;
-		var polyline3 = null;
-		var PoNum = 1;
-		var marker4 = null;
-		var pMarkers = [];
+		
 		// 상세보기 클릭시 폴리레인 다시 표시
 		function gidokilsearch(mapobjnum){
-			
 			for(pM = 0; pM<pMarkers.length; pM++){
 				var pMarker = pMarkers[pM];
 				pMarker.setMap(null);
