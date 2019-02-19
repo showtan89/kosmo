@@ -9,8 +9,6 @@
 
 <script src="resources/js/jquery/jquery-3.3.1.min.js"></script>
 <script src="resources/js/request.js"></script>
-<script src="resources/js/request2.js"></script>
-
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -33,17 +31,19 @@
 <head lang="en">
 <style>
 
-*{
-	
-}
-
 </style>
 <!--세계 채팅 ajax -->
 <script>
+if (!("autofocus" in document.createElement("input"))) {
+    document.getElementById("chattingWriteAll").focus();
+  }
+
 // 글쓴후 빈칸
 function emptychattingAllContent(){
 	$('#chattingAllContent').val('');
 }
+
+
 
 function chattingAll() {
 		//첫번째 매개변수인 URL 부분은 RestController의 주소부분 - BoardRestController 참고
@@ -53,21 +53,56 @@ function chattingAll() {
 				var str="";
 				$(data).each(
 					function () {
-						var chattingAllRegdate = new Date(this.chattingAllRegdate);
+						var loginId = "${sessionScope.userVO.memberId}";
 						this.chattingAllMemberId
-						str += '<p>'+'<b>'+ this.chattingAllMemberId+'</b>'+' ( ' +this.chattingAllContry+' )( '+chattingAllRegdate+') '+'<br>'+ this.chattingAllContent +'</p>'+ '<br>'
+						if(loginId == this.chattingMemberId){
+							str += 
+								'<div style="text-align:right; margin-right:10px;">'+
+								'<p>'+'<b>'+ this.chattingAllMemberId+'</b>'+
+								' ( ' +this.chattingAllContry+' ) : '+this.chattingAllContent+'<br>'+
+								'('+changeDate(this.chattingAllRegdate)+') '+'</p>'+ '<br>'+'</div>';
+						}
+						else{
+							str +=
+								'<div style="margin-left:10px;">'+
+								'<p>'+'<b>'+ this.chattingAllMemberId+'</b>'+' ( ' +this.chattingAllContry+' ) : '
+								+this.chattingAllContent+'<br>'+
+								'('+changeDate(this.chattingAllRegdate)+') '+'</p>'+ '<br>'+'</div>';
+						}
 						
 					}		
 				);
 				
 				$('#chattingAllList').html(str); 
-				
+				chattingScroll();
 			}); }
 	}
+	
+function changeDate(date){
+    date = new Date(parseInt(date));
+    year = date.getFullYear();
+    month = date.getMonth();
+    day = date.getDate(); 
+    hour = date.getHours();
+    minute = date.getMinutes();
+    second = date.getSeconds();
+    strDate =year+"-"+month+"-"+day+"&nbsp;&nbsp;&nbsp;"+hour+":"+minute+":"+second;
+    return strDate;
+}
 chattingAll();
 
 setInterval("chattingAll();", 6000);//원래 2000, 개발중  60000, 시연때 2000
 
+function enterKey(){
+    if (window.event.keyCode == 13) {
+   	 // 엔터키가 눌렸을 때 실행할 내용
+   	 document.getElementById('chattingWriteAll').click();
+   }
+}
+
+function chattingScroll(){
+	$('#chattingAllView')[0].scrollIntoView(false);
+}
 
 
 
@@ -77,20 +112,19 @@ setInterval("chattingAll();", 6000);//원래 2000, 개발중  60000, 시연때 2
 </head>
 
 <body onload="chattingAll();" style="margin:0 0 5 5">
-	<div>
-		<div id="chattingAllList"></div>
+	<div id="chattingAllView" class="chattingAllView">
+		<div id="chattingAllList">strDate</div>
 		<br>
-	</div>
-</body>
 
 <div align="center" id="write">
 <hr><br>
+	
 	<!-- <form action="chattingWrite" method="POST" onsubmit="chttingWrite();"> -->
 	<input type="text" id="chattingAllContent" maxlength="300"
 		style="width: 50%; height: 10%; padding: 3px 3px;"
-		name="chattingAllContent"> &nbsp;&nbsp; <input type="button"
+		name="chattingAllContent" autofocus="autofocus" onkeyup="enterKey();"> &nbsp;&nbsp; <input type="button"
 		id="chattingWriteAll" class="btn btn-success mr-30" value="Enter"
-		style="margin: 0 5 0 0">
+		style="padding: 1px;">
 
 	<!-- Top Header Content -->
 	<div class="top-header-meta d-flex">
@@ -112,6 +146,9 @@ setInterval("chattingAll();", 6000);//원래 2000, 개발중  60000, 시연때 2
 		<!-- </form> -->
 	</div>
 </div>
+	</div>
+</body>
+
 
 <script type="text/javascript">
 $("#chattingWriteAll").on("click", function(){
@@ -130,7 +167,6 @@ $("#chattingWriteAll").on("click", function(){
 				chattingAll();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신
 				emptychattingAllContent();//댓글 입력창 초기화
 				
-				document.getElementById('chattingAllContent').focus();
 			},
 		error:function(result){
 			chattingAll();	//자료 등록 성공하였으니 새롭게 자료를 요청 부분 실행하여 리스트 갱신

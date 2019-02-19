@@ -78,7 +78,7 @@
             <div class="row justify-content-between">
                 <div class="col-12">
                     <!-- Section Heading -->
-                    <p>글 내용 <pre><textarea class="input" rows="100" cols="130" name="onedayclassContent" word-break:break-all>${dto.onedayclassContent}</textarea></p>
+                    <p>글 내용 <pre><textarea class="input" rows="7" cols="130" name="onedayclassContent" word-break:break-all>${dto.onedayclassContent}</textarea></p>
                     
 			    <!-- ##### Testimonial Area Start ##### -->
 	               
@@ -212,14 +212,15 @@
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconRecruitment.jpeg" style="width:100px">
                                  <h5>마감여부</h5>
-                                 <p><input class="input" type="text" name="onedayclassDeadlineCheck" maxlength="50" value="${dto.onedayclassDeadlineCheck}"></p>
+                                 <p><input class="input" type="radio" name="onedayclassDeadlineCheck" value="close">close</p>
+                                 <p><input class="input" type="radio" name="onedayclassDeadlineCheck" value="open">open</p>
                              </div>
                          </div>
 
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconLocation.jpeg" style="width:100px">
+                                 <img src="resources/img/board/onedayclass/iconPenguin.jpeg" style="width:100px">
                                  <h5>예약</h5>
                                  <p>${dto.onedayclassReservation}</p>
                              </div>
@@ -228,7 +229,7 @@
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
+                                 <img src="resources/img/board/onedayclass/iconCalculator.jpeg" style="width:90px">
                                  <h5>결제</h5>
                                  <p>${dto.onedayclassPay}</p>
                              </div>

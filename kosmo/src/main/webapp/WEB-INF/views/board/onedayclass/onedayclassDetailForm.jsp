@@ -257,12 +257,12 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconLocation.jpeg" style="width:100px">
+                                 <img src="resources/img/board/onedayclass/iconPenguin.jpeg" style="width:100px">
                                  <h5>예약</h5>
                                  <%-- <p>${dto.onedayclassReservation}</p> --%>
                                  <fmt:parseNumber value = "${dto.onedayclassRecruitment}" var = "Recruitment" />
 	                             <c:if test="${Recruitment - dto.onedayclassTotalpeople ge 0}">
-                                 	<c:if test="${dto.onedayclassDeadlineCheck ne '마감'}">
+                                 	<c:if test="${dto.onedayclassDeadlineCheck ne 'close'}">
                                  		<c:if test="${endDate.DAYS ge 0 && endDate.HOURS ge 0 && endDate.MINUTES ge 0}">
                                  			<button type="button" class="btn btn-primary" id="reservationFunction" onClick="reservationFunction();">Reservation</button>	
                                  		</c:if>
@@ -274,7 +274,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
+                                 <img src="resources/img/board/onedayclass/iconCalculator.jpeg" style="width:90px">
                                  <h5>결제</h5>
                                  <p>${dto.onedayclassPay}</p>
                              </div>

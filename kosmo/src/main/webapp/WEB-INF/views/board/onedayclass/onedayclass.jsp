@@ -63,6 +63,34 @@
 									alert("숫자계산?" + ${openDate});
 									</script>
 
+<fmt:formatDate value="${result.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+	<!-- date 타입을 timeStamp로 형 변환(begin, end) 오정에게 받은 버전 -->
+      java.util.Date d = null;
+      try {
+         d = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(req.getParameter("begin").replace("T"," "));
+      } catch (ParseException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      Timestamp ts = new Timestamp(d.getTime());
+      vo.setBegin(ts);
+
+
+
+		/*	vo.setProduct_date(new Timestamp(System.currentTimeMillis()));*/
+		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
+		/*vo.setOnedayclassNumber(Integer.parseInt(req.getParameter("onedayclassNumber")));*/
+		/*System.out.println("값나오나?2" + req.getParameter("onedayclassOpendate"));*/
+		/*vo.setOnedayclassOpendate(new SimpleDateFormat("YYYY-MM-DD").parse("onedayclassOpendate"));*/
+		
+/*		String date = String.valueOf(req.getParameter("onedayclassOpendate"));
+		System.out.println("데이트 : " + date);
+		Date date2 = Date.valueOf(date);
+		System.out.println("데이트 2 : " + date2);
+		vo.setOnedayclassOpendate(date2);*/
+			/*System.out.println("값나오나?" + Date.valueOf("onedayclassOpendate"));*/
+		/*vo.setOnedayclassOpendate(Date.valueOf(req.getParameter("onedayclassOpendate")));*/
 		// 메세지 보내기 값
 		function sendMessage() {
 			var messageSendId = $("#messageSendId").val();
@@ -72,11 +100,17 @@
 					+ '&messageContent1=' + messageContent1+ '&messageContent2=' + messageContent2;
 		}
 
-
-setTimeout(function(){
-            sendRequest(); //this will send request again and again;
-        }, 4000);
-    }
+		success: function(map) {
+				var onedayclassTotalpeople = map.ONEDAYCLASSTOTALPEOPLE;
+				var onedayclassRecruitment = map.ONEDAYCLASSRECRUITMENT;
+				$("#totalpeople").html(onedayclassTotalpeople);
+				$("#recruitment").html(onedayclassRecruitment);
+		}
+		
+		setTimeout(function(){
+	            sendRequest(); //this will send request again and again;
+	        }, 4000);
+	    }
 
 // **날짜 변환 함수 작성
     function changeDate(date){

@@ -248,7 +248,7 @@
 
 			<div class="col-md-4 mb-4">
 				<label for="detailAddressButton">&nbsp;</label> 
-				<button type="button" class="btn alazea-btn form-control btn-custom" id="detailAddressButton" onclick="execDaumPostcode();">Detail Address Search</button>
+				<button type="button" class="btn alazea-btn form-control btn-custom" id="detailAddressButton" onclick="goPopup();">Detail Address Search</button>
 			</div>
 			<!-- 지도 위치 -->
 			<div class="col-md-12 mb-4" id="map" style="display:none">

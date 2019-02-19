@@ -61,6 +61,8 @@
 </div>
 
 <form action="onedayclassWritePro" method="post" name="onedayclassWritePro" onsubmit="return writeCheck()">
+<input class="input" type="hidden" name="memberNumber" value="${userVO.memberNumber}">
+<input class="input" type="hidden" name="memberEmail" value="${userVO.memberEmail}">
 
 <section class="about-us-area">
         <div class="container">
@@ -69,7 +71,7 @@
                     <!-- Section Heading -->
                     <div class="section-heading text-center">
                         <h2>글  제목<pre><input class="input" type="text" name="onedayclassSubject" maxlength="50" placeholder="클래스 제목을 입력하세요"></h2>
-                        <p>클래스 개설자: ${dto.memberId}<br> 카테고리:<input class="input" type="text" name="onedayclassCategory" maxlength="50" placeholder="카테고리를 입력하세요"></p>
+                        <p>클래스 개설자: ${userVO.memberId}<input class="input" type="hidden" name="memberId" value="${userVO.memberId}"><br> 카테고리:<input class="input" type="text" name="onedayclassCategory" maxlength="50" placeholder="카테고리를 입력하세요"></p>
                     </div>
                 </div>
             </div>
@@ -210,14 +212,15 @@
                              <div class="single-benefits-area">
                                  <img src="resources/img/board/onedayclass/iconRecruitment.jpeg" style="width:100px">
                                  <h5>마감여부</h5>
-                                 <p><input class="input" type="text" name="onedayclassDeadlineCheck" maxlength="50" placeholder="마감여부를 입력하세요"></p>
+                                 <p><input class="input" type="radio" name="onedayclassDeadlineCheck" value="close">close</p>
+                                 <p><input class="input" type="radio" name="onedayclassDeadlineCheck" value="open">open</p>
                              </div>
                          </div>
 
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconLocation.jpeg" style="width:100px">
+                                 <img src="resources/img/board/onedayclass/iconPenguin.jpeg" style="width:100px">
                                  <h5>예약</h5>
                                  <p>${dto.onedayclassReservation}</p>
                              </div>
@@ -226,7 +229,7 @@
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
+                                 <img src="resources/img/board/onedayclass/iconCalculator.jpeg" style="width:90px">
                                  <h5>결제</h5>
                                  <p>${dto.onedayclassPay}</p>
                              </div>

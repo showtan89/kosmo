@@ -3,7 +3,6 @@ package com.spring.helper.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.google.api.client.util.DateTime;
 import com.spring.helper.dao.BoardDAO;
 import com.spring.helper.method.method.BoardMethod;
 import com.spring.helper.vo.BoardVO.ChattingAllVO;
@@ -192,7 +190,8 @@ public class BoardServiceImpl implements BoardService {
 		Knowledge.setKnowledgeCategory(knowledgeCategory);
 		int insertcnt = boardDao.knowledgeInsertArticle(Knowledge);
 		model.addAttribute("insertcnt",insertcnt);
-
+		userVO.setMemberPoint((userVO.getMemberPoint()-knowledgeReward));
+		req.getSession().setAttribute("userVO", userVO);
 	}
 	// 질문수정 폼 이동
 	@Override
@@ -705,9 +704,6 @@ public class BoardServiceImpl implements BoardService {
 		int messageNumber = Integer.parseInt(req.getParameter("messageNumber"));
 		logger.info("messagenumber : "+messageNumber);
 		
-	
-
-
 		int deleteCnt = 0;
 
 		messageNumber = boardDao.messageDelete(messageNumber);
@@ -1069,8 +1065,8 @@ public class BoardServiceImpl implements BoardService {
 		onedayclassVO vo = boardDao.onedayclassGetArticle(onedayclassNumber);
 
 
-		Map<String, Object> endDate = boardDao.onedayclassEndCheck(onedayclassNumber);
-		System.out.println("잘담겼나?" + endDate.toString());
+		int endDate = boardDao.onedayclassEndCheck(onedayclassNumber);
+		
 		model.addAttribute("dto", vo);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("onedayclassNumber", onedayclassNumber);
@@ -1099,7 +1095,7 @@ public class BoardServiceImpl implements BoardService {
 		vo.setOnedayclassNumber(onedayclassNumber);
 		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
 		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
-		vo.setOnedayclassRecruitment(Integer.parseInt(req.getParameter("onedayclassRecruitment")));
+		vo.setOnedayclassRecruitment(req.getParameter("onedayclassRecruitment"));
 		vo.setOnedayclassPrice(Integer.parseInt(req.getParameter("onedayclassPrice")));
 		vo.setOnedayclassCategory(req.getParameter("onedayclassCategory"));
 		vo.setOnedayclassContent(req.getParameter("onedayclassContent"));
@@ -1118,10 +1114,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void onedayclassWriteForm(HttpServletRequest req, Model model) {
 
-		/*int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));*/
+		int onedayclassNumber = Integer.parseInt(req.getParameter("onedayclassNumber"));
 		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
 
-		/*model.addAttribute("onedayclassNumber", onedayclassNumber);*/
+		model.addAttribute("onedayclassNumber", onedayclassNumber);
 		model.addAttribute("pageNum", pageNum);
 	}
 
@@ -1130,19 +1126,16 @@ public class BoardServiceImpl implements BoardService {
 	public void onedayclassWritePro(HttpServletRequest req, Model model) {
 
 		onedayclassVO vo = new onedayclassVO();
-		
-		vo.setMemberId(req.getParameter("memberId"));
-		vo.setMemberNumber(Integer.parseInt(req.getParameter("memberNumber")));
-		vo.setMemberEmail(req.getParameter("memberEmail"));
+
+		/*	vo.setProduct_date(new Timestamp(System.currentTimeMillis()));*/
+		/*int pageNum = Integer.parseInt(req.getParameter("pageNum"));*/
+		/*vo.setOnedayclassNumber(Integer.parseInt(req.getParameter("onedayclassNumber")));*/
+
 		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
-		
-			System.out.println("값나오나?2" + (req.getParameter("onedayclassOpendate")));
-			System.out.println("값나오나?3" + ("onedayclassOpendate".replace("T"," ")));
-			System.out.println("값나오나?4" + Timestamp.valueOf(req.getParameter("onedayclassOpendate".replace('T',' '))));
-		vo.setOnedayclassOpendate(Timestamp.valueOf(req.getParameter("onedayclassOpendate".replace('T',' ')))); //가령2019-04-26T01:01 에서 T빼고 빈공간 채워넣기
-			
+		vo.setOnedayclassOpendate(Timestamp.valueOf("onedayclassOpendate".replace('T',' ')));
+		System.out.println("값나오나?" + "onedayclassOpendate".replace("T"," "));
 		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
-		vo.setOnedayclassRecruitment(Integer.parseInt(req.getParameter("onedayclassRecruitment")));
+		vo.setOnedayclassRecruitment(req.getParameter("onedayclassRecruitment"));
 		vo.setOnedayclassPrice(Integer.parseInt(req.getParameter("onedayclassPrice")));
 		vo.setOnedayclassCategory(req.getParameter("onedayclassCategory"));
 		vo.setOnedayclassContent(req.getParameter("onedayclassContent"));
