@@ -61,6 +61,20 @@ public class UtilRestController {
 		}
 	}
 	
+	//날씨 예보 가져오기
+	@RequestMapping(value="forecastSearch", method= RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> forecastSearch(HttpServletRequest req) throws Exception{
+		logger.info("forecastSearch 로딩 중....");
+		JSONObject result = getJson.getForeInfo();
+		if(result.length()==0) {
+			System.out.println("실패");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.BAD_REQUEST);
+		}else {
+			System.out.println("통과");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.OK);
+		}
+	}
+	
 	//최신 지진 정보 가져오기
 	@RequestMapping(value="earthQuakeView", method= RequestMethod.GET)
 	public ResponseEntity<EarthQuakeVO> earthQuakeView(HttpServletRequest req) throws Exception{
