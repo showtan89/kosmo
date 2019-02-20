@@ -176,7 +176,7 @@
 		<div class="col-md-8 mb-8" id = "result">
 			<label for="searchText">Search Text</label>
 			<input type="text" class="form-control"	id="final_span">
-			<input type="text" class="form-control"	id="interim_span">
+			<input type="hidden" id="interim_span">
 			<!-- <input type="text" class="form-control"	id="result"> -->
 		</div>
 		
@@ -211,8 +211,12 @@
 		<div class="modal-footer" style="margin-bottom:20px">
 			<p>&nbsp;</p>
 	        <button type='button' id='closeModal' class='btn alazea-btn' onclick='closeModal()' style='line-height:0px !important;'>CLOSE</button>
-	        <input type="hidden" id="hiddenAddress">
-	        <button type="button" class="btn alazea-btn">Get Direction</button>
+	        <form action="findDirectionTour" method="post">
+		        <input type="hidden" name="name" id="name">
+				<input type="hidden" name="endLat" id="endLat">
+				<input type="hidden" name="endLng" id="endLng">
+				<button type="submit" class="btn alazea-btn">Find Direction</button>
+			</form>
 	    </div>
 	</div>
 </div>

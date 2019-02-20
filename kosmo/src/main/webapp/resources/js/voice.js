@@ -34,7 +34,6 @@ $(function() {
   recognition.onstart = function() {
     console.log('onstart', arguments);
     isRecognizing = true;
-    $btnMic.attr('class', 'on');
   };
 
   /**
@@ -50,7 +49,6 @@ $(function() {
     }
 
     // DO end process
-    $btnMic.attr('class', 'off');
     if (!finalTranscript) {
       console.log('empty finalTranscript');
       return false;
@@ -87,7 +85,6 @@ $(function() {
     document.getElementById("final_span").value=finalTranscript;
     voiceSearch(finalTranscript);
     console.log('interimTranscript : ', interimTranscript);
-    fireCommand(interimTranscript);
   };
 
   function voiceSearch(finalTranscript){
@@ -104,48 +101,9 @@ $(function() {
       ignoreEndProcess = true;
     }
 
-    $btnMic.attr('class', 'off');
   };
   
-  /**
-   * 명령어 처리
-   * @param string
-   */
-  function fireCommand(string) {
-  	if (string.endsWith('레드')) {
-  		$result.attr('class', 'red');
-  	} else if (string.endsWith('블루')) {
-  		$result.attr('class', 'blue');
-  	} else if (string.endsWith('그린')) {
-  		$result.attr('class', 'green');
-  	} else if (string.endsWith('옐로우')) {
-  		$result.attr('class', 'yellow');
-  	} else if (string.endsWith('오렌지')) {
-  		$result.attr('class', 'orange');
-  	} else if (string.endsWith('그레이')) {
-  		$result.attr('class', 'grey');
-  	} else if (string.endsWith('골드')) {
-  		$result.attr('class', 'gold');
-  	} else if (string.endsWith('화이트')) {
-  		$result.attr('class', 'white');
-  	} else if (string.endsWith('블랙')) {
-  		$result.attr('class', 'black');
-  	} else if (string.endsWith('알람') || string.endsWith('알 람')) {
-  		alert('알람');
-  	} else if (string.endsWith('노래 켜') || string.endsWith('음악 켜')) {
-  		audio.play();
-  		$iconMusic.addClass('visible');
-  	} else if (string.endsWith('노래 꺼') || string.endsWith('음악 꺼')) {
-  		audio.pause();
-  		$iconMusic.removeClass('visible');
-  	} else if (string.endsWith('볼륨 업') || string.endsWith('볼륨업')) {
-  		audio.volume += 0.2;
-  	} else if (string.endsWith('볼륨 다운') || string.endsWith('볼륨다운')) {
-  		audio.volume -= 0.2;
-  	} else if (string.endsWith('스피치') || string.endsWith('말해줘') || string.endsWith('말 해 줘')) {
-  	  textToSpeech($('#final_span').text() || '전 음성 인식된 글자를 읽습니다.');
-  	}
-  }
+  
 
   /**
    * 개행 처리

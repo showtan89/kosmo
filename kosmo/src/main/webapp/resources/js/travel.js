@@ -229,6 +229,9 @@ function imageModal(contenttypeid,itemNumber) {
 		$('#modal-content').html(str+mapStr);
 		console.log(str+mapStr);
 		$('#detailModal').show();
+		$("#name").val(items.addr1);
+		$("#endLat").val(mapy);
+		$("#endLng").val(mapx);
 		map.setSize(getMapSize());
 	});
 };
@@ -239,3 +242,7 @@ function getMapSize() {[[]]
     console.log("실행:"+width)
     return size;
 };
+
+function findDirection() {
+	
+}
