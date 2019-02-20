@@ -31,6 +31,20 @@ public class UtilRestController {
 
 	@Autowired
 	GetJsonData getJson;
+	// 동욱 시작
+	@RequestMapping(value="getRealTimeStation", method= RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> getRealTimeStation(HttpServletRequest req) throws Exception{
+		logger.info("getRealTimeStation 로딩 중....");
+		String localStationID = req.getParameter("localStationID");
+		JSONObject result = getJson.getRealTimeStationInfo(localStationID);
+		if(result.length()==0) {
+			System.out.println("실패");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.BAD_REQUEST);
+		}else {
+			System.out.println("통과");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.OK);
+		}
+	}
 	
 	//재영 시작 ==========================================================
 	//@Secured({"ROLE_USER","ROLE_ADMIN"}) 아직 사용하지말자

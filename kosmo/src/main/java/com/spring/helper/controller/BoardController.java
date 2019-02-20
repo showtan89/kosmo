@@ -39,8 +39,8 @@ public class BoardController {
 	
 	@RequestMapping("test")
 	public String test() throws Exception {
-		logger.info("test 로딩 중....");
-		return "traffic/test";
+		logger.info("test2 로딩 중....");
+		return "test";
 	}
 	
 	@RequestMapping("imagesupload")

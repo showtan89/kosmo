@@ -27,6 +27,22 @@ public class GetJsonData {
 	
 	private String enKey = "aqFFW%2BjkswtDEjWJIAHjx2ZzFzSYEt7ZUFbIHAU%2FCqKFF5dnRDJZe0997nu2JwgGu98B2zapQryJ1WOmzMQveQ%3D%3D";
 	
+	// 실시간 도착정보 얻기
+	public JSONObject getRealTimeStationInfo(String localStationID) throws IOException, ParseException, URISyntaxException {
+		//Calendar calendar = Calendar.getInstance();
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		//String date = dateFormat.format(calendar.getTime());
+		String url = "http://openapi.gbis.go.kr/ws/rest/busarrivalservice/station?serviceKey=GdoR86lqZXehbYz0fIJrJjrCLQq9UHQg9pk2RA8UgEhtJI8vJ45t8O%2B8p6N3QaDDUUkB1kUa1Ra%2BwQnLK%2FcHuQ%3D%3D&stationId=" + localStationID;
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = new URI(url);
+		System.out.println("요청주소"+uri);
+		String response = restTemplate.getForObject(uri, String.class);
+		org.json.JSONObject JSONObj = XML.toJSONObject(response);
+		System.out.println(response);
+		System.out.println(JSONObj.toString());
+		return JSONObj;
+	}
+	
 	//레이더 정보 얻기
 	public JSONObject getRadarInfo() throws IOException, ParseException, URISyntaxException {
 		Calendar calendar = Calendar.getInstance();
