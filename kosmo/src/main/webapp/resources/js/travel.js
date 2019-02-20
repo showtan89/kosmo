@@ -147,6 +147,14 @@ function getJsonData(pageNo) {
 	})
 }
 
+// 민석 길찾기 함수
+/*function voiceSearch(){
+	if(!$('#final_span').val().equls('')){
+		
+	}
+	
+}*/
+
 //페이지네이션 v2
 function pageMaker2(current, total){
 	var perPage = 12;

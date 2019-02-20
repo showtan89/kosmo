@@ -171,8 +171,8 @@
 		<!-- 검색 기능 -->
 		<div class="col-md-8 mb-8" id = "result">
 			<label for="searchText">Search Text</label>
-			<input type="text" class="form-control"	id="final_span">
-			<input type="hidden" id="interim_span">
+			<input type="text" class="form-control"	id="final_span" name="final_span">
+			<input type="hidden" id="interim_span" name="interim_span">
 			<!-- <input type="text" class="form-control"	id="result"> -->
 		</div>
 		
@@ -180,7 +180,7 @@
 		<div class="col-md-4 mb-4">
 			<label for="voiceButton">&nbsp;</label>
 			<button type="button" class="btn alazea-btn form-control btn-custom"
-				id="voiceButton" onclick="">Voice Search</button>
+				id="voiceButton" onclick="voiceSearch();">Voice Search</button>
 		</div>
 	</div>
 	<hr>
