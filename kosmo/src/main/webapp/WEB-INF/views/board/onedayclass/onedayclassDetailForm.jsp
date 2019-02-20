@@ -298,6 +298,41 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
 </c:if>
 
 <c:if test="${userVO.memberId != null}">
+<!-- 표시할 내용 :: 회원번호, 이메일, 아이디, ---- 제목, 종류, 행사일, 위치, 금액, 종료여부, 마감여부, 누적인원 -->
+
+            <div class="col-12 col-lg-12">
+                 <div class="alazea-benefits-area">
+                     <div class="row">
+                         
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-1">
+                             <div class="single-benefits-area">
+                                 <h5>회원번호</h5>
+                                 <p>${dto.onedayclassGrade}</p>
+                             </div>
+                         </div>
+
+                         <!-- Single Benefits Area -->
+                         <div class="col-12 col-md-1">
+                             <div class="single-benefits-area">
+                                 <h5>이메일</h5>
+                                 <p id="recruitment">${dto.onedayclassRecruitment}</p>
+                             </div>
+                         </div>
+                 	</div>
+                 </div>        
+            </div>             
+
+
+
+
+
+
+
+
+
+
+
 <!-- <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<div class="box box-success"> -->
