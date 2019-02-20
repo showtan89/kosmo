@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,36 +66,129 @@
 			<div id="map2" style="width: 100%; height: 800px;"></div>
 		</div>
 	</div>
-		
-	
-<div id="getDirectionslModal" class="modal">
-	<!-- Modal content -->
-	<div class="modal-content">
-		<div id="modal-content">
-			
-		</div>
-	<button type='button' id='closeModal' class='btn alazea-btn' onclick='closeModal()' style='padding:30px !important; line-height:0px !important;'>CLOSE</button>
-	</div>
-</div>
+
+
 	<%@ include file="../setting/footer01.jsp"%>
 	
 	
 <!-- // 길찾기기능-======================================================================= -->
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=u91vrld6gw&submodules=geocoder"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5YhdM97rzIO5e2jM_nEK"></script>
-	<script>
-	function getDirectionModal(){
-		
-		
-		$('#getDirectionslModal').show();
-	}
+<script language="javascript">
+function goPopup(){
+	$('#roadAddr_StartAddress').val(null);
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrEngUrl.do)를 호출하게 됩니다.
+    var pop = window.open("popStartAddress","pop","width=570,height=420, scrollbars=yes, resizable=yes");
 	
-	$('#closeModal').click(function () {
-		$('#getDirectionslModal').css('display','none');
-	})
-	function closeModal() {
-		$('#getDirectionslModal').css('display','none');
+    if(checkNum == 1){
+    	setmapmarker();
+		for(pM = 0; pM<pMarkers.length; pM++){
+			var pMarker = pMarkers[pM];
+			pMarker.setMap(null);
+		}
+		var poly = polylines[0];
+		poly.setMap(null);
+		poly = polylines[1];
+		poly.setMap(null);
+		poly = polylines[2];
+		poly.setMap(null);
+		
+		var mm1 = markers[0];
+		var mm2 = markers[1];
+		mm1.setMap(null);
+		mm2.setMap(null);
+		var infor1 = infoWindows[0];
+		var infor2 = infoWindows[1];
+		infor1.setMap(null);
+		infor2.setMap(null);
+		markers = [];
+		infoWindows = [];
+		mapObjArray = [];
+		nStartArray = [];
+		nEndArray = [];
+		markerArray = [];
+		infoWindowArray = [];
+		polylines = [];
+		marker4 = null;
+		pMarkers = [];
+		checkNum = 0;
+		$('#roadAddr_EndAddress').val(null);
+		$('#searchjson').empty();
 	}
+}
+
+function jusoCallBack(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, admCd, rnMgtSn
+						, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, korAddr){
+	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+	$('#roadAddr_StartAddress').val(roadAddr);
+	$('#ehddnr').val(korAddr);
+	initGeocoder();
+	
+}
+
+function goPopup2(){
+	$('#roadAddr_EndAddress').val(null);
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrEngUrl.do)를 호출하게 됩니다.
+    var pop = window.open("popEndAddress","pop","width=570,height=420, scrollbars=yes, resizable=yes");
+    
+	if(checkNum == 1){
+		setmapmarker();
+		for(pM = 0; pM<pMarkers.length; pM++){
+			var pMarker = pMarkers[pM];
+			pMarker.setMap(null);
+		}
+		var poly = polylines[0];
+		poly.setMap(null);
+		poly = polylines[1];
+		poly.setMap(null);
+		poly = polylines[2];
+		poly.setMap(null);
+		
+		var mm1 = markers[0];
+		var mm2 = markers[1];
+		mm1.setMap(null);
+		mm2.setMap(null);
+		var infor1 = infoWindows[0];
+		var infor2 = infoWindows[1];
+		infor1.setMap(null);
+		infor2.setMap(null);
+		markers = [];
+		infoWindows = [];
+		mapObjArray = [];
+		nStartArray = [];
+		nEndArray = [];
+		markerArray = [];
+		infoWindowArray = [];
+		polylines = [];
+		marker4 = null;
+		pMarkers = [];
+		checkNum = 0;
+		$('#roadAddr_StartAddress').val(null);
+		$('#searchjson').empty();
+	}
+}
+
+function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, admCd, rnMgtSn
+						, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, korAddr){
+	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+	$('#roadAddr_EndAddress').val(roadAddr);
+	$('#ehddnr2').val(korAddr);
+	initGeocoder2();
+}
+
+function findDirection(start,end){
+	$('#roadAddr_StartAddress').val(start);
+	$('#ehddnr').val(start);
+	searchAddressToCoordinate(start);
+	$('#roadAddr_EndAddress').val(end);
+	$('#ehddnr2').val(end);
+	searchAddressToCoordinate2(end);
+	console.log(start,end);
+}
+
+naver.maps.onJSContentLoaded = initGeocoder;
+</script>
+	<script>
 	var pointArray = new Array();
 	
 		/* 네이버 지도 열기 시작 */
@@ -115,8 +207,6 @@
 		var infoWindows = [];
 		var marker = new naver.maps.Marker;
 		var marker2 = new naver.maps.Marker;
-		var marker5 = new naver.maps.Marker;
-		var marker6 = new naver.maps.Marker;
 		var mapObjArray = new Array();
 		var nStartArray = new Array();
 		var nEndArray = new Array();
@@ -126,7 +216,6 @@
 		var PoNum = 1;
 		var marker4 = null;
 		var pMarkers = [];
-		var pinfoWindows = [];
 		var checkNum = 0;
 		// 지도생성
 
@@ -144,7 +233,7 @@
 		
 		// result by latlng coordinate
 		function searchAddressToCoordinate(address) {
-			marker5.setMap(null);
+			marker.setMap(null);
 			var  startx, starty;
 			naver.maps.Service.geocode(
 							{
@@ -164,7 +253,7 @@
 								document.getElementById("y1").value = starty;
 								var start = new naver.maps.Point(startx, starty);
 								map.setCenter(start);
-								marker5 = new naver.maps.Marker({
+								marker = new naver.maps.Marker({
 									position : new naver.maps.Point(startx,
 											starty),
 									map : map,
@@ -174,7 +263,7 @@
 		}
 		
 		function searchAddressToCoordinate2(address) {
-			marker6.setMap(null);
+			marker2.setMap(null);
 			var endx2, endy2;
 			naver.maps.Service.geocode(
 					{
@@ -198,7 +287,7 @@
 						
 						map.setCenter(end);
 
-						marker6 = new naver.maps.Marker({
+						marker2 = new naver.maps.Marker({
 							position : new naver.maps.Point(endx2,
 									endy2),
 							map : map,
@@ -217,6 +306,10 @@
 		// 상세보기 클릭시 폴리레인 다시 표시
 		function gidokilsearch(mapobjnum){
 			if(checkNum == 1){
+				for(pM = 0; pM<pMarkers.length; pM++){
+					var pMarker = pMarkers[pM];
+					pMarker.setMap(null);
+				}
 				var poly = polylines[0];
 				poly.setMap(null);
 				poly = polylines[1];
@@ -224,14 +317,7 @@
 				poly = polylines[2];
 				poly.setMap(null);
 				
-				for(var h=0;h<pMarkers.length; h++){
-					var markerh = pMarkers[h];
-					markerh.setMap(null);
-					var infoh = pinfoWindows[h];
-					infoh.setMap(null);
-				}
 			} 
-			
 			var nym = parseInt(mapobjnum+1);
 			PoNum = nym;
 			var mapnameObj = mapObjArray[mapobjnum];
@@ -240,6 +326,7 @@
 		} 
 		
 		function searchjido() {
+			
 			if(!document.getElementById("roadAddr_StartAddress").value){
 				alert('Please enter your address.');
 				document.getElementById("roadAddr_StartAddress").focus();
@@ -254,7 +341,8 @@
 				return false;
 			}
 			checkNum = 1;
-			
+			gidoStartMarker();
+			gidomarker();
 				
 	
 			$('#searchjson').css('overflow', 'auto');
@@ -276,7 +364,7 @@
 			subwayType[43] = '대구3호선'; subwayType[51] = '광주1호선'; 			subwayType[71] = '부산1호선';
 			subwayType[72] = '부산2호선'; 	subwayType[73] = '부산3호선'; 	subwayType[74] = '부산4호선'; 		subwayType[78] = '동해선';
 			subwayType[79] = '부산-김해경';
-				
+
 			$(function() {
 				var obj = new Object();
 				var x1 = document.getElementById("x1").value;
@@ -290,15 +378,6 @@
 							type : 'GET',
 							dataType : 'json',
 							success : function(obj) {
-								var endx2 = document.getElementById("x2").value;
-								var endy2 = document.getElementById("y2").value;
-								var addres2 = document.getElementById("roadAddr_EndAddress").value;
-								var startx = document.getElementById("x1").value;
-								var starty = document.getElementById("y1").value;
-								var addres = document.getElementById("roadAddr_StartAddress").value;
-								nStartArray.push(new naver.maps.Point(startx,starty));
-								nEndArray.push(new naver.maps.Point(endx2, endy2));
-								
 								var result = obj.result;
 								var path = result.path;
 								var subpath = path[0].subPath;
@@ -317,88 +396,33 @@
 								var c_num = 0;
 								str = '<ul style="padding:10px;width:100%;" >';
 								for (var i = 0; i < path.length; i++) {
-									markers = [];
-									infoWindows = [];
-										var contentString = [
-											  '<div class="iw_inner" style="padding: 10px;">',
-										        '   <h4 align="center">Start Address</h2>',
-										        '   <p>'+addres+'</p>',
-										        '</div>'
-									    ].join('');
-										var infoWindow = new naver.maps.InfoWindow({
-										    content: contentString,
-										    maxWidth: 300,
-										    backgroundColor: "#eee",
-										    borderColor: "#2db400",
-										    borderWidth: 2,
-										    anchorSize: new naver.maps.Size(30, 30),
-										    anchorSkew: true,
-										    anchorColor: "#eee",
-										    pixelOffset: new naver.maps.Point(20, -20)
-										});
-										
-										markers.push(new naver.maps.Point(startx,starty));
-										infoWindows.push(infoWindow);
-										
-								
-										
-										var contentString2 = [
-									        '<div class="iw_inner" style="padding: 10px;">',
-									        '   <h4 align="center">End Address</h2>',
-									        '   <p>'+addres2+'</p>',
-									        '</div>'
-									    ].join('');
-										var infoWindow2 = new naver.maps.InfoWindow({
-										    content: contentString2,
-										    maxWidth: 300,
-										    backgroundColor: "#eee",
-										    borderColor: "#2db400",
-										    borderWidth: 2,
-										    anchorSize: new naver.maps.Size(30, 30),
-										    anchorSkew: true,
-										    anchorColor: "#eee",
-										    pixelOffset: new naver.maps.Point(20, -20)
-										});
-										
-										markers.push(new naver.maps.Point(endx2,endy2));
-										infoWindows.push(infoWindow2);
-									
-									
-									
 									var info = path[i].info;
 									var subPath = path[i].subPath;
 									var a = parseInt(info.totalTime / 60);
 									var b = parseInt(info.totalTime % 60);
 									var totalDistance = 0;
+									var markerArrayposition = new Array();
+									var infoWindowArrayposition = new Array();
 									 for(var np = 0; np<subPath.length;np++){
 											if(subPath[np].trafficType==1 || subPath[np].trafficType==2 ){
 												var passStop = subPath[np].passStopList;
 												var stat = passStop.stations; 
-												markers.push(new naver.maps.Point(stat[0].x,stat[0].y));
-												markers.push(new naver.maps.Point(stat[(stat.length-1)].x,stat[(stat.length-1)].y));
+												markerArrayposition.push(new naver.maps.Point(stat[0].x,stat[0].y));
+												markerArrayposition.push(new naver.maps.Point(stat[(stat.length-1)].x,stat[(stat.length-1)].y));
 												if(subPath[np].trafficType==1){
 													var lane2 = subPath[np].lane;
 													var Type2 = parseInt(lane2[0].subwayCode);
+													
 													var contentString3 = [
 														  '<div class="iw_inner" style="padding: 10px;">',
-													        '  <p onclick="getDirectionModal();">'+subwayType[Type2]+'('+ subPath[np].startName+'station)</p></div>'
-												    ].join('');
-													
-													var contentString4 = [
-														  '<div class="iw_inner" style="padding: 10px;">',
-													        '  <p onclick="getDirectionModal();">'+subwayType[Type2]+'('+ subPath[np].endName+'station)</p></div>'
+													        '  <p>'+subwayType[Type2]+'('+ subPath[np].startName+'station)</p></div>'
 												    ].join('');
 												} else{
 													var lane2 = subPath[np].lane;
 													var Type2 = parseInt(lane2[0].type);
 													var contentString3 = [
 														  '<div class="iw_inner" style="padding: 10px;">',
-													        '  <p onclick="getDirectionModal();">Bus' + 'No.'+ lane2[0].busNo+'('+subPath[np].startName+')</p></div>'
-												    ].join('');
-													
-													var contentString4 = [
-														  '<div class="iw_inner" style="padding: 10px;">',
-													        '  <p onclick="getDirectionModal();">Bus' + 'No.'+ lane2[0].busNo+'('+subPath[np].endName+')</p></div>'
+													        '  <p>Bus' + 'No.'+ lane2[0].busNo+'('+subPath[np].startName+')</p></div>'
 												    ].join('');
 												}
 												var infoWindow3 = new naver.maps.InfoWindow({
@@ -412,24 +436,12 @@
 												    anchorColor: "#eee",
 												    pixelOffset: new naver.maps.Point(20, -20)
 												});
-												var infoWindow4 = new naver.maps.InfoWindow({
-												    content: contentString4,
-												    maxWidth: 300,
-												    backgroundColor: "#eee",
-												    borderColor: "#2db400",
-												    borderWidth: 2,
-												    anchorSize: new naver.maps.Size(30, 30),
-												    anchorSkew: true,
-												    anchorColor: "#eee",
-												    pixelOffset: new naver.maps.Point(20, -20)
-												});
-												infoWindows.push(infoWindow3);
-												infoWindows.push(infoWindow4);
+												infoWindowArrayposition.push(infoWindow3);
 												
 											}
 									}   
-									 markerArray.push(markers);
-									 infoWindowArray.push(infoWindows);
+									 markerArray.push(markerArrayposition);
+									 infoWindowArray.push(infoWindowArrayposition);
 									 
 									 for(var np = 0; np<subPath.length;np++){
 										if(subPath[np].trafficType==1 || subPath[np].trafficType==2 ){
@@ -855,7 +867,7 @@
 				}
 			}
 			
-					polylines = [];
+			polylines = [];
 					var polyline1 = new naver.maps.Polyline({
 						map : map,
 						path : lineArray, 
@@ -879,29 +891,83 @@
 					polylines.push(polyline1);
 					polylines.push(polyline2);
 					polylines.push(polyline3);
+					var pos = markerArray[(PoNum-1)];
+					pMarkers = [];
+					for(var po=0; po<pos.length;po++){
+						marker4 = new naver.maps.Marker({
+							position : new naver.maps.Point(pos[po].x,
+							pos[po].y),
+							map : map,
+						});
+						pMarkers.push(marker4);
+					}
 					
-					var gidoMk = PoNum-1;
-					gidomarker(gidoMk);
+					
 		}
 		
 		
-		function gidomarker(agidoMk){
-			markers = markerArray[agidoMk];
-			var Smarkers = [];
-			for(var h=0;h<markers.length;h++){
-				marker = new naver.maps.Marker({
-					position : markers[h],
-					map : map,
-					draggable : false
+		function gidoStartMarker(){
+			nStartArray = [];
+			nEndArray = [];
+			markers = [];
+			infoWindows = [];
+			
+				var startx = document.getElementById("x1").value;
+				var starty = document.getElementById("y1").value;
+				var addres = document.getElementById("roadAddr_StartAddress").value;
+				var contentString = [
+					  '<div class="iw_inner" style="padding: 10px;">',
+				        '   <h4 align="center">Start Address</h2>',
+				        '   <p>'+addres+'</p>',
+				        '</div>'
+			    ].join('');
+				var infoWindow = new naver.maps.InfoWindow({
+				    content: contentString,
+				    maxWidth: 300,
+				    backgroundColor: "#eee",
+				    borderColor: "#2db400",
+				    borderWidth: 2,
+				    anchorSize: new naver.maps.Size(30, 30),
+				    anchorSkew: true,
+				    anchorColor: "#eee",
+				    pixelOffset: new naver.maps.Point(20, -20)
 				});
-				Smarkers.push(marker);
-			}
+				nStartArray.push(new naver.maps.Point(startx,starty));
+				markers.push(marker);
+				infoWindows.push(infoWindow);
+				
+		
+				var endx2 = document.getElementById("x2").value;
+				var endy2 = document.getElementById("y2").value;
+				var addres2 = document.getElementById("roadAddr_EndAddress").value;
+				var contentString2 = [
+			        '<div class="iw_inner" style="padding: 10px;">',
+			        '   <h4 align="center">End Address</h2>',
+			        '   <p>'+addres2+'</p>',
+			        '</div>'
+			    ].join('');
+				var infoWindow2 = new naver.maps.InfoWindow({
+				    content: contentString2,
+				    maxWidth: 300,
+				    backgroundColor: "#eee",
+				    borderColor: "#2db400",
+				    borderWidth: 2,
+				    anchorSize: new naver.maps.Size(30, 30),
+				    anchorSkew: true,
+				    anchorColor: "#eee",
+				    pixelOffset: new naver.maps.Point(20, -20)
+				});
+				nEndArray.push(new naver.maps.Point(endx2, endy2));
+				markers.push(marker2);
+				infoWindows.push(infoWindow2);
 			
-			markers = Smarkers;	
-			infoWindows = infoWindowArray[agidoMk] ;
-			pMarkers = Smarkers;
-			pinfoWindows = infoWindows;
-			
+		}
+		
+		
+		
+		
+		
+		function gidomarker(){
 			naver.maps.Event.addListener(map, 'idle', function() {
 			    updateMarkers(map, markers);
 			});
@@ -952,104 +1018,59 @@
 			}
 		}
 		
-		naver.maps.onJSContentLoaded = initGeocoder;
 		
-		function goPopup(){
-			$('#roadAddr_StartAddress').val(null);
-			 marker5.setMap(null);
-			// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrEngUrl.do)를 호출하게 됩니다.
-		    var pop = window.open("popStartAddress","pop","width=570,height=420, scrollbars=yes, resizable=yes");
-			
-		    if(checkNum == 1){
-				var poly = polylines[0];
-				poly.setMap(null);
-				poly = polylines[1];
-				poly.setMap(null);
-				poly = polylines[2];
-				poly.setMap(null);
-				for(var h=0;h<pMarkers.length; h++){
-					var markerh = pMarkers[h];
-					markerh.setMap(null);
-					var infoh = pinfoWindows[h];
-					infoh.setMap(null);
-				}
-				markers = [];
-				infoWindows = [];
-				mapObjArray = [];
-				nStartArray = [];
-				nEndArray = [];
-				markerArray = [];
-				infoWindowArray = [];
-				polylines = [];
-				marker4 = null;
-				pMarkers = [];
-				checkNum = 0;
-				$('#roadAddr_EndAddress').val(null);
-				$('#searchjson').empty();
+		function setmapmarker(){
+			naver.maps.Event.addListener(map, 'markernull', function() {
+			    updateMarkers(map, markers);
+			});
+
+			function updateMarkers(map, markers) {
+
+			    var mapBounds = map.getBounds();
+			    var marker3, position;
+
+			    for (var i = 0; i < markers.length; i++) {
+			        marker3 = markers[i];
+			        position = marker3.getPosition();
+
+			        if (mapBounds.hasLatLng(position)) {
+			            marker3.setMap(null);
+			        } else {
+			            marker3.setMap(null);
+			        }
+			    }
+			}
+
+			function showMarker(map, marker) {
+			    if (marker.setMap()) return;
+			    marker.setMap(null);
+			}
+
+			function hideMarker(map, marker) {
+			    if (!marker.setMap()) return;
+			    marker.setMap(null);
+			}
+
+			// 해당 마커의 인덱스를 seq라는 클로저 변수로 저장하는 이벤트 핸들러를 반환합니다.
+			function getClickHandler(seq) {
+			    return function(e) {
+			        var marker3 = markers[seq],
+			            infoWindow = infoWindows[seq];
+			        if (infoWindow.getMap()) {
+			            infoWindow.setMap(null);
+			        } else {
+			        	infoWindow.setMap(null);
+			        }
+			    }
+			}
+
+			for (var i=0, ii=markers.length; i<ii; i++) {
+			    naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
 			}
 		}
-
-		function jusoCallBack(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, admCd, rnMgtSn
-								, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, korAddr){
-			// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-			$('#roadAddr_StartAddress').val(roadAddr);
-			$('#ehddnr').val(korAddr);
-			initGeocoder();
-			
-		}
-
-		function goPopup2(){
-			$('#roadAddr_EndAddress').val(null);
-			   marker6.setMap(null);
-			// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrEngUrl.do)를 호출하게 됩니다.
-		    var pop = window.open("popEndAddress","pop","width=570,height=420, scrollbars=yes, resizable=yes");
-		   
-			if(checkNum == 1){
-				for(var h=0;h<pMarkers.length; h++){
-					var markerh = pMarkers[h];
-					markerh.setMap(null);
-					var infoh = pinfoWindows[h];
-					infoh.setMap(null);
-				}				
-				var poly = polylines[0];
-				poly.setMap(null);
-				poly = polylines[1];
-				poly.setMap(null);
-				poly = polylines[2];
-				poly.setMap(null);
-				markers = [];
-				infoWindows = [];
-				mapObjArray = [];
-				nStartArray = [];
-				nEndArray = [];
-				markerArray = [];
-				infoWindowArray = [];
-				polylines = [];
-				marker4 = null;
-				pMarkers = [];
-				checkNum = 0;
-				$('#roadAddr_StartAddress').val(null);
-				$('#searchjson').empty();
-			}
-		}
-
-		function jusoCallBack2(roadFullAddr, roadAddr, addrDetail, jibunAddr, zipNo, admCd, rnMgtSn
-								, bdKdcd, siNm, sggNm, emdNm, liNm, rn, udrtYn, buldMnnm, buldSlno, mtYn, lnbrMnnm, lnbrSlno, korAddr){
-			// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-			$('#roadAddr_EndAddress').val(roadAddr);
-			$('#ehddnr2').val(korAddr);
-			initGeocoder2();
-		}
-
-		function findDirection(start,end){
-			$('#roadAddr_StartAddress').val(start);
-			$('#ehddnr').val(start);
-			searchAddressToCoordinate(start);
-			$('#roadAddr_EndAddress').val(end);
-			$('#ehddnr2').val(end);
-			searchAddressToCoordinate2(end);
-			console.log(start,end);
-		}
+	</script>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	<script>
 		function Detail(Detailid, style, style2) {
 			var name = Detailid;
 			$(style).css('display', 'block');
