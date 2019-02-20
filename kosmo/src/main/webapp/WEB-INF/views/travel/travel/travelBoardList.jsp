@@ -172,7 +172,7 @@
 		<div class="col-md-8 mb-8" id = "result">
 			<label for="searchText">Search Text</label>
 			<input type="text" class="form-control"	id="final_span">
-			<input type="text" class="form-control"	id="interim_span">
+			<input type="hidden" id="interim_span">
 			<!-- <input type="text" class="form-control"	id="result"> -->
 		</div>
 		
