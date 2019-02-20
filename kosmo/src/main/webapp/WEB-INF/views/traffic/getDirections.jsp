@@ -82,17 +82,17 @@ function findDirection(start,end){
 		<div class="col-12 col-md-3 col-lg-3" style="display:inline-block;margin: 30px 0;">
 			<div class="row">
 				<div align="center" style="display: block;" class="col-12 col-md-12 col-lg-12">
-					<input type="text" placeholder="Please enter an Startaddress."
+					<input type="text" placeholder="Please enter Starting Address."
 						id="roadAddr_StartAddress" style="padding:0 5px;height: 50px; width: 100%;"><br><br> 
 					<input type="hidden" id="ehddnr" value="">
 					<input type="button" class='btn alazea-btn'
-						onclick="goPopup();" style="width: 100%;" value="Start Address Search"><br><br> 
-					<input type="text" placeholder="Please enter an Endaddress."
+						onclick="goPopup();" style="width: 100%;" value="Set Starting Address"><br><br> 
+					<input type="text" placeholder="Please enter Destination."
 						id="roadAddr_EndAddress" style="padding:0 5px;height: 50px; width: 100%;"><br><br>
 					<input type="hidden" id="ehddnr2" value=""> 
 					<input type="button" class='btn alazea-btn'
 						onclick="goPopup2();" style="width: 100%;"
-						value="End Address Search"><br><br> 
+						value="Set Destination"><br><br> 
 					<input type="button" class='btn alazea-btn'
 						onclick="searchjido();" style="width: 100%;" value="Get Directions">
 					<input type="hidden" value="" id="x1"> <input type="hidden"

@@ -22,63 +22,6 @@ public class InfoController {
 	@RequestMapping("newsBoard")
 	public String newsBoard(HttpServletRequest req, Model model) throws Exception {
 		logger.info("newsBoard 로딩 중....");
-		//방법1
-		/*System.setProperty("http.maxRedirects", "1");
-		BufferedReader br = null;
-        try{            
-            String urlstr = "http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode=CTR0013";
-            URL url = new URL(urlstr);
-            HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
-            urlconnection.setRequestMethod("GET");
-            br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(),"UTF-8"));
-            String result = "";
-            String line;
-            while((line = br.readLine()) != null) {
-                result = result + line + "\n";
-            }
-            System.out.println(result);
-        }catch(Exception e){
-        	logger.info(e.getMessage());
-        }*/
-		//////////////////////////////////////////////////////////////////////////////////////////////
-		
-		//방법2
-		/*String tempUrl = "http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode=CTR0013";
-		
-		URI jsonUrl = new URI(tempUrl);
-        ObjectMapper mapper = new ObjectMapper();
-        newsJson newsJson = mapper.readValue(jsonUrl, newsJson.class);
-		
-		System.setProperty("http.maxRedirects", "1");
-		StringBuilder urlBuilder = new StringBuilder("http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode=CTR0013");
-		URL url = new URL(urlBuilder.toString());
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Content-type", "application/json");
-		conn.setDoOutput(true); 
-		conn.setReadTimeout(6000); 
-		conn.setConnectTimeout(5000); 
-		res.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
-	    res.setHeader("Access-Control-Allow-Credentials", "true");
-	    res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-	    res.setHeader("Access-Control-Max-Age", "3600");
-	    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
-		
-		System.out.println("Response code: " + conn.getResponseCode());
-		BufferedReader rd;
-		if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		} else {
-			rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-		}
-		StringBuilder sb = new StringBuilder();
-		String line;
-		while ((line = rd.readLine()) != null) {
-			sb.append(line);
-		}
-		rd.close();
-		conn.disconnect();
-		System.out.println(sb.toString());*/
 		return "info/news/newsBoardList";
 	}
 

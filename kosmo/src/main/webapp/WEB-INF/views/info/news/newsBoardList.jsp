@@ -98,24 +98,19 @@
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
 <script src="resources/js/jquery.ajax-cross-origin.min.js"></script>
 <script>
+
 /* $("#ctrcodeSelect").change(function() {
 	  alert($("#ctrcodeSelect").val());
 	}); */
 	
 function getNewsJson() {
 		var ctrcode = $('#ctrcodeSelect').val(); 
-		var url = "http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode=CTR0013";
-		alert("aaa");
-		$.ajax({
-				url: url,
-				crossOrigin: true,
-				jsonp: "$jsonp",
-				dataType: "jsonp",
-				contentType: "application/x-www-form-urlencoded",
-			}).done(function(data) {
-				alert("a");
-				alert(data);
-		});
+		var url = "getNewsJson?ctrcode="+ctrcode;
+		//var url = "http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode=CTR0013";
+		$.getJSON(url, function(data) {
+			console.log(data);
+		})
+	}
 		
 		/* $.getJSON("http://www.kocis.go.kr/json/kocc.do?langCode=lang001&&searchType=&page=1&pageSize=20&ctrcode="+ctrcode, function(data){
 			alert(data);
@@ -161,7 +156,6 @@ function getNewsJson() {
 		};
 		xhr.send(); */
 
-	}
 </script>
 
 </body>

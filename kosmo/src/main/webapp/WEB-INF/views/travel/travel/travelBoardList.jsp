@@ -48,12 +48,12 @@
   border-color: #70c745;
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
-  margin-top:10%;
+  margin-top:5%;
   padding: 20px;
   border: 1px solid #888;
   width: 100%;
   max-width:1080px;
-  max-height:600px;
+  max-height:800px;
   overflow-y: auto;
 }
 
@@ -70,6 +70,10 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal-footer {
+    border-top: 0 none !important;
 }
 </style>
 </head>
@@ -204,7 +208,12 @@
 	<div class="modal-content">
 		<div id="modal-content">
 		</div>
-	<button type='button' id='closeModal' class='btn alazea-btn' onclick='closeModal()' style='padding:30px !important; line-height:0px !important;'>CLOSE</button>
+		<div class="modal-footer" style="margin-bottom:20px">
+			<p>&nbsp;</p>
+	        <button type='button' id='closeModal' class='btn alazea-btn' onclick='closeModal()' style='line-height:0px !important;'>CLOSE</button>
+	        <input type="hidden" id="hiddenAddress">
+	        <button type="button" class="btn alazea-btn">Get Direction</button>
+	    </div>
 	</div>
 </div>
 <jsp:include page="../../setting/footer01.jsp" flush="false" />
