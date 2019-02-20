@@ -11,7 +11,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>Helper - Foriener &amp; Help HTML Template</title>
+<title>Helper - Exchange Calculator</title>
 
 <!-- Favicon -->
 <link rel="icon" href="resources/img/core-img/favicon.ico">
@@ -35,7 +35,7 @@
 	<div
 		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 		style="background-image: url(resources/img/ehddnr2.jpg);">
-		<h2>Exchange Rate</h2>
+		<h2>Exchange Calculator</h2>
 	</div>
 </div>
 <!-- ##### Breadcrumb Area End ##### -->

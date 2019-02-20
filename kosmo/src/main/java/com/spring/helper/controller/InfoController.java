@@ -17,13 +17,34 @@ public class InfoController {
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	
 	//재영 InfoController 시작 ====================================================================================
-
+	
+	//날씨 정보
+	@RequestMapping("weather")
+	public String weather() throws Exception {
+		logger.info("weather 로딩 중....");
+		return "info/weather/weather";
+	}
+	
+	//관광 정보
+	@RequestMapping("travelBoard")
+	public String travelBoard(HttpServletRequest req, Model model) throws Exception {
+		logger.info("travelBoard 로딩 중....");
+		return "info/travel/travelBoardList";
+	}
+	
+	//병원 정보
+	@RequestMapping("emergency")
+	public String emergency(HttpServletRequest req,Model model) throws Exception {
+		logger.info("emergency 로딩 중..");
+		//service.emergency(req, model); json 형식 제공으로 변경 - 재영
+		return "info/emergency/emergency";
+	}
 	//소식 게시판 입장 -- 안해....  corsFilter.class  /////   web.xml의 cors 필터 //// pom.xml의 json simple  //// jsonVO.class
-	@RequestMapping("newsBoard")
+	/*@RequestMapping("newsBoard")
 	public String newsBoard(HttpServletRequest req, Model model) throws Exception {
 		logger.info("newsBoard 로딩 중....");
 		return "info/news/newsBoardList";
-	}
+	}*/
 
 	//소식 게시판 결과 얻기
 
@@ -35,7 +56,7 @@ public class InfoController {
 	// 외국인 취업정보 게시판
 
 	// 다문화 외국인 취업정보 게시판
-	@RequestMapping("employment")
+	/*@RequestMapping("employment")
 	public String employment(HttpServletRequest req, Model model) throws Exception {
 		logger.info("다문화 고용 페이지....");
 
@@ -46,7 +67,7 @@ public class InfoController {
 	public String employeInfo(HttpServletRequest req, Model model) throws Exception {
 		// 죽은 페이지
 		
-		/*logger.info("다문화 고용 정보 페이지....");
+		logger.info("다문화 고용 정보 페이지....");
 		
 		ProcessBuilder pb = new ProcessBuilder("python", "C:/DEV_43/employe.py", "ppppp");
 		Process p = pb.start(); // 프로세스 호출
@@ -70,7 +91,7 @@ public class InfoController {
 		System.out.println(sb.toString());
 		br.close();
 		
-		*/
+		
 		return "info/multicultural/employeInfo";
 	}
 	// 민석이 끝++++++++++++++++++++++++++++++++
@@ -80,5 +101,5 @@ public class InfoController {
 		logger.info("multicultural....");
 
 		return "info/multicultural/multicultural";
-	}
+	}*/
 }

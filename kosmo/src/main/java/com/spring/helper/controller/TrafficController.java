@@ -98,12 +98,7 @@ public class TrafficController {
 	// 대호 시작 ==================================================================
 		
 		
-		@RequestMapping("emergency")
-		public String emergency(HttpServletRequest req,Model model) throws Exception {
-			logger.info("emergency 로딩 중..");
-			//service.emergency(req, model); json 형식 제공으로 변경 - 재영
-			return "traffic/emergency";
-		}
+		
 		
 		@RequestMapping("restaurantlocation")
 		public String restaurantlocation() {

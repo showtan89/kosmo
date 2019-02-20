@@ -8,7 +8,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="X-Content-Type-Options" content="nosniff" />
-<title>Helper - Convert</title>
+<title>Helper - Conversion Calculator</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
 </head>
@@ -26,7 +26,7 @@
 <div class="breadcrumb-area">
 	<div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 		style="background-image: url(resources/img/bg-img/image5.jpg);">
-		<h2><b>Convert To Size</b></h2>
+		<h2>Conversion Calculator</h2>
 	</div> <br><br>
 </div>
 
@@ -1247,9 +1247,9 @@
 	</script>
 
 <div class="container" style="margin-bottom: 50px;">
-	<font size="20"><b>C O N V E R T</b></font>
-	<br>
-	<br>
+	<!-- <font size="20"><b>Conversion Calculator</b></font>
+	<br>-->
+	<br> 
 <form action="#" method="post"
 	style="margin-left: auto; margin-right: auto; border: 1px solid #ced4da; padding: 30px; backgrond-color: green; border-radius: 10px;" 
 		name="convertForm">

@@ -1028,6 +1028,7 @@
 		//귀찮 하드코딩 ^^
     	var startx = 126.8786512;
 		var starty = 37.4788221;
+    	
     	searchAddressToCoordinate3(startx,starty);
     	searchAddressToCoordinate4(endLng,endLat);
 	}

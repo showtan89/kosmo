@@ -25,6 +25,14 @@ public class UtilController {
 	@Autowired
 	UtilService utilService;
 	
+	// 동욱 시작
+	//환율 정보
+	@RequestMapping("exchangerate")
+	public String exchangerate(HttpServletRequest req, Model model) throws Exception{
+		logger.info("exchangerate 로딩 중....");
+		return "util/Exchangerate/Exchangerate";
+	}
+	
 	//재영 UtilController 시작 ====================================================================================
 
 	//이미지 검색 페이지 이동
