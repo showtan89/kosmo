@@ -760,6 +760,7 @@ public class BoardServiceImpl implements BoardService {
 	//쪽지 보내기
 	@Override
 	public Integer sendMessage(HttpServletRequest req, Model model) {
+		
 		UserVO userVO = (UserVO)req.getSession().getAttribute("userVO");
 		String memEmail = userVO.getMemberEmail();
 		logger.info("memEmail : " + memEmail);

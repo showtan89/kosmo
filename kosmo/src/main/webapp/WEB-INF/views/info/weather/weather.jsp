@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="X-Content-Type-Options" content="nosniff" />
-<title>Helper - blank</title>
+<title>Helper - Weather / Area Info</title>
 <link rel="icon" href="resources/img/core-img/favicon.ico">
 <link rel="stylesheet" href="resources/style.css">
 <style>
@@ -51,7 +51,7 @@
 	<div
 		class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
 		style="background-image: url(resources/img/travel/weather/weather.png);">
-		<h2>Weather Info</h2>
+		<h2>Weather / Area Info</h2>
 	</div>
 	<br><br>
 </div>

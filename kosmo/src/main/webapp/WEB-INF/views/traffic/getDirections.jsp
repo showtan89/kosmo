@@ -1101,8 +1101,6 @@
 			$(Detailid).css('display', 'none');
 		}
 		
-		
-		
 		$(function(){
 			<c:if test="${fn:length(startPoint) >0 && fn:length(endPoint) >0}">
 				var start = "${startPoint}";
