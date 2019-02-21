@@ -162,8 +162,11 @@ border:1px solid black;
 	
 	
 	function getDirectionModal(stationID,BnT){
-		var str = "";
+		var busArray = new Array();
+		var routeArray = new Array();
+		var busstr = "";
 		if(BnT == 1){
+			var str = "";
 			var url = 'https://api.odsay.com/v1/api/subwayTimeTable?apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0&lang=0&showExpressTime=1&stationID='+stationID;
 			 $.getJSON(url, function(data) {
 				 var upOrdList = data.result.OrdList.up.time;
@@ -499,6 +502,7 @@ border:1px solid black;
 			}); 
 			 
 		} else {
+			var str = "";
 			var url = 'https://api.odsay.com/v1/api/busStationInfo?apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0&lang=0&stationID='+stationID;
 			$.getJSON(url, function(data) {
 				var result = data.result;
@@ -507,15 +511,49 @@ border:1px solid black;
 						var res = data.response;
 						var msgHeader = data.response.msgHeader;
 						var busRealTime = data.response.msgBody.busArrivalList;
-						$('#getDirectionslModal').show();
+						str += '<div>';
+						str += '<table class="table table-striped">';
+						str += '<tr>';
+						str += '<th>BusNo</th>';  
+						str += '<th>BusNumber</th>'; 
+						str += '<th>location</th>';  
+						str += '<th>predictTime</th>'; 
+						str += '</tr>';
+						
+						for(var bu=0;bu<busRealTime.length;bu++){
+							var plate = busRealTime[bu].plateNo1;   
+							var location = busRealTime[bu].locationNo1; 
+							var predict = busRealTime[bu].predictTime1; 
+							var route = busRealTime[bu].routeId;  
+								str += '<tr>';
+								str += '<td><div id="busN'+bu+'"></div></td>';
+								str += '<td>' +plate+'</td>';
+								str += '<td>' +location+'</td>';
+								str += '<td>' +predict+'</td>';
+								str += '</tr>';
+								routeArray.push(route);
+								busstr += route;
+						}
+						str += '</table></div>';
+						$('#modal-content').html(str);
+						
+						for(var bu=0;bu<routeArray.length;bu++){
+							busgetJson(routeArray,bu);
+						}
 					});
+					
 			});
 		}
-		
-		
+	
+		$('#getDirectionslModal').show();
 	}
 	
-	
+	function busgetJson(routeArray,bu){
+		$.getJSON('getBusRealTimeNo?route='+routeArray[bu], function(data2) {
+			var busNo = data2.response.msgBody.busRouteInfoItem.routeName;
+			$('#busN'+bu).html(busNo);
+		});
+	}
 	
 	$('#closeModal').click(function () {
 		$('#getDirectionslModal').css('display','none');
