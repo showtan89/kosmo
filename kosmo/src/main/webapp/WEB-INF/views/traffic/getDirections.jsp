@@ -13,10 +13,19 @@
 <style>
 .realtime{
 	width:30%;
+	height:10%;
 	padding:2px 10px;
 	font-size:20px;
 	border:1px solid black;
 	background-color: #ffffff;
+	margin-bottom: 10px;
+}
+.TrainTimediv table tr td{
+	vertical-align: middle;
+	border:1px solid black;
+}
+.TrainTimediv table th{
+border:1px solid black;
 }
 /* .cursorCustom{
 	cursor: pointer;
@@ -98,8 +107,8 @@
 		<!-- Top Breadcrumb Area -->
 		<div
 			class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center"
-			style="background-image: url(resources/img/ehddnr2.jpg);">
-			<h2>Get Directions</h2>
+			style="background-image: url(resources/img/길찾기후보1.png);">
+			<h2>Traffic Search</h2>
 		</div>
 	</div>
 	<!-- ##### Breadcrumb Area End ##### -->
@@ -169,25 +178,28 @@
 				 var Week = "Week";
 				 var Satur = "Satur";
 				 var Sun = "Sun";
-				 str += '<div>';
-				 str += '<button type="button" onclick="TrainTime('+Week+');" class="realtime">WeekDay</button>';
-				 str += '<button type="button" onclick="TrainTime('+Satur+');" class="realtime" style="margin-left:40px;">SaturDay</button>';
-				 str += '<button type="button" onclick="TrainTime('+Sun+');" class="realtime" style="margin-left:40px;">SunDay</button><br>';
+				 str += '<div align="center">';
+				 str += '<button type="button" onclick="TrainTime('+Week+');" class="realtime" id="realtime1" style="background-color:#70c745;float:left;">WeekDay</button>';
+				 str += '<button type="button" onclick="TrainTime('+Satur+');" class="realtime" id="realtime2" >SaturDay</button>';
+				 str += '<button type="button" onclick="TrainTime('+Sun+');" class="realtime" id="realtime3" style="float:right;">SunDay</button><br>';
 				 str += '</div>';
 				 
 				 
 				 str += '<div class="TrainTimediv" id="Week">';
 				 str += '<table class="table table-striped">';
-				 str += '<tr style="font-size:25px;font-weight:bold;text-align:center;"><th style="width:45%;">UpWay : '+result.upWay+'</th><th style="width:10%;">Time</th><th style="width:45%;">DownWay : '+result.downWay+'</th></tr>';
+				 str += '<tr style="font-size:18px;font-weight:bold;"><th style="width:10%;text-align:center;">Time</th><th style="width:45%;">UpWay : '+result.upWay+'</th><th style="width:45%;">DownWay : '+result.downWay+'</th></tr>';
 				 for(var sn=0; sn<upOrdList.length; sn++){
 					 var sp = upOrdList[sn].list;
 					 var sparray = sp.split(" ");
 					 str += '<tr>';
+					 str += '<td style="font-size:17px;text-align:center;color:black;">'+upOrdList[sn].Idx+'</td>';
 					 var trNumArray = new Array();
 					  if(upOrdList[sn].expList != undefined){
+						  str += '<td >';
 					 	 var gsp = upOrdList[sn].expList;
 						 var gsparray = gsp.split(" ");
-					 	for(var kn=0; kn<sparray.length;kn++){
+					 	
+						 for(var kn=0; kn<sparray.length;kn++){
 					 		var trTime = sparray[kn].substr(0,2);
 					 		if(gsparray[kn] != undefined){
 					 			var gTime = gsparray[kn].substr(0,2);
@@ -198,22 +210,22 @@
 					 		}
 					 	}
 					 	trNumArray.sort();
-					 	 for(var kh=0; trNumArray.length; kh++){
-					 		str += '<td >';
+					 	 for(var kh=0; kh<trNumArray.length; kh++){
 					 		var tgrnum = 0;
-					 		for(var kt=0;gsparray.length;kt++){
-					 			/* if(gsparray[kt].equals(trNumArray[kh])){
+					 		for(var kt=0;kt<gsparray.length;kt++){
+					 			var gTime = gsparray[kt].substr(0,2);
+					 			  if(gTime==trNumArray[kh]){
 					 				tgrnum = 1;
-					 			}  */
+					 			}  
 					 		}
-					 		/* if(tgrnum==1){
+					 		 if(tgrnum==1){
 					 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;color:red;">'+trNumArray[kh]+'</button>';
 					 		} else{
 					 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trNumArray[kh]+'</button>';
-					 		} */
-					 		str +='</td>';
-					 	} 
+					 		} 
 					 	
+					 	} 
+					 	 str += '</td >';
 				 	 } else {
 				 		str += '<td >';
 				 		for(var kn=0; kn<sparray.length;kn++){
@@ -222,21 +234,264 @@
 					 	}
 				 		str +='</td>';
 				 	 }
-					 str += '<td style="font-size:25px;text-align:center;color:black;">'+upOrdList[sn].Idx+'</td>';
-					/*  if(downexpList != expList){
-						 str += '<td>'+downOrdList[sn].list+'<span style="float:right;font-color:red;">급행 : '+downOrdList[sn].expList+'</span></td>';
+					 
+					 trNumArray = [];
+					 
+					 if(downOrdList[sn] != undefined){
+						 var dp = downOrdList[sn].list;
+						 var dparray = dp.split(" ");
+						 
+						 if(downOrdList[sn].expList != undefined){
+							  str += '<td >';
+						 	 var gsp = downOrdList[sn].expList;
+							 var gsparray = gsp.split(" ");
+						 	
+							 for(var kn=0; kn<dparray.length;kn++){
+						 		var trTime = dparray[kn].substr(0,2);
+						 		if(gsparray[kn] != undefined){
+						 			var gTime = gsparray[kn].substr(0,2);
+						 			trNumArray.push(trTime);
+						 			trNumArray.push(gTime);
+						 		} else {
+						 			trNumArray.push(trTime);
+						 		}
+						 	}
+						 	trNumArray.sort();
+						 	 for(var kh=0; kh<trNumArray.length; kh++){
+						 		var tgrnum = 0;
+						 		for(var kt=0;kt<gsparray.length;kt++){
+						 			var gTime = gsparray[kt].substr(0,2);
+						 			  if(gTime==trNumArray[kh]){
+						 				tgrnum = 1;
+						 			}  
+						 		}
+						 		 if(tgrnum==1){
+						 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;color:red;">'+trNumArray[kh]+'</button>';
+						 		} else{
+						 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trNumArray[kh]+'</button>';
+						 		} 
+						 	
+						 	} 
+						 	 str += '</td >';
+					 	 } else {
+					 		str += '<td >';
+					 		for(var kn=0; kn<dparray.length;kn++){
+						 		var trTime = dparray[kn].substr(0,2); 
+						 		str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trTime+'</button>';
+						 	}
+					 		str +='</td>';
+					 	 }
 					 } else {
-						 str += '<td>'+downOrdList[sn].list+'</td>';
-					 } */
+						 str +='<td></td>';
+					 }
 					 str += '</tr>';
 				 }
 				 str += '</table>';
 				 str += '</div>';
 				 
 				 str += '<div class="TrainTimediv" id="Satur" style="display:none;">';
+				 str += '<table class="table table-striped">';
+				 str += '<tr style="font-size:18px;font-weight:bold;"><th style="width:10%;text-align:center;">Time</th><th style="width:45%;">UpWay : '+result.upWay+'</th><th style="width:45%;">DownWay : '+result.downWay+'</th></tr>';
+				 for(var sn=0; sn<upSatList.length; sn++){
+					 var sp = upSatList[sn].list;
+					 var sparray = sp.split(" ");
+					 str += '<tr>';
+					 str += '<td style="font-size:17px;text-align:center;color:black;">'+upOrdList[sn].Idx+'</td>';
+					 var trNumArray = new Array();
+					  if(upSatList[sn].expList != undefined){
+						  str += '<td >';
+					 	 var gsp = upSatList[sn].expList;
+						 var gsparray = gsp.split(" ");
+					 	
+						 for(var kn=0; kn<sparray.length;kn++){
+					 		var trTime = sparray[kn].substr(0,2);
+					 		if(gsparray[kn] != undefined){
+					 			var gTime = gsparray[kn].substr(0,2);
+					 			trNumArray.push(trTime);
+					 			trNumArray.push(gTime);
+					 		} else {
+					 			trNumArray.push(trTime);
+					 		}
+					 	}
+					 	trNumArray.sort();
+					 	 for(var kh=0; kh<trNumArray.length; kh++){
+					 		var tgrnum = 0;
+					 		for(var kt=0;kt<gsparray.length;kt++){
+					 			var gTime = gsparray[kt].substr(0,2);
+					 			  if(gTime==trNumArray[kh]){
+					 				tgrnum = 1;
+					 			}  
+					 		}
+					 		 if(tgrnum==1){
+					 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;color:red;">'+trNumArray[kh]+'</button>';
+					 		} else{
+					 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trNumArray[kh]+'</button>';
+					 		} 
+					 	
+					 	} 
+					 	 str += '</td >';
+				 	 } else {
+				 		str += '<td >';
+				 		for(var kn=0; kn<sparray.length;kn++){
+					 		var trTime = sparray[kn].substr(0,2); 
+					 		str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trTime+'</button>';
+					 	}
+				 		str +='</td>';
+				 	 }
+					 if(downSatList[sn] != undefined){
+						 trNumArray = [];
+						 var dp = downSatList[sn].list;
+						 var dparray = dp.split(" ");
+						 
+						 if(downSatList[sn].expList != undefined){
+							  str += '<td >';
+						 	 var gsp = downSatList[sn].expList;
+							 var gsparray = gsp.split(" ");
+						 	
+							 for(var kn=0; kn<dparray.length;kn++){
+						 		var trTime = dparray[kn].substr(0,2);
+						 		if(gsparray[kn] != undefined){
+						 			var gTime = gsparray[kn].substr(0,2);
+						 			trNumArray.push(trTime);
+						 			trNumArray.push(gTime);
+						 		} else {
+						 			trNumArray.push(trTime);
+						 		}
+						 	}
+						 	trNumArray.sort();
+						 	 for(var kh=0; kh<trNumArray.length; kh++){
+						 		var tgrnum = 0;
+						 		for(var kt=0;kt<gsparray.length;kt++){
+						 			var gTime = gsparray[kt].substr(0,2);
+						 			  if(gTime==trNumArray[kh]){
+						 				tgrnum = 1;
+						 			}  
+						 		}
+						 		 if(tgrnum==1){
+						 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;color:red;">'+trNumArray[kh]+'</button>';
+						 		} else{
+						 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trNumArray[kh]+'</button>';
+						 		} 
+						 	
+						 	} 
+						 	 str += '</td >';
+					 	 } else {
+					 		str += '<td >';
+					 		for(var kn=0; kn<dparray.length;kn++){
+						 		var trTime = dparray[kn].substr(0,2); 
+						 		str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trTime+'</button>';
+						 	}
+					 		str +='</td>';
+					 	 }
+					 } else {
+						 str += '<td></td>';
+					 }
+					 str += '</tr>';
+				 }
+				 str += '</table>';
 				 str += '</div>';
 				 
 				 str += '<div class="TrainTimediv" id="Sun" style="display:none;">';
+				 str += '<table class="table table-striped">';
+				 str += '<tr style="font-size:18px;font-weight:bold;"><th style="width:10%;text-align:center;">Time</th><th style="width:45%;">UpWay : '+result.upWay+'</th><th style="width:45%;">DownWay : '+result.downWay+'</th></tr>';
+				 for(var sn=0; sn<upSunList.length; sn++){
+					 var sp = upSunList[sn].list;
+					 var sparray = sp.split(" ");
+					 str += '<tr>';
+					 str += '<td style="font-size:17px;text-align:center;color:black;">'+upOrdList[sn].Idx+'</td>';
+					 var trNumArray = new Array();
+					  if(upSunList[sn].expList != undefined){
+						  str += '<td >';
+					 	 var gsp = upSunList[sn].expList;
+						 var gsparray = gsp.split(" ");
+					 	
+						 for(var kn=0; kn<sparray.length;kn++){
+					 		var trTime = sparray[kn].substr(0,2);
+					 		if(gsparray[kn] != undefined){
+					 			var gTime = gsparray[kn].substr(0,2);
+					 			trNumArray.push(trTime);
+					 			trNumArray.push(gTime);
+					 		} else {
+					 			trNumArray.push(trTime);
+					 		}
+					 	}
+					 	trNumArray.sort();
+					 	 for(var kh=0; kh<trNumArray.length; kh++){
+					 		var tgrnum = 0;
+					 		for(var kt=0;kt<gsparray.length;kt++){
+					 			var gTime = gsparray[kt].substr(0,2);
+					 			  if(gTime==trNumArray[kh]){
+					 				tgrnum = 1;
+					 			}  
+					 		}
+					 		 if(tgrnum==1){
+					 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;color:red;">'+trNumArray[kh]+'</button>';
+					 		} else{
+					 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trNumArray[kh]+'</button>';
+					 		} 
+					 	
+					 	} 
+					 	 str += '</td >';
+				 	 } else {
+				 		str += '<td >';
+				 		for(var kn=0; kn<sparray.length;kn++){
+					 		var trTime = sparray[kn].substr(0,2); 
+					 		str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trTime+'</button>';
+					 	}
+				 		str +='</td>';
+				 	 }
+					 
+					 trNumArray = [];
+					 if(downSunList[sn] != undefined){
+						 var dp = downSunList[sn].list;
+						 var dparray = dp.split(" ");
+					
+						 if(downSunList[sn].expList != undefined){
+							  str += '<td >';
+						 	 var gsp = downSunList[sn].expList;
+							 var gsparray = gsp.split(" ");
+						 	
+							 for(var kn=0; kn<dparray.length;kn++){
+						 		var trTime = dparray[kn].substr(0,2);
+						 		if(gsparray[kn] != undefined){
+						 			var gTime = gsparray[kn].substr(0,2);
+						 			trNumArray.push(trTime);
+						 			trNumArray.push(gTime);
+						 		} else {
+						 			trNumArray.push(trTime);
+						 		}
+						 	}
+						 	trNumArray.sort();
+						 	 for(var kh=0; kh<trNumArray.length; kh++){
+						 		var tgrnum = 0;
+						 		for(var kt=0;kt<gsparray.length;kt++){
+						 			var gTime = gsparray[kt].substr(0,2);
+						 			  if(gTime==trNumArray[kh]){
+						 				tgrnum = 1;
+						 			}  
+						 		}
+						 		 if(tgrnum==1){
+						 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;color:red;">'+trNumArray[kh]+'</button>';
+						 		} else{
+						 			str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trNumArray[kh]+'</button>';
+						 		} 
+						 	
+						 	} 
+						 	 str += '</td >';
+					 	 } else {
+					 		str += '<td >';
+					 		for(var kn=0; kn<dparray.length;kn++){
+						 		var trTime = dparray[kn].substr(0,2); 
+						 		str += '<button style="background:none;border:none;width:40px;margin-left:3px;font-size:16px;">'+trTime+'</button>';
+						 	}
+					 		str +='</td>';
+					 	 }
+					 } else {
+						 str += '<td></td>';
+					 }
+					 str += '</tr>';
+				 }
+				 str += '</table>';
 				 str += '</div>';
 				$('#modal-content').html(str);
 				
@@ -379,6 +634,31 @@
 			
 		}
 		
+		function searchAddressToCoordinate3(startx,starty){
+	        document.getElementById("x1").value = startx;
+	          document.getElementById("y1").value = starty;
+	          var start = new naver.maps.Point(startx, starty);
+	          map.setCenter(start);
+	          marker5 = new naver.maps.Marker({
+	             position : new naver.maps.Point(startx,
+	                   starty),
+	             map : map,
+	             draggable : false
+	          });
+	      }
+	      
+	      function searchAddressToCoordinate4(endLat,endLng){
+	         document.getElementById("x2").value = endLat;
+	          document.getElementById("y2").value = endLng;
+	          var end = new naver.maps.Point(endLat, endLng);
+	          map.setCenter(end);
+	          marker6 = new naver.maps.Marker({
+	             position : new naver.maps.Point(endLat,
+	                   endLng),
+	             map : map,
+	             draggable : false
+	          });
+	      }
 		
 		
 	
@@ -1088,18 +1368,18 @@
 			searchAddressToCoordinate2(end);
 			console.log(start,end);
 		}
-		function Detail(Detailid, style, style2) {
-			var name = Detailid;
-			$(style).css('display', 'block');
-			$(style2).css('display', 'none');
-			$(Detailid).css('display', 'block');
-		}
-		function Detailnone(Detailid, style, style2) {
-			var name = Detailid;
-			$(style).css('display', 'block');
-			$(style2).css('display', 'none');
-			$(Detailid).css('display', 'none');
-		}
+		
+		function findDirection2(name,endLat,endLng) {
+		       $('#roadAddr_StartAddress').val("Current Location");
+		       $('#roadAddr_EndAddress').val(name);
+		      //귀찮 하드코딩 ^^
+		       var startx = 126.8786512;
+		      var starty = 37.4788221;
+		       
+		       searchAddressToCoordinate3(startx,starty);
+		       searchAddressToCoordinate4(endLng,endLat);
+		   }
+		
 		
 		$(function(){
 			<c:if test="${fn:length(startPoint) >0 && fn:length(endPoint) >0}">
@@ -1107,13 +1387,40 @@
 				var end = "${endPoint}";
 				findDirection(start,end);
 			</c:if>
+			
+			<c:if test="${fn:length(endLat) >0 && fn:length(endLng) >0 && fn:length(name) >0}">
+	           var endLat = "${endLat}";
+	           var endLng = "${endLng}";
+	           var name = "${name}";
+	           findDirection2(name,endLat,endLng);
+	         </c:if>
 		})
+		
 		
 	</script>
 	
 	<script>
+
+	function Detail(Detailid, style, style2) {
+		var name = Detailid;
+		$(style).css('display', 'block');
+		$(style2).css('display', 'none');
+		$(Detailid).css('display', 'block');
+	}
+	function Detailnone(Detailid, style, style2) {
+		var name = Detailid;
+		$(style).css('display', 'block');
+		$(style2).css('display', 'none');
+		$(Detailid).css('display', 'none');
+	}
+	
 	function TrainTime(TrianName){
+		var cc = event.srcElement.id;
 		$('.TrainTimediv').css('display','none');
+		var ff = '#70c745';
+		var gg = '#ffffff';
+		$('.realtime').css('background-color',gg);
+		$('#'+cc).css('background-color',ff);
 		TrianName.style.display = 'block';
 	}
 	</script>
