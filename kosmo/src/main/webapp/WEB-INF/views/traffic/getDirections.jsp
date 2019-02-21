@@ -158,7 +158,7 @@ border:1px solid black;
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=u91vrld6gw&submodules=geocoder"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=5YhdM97rzIO5e2jM_nEK"></script>
 <script>
-	naver.maps.onJSContentLoaded = initGeocoder;
+	
 	
 	
 	function getDirectionModal(stationID,BnT){
@@ -497,6 +497,7 @@ border:1px solid black;
 				
 				$('#getDirectionslModal').show();
 			}); 
+			 
 		} else {
 			var url = 'https://api.odsay.com/v1/api/busStationInfo?apiKey=hnsqv%2Bnl81sOEEMyauqSk2DiKsoH%2BY2VTPN4c2%2FhmB0&lang=0&stationID='+stationID;
 			$.getJSON(url, function(data) {
@@ -506,7 +507,6 @@ border:1px solid black;
 						var res = data.response;
 						var msgHeader = data.response.msgHeader;
 						var busRealTime = data.response.msgBody.busArrivalList;
-						alert('버스');
 						$('#getDirectionslModal').show();
 					});
 			});
@@ -558,81 +558,81 @@ border:1px solid black;
 		function initGeocoder() {
 			var address2 = document.getElementById("ehddnr").value;
 			searchAddressToCoordinate(address2);
+			function searchAddressToCoordinate(address) {
+				marker5.setMap(null);
+				var  startx, starty;
+				naver.maps.Service.geocode({
+						address : address
+					}, function(status, response) {
+						if (status === naver.maps.Service.Status.ERROR) {
+							return alert('Something Wrong!');
+						}
+						
+						var item = response.result.items[0], 
+						addrType = item.isRoadAddress ? '[도로명 주소]': '[지번 주소]',
+								point = new naver.maps.Point(item.point.x, item.point.y);
+		
+						map.setCenter(point);
+						startx = item.point.x;
+						starty = item.point.y;
+						document.getElementById("x1").value = startx;
+						document.getElementById("y1").value = starty;
+						var start = new naver.maps.Point(startx, starty);
+						marker5 = new naver.maps.Marker({
+							position : new naver.maps.Point(startx,
+									starty),
+							map : map,
+							draggable : false
+						});
+					});
+			}
 			
 		}
 		
 		function initGeocoder2() {
 			var address3 = document.getElementById("ehddnr2").value;
 			searchAddressToCoordinate2(address3);
-			
+			function searchAddressToCoordinate2(address) {
+				marker6.setMap(null);
+				var endx2, endy2;
+				naver.maps.Service.geocode(
+					{
+						address : address
+					},
+					function(status, response) {
+						if (status === naver.maps.Service.Status.ERROR) {
+							return alert('Something Wrong!');
+						}
+						var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
+								: '[지번 주소]', point = new naver.maps.Point(
+								item.point.x, item.point.y);
+						
+						endx2 = item.point.x;
+						endy2 = item.point.y;
+						
+						document.getElementById("x2").value = endx2;
+						document.getElementById("y2").value = endy2;
+
+						var end = new naver.maps.Point(endx2, endy2);
+						
+						map.setCenter(end);
+
+						marker6 = new naver.maps.Marker({
+							position : new naver.maps.Point(endx2,
+									endy2),
+							map : map,
+							draggable : false
+						});
+						
+					});
+				
+			}
 		}
 		
 		// result by latlng coordinate
-		function searchAddressToCoordinate(address) {
-			marker5.setMap(null);
-			var  startx, starty;
-			naver.maps.Service.geocode(
-				{
-					address : address
-				},
-				function(status, response) {
-					if (status === naver.maps.Service.Status.ERROR) {
-						return alert('Something Wrong!');
-					}
-					var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
-							: '[지번 주소]', point = new naver.maps.Point(
-							item.point.x, item.point.y);
-	
-					startx = item.point.x;
-					starty = item.point.y;
-					document.getElementById("x1").value = startx;
-					document.getElementById("y1").value = starty;
-					var start = new naver.maps.Point(startx, starty);
-					map.setCenter(start);
-					marker5 = new naver.maps.Marker({
-						position : new naver.maps.Point(startx,
-								starty),
-						map : map,
-						draggable : false
-					});
-				});
-		}
 		
-		function searchAddressToCoordinate2(address) {
-			marker6.setMap(null);
-			var endx2, endy2;
-			naver.maps.Service.geocode(
-				{
-					address : address
-				},
-				function(status, response) {
-					if (status === naver.maps.Service.Status.ERROR) {
-						return alert('Something Wrong!');
-					}
-					var item = response.result.items[0], addrType = item.isRoadAddress ? '[도로명 주소]'
-							: '[지번 주소]', point = new naver.maps.Point(
-							item.point.x, item.point.y);
-					
-					endx2 = item.point.x;
-					endy2 = item.point.y;
-					
-					document.getElementById("x2").value = endx2;
-					document.getElementById("y2").value = endy2;
-
-					var end = new naver.maps.Point(endx2, endy2);
-					
-					map.setCenter(end);
-
-					marker6 = new naver.maps.Marker({
-						position : new naver.maps.Point(endx2,
-								endy2),
-						map : map,
-						draggable : false
-					});
-					
-				});
-			
-		}
+		
+		
 		
 		function searchAddressToCoordinate3(startx,starty){
 	        document.getElementById("x1").value = startx;
@@ -1362,10 +1362,10 @@ border:1px solid black;
 		function findDirection(start,end){
 			$('#roadAddr_StartAddress').val(start);
 			$('#ehddnr').val(start);
-			searchAddressToCoordinate(start);
+			initGeocoder();
 			$('#roadAddr_EndAddress').val(end);
 			$('#ehddnr2').val(end);
-			searchAddressToCoordinate2(end);
+			initGeocoder2();
 			console.log(start,end);
 		}
 		
