@@ -117,7 +117,7 @@
 		</div>
 	</div>
 
-	<%@ include file="../setting/header01.jsp"%>
+	<%@ include file="../../setting/header01.jsp"%>
 
 
 	<!-- ##### Breadcrumb Area Start ##### -->
@@ -375,7 +375,7 @@
 
 		<br> <br> <br>
 	</div>
-	<%@ include file="../setting/footer01.jsp"%>
+	<%@ include file="../../setting/footer01.jsp"%>
 	<script>
 	
 	</script>

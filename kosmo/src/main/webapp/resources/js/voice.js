@@ -3,7 +3,7 @@
  * WebRTC Lab 
  * @author dodortus (codejs.co.kr / dodortus@gmail.com)
  *
- */
+ 
 $(function() {
   if (typeof webkitSpeechRecognition !== 'function') {
     alert('크롬에서만 동작 합니다.');
@@ -28,18 +28,18 @@ $(function() {
   recognition.continuous = true;
   recognition.interimResults = true;
 
-  /**
+  *//**
    * 음성 인식 시작 처리
-   */
+   *//*
   recognition.onstart = function() {
     console.log('onstart', arguments);
     isRecognizing = true;
   };
 
-  /**
+  *//**
    * 음성 인식 종료 처리
    * @returns {boolean}
-   */
+   *//*
   recognition.onend = function() {
     console.log('onend', arguments);
     isRecognizing = false;
@@ -55,10 +55,10 @@ $(function() {
     }
   };
 
-  /**
+  *//**
    * 음성 인식 결과 처리
    * @param event
-   */
+   *//*
   recognition.onresult = function(event) {
     console.log('onresult', event);
 
@@ -90,10 +90,10 @@ $(function() {
   function voiceSearch(finalTranscript){
   	
   }
-  /**
+  *//**
    * 음성 인식 에러 처리
    * @param event
-   */
+   *//*
   recognition.onerror = function(event) {
     console.log('onerror', event);
 
@@ -105,30 +105,30 @@ $(function() {
   
   
 
-  /**
+  *//**
    * 개행 처리
    * @param s
    * @returns {string}
-   */
+   *//*
   function linebreak(s) {
     return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
   }
 
-  /**
+  *//**
    * 첫문자를 대문자로 변환
    * @param s
    * @returns {string | void | *}
-   */
+   *//*
   function capitalize(s) {
     return s.replace(first_char, function(m) {
       return m.toUpperCase();
     });
   }
 
-  /**
+  *//**
    * 음성 인식 트리거
    * @param event
-   */
+   *//*
   function start(event) {
     if (isRecognizing) {
       recognition.stop();
@@ -143,10 +143,10 @@ $(function() {
     interim_span.innerHTML = '';
   }
 
-  /**
+  *//**
    * 문자를 음성으로 읽어 줍니다.
    * 지원: 크롬, 사파리, 오페라, 엣지
-   */
+   *//*
   function textToSpeech(text) {
     console.log('textToSpeech', arguments);
     // speechSynthesis option
@@ -163,11 +163,11 @@ $(function() {
     speechSynthesis.speak(new SpeechSynthesisUtterance(text));
   }
 
-  /**
+  *//**
    * 미사용
    * requestServer
    * key - AIzaSyDiMqfg8frtoZflA_2LPqfGdpjmgTMgWhg
-   */
+   *//*
   function requestServer() {
     $.ajax({
       method: 'post',
@@ -183,9 +183,9 @@ $(function() {
     });
   }
 
-  /**
+  *//**
    * 초기 바인딩
-   */
+   *//*
   function initialize() {
     $btnMic.click(start);
     $('#btn-tts').click(function() {
@@ -196,3 +196,4 @@ $(function() {
 
   initialize();
 });
+*/

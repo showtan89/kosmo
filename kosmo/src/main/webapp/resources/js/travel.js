@@ -207,11 +207,11 @@ function closeModal() {
 function imageModal(contenttypeid,itemNumber) {
 	/*var url = 'http://api.visitkorea.or.kr/openapi/service/rest/EngService/detailIntro?serviceKey='+myKey+
 		'&numOfRows=100&pageNo=1&MobileOS=ETC&_type=json&MobileApp=Welkome&contentId='+itemNumber+'&contentTypeId='+contenttypeid;*/
-
 	var url = 'http://api.visitkorea.or.kr/openapi/service/rest/EngService/detailCommon?serviceKey='+myKey+
 	'&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y'+
 	'&mapinfoYN=Y&overviewYN=Y&transGuideYN=Y&contentId='+itemNumber;
 	console.log(url);
+	//hiddenAddress
 	var str = "";
 	$.getJSON(url, function(data) {
 		items = data.response.body.items.item;
@@ -233,10 +233,13 @@ function imageModal(contenttypeid,itemNumber) {
 		str+= "<hr>";
 		var mapx = items.mapx;
 		var mapy = items.mapy;
-		var mapStr = "<div id='map' style='max-width:1080px; height:300px;'></div><script>var map = new naver.maps.Map('map', {center: new naver.maps.LatLng("+mapy+", "+mapx+"),zoom: 10});var marker = new naver.maps.Marker({position: new naver.maps.LatLng("+mapy+", "+mapx+"), map: map});</script>"
+		var mapStr = "<div id='map' style='max-width:1080px; height:300px;'></div><br><script>var map = new naver.maps.Map('map', {center: new naver.maps.LatLng("+mapy+", "+mapx+"),zoom: 10});var marker = new naver.maps.Marker({position: new naver.maps.LatLng("+mapy+", "+mapx+"), map: map});</script>"
 		$('#modal-content').html(str+mapStr);
 		console.log(str+mapStr);
 		$('#detailModal').show();
+		$("#name").val(items.addr1);
+		$("#endLat").val(mapy);
+		$("#endLng").val(mapx);
 		map.setSize(getMapSize());
 	});
 };
@@ -247,3 +250,7 @@ function getMapSize() {[[]]
     console.log("실행:"+width)
     return size;
 };
+
+function findDirection() {
+	
+}
