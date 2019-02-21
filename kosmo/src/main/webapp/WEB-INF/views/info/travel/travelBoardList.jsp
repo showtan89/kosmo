@@ -261,10 +261,5 @@ function voiceSearch(){
  } 
  
 </script>
-<!-- 음성인식 자바 스크립트 -->
-<<<<<<< HEAD
-=======
-<!-- <script src="resources/js/voice.js"></script> -->
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo
 </body>
 </html>
