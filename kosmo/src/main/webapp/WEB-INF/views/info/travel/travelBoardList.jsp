@@ -253,13 +253,6 @@
 	</c:if>
 })
 
-/* 민석 */
-function voiceSearch(){
-	var voiceResult;
-	alert(voiceResult);
-	
- } 
- 
 </script>
 </body>
 </html>
