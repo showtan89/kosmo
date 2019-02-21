@@ -1,11 +1,13 @@
 package com.spring.helper.controller;
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONObject;
+import org.json.XML;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.helper.method.method.GetJsonData;
@@ -31,7 +34,41 @@ public class UtilRestController {
 
 	@Autowired
 	GetJsonData getJson;
+	// 동욱 시작
 	
+	// 버스 도착정보 구하기
+	@RequestMapping(value="getRealTimeStation", method= RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> getRealTimeStation(HttpServletRequest req) throws Exception{
+		logger.info("getRealTimeStation 로딩 중....");
+		String localStationID = req.getParameter("localStationID");
+		JSONObject result = getJson.getRealTimeStationInfo(localStationID);
+		if(result.length()==0) {
+			System.out.println("실패");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.BAD_REQUEST);
+		}else {
+			System.out.println("통과");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.OK);
+		}
+	}
+	// 버스 번호 구하기
+	@RequestMapping(value="getBusRealTimeNo", method= RequestMethod.GET, produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> getBusRealTimeNo(HttpServletRequest req) throws Exception{
+		logger.info("getBusRealTimeNo 로딩 중....");
+		String route = req.getParameter("route");
+		String url = "http://openapi.gbis.go.kr/ws/rest/busrouteservice/info?serviceKey=GdoR86lqZXehbYz0fIJrJjrCLQq9UHQg9pk2RA8UgEhtJI8vJ45t8O%2B8p6N3QaDDUUkB1kUa1Ra%2BwQnLK%2FcHuQ%3D%3D&routeId="+route;
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = new URI(url);
+		System.out.println("요청주소"+uri);
+		String response = restTemplate.getForObject(uri, String.class);
+		org.json.JSONObject result = XML.toJSONObject(response);
+		if(result.length()==0) {
+			System.out.println("실패");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.BAD_REQUEST);
+		}else {
+			System.out.println("통과");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.OK);
+		}
+	}
 	//재영 시작 ==========================================================
 	//@Secured({"ROLE_USER","ROLE_ADMIN"}) 아직 사용하지말자
 	@RequestMapping(value="imageSearchPro", method = RequestMethod.POST)
