@@ -113,6 +113,8 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 //헤더 상단 날씨 / 미세먼지 정보 얻기
 $(function() {
 	var weatherURI = "http://api.openweathermap.org/data/2.5/weather?id=1835848&APPID=65ded33b5934b593a7ef3603b3398724&units=metric";
+	
+	
 	$.ajax({
         url: weatherURI,
         dataType: "json",
@@ -130,6 +132,32 @@ $(function() {
         }
     })
     
+    
+    <c:if test="${checked eq 'Y'}">
+    	var pm25grade = ${pm25Grade};
+    	var pm10grade = ${pm10Grade};
+    	var pm25 = ${pm25Value};
+    	var pm10 = ${pm10Value};
+    	
+    	$("#smdtext").html(pm25);
+    	$("#mdtext").html(pm10);
+    	
+		switch(pm25grade){
+			case 1: var color25 = "green";break;
+			case 2: var color25 = "yellow";break;
+			case 3: var color25 = "orange";break;
+			case 4: var color25 = "red";break;
+		}
+		$("#smdtext").css("color",color25);
+       	switch(pm10grade){
+    		case 1: var color10 = "green";break;
+    		case 2: var color10 = "yellow";break;
+    		case 3: var color10 = "orange";break;
+    		case 4: var color10 = "red";break;
+   		}
+       	$("#smdtext").css("color",color10);
+	</c:if>
+	<c:if test="${checked ne 'Y'}">
    	$.ajax({
         url: "dustInfo",
         dataType: "json",
@@ -145,19 +173,22 @@ $(function() {
         	$("#smdtext").html(pm25);
         	$("#mdtext").html(pm10);
         	switch(pm25grade){
-        		case 1: $("#smdtext").css("color","green");break;
-        		case 2: $("#smdtext").css("color","yellow");break;
-        		case 3: $("#smdtext").css("color","orange");break;
-        		case 4: $("#smdtext").css("color","red");break;
+        		case 1: var color25 = "green";break;
+        		case 2: var color25 = "yellow";break;
+        		case 3: var color25 = "orange";break;
+        		case 4: var color25 = "red";break;
         	}
+        	$("#smdtext").css("color",color25);
         	switch(pm10grade){
-    		case 1: $("#mdtext").css("color","green");break;
-    		case 2: $("#mdtext").css("color","yellow");break;
-    		case 3: $("#mdtext").css("color","orange");break;
-    		case 4: $("#mdtext").css("color","red");break;
+	    		case 1: var color10 = "green";break;
+	    		case 2: var color10 = "yellow";break;
+	    		case 3: var color10 = "orange";break;
+	    		case 4: var color10 = "red";break;
     		}
+        	$("#smdtext").css("color",color10);
         }
     })
+    </c:if>
 })
 
 </script>

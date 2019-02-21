@@ -129,6 +129,19 @@ public class UtilRestController {
 	public ResponseEntity<String> dustInfo(HttpServletRequest req) throws Exception{
 		logger.info("dustInfo 로딩 중....");
 		JSONObject result = getJson.dustInfo();
+		
+		//중복 체크 안하게 세션에 담아 버리기
+		JSONObject item = result.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
+		int pm10Value = item.getInt("pm10Value");
+		int pm25Value = item.getInt("pm25Value");
+		int pm10Grade = item.getInt("pm10Grade");
+		int pm25Grade = item.getInt("pm25Grade");
+		req.getSession().setAttribute("checked", "Y");
+		req.getSession().setAttribute("pm10Value", pm10Value);
+		req.getSession().setAttribute("pm25Value", pm25Value);
+		req.getSession().setAttribute("pm10Grade", pm10Grade);
+		req.getSession().setAttribute("pm25Grade", pm25Grade);
+		
 		if(result.length()==0) {
 			logger.info("실패");
 			return new ResponseEntity<String>(result.toString(),HttpStatus.BAD_REQUEST);
