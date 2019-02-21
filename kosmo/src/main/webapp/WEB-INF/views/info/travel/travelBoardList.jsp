@@ -183,28 +183,6 @@
 				id="searchButton" onclick="getJsonData();">Search</button>
 		</div>
 		
-<<<<<<< HEAD
-		<!-- 검색 기능 -->
-		<div class="col-md-8 mb-8" id = "result">
-			<label for="searchText">Search Text(Voice input is used on mobile.)</label>
-			<input type="text" class="form-control"	id="final_span" name="final_span">
-			<input type="hidden" id="interim_span" name="interim_span">
-			<!-- <input type="text" class="form-control"	id="result"> -->
-		</div>
-		
-=======
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo
-		<!-- 음성인식 버튼 -->
-		<!-- <div class="col-md-4 mb-4">
-			<label for="voiceButton">&nbsp;</label>
-			<button type="button" class="btn alazea-btn form-control btn-custom"
-<<<<<<< HEAD
-				id="voiceButton" onclick="voiceSearch();">Voice Search</button>
-		</div>
-=======
-				id="voiceButton" onclick="">Voice Search</button>
-		</div> -->
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo
 	</div>
 	<hr>
 	<!-- 데이터가 뿌려지는 공간 -->
