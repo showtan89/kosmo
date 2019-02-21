@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONObject;
 import org.json.XML;
 import org.json.simple.parser.ParseException;
@@ -26,6 +28,22 @@ public class GetJsonData {
 	UtilDAO utilDAO;
 	
 	private String enKey = "aqFFW%2BjkswtDEjWJIAHjx2ZzFzSYEt7ZUFbIHAU%2FCqKFF5dnRDJZe0997nu2JwgGu98B2zapQryJ1WOmzMQveQ%3D%3D";
+	
+	// 실시간 도착정보 얻기
+	public JSONObject getRealTimeStationInfo(String localStationID) throws IOException, ParseException, URISyntaxException {
+		//Calendar calendar = Calendar.getInstance();
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		//String date = dateFormat.format(calendar.getTime());
+		String url = "http://openapi.gbis.go.kr/ws/rest/busarrivalservice/station?serviceKey=GdoR86lqZXehbYz0fIJrJjrCLQq9UHQg9pk2RA8UgEhtJI8vJ45t8O%2B8p6N3QaDDUUkB1kUa1Ra%2BwQnLK%2FcHuQ%3D%3D&stationId=" + localStationID;
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = new URI(url);
+		System.out.println("요청주소"+uri);
+		String response = restTemplate.getForObject(uri, String.class);
+		org.json.JSONObject JSONObj = XML.toJSONObject(response);
+		System.out.println(response);
+		System.out.println(JSONObj.toString());
+		return JSONObj;
+	}
 	
 	//레이더 정보 얻기
 	public JSONObject getRadarInfo() throws IOException, ParseException, URISyntaxException {
@@ -49,7 +67,6 @@ public class GetJsonData {
 		System.out.println("요청주소"+uri);
 		String response = restTemplate.getForObject(uri, String.class);
 		org.json.JSONObject JSONObj = XML.toJSONObject(response);
-		System.out.println(response);
 		System.out.println(JSONObj.toString());
 		return JSONObj;
 	}
@@ -115,6 +132,20 @@ public class GetJsonData {
 */
 		return JSONObj;
 	}
+	
+	//미세 먼지 정보 얻기
+	public JSONObject dustInfo() throws Exception{
+		//String sido = "%EC%84%9C%EC%9A%B8";
+		String sido = "서울";
+		String url = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey="+enKey+"&ver=1.3&numOfRows=1&pageNo=1&sidoName="+sido;
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = new URI(url);
+		System.out.println("요청주소"+uri);
+		String response = restTemplate.getForObject(uri, String.class);
+		org.json.JSONObject JSONObj = XML.toJSONObject(response);
+		System.out.println(JSONObj.toString());
+		return JSONObj;
+	};
 	
 	//뉴스 정보 얻기
 	public JSONObject getNewsJson(String code) throws Exception{

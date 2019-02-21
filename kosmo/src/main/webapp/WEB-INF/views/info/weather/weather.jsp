@@ -81,7 +81,6 @@
 				<div class="card flex-md-row mb-4 shadow-sm h-md-250 imageDiv" id="imageResult" style="display:none"></div>
 				<div class="card flex-md-row mb-4 shadow-sm h-md-250" id="textResult" style="padding-left:20px;padding-top:20px;display:none"></div>
 			</div>
-		</div>
 	</div>
 </div>
 
