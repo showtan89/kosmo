@@ -88,7 +88,6 @@ public class UtilServiceImpl implements UtilService {
 			return utilDAO.selectEarthQuake();
 		}
 	}
-	
 	//재영 서비스 끝
 	
 }

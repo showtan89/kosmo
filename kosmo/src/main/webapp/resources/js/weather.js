@@ -35,8 +35,9 @@ function getWeatherData() {
 							var date = item.tmFc;
 							var content = item.wfSv1;
 							var notice = item.wn;
+							var apiStr = "<div id='openweathermap-widget-18'></div><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 18,cityid: '1835848',appid: '65ded33b5934b593a7ef3603b3398724',units: 'metric',containerid: 'openweathermap-widget-18',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = 'utf-8';script.src = '//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js';var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script></div>"
 							var foreStr = "<pre style='white-space:pre-wrap;overflow:auto;width:100%';>"+date+"<br>"+content+"<hr>"+notice+"</pre>"; 
-							$("#textResult").html(foreStr);
+							$("#textResult").html(apiStr+foreStr);
 							$("#imageResult").html(str);
 							//$("#buttonArea").html(buttonStr);
 						}

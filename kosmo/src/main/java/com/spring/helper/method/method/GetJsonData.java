@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONObject;
 import org.json.XML;
 import org.json.simple.parser.ParseException;
@@ -49,7 +51,6 @@ public class GetJsonData {
 		System.out.println("요청주소"+uri);
 		String response = restTemplate.getForObject(uri, String.class);
 		org.json.JSONObject JSONObj = XML.toJSONObject(response);
-		System.out.println(response);
 		System.out.println(JSONObj.toString());
 		return JSONObj;
 	}
@@ -115,6 +116,20 @@ public class GetJsonData {
 */
 		return JSONObj;
 	}
+	
+	//미세 먼지 정보 얻기
+	public JSONObject dustInfo() throws Exception{
+		//String sido = "%EC%84%9C%EC%9A%B8";
+		String sido = "서울";
+		String url = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?serviceKey="+enKey+"&ver=1.3&numOfRows=1&pageNo=1&sidoName="+sido;
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = new URI(url);
+		System.out.println("요청주소"+uri);
+		String response = restTemplate.getForObject(uri, String.class);
+		org.json.JSONObject JSONObj = XML.toJSONObject(response);
+		System.out.println(JSONObj.toString());
+		return JSONObj;
+	};
 	
 	//뉴스 정보 얻기
 	public JSONObject getNewsJson(String code) throws Exception{

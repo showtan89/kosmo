@@ -67,10 +67,10 @@ public class UtilRestController {
 		logger.info("forecastSearch 로딩 중....");
 		JSONObject result = getJson.getForeInfo();
 		if(result.length()==0) {
-			System.out.println("실패");
+			logger.info("실패");
 			return new ResponseEntity<String>(result.toString(),HttpStatus.BAD_REQUEST);
 		}else {
-			System.out.println("통과");
+			logger.info("성공");
 			return new ResponseEntity<String>(result.toString(),HttpStatus.OK);
 		}
 	}
@@ -84,6 +84,20 @@ public class UtilRestController {
 			return new ResponseEntity<EarthQuakeVO>(vo,HttpStatus.BAD_REQUEST);
 		}else {
 			return new ResponseEntity<EarthQuakeVO>(vo,HttpStatus.OK);
+		}
+	}
+	 
+	//미세 먼지 정보 가져오기
+	@RequestMapping(value="dustInfo", method= RequestMethod.GET)
+	public ResponseEntity<String> dustInfo(HttpServletRequest req) throws Exception{
+		logger.info("dustInfo 로딩 중....");
+		JSONObject result = getJson.dustInfo();
+		if(result.length()==0) {
+			logger.info("실패");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.BAD_REQUEST);
+		}else {
+			logger.info("성공");
+			return new ResponseEntity<String>(result.toString(),HttpStatus.OK);
 		}
 	}
 	
