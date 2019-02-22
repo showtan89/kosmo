@@ -29,6 +29,7 @@ import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
+import com.spring.helper.vo.BoardVO.reservationVO;
 
 
 
@@ -411,13 +412,6 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	// 댓글 삭제
-/*	@Override
-	public void deleteComment(int oCommentNumber) {
-		
-		sqlSession.delete("com.spring.helper.dao.BoardDAO.deleteComment", oCommentNumber);
-	}*/
-	
-	// 댓글 삭제
 	@Override
 	public Integer deleteComment(int oCommentNumber) {
 		
@@ -437,7 +431,59 @@ public class BoardDAOImpl implements BoardDAO {
 
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.getPeopleChange", onedayclassNumber);
 	}
+	
+	// 예약테이블 추가
+	@Override
+	public void reservationInsert(reservationVO dto) {
+		
+		sqlSession.insert("com.spring.helper.dao.BoardDAO.reservationInsert", dto);
+	}
 
+	// 예약 리스트 출력
+/*	@Override
+	public List<reservationVO> reservationList(String memberId, int start, int end) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("memberId", memberId);
+		return sqlSession.selectList("com.spring.helper.dao.BoardDAO.reservationList", map);
+	}*/
+	// 예약 리스트 갯수
+	@Override
+	public int reservationGetCnt() {
+		
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		int selectCnt = boardDao.reservationGetCnt();
+		return selectCnt;
+	}
+	
+	// 예약 리스트 출력1
+	@Override
+	public ArrayList<onedayclassVO> reservationGetList(Map<String, Object> map) {
+		ArrayList<onedayclassVO> dtos = null;
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		dtos = boardDao.reservationGetList(map);
+		return dtos;
+	}
+	
+	// 예약 리스트 출력2
+	@Override
+	public ArrayList<reservationVO> reservationGetList2(Map<String, Object> map) {
+		ArrayList<reservationVO> dtos2 = null;
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		dtos2 = boardDao.reservationGetList2(map);
+		return dtos2;
+	}
+	
+	// 예약 리스트 출력3
+	@Override
+	public ArrayList<Map<String, Object>> reservationGetList3(Map<String, Object> map) {
+		ArrayList<Map<String, Object>> dtos3 = null;
+		BoardDAO boardDao = sqlSession.getMapper(BoardDAO.class);
+		dtos3 = boardDao.reservationGetList3(map);
+		return dtos3;
+	}
+	
 	// 진호 메소드 종료------------------------------------------------
 
 
@@ -450,9 +496,6 @@ public class BoardDAOImpl implements BoardDAO {
 	public int emergencyCnt() {
 		return sqlSession.selectOne("com.spring.helper.dao.BoardDAO.emergencyCnt");
 	}
-
-
-
 	
 	// 대호 종료 ==============================================================
 

@@ -259,41 +259,38 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 								<ul>
 									<li><a href="#">Community</a>
 										<ul class="dropdown">
-											<li><a href="content">Contents</a></li>
+											<!-- <li><a href="content">Contents</a></li> -->
 											<li><a href="knowledge">Knowledge IN</a></li>
 											<li><a href="realestate">Real Estate</a></li>
 											<li><a href="onedayclass">Oneday Class</a></li>
 										</ul></li>
-									<li><a href="#">Traffic</a>
-										<ul class="dropdown">
-											<li><a href="getDirections">Get Directions</a></li>
-											<li><a href="restaurantlocation">Restaurant
-													Location</a></li>
-											<li><a href="emergency">Emergency
-													facility</a></li>
-										</ul></li>
-									<li><a href="#">Tourism</a>
-										<ul class="dropdown">
-											<li><a href="weather">Weather</a></li>
-											<li><a href="travelBoard">Travel</a></li> <!-- 재영 추가  -->
-											<li><a href="eventculture">Event/Cultural
-													Heritage</a></li>
-											<li><a href="exchangerate">Exchange Rate</a></li>
-										</ul></li>
 									<li><a href="#">Information</a>
 										<ul class="dropdown">
-											<li><a href="employment">Employment</a></li>
-											<li><a href="news">News</a></li> <!-- 재영 추가  -->
-											<li><a href="multicultural">Multicultural</a></li>
-											<li><a href="legalinfo">Legal Information</a></li>
+											<li><a href="weather">Weather Info</a></li>
+											<li><a href="travelBoard">Travel Info</a></li> 
+											<li><a href="emergency">Emergency Info</a></li>
+											<li><a href="legalinfo">Legal Info</a></li>
+											
 										</ul></li>
 									<li><a href="#">Utility</a>
 										<ul class="dropdown">
-											<li><a href="convertSize">Convert to Size</a></li>
+											<li><a href="getDirections">Traffic Search</a></li>
 											<li><a href="imageSearch">Image Search</a></li>
+											<li><a href="convertSize">Conversion Calculator</a></li>
+											<li><a href="exchangerate">Exchange Calculator</a></li>
 										</ul></li>
+									<!-- <li><a href="#">Trash</a>
+										<ul class="dropdown">
+											<li><a href="employment">Employment</a></li>
+											<li><a href="restaurantlocation">Restaurant Location</a></li>
+											<li><a href="news">News</a></li> 재영 추가 
+											<li><a href="eventculture">Event/Cultural Heritage</a></li>
+											<li><a href="multicultural">Multicultural</a></li>
+										</ul></li> 
+									 <li><a href="#">Utility</a>
+										<ul class="dropdown">
+										</ul></li> -->
 								</ul>
-
 								<!-- Search Icon -->
 								<!-- <div id="searchIcon">
 									<i class="fa fa-search" aria-hidden="true"></i>

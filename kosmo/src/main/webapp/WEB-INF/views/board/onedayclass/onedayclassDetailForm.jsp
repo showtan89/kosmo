@@ -58,15 +58,6 @@
 	</div>
 </div>
 
-<!-- <script type="text/javascript">
-var curDate = new Date();
-
-var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" 
-+ curDate.getDate() + " " + curDate.getHours() + ":" 
-+ curDate.getMinutes() + ":" + curDate.getSeconds();
-
-</script> -->
-
 	<section class="about-us-area">
         <div class="container">
             <div class="row">
@@ -158,7 +149,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
+                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:100px">
                                  <h5>오픈날짜</h5>
                                  <p>${dto.onedayclassOpendate}</p>
                              </div>
@@ -167,7 +158,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconMoney.jpeg" style="width:110px">
+                                 <img src="resources/img/board/onedayclass/iconMoney.jpeg" style="width:100px">
                                  <h5>가격</h5>
                                  <p>${dto.onedayclassPrice}</p>
                              </div>
@@ -194,7 +185,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:90px">
+                                 <img src="resources/img/board/onedayclass/iconWatch.jpeg" style="width:100px">
                                  <h5>작성일</h5>
                                  <p>${dto.onedayclassRegdate}</p>
                              </div>
@@ -203,7 +194,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconMoney.jpeg" style="width:110px">
+                                 <img src="resources/img/board/onedayclass/iconMoney.jpeg" style="width:100px">
                                  <h5>종료여부</h5>
 									<c:choose>
 									  <c:when test="${endDate.DAYS gt 0}">
@@ -264,7 +255,8 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
 	                             <c:if test="${Recruitment - dto.onedayclassTotalpeople ge 0}">
                                  	<c:if test="${dto.onedayclassDeadlineCheck ne 'close'}">
                                  		<c:if test="${endDate.DAYS ge 0 && endDate.HOURS ge 0 && endDate.MINUTES ge 0}">
-                                 			<button type="button" class="btn btn-primary" id="reservationFunction" onClick="reservationFunction();">Reservation</button>	
+                                 			<button type="button" class="btn btn-primary" id="reservationFunction" 
+                                 				onclick="reservationInsertFunction(); reservationFunction();">Reservation</button>	
                                  		</c:if>
                                  	</c:if>
                                  </c:if>
@@ -274,7 +266,7 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
                          <!-- Single Benefits Area -->
                          <div class="col-12 col-md-2">
                              <div class="single-benefits-area">
-                                 <img src="resources/img/board/onedayclass/iconCalculator.jpeg" style="width:90px">
+                                 <img src="resources/img/board/onedayclass/iconCalculator.jpeg" style="width:100px">
                                  <h5>결제</h5>
                                  <p>${dto.onedayclassPay}</p>
                              </div>
@@ -298,41 +290,6 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
 </c:if>
 
 <c:if test="${userVO.memberId != null}">
-<!-- 표시할 내용 :: 회원번호, 이메일, 아이디, ---- 제목, 종류, 행사일, 위치, 금액, 종료여부, 마감여부, 누적인원 -->
-
-            <div class="col-12 col-lg-12">
-                 <div class="alazea-benefits-area">
-                     <div class="row">
-                         
-                         <!-- Single Benefits Area -->
-                         <div class="col-12 col-md-1">
-                             <div class="single-benefits-area">
-                                 <h5>회원번호</h5>
-                                 <p>${dto.onedayclassGrade}</p>
-                             </div>
-                         </div>
-
-                         <!-- Single Benefits Area -->
-                         <div class="col-12 col-md-1">
-                             <div class="single-benefits-area">
-                                 <h5>이메일</h5>
-                                 <p id="recruitment">${dto.onedayclassRecruitment}</p>
-                             </div>
-                         </div>
-                 	</div>
-                 </div>        
-            </div>             
-
-
-
-
-
-
-
-
-
-
-
 <!-- <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<div class="box box-success"> -->
@@ -395,6 +352,68 @@ var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-"
 
 
 <script type="text/javascript">
+
+/* 예약 목록을 출력할 영역 */
+function reservationListFunction() {
+	 $.ajax({
+		type: "get",
+		contentType: "application/json",
+		url:"reservationList?memberId=${userVO.memberId}",
+		success:function(result){
+			console.log(result);
+			
+			var output="<table class='table'>";
+			for(var i in result){
+				output += "<tr>";
+				output += "<td>"+result[i].oCommentNumber + "</td>";
+				output += "<td>"+result[i].memberId + "</td>";
+				output += "<td>"+changeDate(result[i].oCommentRegdate) + "</td>";
+				output += "<td>"+result[i].oCommentContent + "</td>";
+				if("${userVO.memberId}" == result[i].memberId){
+					var oComm = result[i].oCommentNumber;
+					output += "<td><input type='button' value='Modify' onclick='updateOpen("+oComm+")'></td>";
+				}
+				if("${userVO.memberId}" == result[i].memberId){
+					var oComm = result[i].oCommentNumber;
+					output += "<td><input type='button' value='Delete' onclick='deleteOpen("+oComm+")'></td>";
+				}	
+				output += "</tr>";
+			}
+			output += "</table>";
+			console.log(output);
+			$("#getoCommentList").html(output); 
+			/* $(output).appendTo("#getoCommentList"); */
+			/* $('table').append("#getoCommentList"); */
+		}
+	})
+}
+
+/* 예약테이블에 인서트 */
+function reservationInsertFunction() {
+	var reservatedPersonNumber = "${dto.memberNumber}";
+	var reservationEmail = "${dto.memberEmail}";
+	var reservationId = "${userVO.memberId}";
+	var memberId = "${dto.memberId}";
+	var onedayclassNumber = "${dto.onedayclassNumber}";
+	
+	$.ajax({
+		type : "PUT",
+		url : "reservationInsert",
+		data: JSON.stringify({
+			reservatedPersonNumber : reservatedPersonNumber,
+			reservationEmail : reservationEmail,
+			reservationId : reservationId,
+			memberId : memberId,
+			onedayclassNumber : onedayclassNumber
+			
+		}),
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		
+	});
+}
 
 
 
@@ -469,7 +488,7 @@ function getoCommentList() {
 		success:function(result){
 			console.log(result);
 			
-			var output="<table>";
+			var output="<table class='table'>";
 			for(var i in result){
 				output += "<tr>";
 				output += "<td>"+result[i].oCommentNumber + "</td>";

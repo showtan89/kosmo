@@ -63,6 +63,18 @@
 									alert("숫자계산?" + ${openDate});
 									</script>
 
+
+<!-- <script type="text/javascript">
+var curDate = new Date();
+
+var curTime = curDate.getFullYear() + "-" + (curDate.getMonth() + 1) + "-" 
++ curDate.getDate() + " " + curDate.getHours() + ":" 
++ curDate.getMinutes() + ":" + curDate.getSeconds();
+
+</script> -->
+
+
+
 <fmt:formatDate value="${result.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 
 	<!-- date 타입을 timeStamp로 형 변환(begin, end) 오정에게 받은 버전 -->

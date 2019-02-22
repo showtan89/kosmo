@@ -37,6 +37,7 @@ import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
+import com.spring.helper.vo.BoardVO.reservationVO;
 
 
 @Service
@@ -1135,10 +1136,7 @@ public class BoardServiceImpl implements BoardService {
 		vo.setMemberNumber(Integer.parseInt(req.getParameter("memberNumber")));
 		vo.setMemberEmail(req.getParameter("memberEmail"));
 		vo.setOnedayclassSubject(req.getParameter("onedayclassSubject"));
-		
-			System.out.println("값나오나?2" + (req.getParameter("onedayclassOpendate")));
-			System.out.println("값나오나?3" + ("onedayclassOpendate".replace("T"," ")));
-			System.out.println("값나오나?4" + Timestamp.valueOf(req.getParameter("onedayclassOpendate".replace('T',' '))));
+
 		vo.setOnedayclassOpendate(Timestamp.valueOf(req.getParameter("onedayclassOpendate".replace('T',' ')))); //가령2019-04-26T01:01 에서 T빼고 빈공간 채워넣기
 			
 		vo.setOnedayclassLocation(req.getParameter("onedayclassLocation"));
@@ -1216,25 +1214,131 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	// 댓글 삭제
-/*	@Override
-	public void deleteComment(HttpServletRequest req, Model model) {
-		boardDao.deleteComment(oCommentNumber);
-		
-		model.addAttribute("deleteComment", deleteComment);
-*/
-	
-	// 댓글 삭제
 	@Override
 	public Integer deleteComment(int oCommentNumber) {
 		return boardDao.deleteComment(oCommentNumber);
 		
 	}
 	
-	// 인원 수 변경
+	// 인원 수 변경(예약)
 	@Override
 	public int peopleUpdate(onedayclassVO vo) {
 		
 		return boardDao.peopleUpdate(vo);
+	}
+	
+	// 예약테이블 추가
+	@Override
+	public void reservationInsert(reservationVO dto) {
+
+		boardDao.reservationInsert(dto);
+	}
+	
+	// 예약 리스트 출력
+	@Override
+	public void reservationList(HttpServletRequest req, Model model) {
+
+		// 3단계. 화면으로 부터 입력받은 값을 받아온다.
+		int pageSize = 9;		// 한페이지당 출력할 글 갯수
+		int pageBlock = 3;		// 한블록당 페이지 갯수
+
+		int cnt = 0;			// 글 갯수
+		int start = 0;			// 현재 페이지 시작 글번호
+		int end = 0;			// 현재 페이지 마지막 글번호
+		int number = 0;			// 출력용 글번호
+		String pageNum = ""; 	// 페이지 번호
+		int currentPage = 0; 	// 현재페이지
+
+		int pageCount = 0;		// 페이지 갯수
+		int startPage = 0;		// 시작 페이지
+		int endPage = 0;		// 마지막 페이지
+
+		cnt = boardDao.reservationGetCnt();
+
+		System.out.println("cnt:" + cnt);
+
+		if(req.getParameter("pageNum") != null) {
+			pageNum = req.getParameter("pageNum").toString();
+		}else {
+			pageNum = "1"; // 첫페이지를 1페이지로 지정
+		}
+
+		// 글 48건 기준
+		currentPage = Integer.parseInt(pageNum); // 현재 페이지 : 1
+		System.out.println("currentPage : " + currentPage);
+
+		// 페이지 갯수
+		pageCount = (cnt / pageSize) + (cnt % pageSize > 0 ? 1 : 0);  // 페이지 갯수 + 나머지 있으면 1
+
+		// 현재 페이지 시작번호(페이지별)
+		// 1 = (1 - 1) * 5 + 1
+		start = (currentPage - 1) * pageSize + 1;
+
+		// 현재 페이지 마지막 글번호(페이지별)
+		// 5 = 1 + 5 -1;
+		end = start + pageSize - 1;
+
+		System.out.println("start : " + start);
+		System.out.println("end : " + end);
+
+		if(end > cnt) end = cnt;
+
+		// 출력용 글번호
+		// 30 = 30 - (1 - 1) * 5
+		number = cnt - (currentPage - 1) * pageSize;	// 출력용 글번호
+
+		System.out.println("number : " + number);
+		System.out.println("pageSize : " + pageSize);	
+
+		if(cnt > 0) {
+			// 5-2. 게시글 목록 조회
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("start", start);
+			map.put("end", end);
+			UserVO uv = (UserVO)req.getSession().getAttribute("userVO");
+			map.put("memberId", uv.getMemberId());
+			
+			ArrayList<onedayclassVO> dtos = boardDao.reservationGetList(map);
+			ArrayList<reservationVO> dtos2 = boardDao.reservationGetList2(map);			
+			ArrayList<Map<String, Object>> dtos3 = boardDao.reservationGetList3(map);	
+			System.out.println("dtos3 나오나?" + dtos3.toString());
+			
+			req.setAttribute("dtos", dtos); // 큰바구니 : 게시글 목록  cf)작은 바구니: 게시글1건
+			req.setAttribute("dtos2", dtos2); // 큰바구니 : 게시글 목록  cf)작은 바구니: 게시글1건
+			req.setAttribute("dtos3", dtos3); // 큰바구니 : 게시글 목록  cf)작은 바구니: 게시글1건
+			
+			System.out.println("dtos 나오냐?" + dtos+" / cnt :"+cnt);
+		}
+
+		// 6단계. request나 session에 처리 결과를 저장(jsp에 전달하기 위함)
+
+		// 시작페이지
+		// 1 = (1 /3) * 3 + 1;  int계산이므로 (1/3)이 0이 됨
+		startPage = (currentPage / pageBlock) * pageBlock + 1; 
+		if(currentPage % pageBlock == 0) startPage -= pageBlock;
+		System.out.println("startPage : " + startPage);		
+
+		// 마지막 페이지
+		// 3 = 1 + 3 -1;
+		endPage = startPage + pageBlock -1;
+		if(endPage > pageCount) endPage = pageCount;
+		System.out.println("endPage : " + endPage);
+		System.out.println("===================");
+
+		req.setAttribute("cnt", cnt); 	// 글갯수
+		req.setAttribute("number", number); 	// 출력용 글번호
+		req.setAttribute("pageNum", pageNum); 	// 페이지 번호
+
+		if(cnt > 0) {
+			req.setAttribute("startPage", startPage); 		//시작페이지
+			req.setAttribute("endPage", endPage); 			//마지막 페이지
+			req.setAttribute("pageBlock", pageBlock); 		// 출력할 페이지 갯수
+			req.setAttribute("pageCount", pageCount); 		// 페이지 갯수
+			req.setAttribute("currentPage", currentPage); 	// 현재페이지
+		}
+
+
+		
 	}
 	
 	//진호 메소드 종료---------------------------------------------------
@@ -1278,6 +1382,9 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
+
 
 	// 대호 끝 =================================
 }

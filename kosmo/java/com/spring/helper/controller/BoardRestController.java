@@ -41,6 +41,7 @@ import com.spring.helper.vo.BoardVO.KnowledgeVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
+import com.spring.helper.vo.BoardVO.reservationVO;
 import com.spring.helper.vo.jsonVO.news.jsonlegalinfo;
 
 @RestController
@@ -483,7 +484,7 @@ public class BoardRestController {
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
 	}
 	
-	// 인원 수 변경
+	// 인원 수 변경(예약)
 	@RequestMapping(value="peopleUpdate", method = RequestMethod.PUT)
 	public ResponseEntity<Map<String, Object>> peopleUpdate(@RequestBody onedayclassVO vo) throws Exception {
 		logger.info("인원 수 변경");
@@ -497,7 +498,15 @@ public class BoardRestController {
 		return new ResponseEntity<Map<String, Object>>(map,HttpStatus.OK);
 	}
 
-
+	// 예약테이블 추가
+	@RequestMapping(value="reservationInsert", method = RequestMethod.PUT)
+	public void reservationInsert(@RequestBody reservationVO dto, HttpServletRequest req, Model model) throws Exception {
+		logger.info("예약테이블 추가 ....");
+		
+		service.reservationInsert(dto);
+	}
+	
+	
 	//----------------진호 끝----------------------------------------------------------
 	
 }

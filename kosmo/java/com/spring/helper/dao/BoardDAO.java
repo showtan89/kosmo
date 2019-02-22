@@ -19,6 +19,7 @@ import com.spring.helper.vo.BoardVO.UserVO;
 import com.spring.helper.vo.BoardVO.kCommentVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
+import com.spring.helper.vo.BoardVO.reservationVO;
 
 
 public interface BoardDAO {
@@ -179,9 +180,6 @@ public interface BoardDAO {
 	public int updateComment(oCommentVO vo);
 	
 	// 댓글 삭제
-	/*public void deleteComment(int oCommentNumber);*/
-	
-	// 댓글 삭제
 	public Integer deleteComment(int oCommentNumber);
 	
 	// 인원 수 변경
@@ -190,6 +188,21 @@ public interface BoardDAO {
 	// 인원 수 가져오기
 	public Map<String, Object> getPeopleChange(int onedayclassNumber);
 	
+	// 예약테이블 추가
+	public void reservationInsert(reservationVO dto);
+	
+	// 예약리스트 갯수
+	public int reservationGetCnt();
+	
+	// 예약리스트 출력1
+	public ArrayList<onedayclassVO> reservationGetList(Map<String, Object> map);
+	
+	// 예약리스트 출력2
+	public ArrayList<reservationVO> reservationGetList2(Map<String, Object> map);
+	
+	// 예약리스트 출력3
+	public ArrayList<Map<String, Object>> reservationGetList3(Map<String, Object> map);
+	
 	// 진호 메소드 종료--------------------------------------
 
 	// 대호 시작 ============================================
@@ -197,6 +210,9 @@ public interface BoardDAO {
 	
 	public int emergencyCnt();
 	// 대호 종료 ============================================
+
+	
+
 	
 	
 

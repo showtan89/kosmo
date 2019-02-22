@@ -16,6 +16,7 @@ import com.spring.helper.vo.BoardVO.MessageVO;
 import com.spring.helper.vo.BoardVO.RealestateCommentsVO;
 import com.spring.helper.vo.BoardVO.oCommentVO;
 import com.spring.helper.vo.BoardVO.onedayclassVO;
+import com.spring.helper.vo.BoardVO.reservationVO;
 
 public interface BoardService {
 
@@ -152,20 +153,24 @@ public interface BoardService {
 	public int updateComment(oCommentVO vo);
 	
 	// 댓글 삭제
-	/*public void deleteComment(HttpServletRequest req, Model model);*/
-	
-	// 댓글 삭제
 	public Integer deleteComment(int oCommentNumber);
 	
-	// 인원 수 변경
+	// 인원 수 변경(예약)
 	public int peopleUpdate(onedayclassVO vo);
+	
+	// 예약테이블 추가
+	public void reservationInsert(reservationVO dto);
 
+	// 예약 리스트 출력
+	public void reservationList(HttpServletRequest req, Model model);
+	
 	//진호 끝-----------------------------------------------------------
 
 	// 대호 시작 =================
 
 
 	public void emergency(HttpServletRequest req, Model model) throws Exception;
+	
 	
 
 	// 대호 끝 ==================

@@ -97,5 +97,5 @@ function playImage() {
 			$(".centerBtn").css("display","block");
 		}
 		$("#sourceImage").attr("src",img);
-		}, 50);
+		}, 100);
 }

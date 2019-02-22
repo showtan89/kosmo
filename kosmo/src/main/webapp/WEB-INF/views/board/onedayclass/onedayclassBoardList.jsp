@@ -156,7 +156,8 @@
 								<h6 class="widget-title"><a href="onedayclassAuthorityForm?memberId=${userVO.memberId}&onedayclassNumber=${dtos.get(0).onedayclassNumber}">클래스개설 권한신청</a></h6>
 							</c:if>
 							<c:if test="${userVO.memberTemp1 eq '2'}">						
-								<h6 class="widget-title"><a href="onedayclassWriteForm?pageNum=${pageNum}">클래스개설 새글쓰기</a></h6>						
+								<h6 class="widget-title"><a href="onedayclassWriteForm?pageNum=${pageNum}">클래스개설 새글쓰기</a></h6>
+								<h6 class="widget-title"><a href="reservationList?pageNum=${pageNum}">클래스 예약인원 확인</a></h6>						
 							</c:if>
 						</div>
                     </div>

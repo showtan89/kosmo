@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +16,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.w3c.dom.Document;
@@ -28,6 +32,8 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.CharacterData;
 
 import com.spring.helper.service.BoardService;
+import com.spring.helper.vo.BoardVO.oCommentVO;
+import com.spring.helper.vo.BoardVO.reservationVO;
 
 @Controller
 public class BoardController {
@@ -296,6 +302,15 @@ public class BoardController {
 		return "board/onedayclass/onedayclassAuthorityPro";
 	}
 
+	// 예약 리스트 출력
+	@RequestMapping("reservationList")
+	public String reservationList(HttpServletRequest req, Model model) throws Exception{
+		logger.info("예약 리스트 출력 호출중");
+		
+		service.reservationList(req, model); //댓글 리스트 가져오기
+		return "board/onedayclass/reservationList";
+	}
+	
 	// 진호  BoardController 끝----------------------------------------------------
 	
 	
