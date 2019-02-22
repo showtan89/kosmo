@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,27 +166,23 @@
 				<option style="display: none;" selected>Select Area #1</option>
 			</select>
 		</div>
-		<!-- 서치 버튼 -->
+		
+		<!-- 검색 기능 -->
 		<div class="col-md-4 mb-4">
-			<label for="searchButton">&nbsp;</label>
+			<label for="searchText">Search Word</label>
+			<input type="text" class="form-control"	id="searchText">
+		</div>
+		
+		<!-- 서치 버튼 -->
+		<div class="col-md-6 mb-6">
+			<button type="button" class="btn alazea-btn form-control btn-custom"
+				id="searchButton" onclick="clearField();">Clear</button>
+		</div>
+		<div class="col-md-6 mb-6">
 			<button type="button" class="btn alazea-btn form-control btn-custom"
 				id="searchButton" onclick="getJsonData();">Search</button>
 		</div>
 		
-		<!-- 검색 기능 -->
-		<div class="col-md-8 mb-8" id = "result">
-			<label for="searchText">Search Text</label>
-			<input type="text" class="form-control"	id="final_span">
-			<input type="hidden" id="interim_span">
-			<!-- <input type="text" class="form-control"	id="result"> -->
-		</div>
-		
-		<!-- 음성인식 버튼 -->
-		<div class="col-md-4 mb-4">
-			<label for="voiceButton">&nbsp;</label>
-			<button type="button" class="btn alazea-btn form-control btn-custom"
-				id="voiceButton" onclick="">Voice Search</button>
-		</div>
 	</div>
 	<hr>
 	<!-- 데이터가 뿌려지는 공간 -->
@@ -224,10 +221,16 @@
 <script src="resources/js/travel.js"></script>
 <script>
  $(function () {
-	getJsonData();
+	<c:if test="${fn:length(param.word) == 0}">
+		console.log("no param");
+		getJsonData();
+	</c:if>
+	<c:if test="${fn:length(param.word) > 0}">
+		console.log('param : ${param.word}');
+		getParamAndGetJsonData('${param.word}');
+	</c:if>
 })
+
 </script>
-<!-- 음성인식 자바 스크립트 -->
-<script src="resources/js/voice.js"></script>
 </body>
 </html>

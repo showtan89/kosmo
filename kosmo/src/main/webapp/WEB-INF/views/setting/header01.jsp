@@ -109,11 +109,90 @@ function alarm() {
 	}
 /* alarm(); */
 
-<<<<<<< HEAD
-setInterval("alarm();", 50000);//원래 2000, 개발중  60000, 시연때 2000
-=======
+
 setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
->>>>>>> branch 'back' of https://github.com/KosmoHelper/kosmo.git
+
+
+//헤더 상단 날씨 / 미세먼지 정보 얻기
+$(function() {
+	var weatherURI = "http://api.openweathermap.org/data/2.5/weather?id=1835848&APPID=65ded33b5934b593a7ef3603b3398724&units=metric";
+	
+	
+	$.ajax({
+        url: weatherURI,
+        dataType: "json",
+        type: "GET",
+        async: "false",
+        success: function(result) {
+        	var temp = Math.round(result.main.temp);
+        	/* var humid = result.main.humidity; */
+        	var weather = result.weather[0].main;
+        	var image = "http://openweathermap.org/img/w/"+result.weather[0].icon+".png";
+        	$("#tempr").html(temp+"'C");
+        	/* $("#humid").html(humid+"%"); */
+        	$("#weatherTxt").html(weather);
+        	$("#weatherImg").attr("src",image);
+        }
+    })
+    
+    
+    <c:if test="${checked eq 'Y'}">
+    	var pm25grade = ${pm25Grade};
+    	var pm10grade = ${pm10Grade};
+    	var pm25 = ${pm25Value};
+    	var pm10 = ${pm10Value};
+    	
+    	$("#smdtext").html(pm25);
+    	$("#mdtext").html(pm10);
+    	
+		switch(pm25grade){
+			case 1: var color25 = "green";break;
+			case 2: var color25 = "yellow";break;
+			case 3: var color25 = "orange";break;
+			case 4: var color25 = "red";break;
+		}
+		$("#smdtext").css("color",color25);
+       	switch(pm10grade){
+    		case 1: var color10 = "green";break;
+    		case 2: var color10 = "yellow";break;
+    		case 3: var color10 = "orange";break;
+    		case 4: var color10 = "red";break;
+   		}
+       	$("#smdtext").css("color",color10);
+	</c:if>
+	<c:if test="${checked ne 'Y'}">
+   	$.ajax({
+        url: "dustInfo",
+        dataType: "json",
+        type: "GET",
+        async: "false",
+        success: function(result) {
+        	console.log(result);
+        	var item = result.response.body.items.item;
+        	var pm10 = item.pm10Value;
+        	var pm10grade = item.pm10Grade;
+        	var pm25 = item.pm25Value;
+        	var pm25grade = item.pm25Grade;
+        	$("#smdtext").html(pm25);
+        	$("#mdtext").html(pm10);
+        	switch(pm25grade){
+        		case 1: var color25 = "green";break;
+        		case 2: var color25 = "yellow";break;
+        		case 3: var color25 = "orange";break;
+        		case 4: var color25 = "red";break;
+        	}
+        	$("#smdtext").css("color",color25);
+        	switch(pm10grade){
+	    		case 1: var color10 = "green";break;
+	    		case 2: var color10 = "yellow";break;
+	    		case 3: var color10 = "orange";break;
+	    		case 4: var color10 = "red";break;
+    		}
+        	$("#smdtext").css("color",color10);
+        }
+    })
+    </c:if>
+})
 
 </script>
  
@@ -124,17 +203,18 @@ setInterval("alarm();", 60000);//원래 2000, 개발중  60000, 시연때 2000
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
-						<div
-							class="top-header-content d-flex align-items-center justify-content-between">
+						<div class="top-header-content d-flex align-items-center justify-content-between">
 							<!-- Top Header Content -->
+		
 							<div class="top-header-meta">
-								<a href="#" data-toggle="tooltip" data-placement="bottom"
-									title="infodeercreative@gmail.com"><i
-									class="fa fa-envelope-o" aria-hidden="true"></i> <span>Email:
-										infodeercreative@gmail.com</span></a> <a href="#" data-toggle="tooltip"
-									data-placement="bottom" title="+1 234 122 122"><i
-									class="fa fa-phone" aria-hidden="true"></i> <span>Call
-										Us: +1 234 122 122</span></a>
+								<a>
+									<img id="weatherImg" style="margin-right:2px;max-width:20px;background-color:#70c745; border-radius: 30%">
+									<span id="weatherTxt" style="margin-right:12px;"></span>
+									<i class="fa fa-thermometer-half"></i><span id="tempr" style="margin-right:8px;"></span>
+									<span>fine dust : </span><span id="mdtext" style="margin-right:8px;"></span>
+									<span>super fine dust : </span><span id="smdtext"></span>
+									<!-- <i class="fa fa-tint"></i><span id="humid"></span> -->
+								</a>
 							</div>
 
 							<!-- Top Header Content -->

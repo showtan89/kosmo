@@ -28,7 +28,7 @@ function getknowledgelistJsonData(){
 		$(data.dtos).each(
 				//반복 작업될 부분 작성 ex) <tr><td> 등
 				function(){			
-					str += '<div class="card flex-md-row mb-4 shadow-sm h-md-250" style="margin: 0; padding: 0;">';
+					str +='<div class="card flex-md-row mb-4 shadow-sm h-md-250" style="margin: 0; padding: 0;">';
 					str +='<div class="card-body d-flex flex-column align-items-start"style="margin: 0; padding: 3px 3px;">';
 					str +='<table class="tbl-ex" style="width: 100%;"><tr id="'+this.knowledgeNumber+'"><td style="max-width: 100%; word-break: break-all;">';
 					str +='<p style="margin: 0;" onclick="knowledgeDetailForm('+this.knowledgeNumber+'");><span style="background-color: #ffff00 !important; color: black !important">'+this.knowledgeReward+'</span> &nbsp; &nbsp; <span><ahref="#">';

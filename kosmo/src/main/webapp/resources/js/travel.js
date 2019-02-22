@@ -64,6 +64,11 @@ function cat2Change(){
 	})
 }
 
+function getParamAndGetJsonData(word) {
+	$('#searchText').val(word)
+	getJsonData();
+}
+
 //검색 결과로 검색
 function getJsonData(pageNo) {
 	if($('#startCode').val() == undefined){ var arrange = "&arrange=Q";
@@ -78,13 +83,14 @@ function getJsonData(pageNo) {
 	}else{	var cat2 = "";}
 	if($('#cat3').val() != undefined){	var cat3 = "&cat3="+$('#cat3').val();
 	}else{	var cat3 ="";}
-
-	if(pageNo == null || pageNo == undefined){
-		pageNo=1;	
-	}
-
-	var url = "http://api.visitkorea.or.kr/openapi/service/rest/EngService/areaBasedList?_type=json&serviceKey="+myKey+
-	"&numOfRows=12&MobileOS=ETC&MobileApp=Welkome&listYN=Y"+arrange+cat1+cat2+cat3+areaCode+sigunguCode+"&pageNo="+pageNo;
+	if($('#searchText').val() != ""){ var keyword = "&keyword="+$('#searchText').val(); var type = "searchKeyword"; 
+	}else{ var keyword = ""; var type = "areaBasedList"; }
+	if(pageNo == null || pageNo == undefined){pageNo=1;}
+	console.log($('#searchText').val());
+	var url = "http://api.visitkorea.or.kr/openapi/service/rest/EngService/"+type+"?_type=json&serviceKey="+myKey+
+	"&numOfRows=12&MobileOS=ETC&MobileApp=Welkome&listYN=Y"+arrange+cat1+cat2+cat3+areaCode+sigunguCode+"&pageNo="+pageNo+keyword;
+	/*var url = "http://api.visitkorea.or.kr/openapi/service/rest/EngService/areaBasedList?_type=json&serviceKey="+myKey+
+	"&numOfRows=12&MobileOS=ETC&MobileApp=Welkome&listYN=Y"+arrange+cat1+cat2+cat3+areaCode+sigunguCode+"&pageNo="+pageNo;*/
 	console.log("요청주소:"+url);
 	$.getJSON(url, function(data) {
 		var str ='<div class="col-12"><div class="row" style="margin-top:20px">';
@@ -145,6 +151,16 @@ function getJsonData(pageNo) {
 		$('#jsonResult').html(str);
 		$('#pageResult').html(pageStr);
 	})
+}
+
+//필드 초기화 하기
+function clearField(){
+	$('#searchText').val("");
+	$('#cat1').val("");
+	$('#cat2').val("");
+	$('#cat3').val("");
+	$('#areaCode').val("");
+	$('#sigunguCode').val("");
 }
 
 //페이지네이션 v2
@@ -242,7 +258,3 @@ function getMapSize() {[[]]
     console.log("실행:"+width)
     return size;
 };
-
-function findDirection() {
-	
-}
