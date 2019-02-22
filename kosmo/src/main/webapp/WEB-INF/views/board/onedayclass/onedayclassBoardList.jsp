@@ -230,6 +230,21 @@
                                         	<c:if test="${dto.onedayclassNumber eq 17}">
                                         		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
                                         	</c:if>
+                                        	<c:if test="${dto.onedayclassNumber eq 18}">
+                                        		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
+                                        	</c:if>
+                                        	<c:if test="${dto.onedayclassNumber eq 19}">
+                                        		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
+                                        	</c:if>
+                                        	<c:if test="${dto.onedayclassNumber eq 20}">
+                                        		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
+                                        	</c:if>
+                                        	<c:if test="${dto.onedayclassNumber eq 21}">
+                                        		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
+                                        	</c:if>
+                                        	<c:if test="${dto.onedayclassNumber eq 22}">
+                                        		<img src="resources/img/board/onedayclass/odc10.jpg" alt="">
+                                        	</c:if>
                                         	<!-- 깃에 이미지 추가 부분 해결되면 하나로 만들것임 -->				
                                         </a>
                                         <%-- <div class="product-meta d-flex">
